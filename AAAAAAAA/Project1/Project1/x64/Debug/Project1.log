@@ -1,0 +1,304 @@
+﻿  ImageMng.cpp
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(55,39): error C2039:  'string': 'std' のメンバーではありません。
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\vector(19): message :  'std' の宣言を確認してください
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(55,45): error C4430:  型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(55,45): error C2143:  構文エラー: ',' が '&' の前にありません。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(56,39): error C2039:  'string': 'std' のメンバーではありません。
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\vector(19): message :  'std' の宣言を確認してください
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(56,45): error C4430:  型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(56,45): error C2143:  構文エラー: ',' が '&' の前にありません。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(56,80): error C2535:  'std::vector<int,std::allocator<_Ty>> ImageMng::getImage(const int)': メンバー関数は、既に定義または宣言されています。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(56,80): error C2535:         with
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(56,80): error C2535:         [
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(56,80): error C2535:             _Ty=int
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(56,80): error C2535:         ]
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(55): message :  'ImageMng::getImage' の宣言を確認してください
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(57,39): error C2039:  'string': 'std' のメンバーではありません。
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\vector(19): message :  'std' の宣言を確認してください
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(57,45): error C4430:  型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(57,45): error C2143:  構文エラー: ',' が '&' の前にありません。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(57,126): error C2535:  'std::vector<int,std::allocator<_Ty>> ImageMng::getImage(const int)': メンバー関数は、既に定義または宣言されています。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(57,126): error C2535:         with
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(57,126): error C2535:         [
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(57,126): error C2535:             _Ty=int
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(57,126): error C2535:         ]
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(55): message :  'ImageMng::getImage' の宣言を確認してください
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(67,16): error C2039:  'string': 'std' のメンバーではありません。
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\vector(19): message :  'std' の宣言を確認してください
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(67,22): error C2065:  'string': 定義されていない識別子です。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(67,7): error C2923:  'std::map': 'string' は、有効な テンプレート 型引数 (パラメーター '_Kty') ではありません。
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\map(69,46): error C3203:  'less': 非特殊 クラス テンプレート は、テンプレート 引数として テンプレート パラメーター '_Pr' に使用できません。実際の型を指定してください
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\map(69,83): error C3203:  'pair': 非特殊 クラス テンプレート は、テンプレート 引数として テンプレート パラメーター '_Ty' に使用できません。実際の型を指定してください
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(11,48): error C2039:  'string': 'std' のメンバーではありません。
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\vector(19): message :  'std' の宣言を確認してください
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(11,54): error C4430:  型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(11,54): error C2143:  構文エラー: ',' が '&' の前にありません。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(13,18): error C2065:  'key': 定義されていない識別子です。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(13,22): error C2065:  'key': 定義されていない識別子です。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(16,48): error C2039:  'string': 'std' のメンバーではありません。
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\vector(19): message :  'std' の宣言を確認してください
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(16,54): error C4430:  型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(16,54): error C2143:  構文エラー: ',' が '&' の前にありません。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(17,1): error C2084:  関数 'std::vector<int,std::allocator<_Ty>> ImageMng::getImage(const int)' は既に本体を持っています。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(17,1): error C2084:         with
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(17,1): error C2084:         [
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(17,1): error C2084:             _Ty=int
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(17,1): error C2084:         ]
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(11): message :  'getImage' の以前の定義を確認してください
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(18,21): error C2065:  'key': 定義されていない識別子です。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(18,38): error C2663:  'std::_Tree<_Traits>::end': 2 オーバーロードに 'this' ポインターのための必要な定義がされていません。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(20,13): error C2065:  'key': 定義されていない識別子です。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(21,13): error C2065:  'key': 定義されていない識別子です。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(21,24): error C2065:  'key': 定義されていない識別子です。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(21,39): error C2065:  'filename': 定義されていない識別子です。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(24,19): error C2065:  'key': 定義されていない識別子です。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(27,48): error C2039:  'string': 'std' のメンバーではありません。
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\vector(19): message :  'std' の宣言を確認してください
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(27,54): error C4430:  型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(27,54): error C2143:  構文エラー: ',' が '&' の前にありません。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(28,1): error C2084:  関数 'std::vector<int,std::allocator<_Ty>> ImageMng::getImage(const int)' は既に本体を持っています。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(28,1): error C2084:         with
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(28,1): error C2084:         [
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(28,1): error C2084:             _Ty=int
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(28,1): error C2084:         ]
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(16): message :  'getImage' の以前の定義を確認してください
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(29,21): error C2065:  'key': 定義されていない識別子です。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(29,38): error C2663:  'std::_Tree<_Traits>::end': 2 オーバーロードに 'this' ポインターのための必要な定義がされていません。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(31,13): error C2065:  'key': 定義されていない識別子です。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(31,25): error C2065:  'cnt_x': 定義されていない識別子です。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(31,33): error C2065:  'cnt_y': 定義されていない識別子です。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(32,16): error C2065:  'filename': 定義されていない識別子です。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(32,34): error C2065:  'cnt_x': 定義されていない識別子です。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(32,42): error C2065:  'cnt_y': 定義されていない識別子です。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(32,49): error C2065:  'cnt_x': 定義されていない識別子です。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(32,56): error C2065:  'cnt_y': 定義されていない識別子です。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(32,63): error C2065:  'size_x': 定義されていない識別子です。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(32,71): error C2065:  'size_y': 定義されていない識別子です。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(32,90): error C2065:  'key': 定義されていない識別子です。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(32,103): error C2660:  'DxLib::LoadDivGraph': 関数に 6 個の引数を指定できません。
+C:\dxlib\DxLib.h(2459,14): message :  'DxLib::LoadDivGraph' の宣言を確認してください
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(34,19): error C2065:  'key': 定義されていない識別子です。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(105,1): error C2512:  'std::map': クラス、構造体、共用体に既定のコンストラクターがありません。
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\map(70,1): message :  'std::map' の宣言を確認してください
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(118,45): error C2672:  'std::make_pair': 一致するオーバーロードされた関数が見つかりませんでした。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(118,26): error C2672:  'std::vector<std::pair<int,int>,std::allocator<_Ty>>::emplace_back': 一致するオーバーロードされた関数が見つかりませんでした。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(118,26): error C2672:         with
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(118,26): error C2672:         [
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(118,26): error C2672:             _Ty=std::pair<int,int>
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(118,26): error C2672:         ]
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(119,45): error C2672:  'std::make_pair': 一致するオーバーロードされた関数が見つかりませんでした。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(119,26): error C2672:  'std::vector<std::pair<int,int>,std::allocator<_Ty>>::emplace_back': 一致するオーバーロードされた関数が見つかりませんでした。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(119,26): error C2672:         with
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(119,26): error C2672:         [
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(119,26): error C2672:             _Ty=std::pair<int,int>
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(119,26): error C2672:         ]
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(120,45): error C2672:  'std::make_pair': 一致するオーバーロードされた関数が見つかりませんでした。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(120,26): error C2672:  'std::vector<std::pair<int,int>,std::allocator<_Ty>>::emplace_back': 一致するオーバーロードされた関数が見つかりませんでした。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(120,26): error C2672:         with
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(120,26): error C2672:         [
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(120,26): error C2672:             _Ty=std::pair<int,int>
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(120,26): error C2672:         ]
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(121,45): error C2672:  'std::make_pair': 一致するオーバーロードされた関数が見つかりませんでした。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(121,26): error C2672:  'std::vector<std::pair<int,int>,std::allocator<_Ty>>::emplace_back': 一致するオーバーロードされた関数が見つかりませんでした。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(121,26): error C2672:         with
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(121,26): error C2672:         [
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(121,26): error C2672:             _Ty=std::pair<int,int>
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(121,26): error C2672:         ]
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(125,46): error C2672:  'std::make_pair': 一致するオーバーロードされた関数が見つかりませんでした。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(125,27): error C2672:  'std::vector<std::pair<int,int>,std::allocator<_Ty>>::emplace_back': 一致するオーバーロードされた関数が見つかりませんでした。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(125,27): error C2672:         with
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(125,27): error C2672:         [
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(125,27): error C2672:             _Ty=std::pair<int,int>
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(125,27): error C2672:         ]
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(126,46): error C2672:  'std::make_pair': 一致するオーバーロードされた関数が見つかりませんでした。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(126,27): error C2672:  'std::vector<std::pair<int,int>,std::allocator<_Ty>>::emplace_back': 一致するオーバーロードされた関数が見つかりませんでした。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(126,27): error C2672:         with
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(126,27): error C2672:         [
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(126,27): error C2672:             _Ty=std::pair<int,int>
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(126,27): error C2672:         ]
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(127,46): error C2672:  'std::make_pair': 一致するオーバーロードされた関数が見つかりませんでした。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(127,27): error C2672:  'std::vector<std::pair<int,int>,std::allocator<_Ty>>::emplace_back': 一致するオーバーロードされた関数が見つかりませんでした。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(127,27): error C2672:         with
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(127,27): error C2672:         [
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(127,27): error C2672:             _Ty=std::pair<int,int>
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(127,27): error C2672:         ]
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(128,46): error C2672:  'std::make_pair': 一致するオーバーロードされた関数が見つかりませんでした。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(128,27): error C2672:  'std::vector<std::pair<int,int>,std::allocator<_Ty>>::emplace_back': 一致するオーバーロードされた関数が見つかりませんでした。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(128,27): error C2672:         with
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(128,27): error C2672:         [
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(128,27): error C2672:             _Ty=std::pair<int,int>
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(128,27): error C2672:         ]
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(129,46): error C2672:  'std::make_pair': 一致するオーバーロードされた関数が見つかりませんでした。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(129,27): error C2672:  'std::vector<std::pair<int,int>,std::allocator<_Ty>>::emplace_back': 一致するオーバーロードされた関数が見つかりませんでした。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(129,27): error C2672:         with
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(129,27): error C2672:         [
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(129,27): error C2672:             _Ty=std::pair<int,int>
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(129,27): error C2672:         ]
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(130,46): error C2672:  'std::make_pair': 一致するオーバーロードされた関数が見つかりませんでした。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(130,27): error C2672:  'std::vector<std::pair<int,int>,std::allocator<_Ty>>::emplace_back': 一致するオーバーロードされた関数が見つかりませんでした。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(130,27): error C2672:         with
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(130,27): error C2672:         [
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(130,27): error C2672:             _Ty=std::pair<int,int>
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(130,27): error C2672:         ]
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(131,46): error C2672:  'std::make_pair': 一致するオーバーロードされた関数が見つかりませんでした。
+  main.cpp
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(131,27): error C2672:  'std::vector<std::pair<int,int>,std::allocator<_Ty>>::emplace_back': 一致するオーバーロードされた関数が見つかりませんでした。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(131,27): error C2672:         with
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(131,27): error C2672:         [
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(131,27): error C2672:             _Ty=std::pair<int,int>
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.cpp(131,27): error C2672:         ]
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(55,39): error C2039:  'string': 'std' のメンバーではありません。
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\vector(19): message :  'std' の宣言を確認してください
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(55,45): error C4430:  型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(55,45): error C2143:  構文エラー: ',' が '&' の前にありません。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(56,39): error C2039:  'string': 'std' のメンバーではありません。
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\vector(19): message :  'std' の宣言を確認してください
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(56,45): error C4430:  型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(56,45): error C2143:  構文エラー: ',' が '&' の前にありません。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(56,80): error C2535:  'std::vector<int,std::allocator<_Ty>> ImageMng::getImage(const int)': メンバー関数は、既に定義または宣言されています。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(56,80): error C2535:         with
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(56,80): error C2535:         [
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(56,80): error C2535:             _Ty=int
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(56,80): error C2535:         ]
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(55): message :  'ImageMng::getImage' の宣言を確認してください
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(57,39): error C2039:  'string': 'std' のメンバーではありません。
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\vector(19): message :  'std' の宣言を確認してください
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(57,45): error C4430:  型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(57,45): error C2143:  構文エラー: ',' が '&' の前にありません。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(57,126): error C2535:  'std::vector<int,std::allocator<_Ty>> ImageMng::getImage(const int)': メンバー関数は、既に定義または宣言されています。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(57,126): error C2535:         with
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(57,126): error C2535:         [
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(57,126): error C2535:             _Ty=int
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(57,126): error C2535:         ]
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(55): message :  'ImageMng::getImage' の宣言を確認してください
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(67,16): error C2039:  'string': 'std' のメンバーではありません。
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\vector(19): message :  'std' の宣言を確認してください
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(67,22): error C2065:  'string': 定義されていない識別子です。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(67,7): error C2923:  'std::map': 'string' は、有効な テンプレート 型引数 (パラメーター '_Kty') ではありません。
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\map(69,46): error C3203:  'less': 非特殊 クラス テンプレート は、テンプレート 引数として テンプレート パラメーター '_Pr' に使用できません。実際の型を指定してください
+  SceneMng.cpp
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\map(69,83): error C3203:  'pair': 非特殊 クラス テンプレート は、テンプレート 引数として テンプレート パラメーター '_Ty' に使用できません。実際の型を指定してください
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(55,39): error C2039:  'string': 'std' のメンバーではありません。
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\vector(19): message :  'std' の宣言を確認してください
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(55,45): error C4430:  型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(55,45): error C2143:  構文エラー: ',' が '&' の前にありません。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(56,39): error C2039:  'string': 'std' のメンバーではありません。
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\vector(19): message :  'std' の宣言を確認してください
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(56,45): error C4430:  型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(56,45): error C2143:  構文エラー: ',' が '&' の前にありません。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(56,80): error C2535:  'std::vector<int,std::allocator<_Ty>> ImageMng::getImage(const int)': メンバー関数は、既に定義または宣言されています。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(56,80): error C2535:         with
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(56,80): error C2535:         [
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(56,80): error C2535:             _Ty=int
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(56,80): error C2535:         ]
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(55): message :  'ImageMng::getImage' の宣言を確認してください
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(57,39): error C2039:  'string': 'std' のメンバーではありません。
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\vector(19): message :  'std' の宣言を確認してください
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(57,45): error C4430:  型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(57,45): error C2143:  構文エラー: ',' が '&' の前にありません。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(57,126): error C2535:  'std::vector<int,std::allocator<_Ty>> ImageMng::getImage(const int)': メンバー関数は、既に定義または宣言されています。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(57,126): error C2535:         with
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(57,126): error C2535:         [
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(57,126): error C2535:             _Ty=int
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(57,126): error C2535:         ]
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(55): message :  'ImageMng::getImage' の宣言を確認してください
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(67,16): error C2039:  'string': 'std' のメンバーではありません。
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\vector(19): message :  'std' の宣言を確認してください
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(67,22): error C2065:  'string': 定義されていない識別子です。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(67,7): error C2923:  'std::map': 'string' は、有効な テンプレート 型引数 (パラメーター '_Kty') ではありません。
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\map(69,46): error C3203:  'less': 非特殊 クラス テンプレート は、テンプレート 引数として テンプレート パラメーター '_Pr' に使用できません。実際の型を指定してください
+  TitleScene.cpp
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\map(69,83): error C3203:  'pair': 非特殊 クラス テンプレート は、テンプレート 引数として テンプレート パラメーター '_Ty' に使用できません。実際の型を指定してください
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(55,39): error C2039:  'string': 'std' のメンバーではありません。
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\vector(19): message :  'std' の宣言を確認してください
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(55,45): error C4430:  型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(55,45): error C2143:  構文エラー: ',' が '&' の前にありません。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(56,39): error C2039:  'string': 'std' のメンバーではありません。
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\vector(19): message :  'std' の宣言を確認してください
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(56,45): error C4430:  型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(56,45): error C2143:  構文エラー: ',' が '&' の前にありません。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(56,80): error C2535:  'std::vector<int,std::allocator<_Ty>> ImageMng::getImage(const int)': メンバー関数は、既に定義または宣言されています。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(56,80): error C2535:         with
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(56,80): error C2535:         [
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(56,80): error C2535:             _Ty=int
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(56,80): error C2535:         ]
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(55): message :  'ImageMng::getImage' の宣言を確認してください
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(57,39): error C2039:  'string': 'std' のメンバーではありません。
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\vector(19): message :  'std' の宣言を確認してください
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(57,45): error C4430:  型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(57,45): error C2143:  構文エラー: ',' が '&' の前にありません。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(57,126): error C2535:  'std::vector<int,std::allocator<_Ty>> ImageMng::getImage(const int)': メンバー関数は、既に定義または宣言されています。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(57,126): error C2535:         with
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(57,126): error C2535:         [
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(57,126): error C2535:             _Ty=int
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(57,126): error C2535:         ]
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(55): message :  'ImageMng::getImage' の宣言を確認してください
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(67,16): error C2039:  'string': 'std' のメンバーではありません。
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\vector(19): message :  'std' の宣言を確認してください
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(67,22): error C2065:  'string': 定義されていない識別子です。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(67,7): error C2923:  'std::map': 'string' は、有効な テンプレート 型引数 (パラメーター '_Kty') ではありません。
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\map(69,46): error C3203:  'less': 非特殊 クラス テンプレート は、テンプレート 引数として テンプレート パラメーター '_Pr' に使用できません。実際の型を指定してください
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\map(69,83): error C3203:  'pair': 非特殊 クラス テンプレート は、テンプレート 引数として テンプレート パラメーター '_Ty' に使用できません。実際の型を指定してください
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Scene\TitleScene.cpp(8,56): error C2660:  'ImageMng::getImage': 関数に 2 個の引数を指定できません。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(55,19): message :  'ImageMng::getImage' の宣言を確認してください
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Scene\TitleScene.cpp(18,56): error C2664:  'std::vector<int,std::allocator<_Ty>> ImageMng::getImage(const int)': 引数 1 を 'const char [7]' から 'const int' へ変換できません。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Scene\TitleScene.cpp(18,56): error C2664:         with
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Scene\TitleScene.cpp(18,56): error C2664:         [
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Scene\TitleScene.cpp(18,56): error C2664:             _Ty=int
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Scene\TitleScene.cpp(18,56): error C2664:         ]
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Scene\TitleScene.cpp(18,45): message :  この変換が可能なコンテキストはありません。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Scene\TitleScene.cpp(18,86): error C2664:  'void ImageMng::AddDraw(DrawData)': 引数 1 を 'initializer list' から 'DrawData' へ変換できません。
+  SeleScene.cpp
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Scene\TitleScene.cpp(18,86): message :  コンストラクターはソース型を持てません、またはコンストラクターのオーバーロードの解決があいまいです。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(55,39): error C2039:  'string': 'std' のメンバーではありません。
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\vector(19): message :  'std' の宣言を確認してください
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(55,45): error C4430:  型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(55,45): error C2143:  構文エラー: ',' が '&' の前にありません。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(56,39): error C2039:  'string': 'std' のメンバーではありません。
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\vector(19): message :  'std' の宣言を確認してください
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(56,45): error C4430:  型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(56,45): error C2143:  構文エラー: ',' が '&' の前にありません。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(56,80): error C2535:  'std::vector<int,std::allocator<_Ty>> ImageMng::getImage(const int)': メンバー関数は、既に定義または宣言されています。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(56,80): error C2535:         with
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(56,80): error C2535:         [
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(56,80): error C2535:             _Ty=int
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(56,80): error C2535:         ]
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(55): message :  'ImageMng::getImage' の宣言を確認してください
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(57,39): error C2039:  'string': 'std' のメンバーではありません。
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\vector(19): message :  'std' の宣言を確認してください
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(57,45): error C4430:  型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(57,45): error C2143:  構文エラー: ',' が '&' の前にありません。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(57,126): error C2535:  'std::vector<int,std::allocator<_Ty>> ImageMng::getImage(const int)': メンバー関数は、既に定義または宣言されています。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(57,126): error C2535:         with
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(57,126): error C2535:         [
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(57,126): error C2535:             _Ty=int
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(57,126): error C2535:         ]
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(55): message :  'ImageMng::getImage' の宣言を確認してください
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(67,16): error C2039:  'string': 'std' のメンバーではありません。
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\vector(19): message :  'std' の宣言を確認してください
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(67,22): error C2065:  'string': 定義されていない識別子です。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(67,7): error C2923:  'std::map': 'string' は、有効な テンプレート 型引数 (パラメーター '_Kty') ではありません。
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\map(69,46): error C3203:  'less': 非特殊 クラス テンプレート は、テンプレート 引数として テンプレート パラメーター '_Pr' に使用できません。実際の型を指定してください
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\map(69,83): error C3203:  'pair': 非特殊 クラス テンプレート は、テンプレート 引数として テンプレート パラメーター '_Ty' に使用できません。実際の型を指定してください
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Scene\SeleScene.cpp(9,51): error C2660:  'ImageMng::getImage': 関数に 2 個の引数を指定できません。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(55,19): message :  'ImageMng::getImage' の宣言を確認してください
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Scene\SeleScene.cpp(10,50): error C2660:  'ImageMng::getImage': 関数に 2 個の引数を指定できません。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Graphic\ImageMng.h(55,19): message :  'ImageMng::getImage' の宣言を確認してください
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Scene\SeleScene.cpp(53,53): error C2664:  'std::vector<int,std::allocator<_Ty>> ImageMng::getImage(const int)': 引数 1 を 'const char [5]' から 'const int' へ変換できません。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Scene\SeleScene.cpp(53,53): error C2664:         with
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Scene\SeleScene.cpp(53,53): error C2664:         [
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Scene\SeleScene.cpp(53,53): error C2664:             _Ty=int
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Scene\SeleScene.cpp(53,53): error C2664:         ]
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Scene\SeleScene.cpp(53,45): message :  この変換が可能なコンテキストはありません。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Scene\SeleScene.cpp(53,83): error C2664:  'void ImageMng::AddDraw(DrawData)': 引数 1 を 'initializer list' から 'DrawData' へ変換できません。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Scene\SeleScene.cpp(53,83): message :  コンストラクターはソース型を持てません、またはコンストラクターのオーバーロードの解決があいまいです。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Scene\SeleScene.cpp(54,53): error C2664:  'std::vector<int,std::allocator<_Ty>> ImageMng::getImage(const int)': 引数 1 を 'const char [5]' から 'const int' へ変換できません。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Scene\SeleScene.cpp(54,53): error C2664:         with
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Scene\SeleScene.cpp(54,53): error C2664:         [
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Scene\SeleScene.cpp(54,53): error C2664:             _Ty=int
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Scene\SeleScene.cpp(54,53): error C2664:         ]
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Scene\SeleScene.cpp(54,45): message :  この変換が可能なコンテキストはありません。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Scene\SeleScene.cpp(54,91): error C2664:  'void ImageMng::AddDraw(DrawData)': 引数 1 を 'initializer list' から 'DrawData' へ変換できません。
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Scene\SeleScene.cpp(54,91): message :  コンストラクターはソース型を持てません、またはコンストラクターのオーバーロードの解決があいまいです。
+  コードを生成中...
+C:\Users\GrapeHero\Desktop\GamingMAO\AAAAAAAA\Scene\SeleScene.cpp(19): error C1075:  '{': 一致するトークンが見つかりませんでした
