@@ -1,5 +1,4 @@
-﻿  ImageMng.cpp
-  LAYER.cpp
+﻿  GameScene.cpp
   main.cpp
   BaceScene.cpp
   SceneMng.cpp

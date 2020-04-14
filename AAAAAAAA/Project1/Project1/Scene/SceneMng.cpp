@@ -2,6 +2,7 @@
 #include "SceneMng.h"
 #include "TitleScene.h"
 #include "../Graphic/ImageMng.h"
+#include "ButtonMng.h"
 
 SceneMng *SceneMng::sInstance = nullptr;
 
@@ -11,6 +12,7 @@ void SceneMng::Run(void)
 	_activeScene = std::make_unique<TitleScene>();
 	while (ProcessMessage() == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0)
 	{
+		lpButtonMng.Run();
 		_activeScene = (*_activeScene).Update(std::move(_activeScene));
 		ImageMngIns.Draw();
 

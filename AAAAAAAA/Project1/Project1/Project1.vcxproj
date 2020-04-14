@@ -129,6 +129,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Scene\GameScene.h" />
+    <ClInclude Include="Scene\ButtonMng.h" />
     <ClInclude Include="common\detailes\Vector2.h" />
     <ClInclude Include="common\Vector2.h" />
     <ClInclude Include="Graphic\ImageMng.h" />
@@ -140,6 +142,8 @@
     <ClInclude Include="Scene\TitleScene.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Scene\GameScene.cpp" />
+    <ClCompile Include="Scene\ButtonMng.cpp" />
     <ClCompile Include="Graphic\ImageMng.cpp" />
     <ClCompile Include="Graphic\LAYER.cpp" />
     <ClCompile Include="main.cpp" />
