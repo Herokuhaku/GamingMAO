@@ -14,7 +14,7 @@ void SceneMng::Run(void)
 	{
 		lpButtonMng.Run();
 		_activeScene = (*_activeScene).Update(std::move(_activeScene));
-		ImageMngIns.Draw();
+		lpImageMng.Draw();
 
 		_flame++;
 

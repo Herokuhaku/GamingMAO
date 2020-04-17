@@ -8,8 +8,8 @@ SeleScene::SeleScene()
 	arrowflag = true;
 	sel = 0;
 	sel2 = 0;
-	ImageMngIns.getImage("image/select.png", "選択");
-	ImageMngIns.getImage("image/arrow.png", "矢印");
+	lpImageMng.getImage("image/select.png", "選択");
+	lpImageMng.getImage("image/arrow.png", "矢印");
 }
 
 
@@ -73,7 +73,7 @@ std::unique_ptr<BaceScene> SeleScene::Update(std::unique_ptr<BaceScene> own)
 	}
 
 
-	ImageMngIns.AddDraw({ ImageMngIns.getImage("選択")[0],300,250,0.0,LAYER::BG,0 });
-	ImageMngIns.AddDraw({ ImageMngIns.getImage("矢印")[0],arrow.x,arrow.y,0.0,LAYER::UI,0 });
+	lpImageMng.AddDraw({ lpImageMng.getImage("選択")[0],300,250,0.0,LAYER::BG,0 });
+	lpImageMng.AddDraw({ lpImageMng.getImage("矢印")[0],arrow.x,arrow.y,0.0,LAYER::UI,0 });
 	return own;
 }

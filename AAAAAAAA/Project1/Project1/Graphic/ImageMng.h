@@ -1,3 +1,4 @@
+#pragma once
 #include <DxLib.h>
 #include <map>
 #include <vector>
@@ -24,7 +25,7 @@ enum class EFFECT
 	GRIP
 };
 
-#define ImageMngIns ImageMng::getInstance()
+#define lpImageMng ImageMng::getInstance()
 
 using DrawData = std::tuple<int, int, int, double, LAYER, int>;	// 描画用データ　画像ID, 座標x, y, 角度, レイヤー, zオーダー
 
