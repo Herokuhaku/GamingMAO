@@ -12,6 +12,7 @@ public:
 
 private:
 	short sel;
+	short sel2;
 	Vector2 arrow;
 	bool arrowflag;
 };
