@@ -2,17 +2,15 @@
 
 void Enemy::Update(void)
 {
-	if (_state_dir.first != OBJ_STATE::ATTACK && cnt == 0)		// ‹ß‚­‚ÉPL‚ª‚¢‚½‚ç
+	if (_state_dir.first != OBJ_STATE::ATTACK && CheckHitKey(KEY_INPUT_SPACE))		// ‹ß‚­‚ÉPL‚ª‚¢‚½‚ç
 	{
 		setState({ OBJ_STATE::ATTACK, _state_dir.second });
-		cnt++;
 	}
 	Object::Draw();
 }
 
 Enemy::Enemy()
 {
-	cnt = 0;
 	Init();
 }
 

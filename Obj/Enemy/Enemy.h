@@ -10,7 +10,6 @@ public:
 	~Enemy();
 private:
 	void Init(void);
-	int cnt;
 protected:
 
 };

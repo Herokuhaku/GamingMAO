@@ -30,6 +30,8 @@ Vector2Template<int> Object::getPos(void)
 void Object::setState(std::pair<OBJ_STATE, DIR> state)
 {
 	_state_dir = state;
+	_anmTime = 0;
+	_anmFlame = 0;
 }
 
 std::pair<OBJ_STATE, DIR> Object::getState(void)
@@ -40,6 +42,8 @@ std::pair<OBJ_STATE, DIR> Object::getState(void)
 void Object::setAnm(const std::pair<OBJ_STATE, DIR> state,AnmVec& data)
 {
 	_anmMap.try_emplace(state, std::move(data));
+	_anmTime = 0;
+	_anmFlame = 0;
 }
 
 bool Object::isAnmEnd(void)
