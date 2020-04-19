@@ -22,6 +22,16 @@ void SceneMng::Run(void)
 	}
 }
 
+const std::shared_ptr<Object> *SceneMng::GetPlObj(void) const
+{
+	return &_plObj;
+}
+
+void SceneMng::SetPlObj(std::shared_ptr<Object> plObj)
+{
+	_plObj = std::move(plObj);
+}
+
 bool SceneMng::SysInit(void)
 {
 	bool rtnFlag = true;
@@ -37,6 +47,8 @@ bool SceneMng::SysInit(void)
 	SetDrawScreen(DX_SCREEN_BACK);
 	
 	lpImageMng.getImage("image/player.png", "player", 85, 90, 2, 2);
+		lpImageMng.getImage("image/player.png", "player", 85, 90, 2, 2);
+	lpImageMng.getImage("image/player_walk.png", "player_walk", 85, 90, 8, 2);
 
 	lpImageMng.getImage("image/small_dragonR.png", "s_dragonR", 128, 128, 4, 5);
 	lpImageMng.getImage("image/small_dragonL.png", "s_dragonL", 128, 128, 4, 5);

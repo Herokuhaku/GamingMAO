@@ -1,7 +1,10 @@
 #pragma once
 #include <map>
 #include <vector>
+#include <memory>
 #include "../Graphic/ImageMng.h"
+#include "Object.h"
+
 
 enum class OBJ_TYPE
 {
@@ -14,6 +17,7 @@ enum class OBJ_TYPE
 enum class OBJ_STATE
 {
 	NORMAL,
+	WALK,
 	ATTACK,
 	DEAD
 };
@@ -39,6 +43,8 @@ public:
 	virtual ~Object();
 
 	virtual void Update(void) = 0;
+
+	OBJ_TYPE getType(void) { return _type; };
 
 	void setPos(Vector2Template<int> pos);
 	Vector2Template<int> getPos(void);
