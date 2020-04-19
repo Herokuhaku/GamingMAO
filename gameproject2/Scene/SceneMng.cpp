@@ -11,11 +11,13 @@ void SceneMng::Run(void)
 	_activeScene = std::make_unique<GameScene>();
 	while (ProcessMessage() == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0)
 	{
+		lpKeyMng.KeyUpdate();
 		_activeScene = (*_activeScene).Update(std::move(_activeScene));
 		lpImageMng.Draw();
 
 		_flame++;
 
+		
 		//(*_activeScene).RunActQue(std::move(_actList));
 	}
 }
@@ -25,7 +27,7 @@ bool SceneMng::SysInit(void)
 	bool rtnFlag = true;
 
 	SetWindowText("AGAME");
-	SetGraphMode(600, 500, 16);
+	SetGraphMode(1280, 720, 16);
 	ChangeWindowMode(true);
 	if (DxLib_Init() == -1)
 	{
@@ -37,6 +39,8 @@ bool SceneMng::SysInit(void)
 	_flame = 0;
 
 	lpImageMng.getImage("image/player.png", "player", 85, 90, 2, 2);
+	lpImageMng.getImage("image/player_walk.png", "player_walk", 85, 90, 8, 2);
+
 
 	return rtnFlag;
 }

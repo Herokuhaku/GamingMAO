@@ -2,7 +2,7 @@
 
 GameScene::GameScene()
 {
-	player = new Player({ 300,400 });
+	player = new Player({ 100,600 });
 }
 
 GameScene::~GameScene()

@@ -37,11 +37,13 @@ public:
 
 	unsigned int GetFlame(void) { return _flame; };
 
+
 private:
 	static SceneMng *sInstance;
 	std::unique_ptr<BaceScene> _activeScene;
 
 	unsigned int _flame;
+
 
 	bool SysInit(void);
 	SceneMng();

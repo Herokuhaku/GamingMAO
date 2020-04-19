@@ -15,6 +15,7 @@ enum class OBJ_TYPE
 enum class OBJ_STATE
 {
 	NORMAL,
+	WALK,
 	ATTACK,
 	DEAD
 };

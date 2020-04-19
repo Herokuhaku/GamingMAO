@@ -30,6 +30,8 @@ Vector2Template<int> Object::getPos(void)
 void Object::setState(std::pair<OBJ_STATE, DIR> state)
 {
 	_state_dir = state;
+	_anmFlame = 0;
+	_anmTime = 0;
 }
 
 std::pair<OBJ_STATE, DIR> Object::getState(void)
@@ -85,6 +87,10 @@ void Object::anmUpdate(void)
 		if (_anmMap[_state_dir][_anmFlame].second != -1)
 		{
 			_anmFlame++;
+		}
+		else if (_anmMap[_state_dir][_anmFlame].second == -10)
+		{
+			_state_dir.first = OBJ_STATE::NORMAL;
 		}
 	}
 

@@ -125,6 +125,7 @@
     <ClCompile Include="Graphic\EffekseerMng.cpp" />
     <ClCompile Include="Graphic\ImageMng.cpp" />
     <ClCompile Include="Graphic\LAYER.cpp" />
+    <ClCompile Include="KeyMng.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Object\Object.cpp" />
     <ClCompile Include="Object\Player.cpp" />
@@ -140,6 +141,7 @@
     <ClInclude Include="Graphic\EffekseerMng.h" />
     <ClInclude Include="Graphic\ImageMng.h" />
     <ClInclude Include="Graphic\LAYER.h" />
+    <ClInclude Include="KeyMng.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="Object\Object.h" />
     <ClInclude Include="Object\Player.h" />
