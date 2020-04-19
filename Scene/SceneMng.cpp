@@ -52,6 +52,8 @@ bool SceneMng::SysInit(void)
 
 	lpImageMng.getImage("image/small_dragonR.png", "s_dragonR", 128, 128, 4, 5);
 	lpImageMng.getImage("image/small_dragonL.png", "s_dragonL", 128, 128, 4, 5);
+	lpImageMng.getImage("image/exclamationpoint.png", "excPoint", 80, 80, 1, 1);
+	lpImageMng.getImage("image/questionmark.png", "queMark", 80, 80, 1, 1);
 
 	_flame = 0;
 

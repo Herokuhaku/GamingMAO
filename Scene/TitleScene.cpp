@@ -21,7 +21,7 @@ std::unique_ptr<BaceScene> TitleScene::Update(std::unique_ptr<BaceScene> own)
 	lpImageMng.AddDraw({ lpImageMng.getImage("1")[0],300,250,0.0,LAYER::CHAR,0 });
 	lpImageMng.AddDraw({ lpImageMng.getImage("2")[0],300,450,0.0,LAYER::CHAR,0 });
 
-	if (lpSceneMng.GetFlame() == 120)
+//	if (lpSceneMng.GetFlame() == 120)
 	{
 		return std::make_unique<SeleScene>();
 	}

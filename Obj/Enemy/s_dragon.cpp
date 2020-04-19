@@ -61,6 +61,12 @@ void s_dragon::Init(void)
 	}
 	setAnm({ OBJ_STATE::NORMAL,DIR::LEFT }, data);
 
+	for (int i = 0; i < 4; i++)
+	{
+		data.emplace_back(lpImageMng.getImage("s_dragonL")[i], 20 + i * 20);
+	}
+	setAnm({ OBJ_STATE::WALK,DIR::LEFT }, data);
+
 	for (int i = 0; i < 3; i++)
 	{
 		data.emplace_back(lpImageMng.getImage("s_dragonL")[16 + i], 20 + i * 20);

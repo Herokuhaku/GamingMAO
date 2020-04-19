@@ -2,6 +2,15 @@
 #include "../Object.h"
 #include <memory>
 
+enum class MOVE_SELECT
+{
+	WAIT,
+	MOVE,
+	ATKMOVE,
+	ATTACK,
+	MAX
+};
+
 class Enemy :
 	public Object
 {
@@ -11,6 +20,7 @@ public:
 	virtual int Move(Vector2 pPos);
 	virtual int Search(Vector2 pPos);
 	virtual int Attack(Vector2 pPos);
+	virtual int AtkMove(Vector2 pPos);
 
 	Enemy();
 	~Enemy();
@@ -20,12 +30,14 @@ protected:
 
 using e_fn_ptr = int(Enemy::*)(Vector2 pPos);	// 
 
-static const int e_fn_ptr_num = 4;
+static const int e_fn_ptr_num = 5;
 
 	const e_fn_ptr const autoM[e_fn_ptr_num]
 		= { &Enemy::Wait, &Enemy::Move,
-			&Enemy::Search, &Enemy::Attack };	// autoMaton
+			&Enemy::AtkMove,&Enemy::Attack,
+			&Enemy::Search,};	// autoMaton
 
+	void aState(int work);
 	int _aState;		// autoMatonState
 	int _work;			// çÏã∆óp
 
@@ -35,5 +47,8 @@ static const int e_fn_ptr_num = 4;
 	int _waitTime;		// waitÇÃéûä‘
 	//---------------------------------------------------
 	int _rangeS;		// range of search
+	int _rangeA;		// rage of attack
+	DIR _plDir;			// 
 
+	bool _encnt;			// encoun
 };
