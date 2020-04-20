@@ -2,6 +2,7 @@
 #include "SceneMng.h"
 #include "TitleScene.h"
 #include "../Graphic/ImageMng.h"
+#include "ButtonMng.h"
 
 SceneMng *SceneMng::sInstance = nullptr;
 
@@ -12,14 +13,24 @@ void SceneMng::Run(void)
 	while (ProcessMessage() == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0)
 	{
 		lpKeyMng.KeyUpdate();
+		lpButtonMng.Run();
 		_activeScene = (*_activeScene).Update(std::move(_activeScene));
 		lpImageMng.Draw();
 
 		_flame++;
 
-		
 		//(*_activeScene).RunActQue(std::move(_actList));
 	}
+}
+
+const std::shared_ptr<Object> *SceneMng::GetPlObj(void) const
+{
+	return &_plObj;
+}
+
+void SceneMng::SetPlObj(std::shared_ptr<Object> plObj)
+{
+	_plObj = std::move(plObj);
 }
 
 bool SceneMng::SysInit(void)
@@ -35,12 +46,18 @@ bool SceneMng::SysInit(void)
 	}
 
 	SetDrawScreen(DX_SCREEN_BACK);
-
-	_flame = 0;
-
+	
 	lpImageMng.getImage("image/player.png", "player", 85, 90, 2, 2);
 	lpImageMng.getImage("image/player_walk.png", "player_walk", 85, 90, 8, 2);
+	lpImageMng.getImage("image/player_dash.png", "player_dash", 85, 90, 2, 2);
+	lpImageMng.getImage("image/player_jump.png", "player_jump", 85, 90, 2, 2);
 
+	lpImageMng.getImage("image/small_dragonR.png", "s_dragonR", 128, 128, 4, 5);
+	lpImageMng.getImage("image/small_dragonL.png", "s_dragonL", 128, 128, 4, 5);
+	lpImageMng.getImage("image/exclamationpoint.png", "excPoint", 80, 80, 1, 1);
+	lpImageMng.getImage("image/questionmark.png", "queMark", 80, 80, 1, 1);
+
+	_flame = 0;
 
 	return rtnFlag;
 }

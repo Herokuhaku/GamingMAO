@@ -1,6 +1,7 @@
 #pragma once
 #include "BaceScene.h"
-#include <Object/Player.h>
+#include "../Obj/Object.h"
+
 
 class GameScene:public BaceScene
 {
@@ -10,7 +11,10 @@ public:
 
 	std::unique_ptr<BaceScene> Update(std::unique_ptr<BaceScene> own) override;
 
-	Player* player;
-};
+private:
+	bool Init(void);
+	
+	std::vector<std::shared_ptr<Object>>_objList;
 
+};
 

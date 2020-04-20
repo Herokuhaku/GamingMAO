@@ -1,8 +1,9 @@
 #pragma once
 #include <memory>
 #include "BaceScene.h"
-#include <Scene/GameScene.h>
-#include <Graphic/ImageMng.h>
+#include "../Obj/Object.h"
+#include "GameScene.h"
+#include "../KeyMng.h"
 
 #define lpSceneMng SceneMng::GetInstance()
 
@@ -37,13 +38,13 @@ public:
 
 	unsigned int GetFlame(void) { return _flame; };
 
-
+	const std::shared_ptr<Object> *GetPlObj(void) const;
+	void SetPlObj(std::shared_ptr<Object> plObj);
 private:
 	static SceneMng *sInstance;
 	std::unique_ptr<BaceScene> _activeScene;
-
+	std::shared_ptr<Object> _plObj;
 	unsigned int _flame;
-
 
 	bool SysInit(void);
 	SceneMng();
