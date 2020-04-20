@@ -3,6 +3,7 @@
 #include "TitleScene.h"
 #include "../Graphic/ImageMng.h"
 #include "../ButtonMng.h"
+#include "../KeyMng.h"
 
 SceneMng *SceneMng::sInstance = nullptr;
 
@@ -12,6 +13,7 @@ void SceneMng::Run(void)
 	_activeScene = std::make_unique<TitleScene>();
 	while (ProcessMessage() == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0)
 	{
+		lpKeyMng.KeyUpdate();
 		lpButtonMng.Run();
 		_activeScene = (*_activeScene).Update(std::move(_activeScene));
 		lpImageMng.Draw();
@@ -22,12 +24,23 @@ void SceneMng::Run(void)
 	}
 }
 
+const std::shared_ptr<Object>* SceneMng::GetPlObj(void) const
+{
+	return &_plObj;
+}
+
+void SceneMng::SetPlObj(std::shared_ptr<Object> plObj)
+{
+	_plObj = std::move(plObj);
+}
+
+
 bool SceneMng::SysInit(void)
 {
 	bool rtnFlag = true;
 
 	SetWindowText("AGAME");
-	SetGraphMode(600, 500, 16);
+	SetGraphMode(1280, 720, 16);
 	ChangeWindowMode(true);
 	if (DxLib_Init() == -1)
 	{

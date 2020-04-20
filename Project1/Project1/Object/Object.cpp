@@ -2,7 +2,7 @@
 
 Object::Object()
 {
-	_pos = { 0,0 };
+	_pos = { 0,300 };
 	_rad = 0.0;
 	_time = TIME::NOW;
 	_stage = 0;
@@ -30,6 +30,8 @@ Vector2Template<int> Object::getPos(void)
 void Object::setState(std::pair<OBJ_STATE, DIR> state)
 {
 	_state_dir = state;
+	_anmTime = 0;
+	_anmFlame = 0;
 }
 
 std::pair<OBJ_STATE, DIR> Object::getState(void)
@@ -40,6 +42,8 @@ std::pair<OBJ_STATE, DIR> Object::getState(void)
 void Object::setAnm(const std::pair<OBJ_STATE, DIR> state,AnmVec& data)
 {
 	_anmMap.try_emplace(state, std::move(data));
+	_anmTime = 0;
+	_anmFlame = 0;
 }
 
 bool Object::isAnmEnd(void)
@@ -82,9 +86,19 @@ void Object::anmUpdate(void)
 	if (_anmTime >= _anmMap[_state_dir][_anmFlame].second)
 	{
 		// ループ再生かをチェック
-		if (_anmMap[_state_dir][_anmFlame].second != -1)
+		if (_anmMap[_state_dir][_anmFlame].second >= 0)
 		{
 			_anmFlame++;
+			// ワンショットの後ノーマルに戻るかのチェック
+			if (_anmFlame < _anmMap[_state_dir].size())
+			{
+				if (_anmMap[_state_dir][_anmFlame].first == -10)
+				{
+					_state_dir.first = OBJ_STATE::NORMAL;
+					_anmTime = 0;
+					_anmFlame = 0;
+				}
+			}
 		}
 	}
 

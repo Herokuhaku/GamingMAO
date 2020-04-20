@@ -133,31 +133,37 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="KeyMng.h" />
     <ClInclude Include="MapMng.h" />
-    <ClInclude Include="Object\Object.h" />
-    <ClInclude Include="Object\Player.h" />
-    <ClInclude Include="Scene\GameScene.h" />
+    <ClInclude Include="Object\Enemy\Enemy.h" />
+    <ClInclude Include="Object\Enemy\s_dragon.h" />
     <ClInclude Include="ButtonMng.h" />
     <ClInclude Include="common\detailes\Vector2.h" />
     <ClInclude Include="common\Vector2.h" />
     <ClInclude Include="Graphic\ImageMng.h" />
     <ClInclude Include="Graphic\LAYER.h" />
     <ClInclude Include="main.h" />
+    <ClInclude Include="Object\Object.h" />
+    <ClInclude Include="Object\Player.h" />
     <ClInclude Include="Scene\BaceScene.h" />
+    <ClInclude Include="Scene\GameScene.h" />
     <ClInclude Include="Scene\SceneMng.h" />
     <ClInclude Include="Scene\SeleScene.h" />
     <ClInclude Include="Scene\TitleScene.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="KeyMng.cpp" />
     <ClCompile Include="MapMng.cpp" />
-    <ClCompile Include="Object\Object.cpp" />
-    <ClCompile Include="Object\Player.cpp" />
-    <ClCompile Include="Scene\GameScene.cpp" />
+    <ClCompile Include="Object\Enemy\Enemy.cpp" />
+    <ClCompile Include="Object\Enemy\s_dragon.cpp" />
     <ClCompile Include="ButtonMng.cpp" />
     <ClCompile Include="Graphic\ImageMng.cpp" />
     <ClCompile Include="Graphic\LAYER.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Object\Object.cpp" />
+    <ClCompile Include="Object\Player.cpp" />
     <ClCompile Include="Scene\BaceScene.cpp" />
+    <ClCompile Include="Scene\GameScene.cpp" />
     <ClCompile Include="Scene\SceneMng.cpp" />
     <ClCompile Include="Scene\SeleScene.cpp" />
     <ClCompile Include="Scene\TitleScene.cpp" />

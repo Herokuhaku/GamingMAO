@@ -1,8 +1,10 @@
 #pragma once
-#include "../common/Vector2.h"
 #include <map>
 #include <vector>
+#include <memory>
 #include "../Graphic/ImageMng.h"
+#include "Object.h"
+
 
 enum class OBJ_TYPE
 {
@@ -15,6 +17,7 @@ enum class OBJ_TYPE
 enum class OBJ_STATE
 {
 	NORMAL,
+	WALK,
 	ATTACK,
 	DEAD
 };
@@ -22,6 +25,7 @@ enum class OBJ_STATE
 enum class DIR
 {
 	LEFT,
+	NORMAL,
 	RIGHT
 };
 
@@ -31,7 +35,7 @@ enum class TIME
 	FTR,	// 未来
 };
 
-using AnmVec = std::vector<std::pair<int, unsigned int>>;
+using AnmVec = std::vector<std::pair<int, int>>;
 
 class Object
 {
@@ -40,6 +44,8 @@ public:
 	virtual ~Object();
 
 	virtual void Update(void) = 0;
+
+	OBJ_TYPE getType(void) { return _type; };
 
 	void setPos(Vector2Template<int> pos);
 	Vector2Template<int> getPos(void);
@@ -53,7 +59,7 @@ public:
 
 	void Draw(void);
 	void anmUpdate(void);
-private:
+protected:
 	std::map<std::pair<OBJ_STATE, DIR>, AnmVec> _anmMap;	// アニメーションを保存するとこ
 	unsigned int _anmTime;				// アニメーションの経過時間
 	unsigned int _anmFlame;		// アニメーションの現在のコマ数

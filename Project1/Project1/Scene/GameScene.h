@@ -1,6 +1,7 @@
 #pragma once
 #include "BaceScene.h"
 #include "../Object/Object.h"
+#include "../Object/Enemy/Enemy.h"
 
 
 class GameScene:public BaceScene
@@ -15,6 +16,6 @@ private:
 	bool Init(void);
 	
 	std::vector<std::shared_ptr<Object>>_objList;
-
+	std::vector<std::shared_ptr<Object>> _enemyList;
 };
-
+ 

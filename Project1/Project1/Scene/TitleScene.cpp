@@ -10,7 +10,6 @@ TitleScene::TitleScene()
 	lpImageMng.getImage("image/hurosiki.png", "•—˜C•~");
 }
 
-
 TitleScene::~TitleScene()
 {
 }
