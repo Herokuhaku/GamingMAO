@@ -36,13 +36,17 @@ public:
 		sInstance = nullptr;
 	}
 
+	void MapUpdate(void);
+	void MapDraw(void);
+	void BackGround(void);
+
 	const Vector2Template<int> GameMapSize;	// ゲーム画面のマップの大きさ
 	std::vector<std::string> split(std::string str, char del);
 
-	void MapUpdate(void);
-
-	int GameMap[MapChipY][MapChipX];	// Y1440/16,X(2560/16)+壁2マス
 private:
+	int GameMap[MapChipY][MapChipX];	// Y1440/16,X(2560/16)+壁2マス
+	int HitMap[MapChipY][MapChipX];		// 当たり判定Map
+
 	static MapMng *sInstance;
 	MapMng();
 	~MapMng();
