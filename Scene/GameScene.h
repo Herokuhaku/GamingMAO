@@ -1,7 +1,7 @@
 #pragma once
 #include "BaceScene.h"
-#include "../Obj/Object.h"
-#include "../Obj/Enemy/Enemy.h"
+#include "../Object/Object.h"
+#include "../Object/Enemy/Enemy.h"
 
 
 class GameScene:public BaceScene

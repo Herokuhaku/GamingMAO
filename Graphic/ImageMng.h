@@ -5,6 +5,7 @@
 #include <tuple>
 #include "LAYER.h"
 #include "../common/Vector2.h"
+#include <string>
 
 // 描画データの要素
 enum class DrawElm
@@ -64,6 +65,7 @@ public:
 
 private:
 	static ImageMng* sInstance;								// インスタンス
+	int _workLayer;
 
 	std::map<std::string, std::vector<int>> _imageMap;					// 画像ID保存用
 	std::map<EFFECT, std::vector<std::pair<int, int>>>	_effectMap;		// エフェクト保存用

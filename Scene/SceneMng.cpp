@@ -2,7 +2,8 @@
 #include "SceneMng.h"
 #include "TitleScene.h"
 #include "../Graphic/ImageMng.h"
-#include "ButtonMng.h"
+#include "../ButtonMng.h"
+#include "../KeyMng.h"
 
 SceneMng *SceneMng::sInstance = nullptr;
 
@@ -12,6 +13,7 @@ void SceneMng::Run(void)
 	_activeScene = std::make_unique<TitleScene>();
 	while (ProcessMessage() == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0)
 	{
+		lpKeyMng.KeyUpdate();
 		lpButtonMng.Run();
 		_activeScene = (*_activeScene).Update(std::move(_activeScene));
 		lpImageMng.Draw();
@@ -22,22 +24,44 @@ void SceneMng::Run(void)
 	}
 }
 
-const std::shared_ptr<Object> *SceneMng::GetPlObj(void) const
+const std::shared_ptr<Object> SceneMng::GetPlObj2(void) const
+{
+	return _plObj;
+}
+
+const std::shared_ptr<Object>* SceneMng::GetPlObj(void) const
 {
 	return &_plObj;
 }
 
-void SceneMng::SetPlObj(std::shared_ptr<Object> plObj)
+void SceneMng::SetPlObj(std::shared_ptr<Object>& plObj)
 {
-	_plObj = std::move(plObj);
+	_plObj = plObj;
 }
+
+const Vector2D SceneMng::GetcPos(void) const
+{
+	Vector2D tmp = { _cPos->x,_cPos->y };
+	return tmp;
+}
+
+const std::shared_ptr<Vector2D> SceneMng::GetccPos(void) const
+{
+	return _cPos;
+}
+
+void SceneMng::SetcPos(std::shared_ptr<Vector2D> cPos)
+{
+	_cPos = cPos;
+}
+
 
 bool SceneMng::SysInit(void)
 {
 	bool rtnFlag = true;
 
 	SetWindowText("AGAME");
-	SetGraphMode(600, 500, 16);
+	SetGraphMode(ScreenSize.x, ScreenSize.y, 16);
 	ChangeWindowMode(true);
 	if (DxLib_Init() == -1)
 	{
@@ -45,15 +69,9 @@ bool SceneMng::SysInit(void)
 	}
 
 	SetDrawScreen(DX_SCREEN_BACK);
-	
-	lpImageMng.getImage("image/player.png", "player", 85, 90, 2, 2);
-		lpImageMng.getImage("image/player.png", "player", 85, 90, 2, 2);
-	lpImageMng.getImage("image/player_walk.png", "player_walk", 85, 90, 8, 2);
 
-	lpImageMng.getImage("image/small_dragonR.png", "s_dragonR", 128, 128, 4, 5);
-	lpImageMng.getImage("image/small_dragonL.png", "s_dragonL", 128, 128, 4, 5);
-	lpImageMng.getImage("image/exclamationpoint.png", "excPoint", 80, 80, 1, 1);
-	lpImageMng.getImage("image/questionmark.png", "queMark", 80, 80, 1, 1);
+	std::shared_ptr<Vector2D> work(new Vector2D(0,0));
+	_cPos = work;
 
 	_flame = 0;
 

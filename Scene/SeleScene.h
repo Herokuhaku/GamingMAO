@@ -16,3 +16,4 @@ private:
 	Vector2 arrow;
 	bool arrowflag;
 };
+

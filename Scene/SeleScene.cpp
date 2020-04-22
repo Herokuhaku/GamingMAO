@@ -1,6 +1,4 @@
-#include <memory>
 #include "SeleScene.h"
-#include "GameScene.h"
 #include "../Graphic/ImageMng.h"
 
 
@@ -74,10 +72,6 @@ std::unique_ptr<BaceScene> SeleScene::Update(std::unique_ptr<BaceScene> own)
 		}
 	}
 
-	if (CheckHitKey(KEY_INPUT_SPACE))
-	{
-		return std::make_unique<GameScene>();
-	}
 
 	lpImageMng.AddDraw({ lpImageMng.getImage("‘I‘ð")[0],300,250,0.0,LAYER::BG,0 });
 	lpImageMng.AddDraw({ lpImageMng.getImage("–îˆó")[0],arrow.x,arrow.y,0.0,LAYER::UI,0 });
