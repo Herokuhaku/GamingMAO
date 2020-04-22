@@ -58,6 +58,8 @@ void ImageMng::Draw(void)
 		DrawRotaGraph(x, y, 1.0, rad, id, true);
 	}
 
+	lpEffectMng.UpdateEffekseer();
+
 	ScreenFlip();
 
 	_drawList.clear();

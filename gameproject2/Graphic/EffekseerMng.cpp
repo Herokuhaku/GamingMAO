@@ -49,6 +49,7 @@ void EffekseerMng::UpdateEffekseer(void)
 			data++;
 		}
 	}
+	RefreshDxLibDirect3DSetting();
 }
 
 EffekseerMng::EffekseerMng()

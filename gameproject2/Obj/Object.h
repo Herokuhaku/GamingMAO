@@ -18,6 +18,10 @@ enum class OBJ_STATE
 	WALK,
 	DASH,
 	JUMP,
+	A_NORMAL,
+	A_WALK,
+	A_DASH,
+	A_JUMP,
 	FALL,
 	ATTACK,
 	DEAD

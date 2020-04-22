@@ -34,5 +34,7 @@ bool GameScene::Init(void)
 	_objList.clear();
 	_objList.emplace_back(new Player({ 400,300 }));
 
+	lpEffectMng.getEffect("effect/player_attack_fire.efk", "magic_fire", 1.0);
+
 	return false;
 }

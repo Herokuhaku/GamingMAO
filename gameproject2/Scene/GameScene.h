@@ -1,6 +1,7 @@
 #pragma once
 #include "BaceScene.h"
 #include "../Obj/Object.h"
+#include "../Graphic/EffekseerMng.h"
 
 
 class GameScene:public BaceScene

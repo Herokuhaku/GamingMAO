@@ -1,5 +1,6 @@
 #pragma once
 #include <DxLib.h>
+#include "EffekseerMng.h"
 #include <map>
 #include <vector>
 #include <tuple>

@@ -1,5 +1,6 @@
 #pragma once
 #include <DxLib.h>
+#include <cmath>
 #include <Obj/Object.h>
 #include <KeyMng.h>
 
@@ -7,7 +8,10 @@
 #define G_ACC_NORMAL	0.3
 #define INI_VEL_NORMAL	8.0
 
+#define PLAYER_SIZE_X	85
 #define PLAYER_SIZE_Y	90
+
+#define DELAY_FIRE		350
 
 class Player :
 	public Object
@@ -22,9 +26,16 @@ private:
 	void Init(void);
 
 	void ControlNormal(void);
-	void ControlJump(void);
-	void (Player::*_control)(void); // 上２つの関数ポインタ
+	void ControlAttack(void);
+	void (Player::*_control)(void); // 上2つの関数ポインタ
 
+	void MagicUpdate(void);
+	int _coolTime;
+	int _anmEfkHd;
+
+	void StateRotate(void);
+
+	bool _rotateFlag;
 
 	void VelUpdate(void);
 	double _vel;

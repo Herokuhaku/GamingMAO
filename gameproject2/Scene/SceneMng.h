@@ -1,4 +1,6 @@
 #pragma once
+#include <EffekseerForDXLib.h>
+#include "../common/Vector2.h"
 #include <memory>
 #include "BaceScene.h"
 #include "../Obj/Object.h"
@@ -45,6 +47,9 @@ private:
 	std::unique_ptr<BaceScene> _activeScene;
 	std::shared_ptr<Object> _plObj;
 	unsigned int _flame;
+
+	Vector2Template<int> ScreenSize;
+	Vector2Template<int> ScreenCenter;
 
 	bool SysInit(void);
 	SceneMng();
