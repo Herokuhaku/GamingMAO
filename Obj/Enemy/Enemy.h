@@ -50,5 +50,5 @@ static const int e_fn_ptr_num = 5;
 	int _rangeA;		// rage of attack
 	DIR _plDir;			// 
 
-	bool _encnt;			// encoun
+	bool _encntF;			// encoun
 };
