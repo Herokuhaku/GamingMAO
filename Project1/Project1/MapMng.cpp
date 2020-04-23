@@ -26,7 +26,7 @@ std::vector<std::string> MapMng::split(std::string str, char delimiter)
 	return result;
 }
 
-void MapMng::MapUpdate(void)
+bool MapMng::MapUpdate(void)
 {
 	std::ifstream ifs("mapdata/map.csv");
 	std::string line;
@@ -47,23 +47,37 @@ void MapMng::MapUpdate(void)
 		y++;
 	}
 
+	HitMapUpdate();		// 当たり判定
+	BlockLayer();		// ブロック描画の更新
+
+	return true;
 }
 
-void MapMng::MapDraw(void)
+void MapMng::HitMapUpdate(void)
 {
+	int tmpMap;
 	for (int y = 0;y < MapChipY;y++)
 	{
 		for (int x = 0; x < MapChipX;x++)
 		{
-			if (GameMap[y][x] != -1)
+			tmpMap = GameMap[y][x];
+			if (tmpMap != -1 || tmpMap >= 0 && tmpMap <= 23)
 			{
-				lpImageMng.AddDraw({ lpImageMng.getImage("Block")[GameMap[y][x]],x*16,y*16-8,0.0,LAYER::BG,20 });
+				HitMap[y][x] = 1;
 			}
 		}
 	}
-	lpImageMng.AddDraw({ lpImageMng.getImage("Blocka")[0],0,0,0.0,LAYER::BG,0 });
+}
 
+void MapMng::MapDraw(void)
+{
+	BlockDraw();
 	BackGround();
+}
+
+void MapMng::BlockDraw()
+{
+	lpImageMng.AddDraw({ _layer[LAYER::BLOCK],GameMapSize.x/2,GameMapSize.y/2,0.0,LAYER::BLOCK,0 });
 }
 
 void MapMng::BackGround(void)
@@ -79,6 +93,23 @@ void MapMng::BackGround(void)
 
 }
 
+void MapMng::BlockLayer(void)
+{
+	SetDrawScreen(_layer[LAYER::BLOCK]);
+	ClsDrawScreen();
+
+	for (int y = 0;y < MapChipY;y++)
+	{
+		for (int x = 0; x < MapChipX;x++)
+		{
+			if (GameMap[y][x] != -1)
+			{
+				DrawRotaGraph(x*16, y*16, 1.0, 0, lpImageMng.getImage("Block")[GameMap[y][x]], true);
+			}
+		}
+	}
+}
+
 
 MapMng::MapMng():
 	GameMapSize{2560,1440}
@@ -88,6 +119,7 @@ MapMng::MapMng():
 		for (int x = 0;x < MapChipX;x++)
 		{
 			GameMap[y][x] = 0;
+			HitMap[y][x] = 0;
 		}
 	}
 
@@ -103,7 +135,10 @@ MapMng::MapMng():
 
 	lpImageMng.getImage("image/back/block/For/Tileset.png", "Block",16,16,10,6);
 
+	_layer[LAYER::BLOCK] = MakeScreen(GameMapSize.x, GameMapSize.y, true);
+
 	MapUpdate();
+	BlockLayer();
 }
 
 MapMng::~MapMng()

@@ -28,29 +28,29 @@ int Enemy::Wait(Vector2 pPos)
 
 int Enemy::Move(Vector2 pPos)
 {
-	if (!_encnt)
+	if (!_encntF)
 	{
 		if (_state_dir.second == DIR::RIGHT)
 		{
 			_pos.x += lpSceneMng.GetFlame() % 2;
+			if (_pos.x >= 400)
+			{
+				setState({ OBJ_STATE::WALK,DIR::LEFT });
+			}
 		}
 		else
 		{
 			_pos.x -= lpSceneMng.GetFlame() % 2;
+			if (_pos.x <= 0)
+			{
+				setState({ OBJ_STATE::WALK,DIR::RIGHT });
+			}
 		}
 		return _aState;
 	}
 	else
 	{
-		if (_state_dir.second == DIR::RIGHT)
-		{
-			_pos.x += lpSceneMng.GetFlame() % 2;
-		}
-		else
-		{
-			_pos.x -= lpSceneMng.GetFlame() % 2;
-		}
-		return _aState;
+		return 	AtkMove(pPos);
 	}
 }
 
@@ -59,17 +59,22 @@ int Enemy::Search(Vector2 pPos)
 	_plDir = pPos.x > _pos.x ? DIR::RIGHT : DIR::LEFT;
 	if (_waitCnt >= _waitTime)
 	{
-		if ((pPos.x - _pos.x) <= _rangeS && (pPos.x - _pos.x) >= -20)
+		if ((pPos.x - _pos.x)  * (static_cast<int>(_state_dir.second) - 1) <= _rangeS &&
+			(pPos.x - _pos.x)  * (static_cast<int>(_state_dir.second) - 1) >= -80)
 		{
-			if ((pPos.x - _pos.x) <= _rangeA && (pPos.x - _pos.x) >= -20)
+			if ((pPos.x - _pos.x) * (static_cast<int>(_state_dir.second) - 1) <= _rangeA)
 			{
 				aState(static_cast<int>(MOVE_SELECT::ATTACK));
 				lpImageMng.AddDraw({ lpImageMng.getImage("excPoint")[0],_pos.x,_pos.y - 40,0.0,LAYER::EX,10 });
-				_encnt = true;
 				return _aState;
 			}
-		lpImageMng.AddDraw({ lpImageMng.getImage("queMark")[0],_pos.x,_pos.y - 40,0.0,LAYER::EX,10 });
-		return static_cast<int>(MOVE_SELECT::MOVE);
+			lpImageMng.AddDraw({ lpImageMng.getImage("queMark")[0],_pos.x,_pos.y - 40,0.0,LAYER::EX,10 });
+			_encntF = true;
+			return static_cast<int>(MOVE_SELECT::MOVE);
+		}
+		else
+		{
+			_encntF = false;
 		}
 	}
 	return _work;
@@ -89,13 +94,15 @@ int Enemy::Attack(Vector2 pPos)
 
 int Enemy::AtkMove(Vector2 pPos)
 {
-	if (_state_dir.second == _plDir)
+	if (_state_dir.second == DIR::RIGHT)
 	{
-		_pos.x += lpSceneMng.GetFlame() % 2;
+		//_pos.x += lpSceneMng.GetFlame() % 2;
+		_pos.x += 2;
 	}
 	else
 	{
-		_pos.x -= lpSceneMng.GetFlame() % 2;
+		//_pos.x -= lpSceneMng.GetFlame() % 2;
+		_pos.x -= 2;
 	}
 	return _aState;
 }
@@ -111,9 +118,9 @@ void Enemy::Init(void)
 	_waitTime = std::rand() % 180;
 	_waitCnt = 0;
 	_waitF = true;
-	_rangeS = 120;
+	_rangeS = 200;
 	_rangeA = 80;
-	_encnt = false;
+	_encntF = false;
 	_plDir = DIR::RIGHT;
 }
 

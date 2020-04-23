@@ -1,12 +1,17 @@
 #include <algorithm>
-#include "ImageMng.h"
 #include <string>
+#include "ImageMng.h"
+#include "../MapMng.h"
+#include "../Scene/SceneMng.h"
+
+#define SCREEN_SIZE_X lpSceneMng.ScreenSize.x
+#define SCREEN_SIZE_Y lpSceneMng.ScreenSize.y
 
 ImageMng* ImageMng::sInstance = nullptr;
 
 void ImageMng::setEffect(EFFECT effect, Vector2Template<int> pos)
 {
-	_effectList.emplace_back(std::make_tuple(effect, pos, 0, 0));
+	//_effectList.emplace_back(std::make_tuple(effect, pos, 0, 0));
 }
 
 std::vector<int> ImageMng::getImage(const std::string& key)
@@ -38,15 +43,14 @@ std::vector<int> ImageMng::getImage(const std::string& filename, const std::stri
 void ImageMng::Draw(void)
 {
 	UpdateEffect();
-	SetDrawScreen(DX_SCREEN_BACK);
-	ClsDrawScreen();
-
 	// レイヤーとzオーダーでソート
 	std::sort(_drawList.begin(), _drawList.end(), [](DrawData i,DrawData j) {
 		return (std::tie(std::get<static_cast<int>(DrawElm::LAYER)>(i), std::get<static_cast<int>(DrawElm::ZORDER)>(i)) <
 			std::tie(std::get<static_cast<int>(DrawElm::LAYER)>(j), std::get<static_cast<int>(DrawElm::ZORDER)>(j)));
 	});
 
+	SetDrawScreen(_workLayer);
+	ClsDrawScreen();
 
 	for (auto data : _drawList)
 	{
@@ -58,6 +62,17 @@ void ImageMng::Draw(void)
 
 		DrawRotaGraph(x, y, 1.0, rad, id, true);
 	}
+
+	
+	SetDrawScreen(DX_SCREEN_BACK);
+	ClsDrawScreen();
+
+	int x, y;
+	x = lpSceneMng.GetcPos().x - (SCREEN_SIZE_X / 2);
+	y = lpSceneMng.GetcPos().y - (SCREEN_SIZE_Y / 2)-200;
+	DrawRectGraph(0, 0, x, y, SCREEN_SIZE_X, SCREEN_SIZE_Y, _workLayer, false, false);
+
+	lpEffectMng.UpdateEffekseer();
 
 	ScreenFlip();
 
@@ -105,6 +120,7 @@ void ImageMng::AddDraw(DrawData data)
 ImageMng::ImageMng()
 {
 	ImageMngInit();
+	_workLayer = MakeScreen(2560,1440,  true);
 }
 
 
@@ -115,23 +131,5 @@ ImageMng::~ImageMng()
 void ImageMng::ImageMngInit(void)
 {
 	getImage("image/effect.png", "gripEffect", 64, 64, 3, 1);
-
-	_effectMap[EFFECT::GRIP].emplace_back(std::make_pair(getImage("gripEffect")[0], 3));
-	_effectMap[EFFECT::GRIP].emplace_back(std::make_pair(getImage("gripEffect")[1], 6));
-	_effectMap[EFFECT::GRIP].emplace_back(std::make_pair(getImage("gripEffect")[2], 9));
-	_effectMap[EFFECT::GRIP].emplace_back(std::make_pair(getImage("gripEffect")[2], -1));
-
-	getImage("image/smoke.png", "smokeEffect", 64, 64, 6, 1);
-
-	_effectMap[EFFECT::SMOKE].emplace_back(std::make_pair(getImage("smokeEffect")[0], 3));
-	_effectMap[EFFECT::SMOKE].emplace_back(std::make_pair(getImage("smokeEffect")[1], 6));
-	_effectMap[EFFECT::SMOKE].emplace_back(std::make_pair(getImage("smokeEffect")[2], 9));
-	_effectMap[EFFECT::SMOKE].emplace_back(std::make_pair(getImage("smokeEffect")[3], 12));
-	_effectMap[EFFECT::SMOKE].emplace_back(std::make_pair(getImage("smokeEffect")[4], 15));
-	_effectMap[EFFECT::SMOKE].emplace_back(std::make_pair(getImage("smokeEffect")[5], 18));
-	_effectMap[EFFECT::SMOKE].emplace_back(std::make_pair(getImage("smokeEffect")[5], -1));
 }
-
-
-
 

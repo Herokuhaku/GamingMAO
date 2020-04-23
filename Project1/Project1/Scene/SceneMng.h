@@ -36,13 +36,20 @@ public:
 
 	unsigned int GetFlame(void) { return _flame; };
 
+	const std::shared_ptr<Object> GetPlObj2(void) const;
 	const std::shared_ptr<Object>* GetPlObj(void) const;
-	void SetPlObj(std::shared_ptr<Object> plObj);
+	void SetPlObj(std::shared_ptr<Object>& plObj);
 
+	const Vector2D GetcPos(void) const;
+	const std::shared_ptr<Vector2D> GetccPos(void) const;
+	void SetcPos(std::shared_ptr<Vector2D> cPos);
+
+	const Vector2 ScreenSize = { 1280,720 };
 private:
 	static SceneMng *sInstance;
 	std::unique_ptr<BaceScene> _activeScene;
 	std::shared_ptr<Object> _plObj;
+	std::shared_ptr<Vector2D> _cPos;									// ÉJÉÅÉâç¿ïW
 
 	unsigned int _flame;
 
