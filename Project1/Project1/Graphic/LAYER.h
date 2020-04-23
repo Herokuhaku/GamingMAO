@@ -5,6 +5,7 @@
 enum class LAYER
 {
 	BG,				// 背景
+	BLOCK,
 	CHAR,			// キャラクター
 	UI,				// UI
 	EX,				// 特殊

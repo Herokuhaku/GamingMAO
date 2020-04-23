@@ -1,19 +1,2 @@
-﻿  ImageMng.cpp
-  LAYER.cpp
-  MapMng.cpp
-  Enemy.cpp
-  s_dragon.cpp
-C:\Users\GrapeHero\Desktop\学校関係\2020夏.Game\2020.4.20 パリィ\Project1\Project1\Object\Enemy\Enemy.h(35,17): warning C4114:  同じ型の修飾子が 2 度以上使われています。
-  Object.cpp
-C:\Users\GrapeHero\Desktop\学校関係\2020夏.Game\2020.4.20 パリィ\Project1\Project1\Object\Enemy\Enemy.h(35,17): warning C4114:  同じ型の修飾子が 2 度以上使われています。
-  Player.cpp
-  GameScene.cpp
-C:\Users\GrapeHero\Desktop\学校関係\2020夏.Game\2020.4.20 パリィ\Project1\Project1\Object\Object.cpp(86,15): warning C4018:  '>=': signed と unsigned の数値を比較しようとしました。
-  SceneMng.cpp
-  SeleScene.cpp
-  TitleScene.cpp
-C:\Users\GrapeHero\Desktop\学校関係\2020夏.Game\2020.4.20 パリィ\Project1\Project1\Object\Enemy\Enemy.h(35,17): warning C4114:  同じ型の修飾子が 2 度以上使われています。
-  main.cpp
-  コードを生成中...
-C:\Users\GrapeHero\Desktop\学校関係\2020夏.Game\2020.4.20 パリィ\Project1\Project1\Object\Enemy\Enemy.h(35,17): warning C4114:  同じ型の修飾子が 2 度以上使われています。
-  Project1.vcxproj -> C:\Users\GrapeHero\Desktop\学校関係\2020夏.Game\2020.4.20 パリィ\Project1\x64\Debug\Project1.exe
+﻿  MapMng.cpp
+  Project1.vcxproj -> C:\Users\GrapeHero\Desktop\学校関係\2020夏.Game\2020.4.22\Project1\x64\Debug\Project1.exe

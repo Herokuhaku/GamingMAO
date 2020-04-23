@@ -40,12 +40,13 @@ std::unique_ptr<BaceScene> GameScene::Update(std::unique_ptr<BaceScene> own)
 		(*data).Update();
 	}
 		
-	lpMapMng.MapDraw();
+
 
 		for (auto data : _objList)
 	{
 		(*data).Draw();
 	}
+		lpMapMng.MapDraw();
 	return own;
 }
 

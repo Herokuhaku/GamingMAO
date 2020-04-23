@@ -72,6 +72,8 @@ private:
 	std::vector<DrawData> _drawList;						// 描画情報保存用
 	std::vector<std::tuple<EFFECT, Vector2Template<int>, int, int>> _effectList;		// 進行中のエフェクト
 
+	std::map<LAYER, int>_screenID;
+
 	ImageMng();
 	~ImageMng();
 

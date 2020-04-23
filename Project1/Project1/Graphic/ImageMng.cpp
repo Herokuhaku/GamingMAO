@@ -1,6 +1,7 @@
 #include <algorithm>
 #include "ImageMng.h"
 #include <string>
+#include "../MapMng.h"
 
 ImageMng* ImageMng::sInstance = nullptr;
 
@@ -47,7 +48,6 @@ void ImageMng::Draw(void)
 			std::tie(std::get<static_cast<int>(DrawElm::LAYER)>(j), std::get<static_cast<int>(DrawElm::ZORDER)>(j)));
 	});
 
-
 	for (auto data : _drawList)
 	{
 		int id, x, y;
@@ -56,8 +56,11 @@ void ImageMng::Draw(void)
 
 		std::tie(id, x, y, rad, layer, std::ignore) = data;
 
+
 		DrawRotaGraph(x, y, 1.0, rad, id, true);
 	}
+
+	lpMapMng.BlockDraw();
 
 	ScreenFlip();
 
