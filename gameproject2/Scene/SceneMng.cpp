@@ -23,15 +23,37 @@ void SceneMng::Run(void)
 	}
 }
 
+const std::shared_ptr<Object> SceneMng::GetPlObj2(void) const
+{
+	return _plObj;
+}
+
 const std::shared_ptr<Object> *SceneMng::GetPlObj(void) const
 {
 	return &_plObj;
 }
 
-void SceneMng::SetPlObj(std::shared_ptr<Object> plObj)
+void SceneMng::SetPlObj(std::shared_ptr<Object>& plObj)
 {
-	_plObj = std::move(plObj);
+	_plObj = plObj;
 }
+
+const Vector2D SceneMng::GetcPos(void) const
+{
+	Vector2D tmp = { _cPos->x,_cPos->y };
+	return tmp;
+}
+
+const std::shared_ptr<Vector2D> SceneMng::GetccPos(void) const
+{
+	return _cPos;
+}
+
+void SceneMng::SetcPos(std::shared_ptr<Vector2D> cPos)
+{
+	_cPos = cPos;
+}
+
 
 bool SceneMng::SysInit(void)
 {
@@ -55,6 +77,9 @@ bool SceneMng::SysInit(void)
 
 	Effekseer_Set2DSetting(ScreenSize.x, ScreenSize.y);
 
+	SetUseZBuffer3D(true);
+	SetWriteZBuffer3D(true);
+
 	
 	lpImageMng.getImage("image/player.png", "player", 85, 90, 2, 2);
 	lpImageMng.getImage("image/player_walk.png", "player_walk", 85, 90, 8, 2);
@@ -67,7 +92,9 @@ bool SceneMng::SysInit(void)
 	lpImageMng.getImage("image/exclamationpoint.png", "excPoint", 80, 80, 1, 1);
 	lpImageMng.getImage("image/questionmark.png", "queMark", 80, 80, 1, 1);
 
-	
+	lpImageMng.getImage("image/HPbar.png", "hp_bar", 6, 12, 3, 1);
+
+	lpImageMng.getImage("image/backscreen.png", "backscreen");
 
 	_flame = 0;
 

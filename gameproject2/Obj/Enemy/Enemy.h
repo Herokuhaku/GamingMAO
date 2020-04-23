@@ -32,7 +32,7 @@ using e_fn_ptr = int(Enemy::*)(Vector2 pPos);	//
 
 static const int e_fn_ptr_num = 5;
 
-	const e_fn_ptr const autoM[e_fn_ptr_num]
+	const e_fn_ptr  autoM[e_fn_ptr_num]
 		= { &Enemy::Wait, &Enemy::Move,
 			&Enemy::AtkMove,&Enemy::Attack,
 			&Enemy::Search,};	// autoMaton
@@ -50,5 +50,5 @@ static const int e_fn_ptr_num = 5;
 	int _rangeA;		// rage of attack
 	DIR _plDir;			// 
 
-	bool _encnt;			// encoun
+	bool _encntF;			// encoun
 };

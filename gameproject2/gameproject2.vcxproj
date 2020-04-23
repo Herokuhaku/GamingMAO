@@ -129,6 +129,7 @@
     <ClCompile Include="KeyMng.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MapMng.cpp" />
+    <ClCompile Include="Obj\camera.cpp" />
     <ClCompile Include="Obj\Enemy\Enemy.cpp" />
     <ClCompile Include="Obj\Enemy\s_dragon.cpp" />
     <ClCompile Include="Obj\Object.cpp" />
@@ -149,6 +150,8 @@
     <ClInclude Include="KeyMng.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="MapMng.h" />
+    <ClInclude Include="Obj\camera.h" />
+    <ClInclude Include="Obj\DIR.h" />
     <ClInclude Include="Obj\Enemy\Enemy.h" />
     <ClInclude Include="Obj\Enemy\s_dragon.h" />
     <ClInclude Include="Obj\Object.h" />

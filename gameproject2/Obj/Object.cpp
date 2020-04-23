@@ -11,6 +11,9 @@ Object::Object()
 	_alive = true;
 	_anmFlame = 0;
 	_anmTime = 0;
+	_hp = -1;
+
+	_type = OBJ_TYPE::PLAYER;
 }
 
 Object::~Object()
@@ -37,6 +40,16 @@ void Object::setState(std::pair<OBJ_STATE, DIR> state)
 std::pair<OBJ_STATE, DIR> Object::getState(void)
 {
 	return _state_dir;
+}
+
+void Object::setHP(int hp)
+{
+	_hp = hp;
+}
+
+int Object::getHP(void)
+{
+	return _hp;
 }
 
 void Object::setAnm(const std::pair<OBJ_STATE, DIR> state,AnmVec& data)

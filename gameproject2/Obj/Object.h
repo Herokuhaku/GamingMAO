@@ -3,7 +3,7 @@
 #include <map>
 #include <vector>
 #include <Graphic/ImageMng.h>
-
+#include "DIR.h"
 enum class OBJ_TYPE
 {
 	PLAYER,
@@ -27,12 +27,6 @@ enum class OBJ_STATE
 	DEAD
 };
 
-enum class DIR
-{
-	LEFT,
-	NORMAL,
-	RIGHT
-};
 
 enum class TIME
 {
@@ -56,17 +50,23 @@ public:
 	void setState(std::pair<OBJ_STATE, DIR> state);
 	std::pair<OBJ_STATE, DIR> getState(void);
 
+	void setHP(int hp);
+	int getHP(void);
+
+	OBJ_TYPE getType(void) { return _type; };
+
 	void setAnm(const std::pair<OBJ_STATE, DIR> state, AnmVec& data);
 	bool isAnmEnd(void);
 	bool isAlive(void);
 
-	void Draw(void);
+	virtual void Draw(void);
 	void anmUpdate(void);
 private:
 	std::map<std::pair<OBJ_STATE, DIR>, AnmVec> _anmMap;	// アニメーションを保存するとこ
 	unsigned int _anmTime;				// アニメーションの経過時間
 	unsigned int _anmFlame;		// アニメーションの現在のコマ数
 
+	int _hp;					// 体力
 protected:
 	Vector2Template<int> _pos;	// 座標
 	double _rad;				// 角度

@@ -13,6 +13,8 @@
 
 #define DELAY_FIRE		350
 
+#define HP_MAX			100
+
 class Player :
 	public Object
 {
@@ -21,7 +23,9 @@ public:
 	Player(Vector2Template<int> pos);
 	~Player();
 
-	void Update(void);
+	void Update(void)override;
+
+	void Draw(void)override;
 private:
 	void Init(void);
 

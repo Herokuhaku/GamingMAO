@@ -1,11 +1,12 @@
 #pragma once
 #include <DxLib.h>
-#include "EffekseerMng.h"
 #include <map>
 #include <vector>
 #include <tuple>
 #include "LAYER.h"
 #include "../common/Vector2.h"
+#include <string>
+#include "EffekseerMng.h"
 
 // 描画データの要素
 enum class DrawElm
@@ -21,8 +22,7 @@ enum class DrawElm
 // エフェクトの種類
 enum class EFFECT
 {
-	SMOKE,
-	GRIP
+	MAGIC_FIRE,
 };
 
 #define lpImageMng ImageMng::getInstance()
@@ -65,6 +65,7 @@ public:
 
 private:
 	static ImageMng* sInstance;								// インスタンス
+	int _workLayer;
 
 	std::map<std::string, std::vector<int>> _imageMap;					// 画像ID保存用
 	std::map<EFFECT, std::vector<std::pair<int, int>>>	_effectMap;		// エフェクト保存用

@@ -13,6 +13,9 @@ Player::Player(Vector2Template<int> pos)
 	_anmEfkHd = -1;
 	_rotateFlag = false;
 	_control = &Player::ControlNormal;
+	_type = OBJ_TYPE::PLAYER;
+
+	setHP(HP_MAX);
 	Init();
 }
 
@@ -28,6 +31,25 @@ void Player::Update(void)
 	MagicUpdate();
 
 	Object::Draw();
+}
+
+void Player::Draw(void)
+{
+	Object::Draw();
+
+	int tmpNum;
+	for (int i = 0; i < 10; i++)
+	{
+		if (getHP() >= i * 10 + 1)
+		{
+			tmpNum = 0;
+		}
+		else
+		{
+			tmpNum = 2;
+		}
+		lpImageMng.AddDraw({ lpImageMng.getImage("hp_bar")[0], _pos.x - 27 + 6 * i, _pos.y - 60, 0.0, LAYER::UI, 0 });
+	}
 }
 
 void Player::Init(void)
@@ -181,10 +203,12 @@ void Player::ControlNormal(void)
 
 	if (lpKeyMng.getBuf()[KEY_INPUT_SPACE] && _coolTime == 0)
 	{
-		_anmEfkHd = lpEffectMng.playEffect(lpEffectMng.getEffect("magic_fire"), DELAY_FIRE);
+		_anmEfkHd = lpEffectMng.playEffect(lpEffectMng.getEffect("magic_fire"), DELAY_FIRE, &_pos.x, &_pos.y, PLAYER_SIZE_X / 2, 0, &(_state_dir.second));
 		_coolTime = DELAY_FIRE;
 		StateRotate();
 		_control = &Player::ControlAttack;
+		_rotateFlag = true;
+
 	}
 }
 
@@ -269,7 +293,7 @@ void Player::MagicUpdate(void)
 	}
 	if (_anmEfkHd != -1)
 	{
-		SetPosPlayingEffekseer2DEffect(_anmEfkHd, static_cast<float>(_pos.x + PLAYER_SIZE_X / 2 * (static_cast<int>(_state_dir.second) - 1)), static_cast<float>(_pos.y), 0.0f);
+		//SetPosPlayingEffekseer2DEffect(_anmEfkHd, static_cast<float>(_pos.x + PLAYER_SIZE_X / 2 * (static_cast<int>(_state_dir.second) - 1)), static_cast<float>(_pos.y), 0.0f);
 		if (_rotateFlag)
 		{
 			SetRotationPlayingEffekseer2DEffect(_anmEfkHd, 0.0f, (1 - static_cast<int>(_state_dir.second) / 2) * acos(-1.0f), 0.0f);

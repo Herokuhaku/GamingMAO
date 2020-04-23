@@ -1,9 +1,11 @@
 #pragma once
 #include "common/Vector2.h"
+#include "Graphic/LAYER.h"
 #include <fstream>
 #include <string>
 #include <sstream>
 #include <vector>
+#include <map>
 
 
 #define lpMapMng MapMng::GetInstans()
@@ -36,13 +38,22 @@ public:
 		sInstance = nullptr;
 	}
 
+	bool MapUpdate(void);
+	void HitMapUpdate(void);
+	void MapDraw(void);
+	void BlockDraw();
+	void BackGround(void);
+	void BlockLayer(void);
+	std::map<LAYER, int> _layer;
 	const Vector2Template<int> GameMapSize;	// ゲーム画面のマップの大きさ
 	std::vector<std::string> split(std::string str, char del);
 
-	void MapUpdate(void);
-
-	int GameMap[MapChipY][MapChipX];	// Y1440/16,X(2560/16)+壁2マス
 private:
+	int GameMap[MapChipY][MapChipX];	// Y1440/16,X(2560/16)+壁2マス
+	int HitMap[MapChipY][MapChipX];		// 当たり判定Map
+
+
+	
 	static MapMng *sInstance;
 	MapMng();
 	~MapMng();

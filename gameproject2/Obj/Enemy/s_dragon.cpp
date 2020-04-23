@@ -18,6 +18,8 @@ s_dragon::s_dragon()
 	_state_dir = { OBJ_STATE::NORMAL,DIR::RIGHT };
 //	_alive = true;
 	Init();
+	_pos.y = 700;
+	_type = OBJ_TYPE::ENEMY;
 //
 }
 
