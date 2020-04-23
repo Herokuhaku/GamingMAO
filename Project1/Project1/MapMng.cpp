@@ -73,17 +73,19 @@ void MapMng::HitMapUpdate(void)
 
 void MapMng::MapDraw(void)
 {
+	BlockDraw();
 	BackGround();
 }
 
 void MapMng::BlockDraw()
 {
-	DrawGraph(0,0,_layer[LAYER::BLOCK], true);
+	lpImageMng.AddDraw({_layer[LAYER::BLOCK],GameMapSize.x/2,GameMapSize.y/2,0.0,LAYER::BLOCK,0 });
 }
 
 void MapMng::BackGround(void)
 {
 	// 描画用データ　画像ID, 座標x, y, 角度, レイヤー, zオーダー
+
 	std::string no;
 	lpImageMng.AddDraw({ lpImageMng.getImage("メイン背景")[0],GameMapSize.x / 4,GameMapSize.y / 4,0.0,LAYER::BG,0 });
 	for (int i = 6;i >= 0;i--)

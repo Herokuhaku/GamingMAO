@@ -60,8 +60,6 @@ void ImageMng::Draw(void)
 		DrawRotaGraph(x, y, 1.0, rad, id, true);
 	}
 
-	lpMapMng.BlockDraw();
-
 	ScreenFlip();
 
 	_drawList.clear();
