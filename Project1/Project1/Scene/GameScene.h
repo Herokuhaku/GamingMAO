@@ -14,7 +14,7 @@ public:
 
 private:
 	bool Init(void);
-	
+
 	std::vector<std::shared_ptr<Object>>_objList;
 	std::vector<std::shared_ptr<Object>> _enemyList;
 };

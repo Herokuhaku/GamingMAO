@@ -24,14 +24,35 @@ void SceneMng::Run(void)
 	}
 }
 
+const std::shared_ptr<Object> SceneMng::GetPlObj2(void) const
+{
+	return _plObj;
+}
+
 const std::shared_ptr<Object>* SceneMng::GetPlObj(void) const
 {
 	return &_plObj;
 }
 
-void SceneMng::SetPlObj(std::shared_ptr<Object> plObj)
+void SceneMng::SetPlObj(std::shared_ptr<Object>& plObj)
 {
-	_plObj = std::move(plObj);
+	_plObj = plObj;
+}
+
+const Vector2D SceneMng::GetcPos(void) const
+{
+	Vector2D tmp = { _cPos->x,_cPos->y };
+	return tmp;
+}
+
+const std::shared_ptr<Vector2D> SceneMng::GetccPos(void) const
+{
+	return _cPos;
+}
+
+void SceneMng::SetcPos(std::shared_ptr<Vector2D> cPos)
+{
+	_cPos = cPos;
 }
 
 
@@ -40,14 +61,27 @@ bool SceneMng::SysInit(void)
 	bool rtnFlag = true;
 
 	SetWindowText("AGAME");
-	SetGraphMode(1280, 720, 16);
+	SetGraphMode(ScreenSize.x, ScreenSize.y, 16);
 	ChangeWindowMode(true);
 	if (DxLib_Init() == -1)
 	{
 		rtnFlag = false;
 	}
+	if (Effekseer_Init(5000) == -1)	// 5000 âÊñ ç≈ëÂÇÃó 
+	{
+		return false;
+	}
+
 
 	SetDrawScreen(DX_SCREEN_BACK);
+	// effekseer ÇÃèâä˙ê›íË
+	SetUseDirect3DVersion(DX_DIRECT3D_11);	// verê›íË
+	SetChangeScreenModeGraphicsSystemResetFlag(FALSE);
+
+	Effekseer_Set2DSetting(ScreenSize.x, ScreenSize.y);
+
+	std::shared_ptr<Vector2D> work(new Vector2D(0,0));
+	_cPos = work;
 
 	_flame = 0;
 

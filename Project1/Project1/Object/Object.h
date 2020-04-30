@@ -18,6 +18,13 @@ enum class OBJ_STATE
 {
 	NORMAL,
 	WALK,
+	DASH,
+	JUMP,
+	A_NORMAL,
+	A_WALK,
+	A_DASH,
+	A_JUMP,
+	FALL,
 	ATTACK,
 	DEAD
 };
@@ -49,6 +56,7 @@ public:
 
 	void setPos(Vector2Template<int> pos);
 	Vector2Template<int> getPos(void);
+	Vector2Template<int>* getPos2(void);
 
 	void setState(std::pair<OBJ_STATE, DIR> state);
 	std::pair<OBJ_STATE, DIR> getState(void);
@@ -57,7 +65,7 @@ public:
 	bool isAnmEnd(void);
 	bool isAlive(void);
 
-	void Draw(void);
+	virtual void Draw(void);
 	void anmUpdate(void);
 protected:
 	std::map<std::pair<OBJ_STATE, DIR>, AnmVec> _anmMap;	// アニメーションを保存するとこ
