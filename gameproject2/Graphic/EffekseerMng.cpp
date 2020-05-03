@@ -18,7 +18,7 @@ int EffekseerMng::getEffect(const std::string & filename, const std::string & ke
 	return _effectMap[key];
 }
 
-int EffekseerMng::playEffect(const int efcHd, const int time, int* pos_x, int* pos_y, int offset_x, int offset_y, DIR* dir)
+int EffekseerMng::playEffect(const int efcHd, const int time, int& pos_x, int& pos_y, int offset_x, int offset_y, DIR& dir)
 {
 	int playEfcHd = PlayEffekseer2DEffect(efcHd);
 	_effectList.emplace_back(playEfcHd, time, std::make_pair(pos_x, pos_y), std::make_pair(offset_x, offset_y), dir);
@@ -40,9 +40,9 @@ void EffekseerMng::UpdateEffekseer(void)
 	for (auto data = _effectList.begin(); data != _effectList.end();)
 	{
 		int handle, time;
-		std::pair<int*, int*> pos;
+		std::pair<int, int> pos;
 		std::pair<int, int> offset;
-		DIR* dir;
+		DIR dir;
 		
 		std::tie(handle, time, pos, offset, dir) = (*data);
 
@@ -55,8 +55,8 @@ void EffekseerMng::UpdateEffekseer(void)
 		else
 		{
 			SetPosPlayingEffekseer2DEffect(handle,
-				*(pos.first) - lpSceneMng.GetcPos().x + lpSceneMng.ScreenSize.x / 2  + offset.first * (static_cast<int>(*dir) - 1),
-				*(pos.second) - lpSceneMng.GetcPos().y + lpSceneMng.ScreenSize.y / 2 + offset.second, 0);
+				static_cast<float>(pos.first - static_cast<int>(lpSceneMng.GetcPos().x) + lpSceneMng.ScreenSize.x / 2  + offset.first * (static_cast<int>(dir) - 1)),
+				static_cast<float>(pos.second - static_cast<int>(lpSceneMng.GetcPos().y) + lpSceneMng.ScreenSize.y / 2 + offset.second), 0);
 			DrawEffekseer2D_Draw(handle);
 			data++;
 		}

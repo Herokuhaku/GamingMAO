@@ -86,6 +86,7 @@ bool SceneMng::SysInit(void)
 	lpImageMng.getImage("image/player_dash.png", "player_dash", 85, 90, 2, 2);
 	lpImageMng.getImage("image/player_jump.png", "player_jump", 85, 90, 2, 2);
 	lpImageMng.getImage("image/player_attack.png", "player_attack", 85, 90, 2, 12);
+	lpImageMng.getImage("image/player_dameged.png", "player_damaged", 85, 90, 2, 3);
 
 	lpImageMng.getImage("image/small_dragonR.png", "s_dragonR", 128, 128, 4, 5);
 	lpImageMng.getImage("image/small_dragonL.png", "s_dragonL", 128, 128, 4, 5);

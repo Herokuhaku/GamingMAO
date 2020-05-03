@@ -30,6 +30,10 @@ std::unique_ptr<BaceScene> GameScene::Update(std::unique_ptr<BaceScene> own)
 		(*data).Update();
 	}
 
+	getAttackQue();
+	CheckHitAttack()(_objList, _attackList);
+	CheckHitAttack()(_objList, _attackList);
+
 	for (auto data : _objList)
 	{
 		(*data).Draw();
@@ -48,9 +52,42 @@ bool GameScene::Init(void)
 	_enemyList.emplace_back(new s_dragon());
 
 	lpEffectMng.getEffect("effect/player_attack_fire.efk", "magic_fire", 1.0);
-	lpImageMng.getImage("image/player_fire_add.png", "magic_fire", 250, 125, 59, 3);
-
-
 
 	return false;
 }
+
+void GameScene::getAttackQue(void)
+{
+	_attackList.clear();
+
+	std::vector<atkData> tmpData;
+
+	for (auto data : _objList)
+	{
+		tmpData.clear();
+
+		// キューの取得
+		tmpData = data->getAttackQue();
+		
+		// キューを保存
+		for (auto que : tmpData)
+		{
+			_attackList.emplace_back(std::make_pair(que, data));
+		}
+	}
+
+	for (auto data : _enemyList)
+	{
+		tmpData.clear();
+
+		// キューの取得
+		tmpData = data->getAttackQue();
+
+		// キューを保存
+		for (auto que : tmpData)
+		{
+			_attackList.emplace_back(std::make_pair(que, data));
+		}
+	}
+}
+

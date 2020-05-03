@@ -123,6 +123,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ButtonMng.cpp" />
+    <ClCompile Include="func\CheckHitStage.cpp" />
+    <ClCompile Include="func\CheckHitAttack.cpp" />
     <ClCompile Include="Graphic\EffekseerMng.cpp" />
     <ClCompile Include="Graphic\ImageMng.cpp" />
     <ClCompile Include="Graphic\LAYER.cpp" />
@@ -142,8 +144,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ButtonMng.h" />
+    <ClInclude Include="func\CheckHitStage.h" />
     <ClInclude Include="common\detailes\Vector2.h" />
     <ClInclude Include="common\Vector2.h" />
+    <ClInclude Include="func\CheckHitAttack.h" />
     <ClInclude Include="Graphic\EffekseerMng.h" />
     <ClInclude Include="Graphic\ImageMng.h" />
     <ClInclude Include="Graphic\LAYER.h" />

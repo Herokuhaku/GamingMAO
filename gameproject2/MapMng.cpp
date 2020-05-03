@@ -26,11 +26,20 @@ std::vector<std::string> MapMng::split(std::string str, char delimiter)
 	return result;
 }
 
+bool MapMng::getHitMap(const Vector2& pos)
+{
+	Vector2 chip = pos / CHIP_SIZE;
+
+	if (chip.x < 0 || chip.x >= MapChipX || chip.y < 0 || chip.y >= MapChipY)
+	{
+		return true;
+	}
+
+	return HitMap[chip.y][chip.x];
+}
+
 bool MapMng::MapUpdate(void)
 {
-
-	//BlockLayer();
-
 	std::ifstream ifs("mapdata/map.csv");
 	std::string line;
 
@@ -42,7 +51,7 @@ bool MapMng::MapUpdate(void)
 		std::vector<std::string> save = split(line, ',');
 
 		x = 0;
-		for (int i = 0;i < save.size();i++)
+		for (unsigned int i = 0;i < save.size();i++)
 		{
 			GameMap[y][x] = stoi(save.at(i));
 			x++;
@@ -51,6 +60,7 @@ bool MapMng::MapUpdate(void)
 	}
 
 	HitMapUpdate();		// “–‚½‚è”»’è
+	BlockLayer();
 
 	return true;
 }
