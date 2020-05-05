@@ -217,7 +217,7 @@ void Player::ControlNormal(void)
 
 	if (lpKeyMng.getBuf()[KEY_INPUT_SPACE] && _coolTime == 0)
 	{
-		_anmEfkHd = lpEffectMng.playEffect(lpEffectMng.getEffect("magic_fire"), DELAY_FIRE, _pos.x, _pos.y, PLAYER_SIZE_X / 2, -_drawOffset_y, _state_dir.second);
+		_anmEfkHd = lpEffectMng.playEffect(lpEffectMng.getEffect("magic_fire"), DELAY_FIRE, &_pos.x, &_pos.y, PLAYER_SIZE_X / 2, -_drawOffset_y, &(_state_dir.second));
 		_coolTime = DELAY_FIRE;
 		StateRotate();
 		_control = &Player::ControlAttack;
