@@ -141,8 +141,8 @@ void ImageMng::Fade(void)
 	if(_fadeCnt <= -255)
 	{
 		_Gkind = ScrEff::MAX;
-		SetDrawBright(255,255,255);
-		//SetDrawBright(255,255,0);
+		//SetDrawBright(255,255,255);
+		SetDrawBright(255,255,0);
 	}
 }
 

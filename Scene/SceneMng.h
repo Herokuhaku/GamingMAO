@@ -36,6 +36,7 @@ public:
 
 	unsigned int GetFlame(void) { return _flame; };
 
+	const Vector2 GetPlPos(void) const;
 	const std::shared_ptr<Object> GetPlObj2(void) const;
 	const std::shared_ptr<Object>* GetPlObj(void) const;
 	void SetPlObj(std::shared_ptr<Object>& plObj);

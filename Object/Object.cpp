@@ -27,11 +27,6 @@ Vector2Template<int> Object::getPos(void)
 	return _pos;
 }
 
-Vector2Template<int>* Object::getPos2(void)
-{
-	return &_pos;
-}
-
 void Object::setState(std::pair<OBJ_STATE, DIR> state)
 {
 	_state_dir = state;
