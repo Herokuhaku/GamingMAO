@@ -80,7 +80,7 @@ public:
 	bool isAlive(void);
 
 	virtual void Draw(void);
-	void anmUpdate(void);
+	bool anmUpdate(void);
 
 	void setAttack(const std::string key, std::vector<atkData>& data);
 	void AddAttack(const std::string key);

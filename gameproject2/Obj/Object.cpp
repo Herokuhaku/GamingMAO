@@ -133,16 +133,16 @@ void Object::Draw(void)
 	lpImageMng.AddDraw({ _anmMap[_state_dir][_anmFlame].first, _pos.x, _pos.y - _drawOffset_y, _rad, LAYER::CHAR, _zOrder });
 }
 
-void Object::anmUpdate(void)
+bool Object::anmUpdate(void)
 {
 	// 範囲外チェック
 	if (_anmMap.find(_state_dir) == _anmMap.end())
 	{
-		return;
+		return false;
 	}
 	if ((_anmFlame >= _anmMap[_state_dir].size()) || (_anmFlame < 0))
 	{
-		return;
+		return false;
 	}
 
 	// アニメーションのカウントのチェック
@@ -155,7 +155,7 @@ void Object::anmUpdate(void)
 		}
 		else if (_anmMap[_state_dir][_anmFlame].second == -10)
 		{
-			_state_dir.first = OBJ_STATE::NORMAL;
+			setState({ OBJ_STATE::NORMAL, _state_dir.second });
 		}
 	}
 
@@ -168,7 +168,10 @@ void Object::anmUpdate(void)
 	{
 		_anmTime = 0;
 		_anmFlame = 0;
+		return false;
 	}
+
+	return true;
 }
 
 void Object::setAttack(const std::string key, std::vector<atkData>& data)
