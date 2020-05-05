@@ -12,6 +12,7 @@
 
 #define MapChipY 90
 #define MapChipX 160+2
+#define MapOffSetY 16 * 5
 
 class MapMng
 {
@@ -52,7 +53,11 @@ private:
 	int GameMap[MapChipY][MapChipX];	// Y1440/16,X(2560/16)+•Ç2ƒ}ƒX
 	int HitMap[MapChipY][MapChipX];		// “–‚½‚è”»’èMap
 
-
+	void SetBgLayer(int bgNo);		// 
+	int _layer0;
+	int _layer1;
+	int _layer2;
+	int layerPosX;
 	
 	static MapMng *sInstance;
 	MapMng();

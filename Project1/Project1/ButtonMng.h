@@ -31,6 +31,7 @@ public:
 	}
 	void Run(void);
 	std::pair<int, int> Buttonf(int no, int type);			// ボタンの情報を返す
+	const void Buttonf(int no, int type,int First ,int Second);			// ボタンの情報を上書きする
 private:
 	static ButtonMng* sInstance;
 

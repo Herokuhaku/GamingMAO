@@ -13,6 +13,11 @@ Player::Player(Vector2Template<int> pos)
 	_anmEfkHd = -1;
 	_rotateFlag = false;
 	_control = &Player::ControlNormal;
+	_type = OBJ_TYPE::PLAYER;
+	setHitOffset({ 14,10,70,0 });
+	_drawOffset_y = 45;
+
+	setHP(HP_MAX);
 	Init();
 }
 
@@ -28,6 +33,25 @@ void Player::Update(void)
 	MagicUpdate();
 
 	Object::Draw();
+}
+
+void Player::Draw(void)
+{
+	Object::Draw();
+
+	int tmpNum;
+	for (int i = 0; i < 10; i++)
+	{
+		if (getHP() >= i * 10 + 1)
+		{
+			tmpNum = 0;
+		}
+		else
+		{
+			tmpNum = 2;
+		}
+		lpImageMng.AddDraw({ lpImageMng.getImage("hp_bar")[0], _pos.x - 27 + 6 * i, _pos.y - 60 - _drawOffset_y, 0.0, LAYER::UI, 0 });
+	}
 }
 
 void Player::Init(void)
@@ -124,6 +148,18 @@ void Player::Init(void)
 	data.emplace_back(lpImageMng.getImage("player_walk")[15], 120);
 	setAnm({ OBJ_STATE::WALK, DIR::RIGHT }, data);
 
+	data.reserve(1);
+	data.emplace_back(lpImageMng.getImage("player_damaged")[0], 3);
+	setAnm({ OBJ_STATE::DAMAGE, DIR::LEFT }, data);
+
+	data.emplace_back(lpImageMng.getImage("player_damaged")[1], 3);
+	setAnm({ OBJ_STATE::DAMAGE, DIR::RIGHT }, data);
+
+	data.emplace_back(lpImageMng.getImage("player_damaged")[2], 3);
+	setAnm({ OBJ_STATE::DEAD, DIR::LEFT } , data);
+
+	data.emplace_back(lpImageMng.getImage("player_damaged")[3], 3);
+	setAnm({ OBJ_STATE::DEAD, DIR::RIGHT }, data);
 
 	_vel = 0.0;
 	_tmpPos.y = static_cast<double>(_pos.y);
@@ -173,7 +209,7 @@ void Player::ControlNormal(void)
 		}
 	}
 
-	if (CheckHitKey(KEY_INPUT_UP) && static_cast<int>(_tmpPos.y) + PLAYER_SIZE_Y / 2 == 720)
+	if (CheckHitKey(KEY_INPUT_UP) && static_cast<int>(_tmpPos.y) == 1440)
 	{
 		_vel = INI_VEL_NORMAL;
 		setState({ OBJ_STATE::JUMP, _state_dir.second });
@@ -181,10 +217,12 @@ void Player::ControlNormal(void)
 
 	if (lpKeyMng.getBuf()[KEY_INPUT_SPACE] && _coolTime == 0)
 	{
-		_anmEfkHd = lpEffectMng.playEffect(lpEffectMng.getEffect("magic_fire"), DELAY_FIRE);
+		_anmEfkHd = lpEffectMng.playEffect(lpEffectMng.getEffect("magic_fire"), DELAY_FIRE, &_pos.x, &_pos.y, PLAYER_SIZE_X / 2, -_drawOffset_y, &(_state_dir.second));
 		_coolTime = DELAY_FIRE;
 		StateRotate();
 		_control = &Player::ControlAttack;
+		_rotateFlag = true;
+
 	}
 }
 
@@ -248,7 +286,7 @@ void Player::ControlAttack(void)
 		}
 	}
 
-	if (CheckHitKey(KEY_INPUT_UP) && static_cast<int>(_tmpPos.y) + PLAYER_SIZE_Y / 2 == 720)
+	if (CheckHitKey(KEY_INPUT_UP) && _tmpPos.y == 1440)
 	{
 		_vel = INI_VEL_NORMAL;
 		setState({ OBJ_STATE::A_JUMP, _state_dir.second });
@@ -269,7 +307,7 @@ void Player::MagicUpdate(void)
 	}
 	if (_anmEfkHd != -1)
 	{
-		SetPosPlayingEffekseer2DEffect(_anmEfkHd, static_cast<float>(_pos.x + PLAYER_SIZE_X / 2 * (static_cast<int>(_state_dir.second) - 1)), static_cast<float>(_pos.y), 0.0f);
+		//SetPosPlayingEffekseer2DEffect(_anmEfkHd, static_cast<float>(_pos.x + PLAYER_SIZE_X / 2 * (static_cast<int>(_state_dir.second) - 1)), static_cast<float>(_pos.y), 0.0f);
 		if (_rotateFlag)
 		{
 			SetRotationPlayingEffekseer2DEffect(_anmEfkHd, 0.0f, (1 - static_cast<int>(_state_dir.second) / 2) * acos(-1.0f), 0.0f);
@@ -313,14 +351,14 @@ void Player::StateRotate(void)
 
 void Player::VelUpdate(void)
 {
-	if (static_cast<int>(_tmpPos.y) + PLAYER_SIZE_Y / 2 < 720)
+	if (_tmpPos.y < 1440.0)
 	{
 		_vel = _vel - G_ACC_NORMAL;
 	}
 
-	if (_vel != 0 && static_cast<int>(_tmpPos.y) + PLAYER_SIZE_Y / 2 - _vel >= 720)
+	if (_vel != 0.0 && _tmpPos.y - _vel >= 1440.0)
 	{
-		_tmpPos.y = 720.0 - PLAYER_SIZE_Y / 2;
+		_tmpPos.y = 1440.0;
 		_vel = 0.0;
 		if (lpKeyMng.getBuf()[KEY_INPUT_LEFT] || lpKeyMng.getBuf()[KEY_INPUT_RIGHT])
 		{

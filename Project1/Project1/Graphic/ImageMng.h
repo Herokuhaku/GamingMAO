@@ -27,6 +27,13 @@ enum class EFFECT
 	GRIP
 };
 
+// 画面効果
+enum class ScrEff
+{
+	FADE,
+	MAX
+};
+
 #define lpImageMng ImageMng::getInstance()
 
 using DrawData = std::tuple<int, int, int, double, LAYER, int>;	// 描画用データ　画像ID, 座標x, y, 角度, レイヤー, zオーダー
@@ -65,6 +72,9 @@ public:
 
 	void AddDraw(DrawData data);	// 描画情報の追加
 
+	void setGkind(ScrEff kind);
+	void ScreenEffect(void);
+	void Fade(void);
 private:
 	static ImageMng* sInstance;								// インスタンス
 	int _workLayer;
@@ -74,6 +84,9 @@ private:
 
 	std::vector<DrawData> _drawList;						// 描画情報保存用
 	std::vector<std::tuple<EFFECT, Vector2Template<int>, int, int>> _effectList;		// 進行中のエフェクト
+
+	ScrEff _Gkind;
+	int _fadeCnt;
 
 	ImageMng();
 	~ImageMng();

@@ -69,10 +69,15 @@ void ImageMng::Draw(void)
 
 	int x, y;
 	x = lpSceneMng.GetcPos().x - (SCREEN_SIZE_X / 2);
-	y = lpSceneMng.GetcPos().y - (SCREEN_SIZE_Y / 2)-200;
+	y = lpSceneMng.GetcPos().y - (SCREEN_SIZE_Y / 2);
 	DrawRectGraph(0, 0, x, y, SCREEN_SIZE_X, SCREEN_SIZE_Y, _workLayer, false, false);
 
+	DrawBox(0, lpSceneMng.ScreenSize.y - 100, lpSceneMng.ScreenSize.x, lpSceneMng.ScreenSize.y, 0x00ffff,true);
+	DrawEffekseer2D_Begin();
 	lpEffectMng.UpdateEffekseer();
+	DrawEffekseer2D_End();
+
+	ScreenEffect();
 
 	ScreenFlip();
 
@@ -117,6 +122,44 @@ void ImageMng::AddDraw(DrawData data)
 	_drawList.emplace_back(data);
 }
 
+void ImageMng::ScreenEffect(void)
+{
+	switch(_Gkind)
+	{
+			case ScrEff::FADE:
+					Fade();
+					break;
+			defoult:
+					break;
+	}
+}
+
+void ImageMng::Fade(void)
+{
+	int bright = std::abs( 255 - std::abs(_fadeCnt - 255));
+	SetDrawBright(bright,bright,bright);
+	_fadeCnt += -2;
+	if(_fadeCnt <= -255)
+	{
+		_Gkind = ScrEff::MAX;
+		SetDrawBright(255,255,255);
+		//SetDrawBright(255,255,0);
+	}
+}
+
+void ImageMng::setGkind(ScrEff kind)
+{
+	_Gkind = kind;
+	switch(_Gkind)
+	{
+			case ScrEff::FADE:
+					_fadeCnt = 255;
+					break;
+			default:
+					break;
+	}
+}
+
 ImageMng::ImageMng()
 {
 	ImageMngInit();
@@ -131,5 +174,7 @@ ImageMng::~ImageMng()
 void ImageMng::ImageMngInit(void)
 {
 	getImage("image/effect.png", "gripEffect", 64, 64, 3, 1);
+	_fadeCnt = 255;
+	_Gkind = ScrEff::MAX;
 }
 
