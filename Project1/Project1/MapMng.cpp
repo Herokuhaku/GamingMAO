@@ -68,6 +68,11 @@ void MapMng::HitMapUpdate(void)
 			}
 		}
 	}
+	// ”wŒi‚Æ‡‚í‚¹‚é‚½‚ß‚Éˆê“I‚É‘‚¢‚Ä‚¢‚é‚¾‚¯
+	for (int x = 0; x < MapChipX; x++)
+	{
+		HitMap[82][x] = 1;
+	}
 }
 
 void MapMng::MapDraw(void)
@@ -103,7 +108,7 @@ void MapMng::BlockLayer(void)
 		{
 			if (GameMap[y][x] != -1)
 			{
-				DrawRotaGraph(x*16, y*16, 1.0, 0, lpImageMng.getImage("Block")[GameMap[y][x]], true);
+				DrawRotaGraph(x*16+(CHIP_SIZE/2), y*16, 1.0, 0, lpImageMng.getImage("Block")[GameMap[y][x]], true);
 			}
 		}
 	}
@@ -112,9 +117,8 @@ void MapMng::BlockLayer(void)
 void MapMng::SetBgLayer(int bgNo)
 {
 	int bgX = 928;
-	int bgY = 793;
-	int plPosX = lpSceneMng.GetPlPos().x;
-	int plPosY = lpSceneMng.GetPlPos().y;
+	int bgY = 777;
+	
 	std::string no;
 
 	SetDrawScreen(_layer2);
@@ -199,4 +203,16 @@ MapMng::MapMng():
 MapMng::~MapMng()
 {
 
+}
+
+bool MapMng::getHitMap(const Vector2& pos)
+{
+	Vector2 chip = pos / CHIP_SIZE;
+
+	if (chip.x < 0 || chip.x >= MapChipX || chip.y < 0 || chip.y >= MapChipY)
+	{
+		return true;
+	}
+
+	return (HitMap[chip.y][chip.x] == 1);
 }

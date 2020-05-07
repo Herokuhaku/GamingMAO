@@ -3,6 +3,7 @@
 #include <cmath>
 #include "Object.h"
 #include "../KeyMng.h"
+#include "../func/CheckHitStage.h"
 
 
 #define PLAYER_SIZE_X	85
@@ -28,6 +29,7 @@ private:
 	static constexpr int WALK_SPEED = 4;
 	static constexpr double G_ACC_NORMAL = 0.3;
 	static constexpr double INI_VEL_NORMAL = 8.0;
+	static constexpr double VEL_MAX = 8.0;
 
 	void Init(void);
 

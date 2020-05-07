@@ -72,7 +72,7 @@ void ImageMng::Draw(void)
 	y = lpSceneMng.GetcPos().y - (SCREEN_SIZE_Y / 2);
 	DrawRectGraph(0, 0, x, y, SCREEN_SIZE_X, SCREEN_SIZE_Y, _workLayer, false, false);
 
-	DrawBox(0, lpSceneMng.ScreenSize.y - 100, lpSceneMng.ScreenSize.x, lpSceneMng.ScreenSize.y, 0x00ffff,true);
+	DrawBox(0, lpSceneMng.ScreenSize.y - 100, lpSceneMng.ScreenSize.x, lpSceneMng.ScreenSize.y, 0x123456,true);
 	DrawEffekseer2D_Begin();
 	lpEffectMng.UpdateEffekseer();
 	DrawEffekseer2D_End();
@@ -143,7 +143,6 @@ void ImageMng::Fade(void)
 	{
 		_Gkind = ScrEff::MAX;
 		SetDrawBright(255,255,255);
-		//SetDrawBright(255,255,0);
 	}
 }
 

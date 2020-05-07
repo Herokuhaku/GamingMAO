@@ -17,7 +17,6 @@ Object::Object()
 	_inv = 0;
 	_hitOffset = {};
 	_drawOffset_y = 0;
-
 	_type = OBJ_TYPE::PLAYER;
 }
 
@@ -153,13 +152,18 @@ bool Object::anmUpdate(void)
 	if (_anmTime >= _anmMap[_state_dir][_anmFlame].second)
 	{
 		// ループ再生かをチェック
-		if (_anmMap[_state_dir][_anmFlame].second != -1)
+		if (_anmMap[_state_dir][_anmFlame].first != -1)
 		{
 			_anmFlame++;
+			if (_anmFlame < _anmMap[_state_dir].size() && 
+				_anmMap[_state_dir][_anmFlame].second == 0)
+			{
+				setState({ OBJ_STATE::NORMAL, _state_dir.second });
+			}
 		}
-		else if (_anmMap[_state_dir][_anmFlame].second == -10)
+		else
 		{
-			setState({ OBJ_STATE::NORMAL, _state_dir.second });
+			return false;
 		}
 	}
 

@@ -70,11 +70,11 @@ void Menu::SELECT(void)
 		}
 	}
 	//lpImageMng.AddDraw({ lpImageMng.getImage("–îˆó")[0],lpSceneMng.GetcPos().x,lpSceneMng.GetcPos().y,0.0,LAYER::EX,50 });
-	lpImageMng.AddDraw({ lpImageMng.getImage("Menu")[0],lpSceneMng.GetcPos().x + 200,lpSceneMng.GetcPos().y - 200,0.0,LAYER::EX,100 });
+	lpImageMng.AddDraw({ lpImageMng.getImage("Menu")[0],lpSceneMng.GetcPos().x + 200,lpSceneMng.GetcPos().y,0.0,LAYER::EX,100 });
 	
-	_select;
-	if (lpButtonMng.Buttonf(0, XINPUT_BUTTON_B).first == 0 &&
-		lpButtonMng.Buttonf(0, XINPUT_BUTTON_B).second == 1)
+
+	if (lpButtonMng.Buttonf(0, XINPUT_BUTTON_B).first == 1 &&
+		lpButtonMng.Buttonf(0, XINPUT_BUTTON_B).second == 0)
 	{
 		_type = static_cast<MENU_TYPE>(_select);
 		switch (_type)
@@ -92,17 +92,18 @@ void Menu::SELECT(void)
 			break;
 		}
 	}
+
 }
 
 void Menu::ItemPup(void)
 {
 	//Start(&push_select);
 
-	lpImageMng.AddDraw({ lpImageMng.getImage("Menu")[0],lpSceneMng.GetcPos().x + 200,lpSceneMng.GetcPos().y - 200,0.0,LAYER::EX,100 });
-	lpImageMng.AddDraw({ lpImageMng.getImage("Space")[0],lpSceneMng.GetcPos().x-200,lpSceneMng.GetcPos().y-300,0.0,LAYER::EX,150 });
+	lpImageMng.AddDraw({ lpImageMng.getImage("Menu")[0],lpSceneMng.GetcPos().x + 200,lpSceneMng.GetcPos().y,0.0,LAYER::EX,100 });
+	lpImageMng.AddDraw({ lpImageMng.getImage("Space")[0],lpSceneMng.GetcPos().x-200,lpSceneMng.GetcPos().y-100,0.0,LAYER::EX,150 });
 
-	if (lpButtonMng.Buttonf(0, XINPUT_BUTTON_A).first == 0 &&
-		lpButtonMng.Buttonf(0, XINPUT_BUTTON_A).second == 1)
+	if (lpButtonMng.Buttonf(0, XINPUT_BUTTON_A).first == 1 &&
+		lpButtonMng.Buttonf(0, XINPUT_BUTTON_A).second == 0)
 	{
 		type = &Menu::SELECT;
 	}

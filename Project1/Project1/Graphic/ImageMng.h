@@ -72,11 +72,9 @@ public:
 
 	void AddDraw(DrawData data);	// 描画情報の追加
 
-	void setGkind(ScrEff kind);
-	void ScreenEffect(void);
-	void Fade(void);
+	void setGkind(ScrEff kind);		// 画面エフェクトの種類
 private:
-	static ImageMng* sInstance;								// インスタンス
+	static ImageMng* sInstance;		// インスタンス
 	int _workLayer;
 
 	std::map<std::string, std::vector<int>> _imageMap;					// 画像ID保存用
@@ -85,8 +83,13 @@ private:
 	std::vector<DrawData> _drawList;						// 描画情報保存用
 	std::vector<std::tuple<EFFECT, Vector2Template<int>, int, int>> _effectList;		// 進行中のエフェクト
 
+	//---------------------------------------------------------
+	void ScreenEffect(void);		// 画面エフェクトの分岐
+	void Fade(void);				// 画面エフェクト：フェード
+	
 	ScrEff _Gkind;
 	int _fadeCnt;
+	//---------------------------------------------------------
 
 	ImageMng();
 	~ImageMng();

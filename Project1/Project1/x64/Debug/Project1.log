@@ -1,2 +1,7 @@
-﻿  s_dragon.cpp
-  Project1.vcxproj -> C:\Users\satou\Desktop\AsoGame2020.冬\2020.5.05 末安統合 - コピー (2)\Project1\x64\Debug\Project1.exe
+﻿  MapMng.cpp
+C:\Users\satou\Desktop\AsoGame2020.冬\2020.5.06 - コピー\Project1\Project1\MapMng.cpp(94,37): warning C4244: '=': 'T' から 'int' への変換です。データが失われる可能性があります。
+          with
+          [
+              T=double
+          ]
+  Project1.vcxproj -> C:\Users\satou\Desktop\AsoGame2020.冬\2020.5.06 - コピー\Project1\x64\Debug\Project1.exe
