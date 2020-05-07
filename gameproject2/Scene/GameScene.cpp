@@ -1,8 +1,8 @@
 #include "GameScene.h"
 #include "SceneMng.h"
-#include "../Obj/Player.h"
-#include "../Obj/camera.h"
-#include "../Obj/Enemy/s_dragon.h"
+#include "../Object/Player.h"
+#include "../Object/camera.h"
+#include "../Object/Enemy/s_dragon.h"
 #include "../MapMng.h"
 
 GameScene::GameScene()

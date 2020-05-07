@@ -3,7 +3,7 @@
 #include "../common/Vector2.h"
 #include <memory>
 #include "BaceScene.h"
-#include "../Obj/Object.h"
+#include "../Object/Object.h"
 #include "GameScene.h"
 #include "../KeyMng.h"
 

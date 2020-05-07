@@ -35,7 +35,7 @@ bool MapMng::getHitMap(const Vector2& pos)
 		return true;
 	}
 
-	return HitMap[chip.y][chip.x];
+	return (HitMap[chip.y][chip.x] == 1);
 }
 
 bool MapMng::MapUpdate(void)
@@ -68,7 +68,7 @@ bool MapMng::MapUpdate(void)
 void MapMng::HitMapUpdate(void)
 {
 	int tmpMap;
-	for (int y = 0;y < MapChipY;y++)
+	for (int y = 0; y < MapChipY; y++)
 	{
 		for (int x = 0; x < MapChipX;x++)
 		{
@@ -116,7 +116,7 @@ void MapMng::BlockLayer(void)
 		{
 			if (GameMap[y][x] != -1)
 			{
-				DrawRotaGraph(x*16, y*16, 1.0, 0, lpImageMng.getImage("Block")[GameMap[y][x]], true);
+				DrawGraph(x*16, y*16, lpImageMng.getImage("Block")[GameMap[y][x]], true);
 			}
 		}
 	}

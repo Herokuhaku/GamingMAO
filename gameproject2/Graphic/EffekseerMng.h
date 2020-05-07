@@ -5,7 +5,7 @@
 #include <vector>
 #include <tuple>
 #include <type_traits>
-#include "../Obj/DIR.h"
+#include "../Object/DIR.h"
 
 
 enum class EFK_DATA : int

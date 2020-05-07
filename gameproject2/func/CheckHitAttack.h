@@ -1,6 +1,6 @@
 #pragma once
 #include "../Scene/GameScene.h"
-#include "../Obj/Object.h"
+#include "../Object/Object.h"
 
 struct CheckHitAttack
 {
