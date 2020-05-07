@@ -32,7 +32,7 @@ enum class ScrEff
 {
 	FADE,
 	MAX
-}
+};
 
 #define lpImageMng ImageMng::getInstance()
 
@@ -72,6 +72,7 @@ public:
 
 	void AddDraw(DrawData data);	// 描画情報の追加
 
+	void setGkind(ScrEff kind);
 	void ScreenEffect(void);
 	void Fade(void);
 private:
@@ -84,7 +85,6 @@ private:
 	std::vector<DrawData> _drawList;						// 描画情報保存用
 	std::vector<std::tuple<EFFECT, Vector2Template<int>, int, int>> _effectList;		// 進行中のエフェクト
 
-	void setGkind(ScrEff kind);
 	ScrEff _Gkind;
 	int _fadeCnt;
 

@@ -68,6 +68,11 @@ void MapMng::HitMapUpdate(void)
 			}
 		}
 	}
+	// ”wŒi‚Æ‡‚í‚¹‚é‚½‚ß‚Éˆê“I‚É‘‚¢‚Ä‚¢‚é‚¾‚¯
+	for (int x = 0; x < MapChipX; x++)
+	{
+		HitMap[82][x] = 1;
+	}
 }
 
 void MapMng::MapDraw(void)
@@ -112,9 +117,8 @@ void MapMng::BlockLayer(void)
 void MapMng::SetBgLayer(int bgNo)
 {
 	int bgX = 928;
-	int bgY = 793;
-	int plPosX = lpSceneMng.GetPlPos().x;
-	int plPosY = lpSceneMng.GetPlPos().y;
+	int bgY = 777;
+	
 	std::string no;
 
 	SetDrawScreen(_layer2);

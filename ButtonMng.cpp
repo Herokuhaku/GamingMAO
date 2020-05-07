@@ -25,6 +25,11 @@ std::pair<int, int> ButtonMng::Buttonf(int no,int type)		// ƒRƒ“ƒgƒ[ƒ‰[”Ô†,ƒ
 	return ButtonState[no][type];
 }
 
+const void ButtonMng::Buttonf(int no, int type, int First, int Second)
+{
+	ButtonState[no][type] = { First,Second };
+}
+
 void ButtonMng::UpFlag(void)
 {
 	for (int i = 0; i < 16; i++)

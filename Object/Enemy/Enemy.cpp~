@@ -35,7 +35,7 @@ int Enemy::Move(Vector2 pPos)
 		{
 			_pos.x += _speed;
 			x = (_pos.x + 64) / MapCSize;
-			y = (_pos.y - 64) / MapCSize;
+			y = (_pos.y + 64) / MapCSize;
 			if(lpMapMng.HitMap[y][x] == 1)
 			{
 				setState({ OBJ_STATE::WALK,DIR::LEFT });
@@ -45,7 +45,7 @@ int Enemy::Move(Vector2 pPos)
 		{
 			_pos.x -= _speed;
 			x = (_pos.x - 64) / MapCSize;
-			y = (_pos.y - 64) / MapCSize;
+			y = (_pos.y + 64) / MapCSize;
 			if(lpMapMng.HitMap[y][x] == 1)
 			{
 				setState({ OBJ_STATE::WALK,DIR::RIGHT });
@@ -102,12 +102,12 @@ int Enemy::AtkMove(Vector2 pPos)
 	if (_state_dir.second == DIR::RIGHT)
 	{
 		//_pos.x += lpSceneMng.GetFlame() % 2;
-		_pos.x += _speed + 1;
+		_pos.x += 2;
 	}
 	else
 	{
 		//_pos.x -= lpSceneMng.GetFlame() % 2;
-		_pos.x -= _speed + 1;
+		_pos.x -= 2;
 	}
 	return _aState;
 }
