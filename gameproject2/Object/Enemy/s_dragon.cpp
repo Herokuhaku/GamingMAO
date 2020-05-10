@@ -18,8 +18,8 @@ s_dragon::s_dragon()
 	_state_dir = { OBJ_STATE::NORMAL,DIR::RIGHT };
 //	_alive = true;
 	Init();
-	_pos.y = 700;
-	_type = OBJ_TYPE::ENEMY;
+	_pos.y = 1000;
+	_pos.x = 10;
 //
 }
 
@@ -47,7 +47,7 @@ void s_dragon::Init(void)
 	{
 		data.emplace_back(lpImageMng.getImage("s_dragonR")[16 + i], 20 + i * 20);
 	}
-	data.emplace_back(-10, 0);
+	data.emplace_back(-1, 0);
 	setAnm({ OBJ_STATE::ATTACK,DIR::RIGHT }, data);
 
 	for (int i = 0; i < 4; i++)

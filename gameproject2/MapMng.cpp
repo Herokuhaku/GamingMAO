@@ -1,6 +1,7 @@
 #include "MapMng.h"
 #include "Graphic/ImageMng.h"
 #include "DxLib.h"
+#include "Scene/SceneMng.h"
 
 MapMng* MapMng::sInstance = nullptr;
 
@@ -26,18 +27,6 @@ std::vector<std::string> MapMng::split(std::string str, char delimiter)
 	return result;
 }
 
-bool MapMng::getHitMap(const Vector2& pos)
-{
-	Vector2 chip = pos / CHIP_SIZE;
-
-	if (chip.x < 0 || chip.x >= MapChipX || chip.y < 0 || chip.y >= MapChipY)
-	{
-		return true;
-	}
-
-	return (HitMap[chip.y][chip.x] == 1);
-}
-
 bool MapMng::MapUpdate(void)
 {
 	std::ifstream ifs("mapdata/map.csv");
@@ -51,7 +40,7 @@ bool MapMng::MapUpdate(void)
 		std::vector<std::string> save = split(line, ',');
 
 		x = 0;
-		for (unsigned int i = 0;i < save.size();i++)
+		for (int i = 0;i < save.size();i++)
 		{
 			GameMap[y][x] = stoi(save.at(i));
 			x++;
@@ -60,7 +49,7 @@ bool MapMng::MapUpdate(void)
 	}
 
 	HitMapUpdate();		// ìñÇΩÇËîªíË
-	BlockLayer();
+	BlockLayer();		// ÉuÉçÉbÉNï`âÊÇÃçXêV
 
 	return true;
 }
@@ -68,41 +57,44 @@ bool MapMng::MapUpdate(void)
 void MapMng::HitMapUpdate(void)
 {
 	int tmpMap;
-	for (int y = 0; y < MapChipY; y++)
+	for (int y = 0;y < MapChipY;y++)
 	{
 		for (int x = 0; x < MapChipX;x++)
 		{
 			tmpMap = GameMap[y][x];
-			if (tmpMap != -1 || tmpMap >= 0 && tmpMap <= 23)
+			if (tmpMap >= 0 && tmpMap <= 23)
 			{
 				HitMap[y][x] = 1;
 			}
 		}
 	}
+	// îwåiÇ∆çáÇÌÇπÇÈÇΩÇﬂÇ…àÍéûìIÇ…èëÇ¢ÇƒÇ¢ÇÈÇæÇØ
+	for (int x = 0; x < MapChipX; x++)
+	{
+		HitMap[82][x] = 1;
+	}
 }
 
 void MapMng::MapDraw(void)
 {
-	BackGround();
 	BlockDraw();
+	BackGround();
 }
 
 void MapMng::BlockDraw()
 {
-	lpImageMng.AddDraw({ _layer[LAYER::BLOCK], 160 * 16 / 2, 90 * 16 / 2, 0.0, LAYER::BLOCK,0 });
+	lpImageMng.AddDraw({ _layer[LAYER::BLOCK],GameMapSize.x/2,GameMapSize.y/2,0.0,LAYER::BLOCK,0 });
 }
 
 void MapMng::BackGround(void)
 {
 	// ï`âÊópÉfÅ[É^Å@âÊëúID, ç¿ïWx, y, äpìx, ÉåÉCÉÑÅ[, zÉIÅ[É_Å[
-	std::string no;
-	lpImageMng.AddDraw({ lpImageMng.getImage("ÉÅÉCÉìîwåi")[0],GameMapSize.x / 4,GameMapSize.y / 4,0.0,LAYER::BG,0 });
-	for (int i = 6;i >= 0;i--)
-	{
-		no = std::to_string(i);
-		lpImageMng.AddDraw({ lpImageMng.getImage(no)[0],GameMapSize.x / 4,GameMapSize.y / 4,0.0,LAYER::BG,i });
-	}
+	lpImageMng.AddDraw({ lpImageMng.getImage("ÉÅÉCÉìîwåi")[0],GameMapSize.x / 2,GameMapSize.y / 2,0.0,LAYER::BG,0 });
 
+	layerPosX = lpSceneMng.GetcPos().x + (500 - lpSceneMng.GetcPos().x) / 2;
+	lpImageMng.AddDraw({ _layer0,GameMapSize.x / 2,GameMapSize.y / 2 ,0.0,LAYER::BG,2 });
+	lpImageMng.AddDraw({ _layer1,GameMapSize.x / 2,GameMapSize.y / 2 ,0.0,LAYER::BG,1 });
+	lpImageMng.AddDraw({ _layer2,layerPosX,GameMapSize.y / 2 ,0.0,LAYER::BG,0 });
 }
 
 void MapMng::BlockLayer(void)
@@ -116,16 +108,62 @@ void MapMng::BlockLayer(void)
 		{
 			if (GameMap[y][x] != -1)
 			{
-				DrawGraph(x*16, y*16, lpImageMng.getImage("Block")[GameMap[y][x]], true);
+				DrawRotaGraph(x*16+(CHIP_SIZE/2), y*16, 1.0, 0, lpImageMng.getImage("Block")[GameMap[y][x]], true);
 			}
 		}
 	}
 }
 
+void MapMng::SetBgLayer(int bgNo)
+{
+	int bgX = 928;
+	int bgY = 777;
+	
+	std::string no;
+
+	SetDrawScreen(_layer2);
+	ClsDrawScreen();
+
+	SetDrawScreen(_layer1);
+	ClsDrawScreen();
+
+	SetDrawScreen(_layer0);
+	ClsDrawScreen();
+	
+	switch(bgNo)
+	{
+		case 1:
+			for (int i = 0; i < 4; i++)
+			{
+				SetDrawScreen(_layer2);
+				for (int j = 6; j >= 6; j--)
+				{
+					no = std::to_string(j);
+					DrawRotaGraph(bgX * i, GameMapSize.y - (bgY / 2) - MapOffSetY, 1.0, 0.0, lpImageMng.getImage(no)[0], true, false);
+				}
+				SetDrawScreen(_layer1);
+				for (int j = 5; j >= 1; j--)
+				{
+					no = std::to_string(j);
+					DrawRotaGraph(bgX * i, GameMapSize.y - (bgY / 2) - MapOffSetY, 1.0, 0.0, lpImageMng.getImage(no)[0], true, false);
+				}
+				SetDrawScreen(_layer0);
+				for (int j = 1; j >= 0; j--)
+				{
+					no = std::to_string(j);
+					DrawRotaGraph(bgX * i, GameMapSize.y - (bgY / 2) - MapOffSetY, 1.0, 0.0, lpImageMng.getImage(no)[0], true, false);
+				}
+			}
+			break;
+		default:
+			break;
+	}
+}
 
 MapMng::MapMng():
 	GameMapSize{2560,1440}
 {
+	SetDrawBright(255,255,255);
 	for (int y = 0;y < MapChipY;y++)
 	{
 		for (int x = 0;x < MapChipX;x++)
@@ -137,23 +175,43 @@ MapMng::MapMng():
 
 	lpImageMng.getImage("image/background/main_back.png", "ÉÅÉCÉìîwåi");
 
-	lpImageMng.getImage("image/background/layer_0000.png", "6");
-	lpImageMng.getImage("image/background/layer_0001.png", "5");
-	lpImageMng.getImage("image/background/layer_0002.png", "4");
+	lpImageMng.getImage("image/background/layer_0000.png", "0");
+	lpImageMng.getImage("image/background/layer_0001.png", "1");
+	lpImageMng.getImage("image/background/layer_0002.png", "2");
 	lpImageMng.getImage("image/background/layer_0003.png", "3");
-	lpImageMng.getImage("image/background/layer_0004.png", "2");
-	lpImageMng.getImage("image/background/layer_0005.png", "1");
-	lpImageMng.getImage("image/background/layer_0006.png", "0");
+	lpImageMng.getImage("image/background/layer_0004.png", "4");
+	lpImageMng.getImage("image/background/layer_0005.png", "5");
+	lpImageMng.getImage("image/background/layer_0006.png", "6");
 
 	lpImageMng.getImage("image/back/block/For/Tileset.png", "Block",16,16,10,6);
 
 	_layer[LAYER::BLOCK] = MakeScreen(GameMapSize.x, GameMapSize.y, true);
 
+	_layer0 = MakeScreen(GameMapSize.x, GameMapSize.y, true);
+	_layer1 = MakeScreen(GameMapSize.x, GameMapSize.y, true);
+	_layer2 = MakeScreen(GameMapSize.x, GameMapSize.y, true);
+
+	SetBgLayer(1);
+
+	layerPosX = 0;
+
 	MapUpdate();
 	BlockLayer();
+	SetDrawBright(0,0,0);
 }
 
 MapMng::~MapMng()
 {
 
+}
+
+bool MapMng::getHitMap(const Vector2& pos)
+{
+	if (pos.x < 0 || pos.x >= (MapChipX) * CHIP_SIZE || pos.y < 0 || pos.y >= MapChipY * CHIP_SIZE)
+	{
+		return true;
+	}
+	Vector2 chip = pos / CHIP_SIZE;
+
+	return (HitMap[chip.y][chip.x] == 1);
 }

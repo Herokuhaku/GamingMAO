@@ -1,11 +1,7 @@
 #pragma once
-#include <EffekseerForDXLib.h>
-#include "../common/Vector2.h"
 #include <memory>
 #include "BaceScene.h"
 #include "../Object/Object.h"
-#include "GameScene.h"
-#include "../KeyMng.h"
 
 #define lpSceneMng SceneMng::GetInstance()
 
@@ -40,6 +36,7 @@ public:
 
 	unsigned int GetFlame(void) { return _flame; };
 
+	const Vector2 GetPlPos(void) const;
 	const std::shared_ptr<Object> GetPlObj2(void) const;
 	const std::shared_ptr<Object>* GetPlObj(void) const;
 	void SetPlObj(std::shared_ptr<Object>& plObj);
@@ -56,9 +53,6 @@ private:
 	std::shared_ptr<Vector2D> _cPos;									// ÉJÉÅÉâç¿ïW
 
 	unsigned int _flame;
-
-	//Vector2Template<int> ScreenSize;
-	Vector2Template<int> ScreenCenter;
 
 	bool SysInit(void);
 	SceneMng();

@@ -11,8 +11,10 @@ void CheckHitAttack::operator()(const std::vector<std::shared_ptr<Object>>& objl
 
 		std::tie(flag, my_type, pos1, pos2, damage, invTime, target) = attack.first;
 
-		pos1 = pos1 * (static_cast<int>(attack.second->getState().second) - 1) + attack.second->getPos();
-		pos2 = pos2 * (static_cast<int>(attack.second->getState().second) - 1) + attack.second->getPos();
+		pos1.x = pos1.x * (static_cast<int>(attack.second->getState().second) - 1) + attack.second->getPos().x;
+		pos1.y = attack.second->getPos().y - pos1.y;
+		pos2.x = pos2.x * (static_cast<int>(attack.second->getState().second) - 1) + attack.second->getPos().x;
+		pos2.y = attack.second->getPos().y - pos2.y;
 
 		if (pos1.x > pos2.x)
 		{

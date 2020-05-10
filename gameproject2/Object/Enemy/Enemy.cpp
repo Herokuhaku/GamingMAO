@@ -1,12 +1,10 @@
 #include "Enemy.h"
 #include "../../Scene/SceneMng.h"
-
-//void Enemy::Update(std::shared_ptr<Object> plObj);
-//{
-//}
+#include "../../MapMng.h"
 
 void Enemy::Update(void)
 {
+	Gravity();
 	auto tmp = lpSceneMng.GetPlObj();
 	auto plPos = (*tmp)->getPos();
 	_work = (this->*autoM[_aState])(plPos);
@@ -30,18 +28,25 @@ int Enemy::Move(Vector2 pPos)
 {
 	if (!_encntF)
 	{
+		int x;
+		int y;
+
 		if (_state_dir.second == DIR::RIGHT)
 		{
-			_pos.x += lpSceneMng.GetFlame() % 2;
-			if (_pos.x >= 400)
+			_pos.x += _speed;
+			x = (_pos.x + 64) / CHIP_SIZE;
+			y = (_pos.y - 64) / CHIP_SIZE;
+			if(lpMapMng.HitMap[y][x] == 1)
 			{
 				setState({ OBJ_STATE::WALK,DIR::LEFT });
 			}
 		}
 		else
 		{
-			_pos.x -= lpSceneMng.GetFlame() % 2;
-			if (_pos.x <= 0)
+			_pos.x -= _speed;
+			x = (_pos.x - 64) / CHIP_SIZE;
+			y = (_pos.y - 64) / CHIP_SIZE;
+			if(lpMapMng.HitMap[y][x] == 1)
 			{
 				setState({ OBJ_STATE::WALK,DIR::RIGHT });
 			}
@@ -84,7 +89,7 @@ int Enemy::Attack(Vector2 pPos)
 {
 	if (_state_dir.first != OBJ_STATE::ATTACK)
 	{
-		setState({ OBJ_STATE::ATTACK, _state_dir.second });
+		setState({ OBJ_STATE::ATTACK, _plDir });
 		_waitTime = 140;	// クールタイム
 		_waitCnt = 0;
 		return static_cast<int>(MOVE_SELECT::WAIT);
@@ -97,19 +102,39 @@ int Enemy::AtkMove(Vector2 pPos)
 	if (_state_dir.second == DIR::RIGHT)
 	{
 		//_pos.x += lpSceneMng.GetFlame() % 2;
-		_pos.x += 2;
+		_pos.x += _speed + 1;
 	}
 	else
 	{
 		//_pos.x -= lpSceneMng.GetFlame() % 2;
-		_pos.x -= 2;
+		_pos.x -= _speed + 1;
 	}
 	return _aState;
+}
+
+void Enemy::Draw(void)
+{
+	Object::Draw();
+
+	int tmpNum;
+	for (int i = 0; i < 10; i++)
+	{
+		if (getHP() >= i * 10 + 1)
+		{
+			tmpNum = 0;
+		}
+		else
+		{
+			tmpNum = 2;
+		}
+		lpImageMng.AddDraw({ lpImageMng.getImage("hp_bar")[tmpNum], _pos.x - 27 + 6 * i, _pos.y - 30 - _drawOffset_y, 0.0, LAYER::UI, 0 });
+	}
 }
 
 Enemy::Enemy()
 {
 	_aState = 0;
+	_drawOffset_y = 26;		// sizeの半分の18とMAPCHIPは中心描画だからそのの半分の8
 	Init();
 }
 
@@ -122,7 +147,23 @@ void Enemy::Init(void)
 	_rangeA = 80;
 	_encntF = false;
 	_plDir = DIR::RIGHT;
+	_speed = 1;
+	setHP(100);
+	setHitOffset({55, 55, 100, 0});
+	_type = OBJ_TYPE::ENEMY;
 }
+
+void Enemy::Gravity(void)
+{
+		int x = _pos.x / CHIP_SIZE;
+		int y = _pos.y / CHIP_SIZE;
+
+		if(lpMapMng.HitMap[y][x] != 1)
+		{
+				_pos.y++;
+		}
+}
+
 
 void Enemy::aState(int work)
 {

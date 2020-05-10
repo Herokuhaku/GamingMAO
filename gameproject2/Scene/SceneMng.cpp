@@ -2,14 +2,15 @@
 #include "SceneMng.h"
 #include "TitleScene.h"
 #include "../Graphic/ImageMng.h"
-#include "ButtonMng.h"
+#include "../ButtonMng.h"
+#include "../KeyMng.h"
 
 SceneMng *SceneMng::sInstance = nullptr;
 
 void SceneMng::Run(void)
 {
 	SysInit();
-	_activeScene = std::make_unique<GameScene>();
+	_activeScene = std::make_unique<TitleScene>();
 	while (ProcessMessage() == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0)
 	{
 		lpKeyMng.KeyUpdate();
@@ -23,12 +24,17 @@ void SceneMng::Run(void)
 	}
 }
 
+const Vector2 SceneMng::GetPlPos(void) const
+{
+	return _plObj->getPos();
+}
+
 const std::shared_ptr<Object> SceneMng::GetPlObj2(void) const
 {
 	return _plObj;
 }
 
-const std::shared_ptr<Object> *SceneMng::GetPlObj(void) const
+const std::shared_ptr<Object>* SceneMng::GetPlObj(void) const
 {
 	return &_plObj;
 }
@@ -60,52 +66,38 @@ bool SceneMng::SysInit(void)
 	bool rtnFlag = true;
 
 	SetWindowText("AGAME");
-	SetGraphMode(1280, 720, 16);
+	SetGraphMode(ScreenSize.x, ScreenSize.y, 16);
 	ChangeWindowMode(true);
 	if (DxLib_Init() == -1)
 	{
 		rtnFlag = false;
 	}
-	if (Effekseer_Init(5000) == -1)
+
+	SetDrawScreen(DX_SCREEN_BACK);
+	// effekseer ÇÃèâä˙ê›íË
+	if (Effekseer_Init(5000) == -1)	// 5000 âÊñ ç≈ëÂÇÃó 
 	{
 		return false;
 	}
 
-	SetDrawScreen(DX_SCREEN_BACK);
-	SetUseDirect3DVersion(DX_DIRECT3D_11);
+	SetUseDirect3DVersion(DX_DIRECT3D_11);	// verê›íË
 	SetChangeScreenModeGraphicsSystemResetFlag(FALSE);
 
 	Effekseer_Set2DSetting(ScreenSize.x, ScreenSize.y);
 
-	SetUseZBuffer3D(true);
-	SetWriteZBuffer3D(true);
-
-	
-	lpImageMng.getImage("image/player.png", "player", 85, 90, 2, 2);
-	lpImageMng.getImage("image/player_walk.png", "player_walk", 85, 90, 8, 2);
-	lpImageMng.getImage("image/player_dash.png", "player_dash", 85, 90, 2, 2);
-	lpImageMng.getImage("image/player_jump.png", "player_jump", 85, 90, 2, 2);
-	lpImageMng.getImage("image/player_attack.png", "player_attack", 85, 90, 2, 12);
-	lpImageMng.getImage("image/player_dameged.png", "player_damaged", 85, 90, 2, 3);
-
-	lpImageMng.getImage("image/small_dragonR.png", "s_dragonR", 128, 128, 4, 5);
-	lpImageMng.getImage("image/small_dragonL.png", "s_dragonL", 128, 128, 4, 5);
-	lpImageMng.getImage("image/exclamationpoint.png", "excPoint", 80, 80, 1, 1);
-	lpImageMng.getImage("image/questionmark.png", "queMark", 80, 80, 1, 1);
-
-	lpImageMng.getImage("image/HPbar.png", "hp_bar", 6, 12, 3, 1);
-
-	lpImageMng.getImage("image/backscreen.png", "backscreen");
+	std::shared_ptr<Vector2D> work(new Vector2D(0,0));
+	_cPos = work;
 
 	_flame = 0;
 
 	return rtnFlag;
 }
 
-SceneMng::SceneMng():ScreenSize(1280,720), ScreenCenter(ScreenSize / 2)
+SceneMng::SceneMng()
 {
 }
 
 SceneMng::~SceneMng()
 {
+	DxLib_End();
 }

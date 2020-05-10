@@ -4,9 +4,37 @@
 #include "../Object/camera.h"
 #include "../Object/Enemy/s_dragon.h"
 #include "../MapMng.h"
+#include "../ItemTrader.h"
 
 GameScene::GameScene()
 {
+	// 画像
+
+	// プレイヤー
+	lpImageMng.getImage("image/player.png", "player", 85, 90, 2, 2);
+	lpImageMng.getImage("image/player_walk.png", "player_walk", 85, 90, 8, 2);
+	lpImageMng.getImage("image/player_dash.png", "player_dash", 85, 90, 2, 2);
+	lpImageMng.getImage("image/player_jump.png", "player_jump", 85, 90, 2, 2);
+	lpImageMng.getImage("image/player_attack.png", "player_attack", 85, 90, 2, 12);
+	lpImageMng.getImage("image/player_dameged.png", "player_damaged", 85, 90, 2, 3);
+
+	lpImageMng.getImage("image/small_dragonR.png", "s_dragonR", 128, 128, 4, 5);
+	lpImageMng.getImage("image/small_dragonL.png", "s_dragonL", 128, 128, 4, 5);
+	lpImageMng.getImage("image/exclamationpoint.png", "excPoint", 80, 80, 1, 1);
+	lpImageMng.getImage("image/questionmark.png", "queMark", 80, 80, 1, 1);
+
+
+	// HPバー
+	lpImageMng.getImage("image/HPbar.png", "hp_bar", 6, 12, 3, 1);
+
+
+	// アイテム
+
+	lpImageMng.getImage("image/BlueBook.png", "BlueBook");
+
+	// エフェクト
+	lpEffectMng.getEffect("effect/player_attack_fire.efk", "magic_fire", 1.0);
+
 	Init();
 }
 
@@ -32,12 +60,23 @@ std::unique_ptr<BaceScene> GameScene::Update(std::unique_ptr<BaceScene> own)
 
 	getAttackQue();
 	CheckHitAttack()(_objList, _attackList);
-	CheckHitAttack()(_objList, _attackList);
+	CheckHitAttack()(_enemyList, _attackList);
+
+	for (auto data : _objList)
+	{
+		data->attackUpdate();
+	}
+	for (auto data : _enemyList)
+	{
+		data->attackUpdate();
+	}
 
 	for (auto data : _objList)
 	{
 		(*data).Draw();
 	}
+
+	lpTradeMng.Draw();
 	lpMapMng.MapDraw();
 
 	return own;
@@ -51,7 +90,9 @@ bool GameScene::Init(void)
 	_objList.emplace_back(new camera());
 	_enemyList.emplace_back(new s_dragon());
 
-	lpEffectMng.getEffect("effect/player_attack_fire.efk", "magic_fire", 1.0);
+
+
+	lpTradeMng.SetItemList({ 400,300 }, ITEM_TYPE::BOOK, COLOR_TYPE::BLUE);
 
 	return false;
 }

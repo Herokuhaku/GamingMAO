@@ -50,7 +50,7 @@ void Player::Draw(void)
 		{
 			tmpNum = 2;
 		}
-		lpImageMng.AddDraw({ lpImageMng.getImage("hp_bar")[0], _pos.x - 27 + 6 * i, _pos.y - 60 - _drawOffset_y, 0.0, LAYER::UI, 0 });
+		lpImageMng.AddDraw({ lpImageMng.getImage("hp_bar")[tmpNum], _pos.x - 27 + 6 * i, _pos.y - 60 - _drawOffset_y, 0.0, LAYER::UI, 0 });
 	}
 }
 
@@ -161,6 +161,23 @@ void Player::Init(void)
 	data.emplace_back(lpImageMng.getImage("player_damaged")[3], 3);
 	setAnm({ OBJ_STATE::DEAD, DIR::RIGHT }, data);
 
+
+	std::vector<atkData> attack;
+	attack.reserve(350);
+	for (int i = 0; i < 180; i++)
+	{
+		attack.emplace_back(atkData(false, OBJ_TYPE::PLAYER, { 42,35 }, { 102,55 }, 5, 10, OBJ_TYPE::ENEMY));
+	}
+	for (int i = 180; i < 300; i++)
+	{
+		attack.emplace_back(atkData(true, OBJ_TYPE::PLAYER, { 42,35 }, { 102,55 }, 5, 10, OBJ_TYPE::ENEMY));
+	}
+	for (int i = 300; i < 350; i++)
+	{
+		attack.emplace_back(atkData(false, OBJ_TYPE::PLAYER, { 42,35 }, { 102,55 }, 5, 10, OBJ_TYPE::ENEMY));
+	}
+	setAttack("magic_fire", attack);
+
 	_vel = 0.0;
 	_tmpPos.y = static_cast<double>(_pos.y);
 }
@@ -238,7 +255,7 @@ void Player::ControlNormal(void)
 		StateRotate();
 		_control = &Player::ControlAttack;
 		_rotateFlag = true;
-
+		AddAttack("magic_fire");
 	}
 }
 

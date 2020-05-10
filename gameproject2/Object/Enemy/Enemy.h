@@ -22,10 +22,13 @@ public:
 	virtual int Attack(Vector2 pPos);
 	virtual int AtkMove(Vector2 pPos);
 
+	void Draw(void);
+
 	Enemy();
 	~Enemy();
 private:
 	void Init(void);
+	void Gravity(void);
 protected:
 
 using e_fn_ptr = int(Enemy::*)(Vector2 pPos);	// 
@@ -39,7 +42,7 @@ static const int e_fn_ptr_num = 5;
 
 	void aState(int work);
 	int _aState;		// autoMatonState
-	int _work;			// 作業用
+	int _work;		// 作業用
 
 	//---------------------------------------------------
 	bool _waitF;		// waitのフラグ
@@ -48,7 +51,9 @@ static const int e_fn_ptr_num = 5;
 	//---------------------------------------------------
 	int _rangeS;		// range of search
 	int _rangeA;		// rage of attack
-	DIR _plDir;			// 
+	DIR _plDir;		// 
 
-	bool _encntF;			// encoun
+	bool _encntF;		// encoun
+	
+	int _speed;		// speed
 };

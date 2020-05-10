@@ -1,8 +1,8 @@
 #pragma once
-#include <common/Vector2.h>
 #include <map>
 #include <vector>
 #include "../Graphic/ImageMng.h"
+#include "../common/Vector2.h"
 #include "DIR.h"
 
 enum class OBJ_TYPE

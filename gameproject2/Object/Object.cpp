@@ -17,7 +17,6 @@ Object::Object()
 	_inv = 0;
 	_hitOffset = {};
 	_drawOffset_y = 0;
-
 	_type = OBJ_TYPE::PLAYER;
 }
 
@@ -101,7 +100,7 @@ std::array<int, 4> Object::getHitOffset(void)
 		tmpArray[0] = _hitOffset[1];
 		tmpArray[1] = _hitOffset[0];
 	}
-	return tmpArray;
+	return _hitOffset;
 }
 
 void Object::setAnm(const std::pair<OBJ_STATE, DIR> state,AnmVec& data)
@@ -129,7 +128,11 @@ bool Object::isAlive(void)
 
 void Object::Draw(void)
 {
-	anmUpdate();
+	if (!anmUpdate())
+	{
+		return;
+	}
+
 	lpImageMng.AddDraw({ _anmMap[_state_dir][_anmFlame].first, _pos.x, _pos.y - _drawOffset_y, _rad, LAYER::CHAR, _zOrder });
 }
 
@@ -149,13 +152,18 @@ bool Object::anmUpdate(void)
 	if (_anmTime >= _anmMap[_state_dir][_anmFlame].second)
 	{
 		// ループ再生かをチェック
-		if (_anmMap[_state_dir][_anmFlame].second != -1)
+		if (_anmMap[_state_dir][_anmFlame].first != -1)
 		{
 			_anmFlame++;
+			if (_anmFlame < _anmMap[_state_dir].size() && 
+				_anmMap[_state_dir][_anmFlame].second == 0)
+			{
+				setState({ OBJ_STATE::NORMAL, _state_dir.second });
+			}
 		}
-		else if (_anmMap[_state_dir][_anmFlame].second == -10)
+		else
 		{
-			setState({ OBJ_STATE::NORMAL, _state_dir.second });
+			return false;
 		}
 	}
 
@@ -168,7 +176,6 @@ bool Object::anmUpdate(void)
 	{
 		_anmTime = 0;
 		_anmFlame = 0;
-		return false;
 	}
 
 	return true;
@@ -236,7 +243,10 @@ std::vector<atkData> Object::getAttackQue(void)
 			continue;
 		}
 
-		rtnvec.emplace_back(_attackMap[data->first][data->second]);
+		if (std::get<0>(_attackMap[data->first][data->second]))
+		{
+			rtnvec.emplace_back(_attackMap[data->first][data->second]);
+		}
 
 		data++;
 	}

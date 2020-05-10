@@ -8,7 +8,11 @@ int CheckHitStage::operator()(const CHECK_DIR & dir, const Vector2 & pos, const 
 	switch (dir)
 	{
 	case CHECK_DIR::LEFT:
-		if (lpMapMng.getHitMap({ pos.x - offset[static_cast<int>(CHECK_DIR::LEFT)] + CHIP_SIZE, pos.y }))
+		if (pos.x - offset[static_cast<int>(CHECK_DIR::LEFT)] < 0)
+		{
+			rtnPos = 0;
+		}
+		else if (lpMapMng.getHitMap({ pos.x - offset[static_cast<int>(CHECK_DIR::LEFT)] + CHIP_SIZE, pos.y }))
 		{
 			rtnPos = pos.x - offset[static_cast<int>(CHECK_DIR::LEFT)] + (CHIP_SIZE - (pos.x - offset[static_cast<int>(CHECK_DIR::LEFT)]) % CHIP_SIZE + CHIP_SIZE);
 		}

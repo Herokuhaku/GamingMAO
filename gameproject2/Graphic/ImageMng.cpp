@@ -11,7 +11,7 @@ ImageMng* ImageMng::sInstance = nullptr;
 
 void ImageMng::setEffect(EFFECT effect, Vector2Template<int> pos)
 {
-	_effectList.emplace_back(std::make_tuple(effect, pos, 0, 0));
+	//_effectList.emplace_back(std::make_tuple(effect, pos, 0, 0));
 }
 
 std::vector<int> ImageMng::getImage(const std::string& key)
@@ -42,16 +42,12 @@ std::vector<int> ImageMng::getImage(const std::string& filename, const std::stri
 
 void ImageMng::Draw(void)
 {
-//	UpdateEffect();
-
+	UpdateEffect();
 	// レイヤーとzオーダーでソート
 	std::sort(_drawList.begin(), _drawList.end(), [](DrawData i,DrawData j) {
 		return (std::tie(std::get<static_cast<int>(DrawElm::LAYER)>(i), std::get<static_cast<int>(DrawElm::ZORDER)>(i)) <
 			std::tie(std::get<static_cast<int>(DrawElm::LAYER)>(j), std::get<static_cast<int>(DrawElm::ZORDER)>(j)));
 	});
-
-	SetDrawScreen(DX_SCREEN_BACK);
-	ClsDrawScreen();
 
 	SetDrawScreen(_workLayer);
 	ClsDrawScreen();
@@ -67,18 +63,21 @@ void ImageMng::Draw(void)
 		DrawRotaGraph(x, y, 1.0, rad, id, true);
 	}
 
+	
 	SetDrawScreen(DX_SCREEN_BACK);
-
-	//DrawGraph(0, 0, getImage("back_screen")[0], false);
+	ClsDrawScreen();
 
 	int x, y;
-	x = static_cast<int>(lpSceneMng.GetcPos().x - (SCREEN_SIZE_X / 2));
-	y = static_cast<int>(lpSceneMng.GetcPos().y - (SCREEN_SIZE_Y / 2));
-	DrawRectGraph(0, 0, x, y, SCREEN_SIZE_X, SCREEN_SIZE_Y, _workLayer, true, false);
+	x = lpSceneMng.GetcPos().x - (SCREEN_SIZE_X / 2);
+	y = lpSceneMng.GetcPos().y - (SCREEN_SIZE_Y / 2);
+	DrawRectGraph(0, 0, x, y, SCREEN_SIZE_X, SCREEN_SIZE_Y, _workLayer, false, false);
 
+	DrawBox(0, lpSceneMng.ScreenSize.y - 100, lpSceneMng.ScreenSize.x, lpSceneMng.ScreenSize.y, 0x123456,true);
 	DrawEffekseer2D_Begin();
 	lpEffectMng.UpdateEffekseer();
 	DrawEffekseer2D_End();
+
+	ScreenEffect();
 
 	ScreenFlip();
 
@@ -123,6 +122,43 @@ void ImageMng::AddDraw(DrawData data)
 	_drawList.emplace_back(data);
 }
 
+void ImageMng::ScreenEffect(void)
+{
+	switch(_Gkind)
+	{
+			case ScrEff::FADE:
+					Fade();
+					break;
+			default:
+					break;
+	}
+}
+
+void ImageMng::Fade(void)
+{
+	int bright = std::abs( 255 - std::abs(_fadeCnt - 255));
+	SetDrawBright(bright,bright,bright);
+	_fadeCnt += -2;
+	if(_fadeCnt <= -255)
+	{
+		_Gkind = ScrEff::MAX;
+		SetDrawBright(255,255,255);
+	}
+}
+
+void ImageMng::setGkind(ScrEff kind)
+{
+	_Gkind = kind;
+	switch(_Gkind)
+	{
+			case ScrEff::FADE:
+					_fadeCnt = 255;
+					break;
+			default:
+					break;
+	}
+}
+
 ImageMng::ImageMng()
 {
 	ImageMngInit();
@@ -136,8 +172,8 @@ ImageMng::~ImageMng()
 
 void ImageMng::ImageMngInit(void)
 {
-
-
+	getImage("image/effect.png", "gripEffect", 64, 64, 3, 1);
+	_fadeCnt = 255;
+	_Gkind = ScrEff::MAX;
 }
-
 
