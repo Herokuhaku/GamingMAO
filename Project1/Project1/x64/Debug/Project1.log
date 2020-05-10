@@ -1,0 +1,110 @@
+﻿  Menu.cpp
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.25.28610\include\tuple(163,47): warning C4244: '初期化中': '_Ty' から '_Ty' への変換です。データが失われる可能性があります。
+          with
+          [
+              _Ty=double
+          ]
+          and
+          [
+              _Ty=int
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.25.28610\include\tuple(234): message : コンパイル対象の関数 テンプレート インスタンス化 'std::_Tuple_val<_This>::_Tuple_val<_Ty>(_Other &&)' のリファレンスを確認してください
+          with
+          [
+              _This=int,
+              _Ty=double,
+              _Other=double
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.25.28610\include\tuple(234): message : コンパイル対象の関数 テンプレート インスタンス化 'std::_Tuple_val<_This>::_Tuple_val<_Ty>(_Other &&)' のリファレンスを確認してください
+          with
+          [
+              _This=int,
+              _Ty=double,
+              _Other=double
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.25.28610\include\tuple(234): message : コンパイル対象の関数 テンプレート インスタンス化 'std::tuple<int,int,double,LAYER,int>::tuple<std::_Exact_args_t,_Ty,T&,_Ty,LAYER,int,0>(_Tag,_This2 &&,T &,_Ty &&,LAYER &&,int &&)' のリファレンスを確認してください
+          with
+          [
+              _Ty=double,
+              T=double,
+              _Tag=std::_Exact_args_t,
+              _This2=double
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.25.28610\include\tuple(234): message : コンパイル対象の関数 テンプレート インスタンス化 'std::tuple<int,int,double,LAYER,int>::tuple<std::_Exact_args_t,_Ty,T&,_Ty,LAYER,int,0>(_Tag,_This2 &&,T &,_Ty &&,LAYER &&,int &&)' のリファレンスを確認してください
+          with
+          [
+              _Ty=double,
+              T=double,
+              _Tag=std::_Exact_args_t,
+              _This2=double
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.25.28610\include\tuple(315): message : コンパイル対象の関数 テンプレート インスタンス化 'std::tuple<int,int,int,double,LAYER,int>::tuple<std::_Exact_args_t,_Ty&,double,T&,double,LAYER,_Ty,0>(_Tag,_This2,double &&,T &,double &&,LAYER &&,_Ty &&)' のリファレンスを確認してください
+          with
+          [
+              _Ty=int,
+              T=double,
+              _Tag=std::_Exact_args_t,
+              _This2=int &
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.25.28610\include\tuple(315): message : コンパイル対象の関数 テンプレート インスタンス化 'std::tuple<int,int,int,double,LAYER,int>::tuple<std::_Exact_args_t,_Ty&,double,T&,double,LAYER,_Ty,0>(_Tag,_This2,double &&,T &,double &&,LAYER &&,_Ty &&)' のリファレンスを確認してください
+          with
+          [
+              _Ty=int,
+              T=double,
+              _Tag=std::_Exact_args_t,
+              _This2=int &
+          ]
+C:\Users\satou\Desktop\AsoGame2020.冬\2020.5.10 - 統合 -\Project1\Project1\Menu.cpp(158): message : コンパイル対象の関数 テンプレート インスタンス化 'std::tuple<int,int,int,double,LAYER,int>::tuple<_Ty&,T,T&,double,LAYER,int,0>(_This2,T &&,T &,double &&,LAYER &&,int &&) noexcept' のリファレンスを確認してください
+          with
+          [
+              _Ty=int,
+              T=double,
+              _This2=int &
+          ]
+C:\Users\satou\Desktop\AsoGame2020.冬\2020.5.10 - 統合 -\Project1\Project1\Menu.cpp(158): message : コンパイル対象の関数 テンプレート インスタンス化 'std::tuple<int,int,int,double,LAYER,int>::tuple<_Ty&,T,T&,double,LAYER,int,0>(_This2,T &&,T &,double &&,LAYER &&,int &&) noexcept' のリファレンスを確認してください
+          with
+          [
+              _Ty=int,
+              T=double,
+              _This2=int &
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.25.28610\include\tuple(163,47): warning C4244: '初期化中': 'T' から '_Ty' への変換です。データが失われる可能性があります。
+          with
+          [
+              T=double
+          ]
+          and
+          [
+              _Ty=int
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.25.28610\include\tuple(234): message : コンパイル対象の関数 テンプレート インスタンス化 'std::_Tuple_val<_This>::_Tuple_val<T&>(_Other)' のリファレンスを確認してください
+          with
+          [
+              _This=int,
+              T=double,
+              _Other=double &
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.25.28610\include\tuple(234): message : コンパイル対象の関数 テンプレート インスタンス化 'std::_Tuple_val<_This>::_Tuple_val<T&>(_Other)' のリファレンスを確認してください
+          with
+          [
+              _This=int,
+              T=double,
+              _Other=double &
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.25.28610\include\tuple(234): message : コンパイル対象の関数 テンプレート インスタンス化 'std::tuple<int,double,LAYER,int>::tuple<std::_Exact_args_t,T&,_Ty,LAYER,int,0>(_Tag,_This2,_Ty &&,LAYER &&,int &&)' のリファレンスを確認してください
+          with
+          [
+              T=double,
+              _Ty=double,
+              _Tag=std::_Exact_args_t,
+              _This2=double &
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.25.28610\include\tuple(234): message : コンパイル対象の関数 テンプレート インスタンス化 'std::tuple<int,double,LAYER,int>::tuple<std::_Exact_args_t,T&,_Ty,LAYER,int,0>(_Tag,_This2,_Ty &&,LAYER &&,int &&)' のリファレンスを確認してください
+          with
+          [
+              T=double,
+              _Ty=double,
+              _Tag=std::_Exact_args_t,
+              _This2=double &
+          ]
+  Project1.vcxproj -> C:\Users\satou\Desktop\AsoGame2020.冬\2020.5.10 - 統合 -\Project1\x64\Debug\Project1.exe
