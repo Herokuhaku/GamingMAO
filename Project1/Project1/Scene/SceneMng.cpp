@@ -24,6 +24,11 @@ void SceneMng::Run(void)
 	}
 }
 
+const Vector2 SceneMng::GetPlPos(void) const
+{
+	return _plObj->getPos();
+}
+
 const std::shared_ptr<Object> SceneMng::GetPlObj2(void) const
 {
 	return _plObj;
@@ -67,14 +72,14 @@ bool SceneMng::SysInit(void)
 	{
 		rtnFlag = false;
 	}
+
+	SetDrawScreen(DX_SCREEN_BACK);
+	// effekseer ‚Ì‰Šúİ’è
 	if (Effekseer_Init(5000) == -1)	// 5000 ‰æ–ÊÅ‘å‚Ì—Ê
 	{
 		return false;
 	}
 
-
-	SetDrawScreen(DX_SCREEN_BACK);
-	// effekseer ‚Ì‰Šúİ’è
 	SetUseDirect3DVersion(DX_DIRECT3D_11);	// verİ’è
 	SetChangeScreenModeGraphicsSystemResetFlag(FALSE);
 
@@ -94,4 +99,5 @@ SceneMng::SceneMng()
 
 SceneMng::~SceneMng()
 {
+	DxLib_End();
 }

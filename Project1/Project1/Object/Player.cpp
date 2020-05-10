@@ -1,7 +1,8 @@
 #include "Player.h"
-#include "../Scene/SceneMng.h"
-#include "../ButtonMng.h"
+#include "../ItemTrader.h"
 #include "../Menu.h"
+#include "../ButtonMng.h"
+
 
 Player::Player()
 {
@@ -16,10 +17,12 @@ Player::Player(Vector2Template<int> pos)
 	_anmEfkHd = -1;
 	_rotateFlag = false;
 	_control = &Player::ControlNormal;
+	_type = OBJ_TYPE::PLAYER;
+	setHitOffset({ 14,10,70,0 });
+	_drawOffset_y = 45;
+
+	setHP(HP_MAX);
 	Init();
-
-
-	MenuFlag = false;
 }
 
 Player::~Player()
@@ -29,15 +32,15 @@ Player::~Player()
 void Player::Update(void)
 {
 
-
-
 	if (!MenuUpdate())
 	{
 		(this->*_control)();
+
 	}
-
-
-
+	if (CheckHitKey(KEY_INPUT_Z))
+	{
+		lpTradeMng.AddBag();
+	}
 
 	VelUpdate();
 	MagicUpdate();
@@ -45,6 +48,24 @@ void Player::Update(void)
 	Object::Draw();
 }
 
+void Player::Draw(void)
+{
+	Object::Draw();
+
+	int tmpNum;
+	for (int i = 0; i < 10; i++)
+	{
+		if (getHP() >= i * 10 + 1)
+		{
+			tmpNum = 0;
+		}
+		else
+		{
+			tmpNum = 2;
+		}
+		lpImageMng.AddDraw({ lpImageMng.getImage("hp_bar")[0], _pos.x - 27 + 6 * i, _pos.y - 60 - _drawOffset_y, 0.0, LAYER::UI, 0 });
+	}
+}
 
 void Player::Init(void)
 {
@@ -140,6 +161,18 @@ void Player::Init(void)
 	data.emplace_back(lpImageMng.getImage("player_walk")[15], 120);
 	setAnm({ OBJ_STATE::WALK, DIR::RIGHT }, data);
 
+	data.reserve(1);
+	data.emplace_back(lpImageMng.getImage("player_damaged")[0], 3);
+	setAnm({ OBJ_STATE::DAMAGE, DIR::LEFT }, data);
+
+	data.emplace_back(lpImageMng.getImage("player_damaged")[1], 3);
+	setAnm({ OBJ_STATE::DAMAGE, DIR::RIGHT }, data);
+
+	data.emplace_back(lpImageMng.getImage("player_damaged")[2], 3);
+	setAnm({ OBJ_STATE::DEAD, DIR::LEFT } , data);
+
+	data.emplace_back(lpImageMng.getImage("player_damaged")[3], 3);
+	setAnm({ OBJ_STATE::DEAD, DIR::RIGHT }, data);
 
 	_vel = 0.0;
 	_tmpPos.y = static_cast<double>(_pos.y);
@@ -149,8 +182,6 @@ void Player::ControlNormal(void)
 {
 	if (lpKeyMng.getBuf()[KEY_INPUT_LEFT])
 	{
-		_pos.x -= WALK_SPEED;
-		
 		if (_state_dir.first == OBJ_STATE::JUMP)
 		{
 			_state_dir.second = DIR::LEFT;
@@ -163,11 +194,19 @@ void Player::ControlNormal(void)
 		{
 			// なし
 		}
+
+		int tmpLeft = CheckHitStage()(CHECK_DIR::LEFT, { _pos.x - WALK_SPEED, _pos.y }, getHitOffset());
+		if (tmpLeft == NOTHIT)
+		{
+			_pos.x -= WALK_SPEED;
+		}
+		else
+		{
+			_pos.x = tmpLeft + getHitOffset()[static_cast<int>(CHECK_DIR::LEFT)];
+		}
 	}
 	else if (lpKeyMng.getBuf()[KEY_INPUT_RIGHT])
 	{
-		_pos.x += WALK_SPEED;
-
 		if (_state_dir.first == OBJ_STATE::JUMP)
 		{
 			_state_dir.second = DIR::RIGHT;
@@ -180,6 +219,16 @@ void Player::ControlNormal(void)
 		{
 			// なし
 		}
+
+		int tmpRight = CheckHitStage()(CHECK_DIR::RIGHT, { _pos.x + WALK_SPEED, _pos.y }, getHitOffset());
+		if (tmpRight == NOTHIT)
+		{
+			_pos.x += WALK_SPEED;
+		}
+		else
+		{
+			_pos.x = tmpRight - getHitOffset()[static_cast<int>(CHECK_DIR::RIGHT)];
+		}
 	}
 	else
 	{
@@ -189,7 +238,7 @@ void Player::ControlNormal(void)
 		}
 	}
 
-	if (CheckHitKey(KEY_INPUT_UP) && static_cast<int>(_tmpPos.y) + PLAYER_SIZE_Y / 2 == 720)
+	if (CheckHitKey(KEY_INPUT_UP) && CheckHitStage()(CHECK_DIR::DOWN, { _pos.x, static_cast<int>(_tmpPos.y) + 1 }, getHitOffset()) != NOTHIT)
 	{
 		_vel = INI_VEL_NORMAL;
 		setState({ OBJ_STATE::JUMP, _state_dir.second });
@@ -197,10 +246,12 @@ void Player::ControlNormal(void)
 
 	if (lpKeyMng.getBuf()[KEY_INPUT_SPACE] && _coolTime == 0)
 	{
-		_anmEfkHd = lpEffectMng.playEffect(lpEffectMng.getEffect("magic_fire"), DELAY_FIRE);
+		_anmEfkHd = lpEffectMng.playEffect(lpEffectMng.getEffect("magic_fire"), DELAY_FIRE, &_pos.x, &_pos.y, PLAYER_SIZE_X / 2, -_drawOffset_y, &(_state_dir.second));
 		_coolTime = DELAY_FIRE;
 		StateRotate();
 		_control = &Player::ControlAttack;
+		_rotateFlag = true;
+
 	}
 }
 
@@ -208,8 +259,6 @@ void Player::ControlAttack(void)
 {
 	if (lpKeyMng.getBuf()[KEY_INPUT_LEFT])
 	{
-		_pos.x -= WALK_SPEED;
-
 		if (_state_dir.first == OBJ_STATE::A_JUMP)
 		{
 			if (_state_dir.second != DIR::LEFT)
@@ -230,11 +279,19 @@ void Player::ControlAttack(void)
 		{
 			// なし
 		}
+
+		int tmpLeft = CheckHitStage()(CHECK_DIR::LEFT, { _pos.x - WALK_SPEED, _pos.y }, getHitOffset());
+		if (tmpLeft == NOTHIT)
+		{
+			_pos.x -= WALK_SPEED;
+		}
+		else
+		{
+			_pos.x = tmpLeft + getHitOffset()[static_cast<int>(CHECK_DIR::LEFT)];
+		}
 	}
 	else if (lpKeyMng.getBuf()[KEY_INPUT_RIGHT])
 	{
-		_pos.x += WALK_SPEED;
-
 		if (_state_dir.first == OBJ_STATE::A_JUMP)
 		{
 			if (_state_dir.second != DIR::RIGHT)
@@ -255,6 +312,16 @@ void Player::ControlAttack(void)
 		{
 			// なし
 		}
+
+		int tmpRight = CheckHitStage()(CHECK_DIR::RIGHT, { _pos.x + WALK_SPEED, _pos.y }, getHitOffset());
+		if (tmpRight == NOTHIT)
+		{
+			_pos.x += WALK_SPEED;
+		}
+		else
+		{
+			_pos.x = tmpRight - getHitOffset()[static_cast<int>(CHECK_DIR::RIGHT)];
+		}
 	}
 	else
 	{
@@ -264,7 +331,7 @@ void Player::ControlAttack(void)
 		}
 	}
 
-	if (CheckHitKey(KEY_INPUT_UP) && static_cast<int>(_tmpPos.y) + PLAYER_SIZE_Y / 2 == 720)
+	if (CheckHitKey(KEY_INPUT_UP) && CheckHitStage()(CHECK_DIR::DOWN, { _pos.x, static_cast<int>(_tmpPos.y) + 1 }, getHitOffset()) != NOTHIT)
 	{
 		_vel = INI_VEL_NORMAL;
 		setState({ OBJ_STATE::A_JUMP, _state_dir.second });
@@ -285,13 +352,12 @@ void Player::MagicUpdate(void)
 	}
 	if (_anmEfkHd != -1)
 	{
-		SetPosPlayingEffekseer2DEffect(_anmEfkHd, static_cast<float>(lpSceneMng.ScreenSize.x/2 + PLAYER_SIZE_X / 2 * (static_cast<int>(_state_dir.second) - 1)), static_cast<float>(lpSceneMng.ScreenSize.y/2 +200), 0.0f);
-
+		//SetPosPlayingEffekseer2DEffect(_anmEfkHd, static_cast<float>(_pos.x + PLAYER_SIZE_X / 2 * (static_cast<int>(_state_dir.second) - 1)), static_cast<float>(_pos.y), 0.0f);
 		if (_rotateFlag)
 		{
 			SetRotationPlayingEffekseer2DEffect(_anmEfkHd, 0.0f, (1 - static_cast<int>(_state_dir.second) / 2) * acos(-1.0f), 0.0f);
 			_rotateFlag = false;
-		}// 描画して　エフェクト移動して　更新して　エフェクト描画する
+		}
 	}
 }
 
@@ -330,14 +396,23 @@ void Player::StateRotate(void)
 
 void Player::VelUpdate(void)
 {
-	if (static_cast<int>(_tmpPos.y) + PLAYER_SIZE_Y / 2 < 720)
+	if (CheckHitStage()(CHECK_DIR::DOWN, { _pos.x, static_cast<int>(_tmpPos.y) + 1 }, getHitOffset()) == NOTHIT)
 	{
-		_vel = _vel - G_ACC_NORMAL;
+		if (_vel - G_ACC_NORMAL > -VEL_MAX)
+		{
+			_vel = _vel - G_ACC_NORMAL;
+		}
+		else
+		{
+			_vel = -VEL_MAX;
+		}
 	}
 
-	if (_vel != 0 && static_cast<int>(_tmpPos.y) + PLAYER_SIZE_Y / 2 - _vel >= 720)
+	int tmpDown = CheckHitStage()(CHECK_DIR::DOWN, { _pos.x, static_cast<int>(_tmpPos.y - _vel) }, getHitOffset());
+
+	if (_vel != 0.0 && tmpDown != NOTHIT)
 	{
-		_tmpPos.y = 720.0 - PLAYER_SIZE_Y / 2;
+		_tmpPos.y = tmpDown - 1;
 		_vel = 0.0;
 		if (lpKeyMng.getBuf()[KEY_INPUT_LEFT] || lpKeyMng.getBuf()[KEY_INPUT_RIGHT])
 		{
@@ -374,7 +449,7 @@ void Player::VelUpdate(void)
 	_pos.y = static_cast<int>(_tmpPos.y);
 }
 
-bool Player::MenuUpdate()
+bool Player::MenuUpdate(void)
 {
 	if (lpButtonMng.Buttonf(0, XINPUT_BUTTON_BACK).first == 1 &&
 		lpButtonMng.Buttonf(0, XINPUT_BUTTON_BACK).second == 0)
@@ -387,7 +462,7 @@ bool Player::MenuUpdate()
 	//}
 	if (MenuFlag)
 	{
-		MenuFlag = lpMenu.Update();
+		MenuFlag = lpMenuMng.Update();
 		return MenuFlag;
 	}
 	return false;

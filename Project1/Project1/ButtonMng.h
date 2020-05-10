@@ -43,7 +43,7 @@ private:
 
 	XINPUT_STATE input[2];
 	int Button[2][16];										// コントローラ番号	1P = 0 ,2P = 1,ボタン番号 0~15
-	std::map<int, std::pair<int, int>> ButtonState[2];		// <何番目のボタン,old,now>
+	std::map<int, std::pair<int, int>> ButtonState[2];		// <何番目のボタン,now,old>
 
 
 };

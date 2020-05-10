@@ -12,6 +12,8 @@
 
 #define MapChipY 90
 #define MapChipX 160+2
+#define MapOffSetY 16 * 5
+#define CHIP_SIZE 16
 
 class MapMng
 {
@@ -44,15 +46,20 @@ public:
 	void BlockDraw();
 	void BackGround(void);
 	void BlockLayer(void);
+	bool getHitMap(const Vector2& pos);
 	std::map<LAYER, int> _layer;
 	const Vector2Template<int> GameMapSize;	// ゲーム画面のマップの大きさ
-	std::vector<std::string> split(std::string str, char del);
+	std::vector<std::string> Split(std::string str, char del);
 
+	int HitMap[MapChipY][MapChipX];		// 当たり判定Map
 private:
 	int GameMap[MapChipY][MapChipX];	// Y1440/16,X(2560/16)+壁2マス
-	int HitMap[MapChipY][MapChipX];		// 当たり判定Map
 
-
+	void SetBgLayer(int bgNo);		// 
+	int _layer0;
+	int _layer1;
+	int _layer2;
+	int layerPosX;
 	
 	static MapMng *sInstance;
 	MapMng();
