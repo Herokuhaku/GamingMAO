@@ -76,6 +76,7 @@ void MapMng::StageTrans(int no)
 {
 	if (no < 1 || no > 2)
 	{
+		return;
 		exit(1);
 	}
 	_mapdata = GetMapIndex(no);
