@@ -1,0 +1,15 @@
+﻿  main.cpp
+c:\users\ewan1\onedrive\desktop\project1\main.cpp(247): warning C4244: '=': 'double' から 'int' への変換です。データが失われる可能性があります。
+c:\users\ewan1\onedrive\desktop\project1\main.cpp(248): warning C4244: '=': 'double' から 'int' への変換です。データが失われる可能性があります。
+c:\users\ewan1\onedrive\desktop\project1\main.cpp(264): warning C4244: '=': 'double' から 'int' への変換です。データが失われる可能性があります。
+c:\users\ewan1\onedrive\desktop\project1\main.cpp(265): warning C4244: '=': 'double' から 'int' への変換です。データが失われる可能性があります。
+c:\users\ewan1\onedrive\desktop\project1\main.cpp(267): warning C4244: '=': 'double' から 'int' への変換です。データが失われる可能性があります。
+c:\users\ewan1\onedrive\desktop\project1\main.cpp(268): warning C4244: '=': 'double' から 'int' への変換です。データが失われる可能性があります。
+c:\users\ewan1\onedrive\desktop\project1\main.cpp(270): warning C4244: '=': 'double' から 'int' への変換です。データが失われる可能性があります。
+c:\users\ewan1\onedrive\desktop\project1\main.cpp(271): warning C4244: '=': 'double' から 'int' への変換です。データが失われる可能性があります。
+c:\users\ewan1\onedrive\desktop\project1\main.cpp(440): warning C4244: '-=': 'double' から 'int' への変換です。データが失われる可能性があります。
+c:\users\ewan1\onedrive\desktop\project1\main.cpp(441): warning C4244: '-=': 'double' から 'int' への変換です。データが失われる可能性があります。
+c:\users\ewan1\onedrive\desktop\project1\main.cpp(449): warning C4244: '+=': 'double' から 'int' への変換です。データが失われる可能性があります。
+c:\users\ewan1\onedrive\desktop\project1\main.cpp(450): warning C4244: '-=': 'double' から 'int' への変換です。データが失われる可能性があります。
+c:\users\ewan1\onedrive\desktop\project1\main.cpp(594): warning C4244: '引数': 'double' から 'int' への変換です。データが失われる可能性があります。
+  Project1.vcxproj -> C:\Users\ewan1\OneDrive\Desktop\Project1\Debug\Project1.exe
