@@ -2,8 +2,10 @@
 #include "../Object/Object.h"
 #include "../MapMng.h"
 
+#define NOTHIT -20000
+
 struct CheckHitStage
 {
-	bool operator()(const CHECK_DIR& dir, const Vector2& pos, const std::array<int,4>& offset);
+	int operator()(const CHECK_DIR& dir, const Vector2& pos, const std::array<int,4>& offset);
 };
 

@@ -32,6 +32,23 @@ void Player::Update(void)
 
 	MagicUpdate();
 
+
+	if ((lpKeyMng.getOldBuf()[KEY_INPUT_Z] && !lpKeyMng.getBuf()[KEY_INPUT_Z]))
+	{
+		lpMapMng.StageTrans(std::get<3>(lpMapMng.GetMapIndex(lpMapMng.GetnowStage())));
+		// 3 = MAP_DATA::BACK
+	}
+
+	if ((lpKeyMng.getOldBuf()[KEY_INPUT_X] && !lpKeyMng.getBuf()[KEY_INPUT_X]))
+	{
+		lpMapMng.StageTrans(std::get<4>(lpMapMng.GetMapIndex(lpMapMng.GetnowStage())));
+		// 3 = MAP_DATA::NEXT
+	}
+
+
+
+
+
 	Object::Draw();
 }
 
@@ -169,8 +186,6 @@ void Player::ControlNormal(void)
 {
 	if (lpKeyMng.getBuf()[KEY_INPUT_LEFT])
 	{
-		_pos.x -= WALK_SPEED;
-		
 		if (_state_dir.first == OBJ_STATE::JUMP)
 		{
 			_state_dir.second = DIR::LEFT;
@@ -183,11 +198,19 @@ void Player::ControlNormal(void)
 		{
 			// ‚È‚µ
 		}
+
+		int tmpLeft = CheckHitStage()(CHECK_DIR::LEFT, { _pos.x - WALK_SPEED, _pos.y }, getHitOffset());
+		if (tmpLeft == NOTHIT)
+		{
+			_pos.x -= WALK_SPEED;
+		}
+		else
+		{
+			_pos.x = tmpLeft + getHitOffset()[static_cast<int>(CHECK_DIR::LEFT)];
+		}
 	}
 	else if (lpKeyMng.getBuf()[KEY_INPUT_RIGHT])
 	{
-		_pos.x += WALK_SPEED;
-
 		if (_state_dir.first == OBJ_STATE::JUMP)
 		{
 			_state_dir.second = DIR::RIGHT;
@@ -200,6 +223,16 @@ void Player::ControlNormal(void)
 		{
 			// ‚È‚µ
 		}
+
+		int tmpRight = CheckHitStage()(CHECK_DIR::RIGHT, { _pos.x + WALK_SPEED, _pos.y }, getHitOffset());
+		if (tmpRight == NOTHIT)
+		{
+			_pos.x += WALK_SPEED;
+		}
+		else
+		{
+			_pos.x = tmpRight - getHitOffset()[static_cast<int>(CHECK_DIR::RIGHT)];
+		}
 	}
 	else
 	{
@@ -209,7 +242,7 @@ void Player::ControlNormal(void)
 		}
 	}
 
-	if (CheckHitKey(KEY_INPUT_UP) && static_cast<int>(_tmpPos.y) == 1300)
+	if (CheckHitKey(KEY_INPUT_UP) && CheckHitStage()(CHECK_DIR::DOWN, { _pos.x, static_cast<int>(_tmpPos.y) + 1 }, getHitOffset()) != NOTHIT)
 	{
 		_vel = INI_VEL_NORMAL;
 		setState({ OBJ_STATE::JUMP, _state_dir.second });
@@ -230,8 +263,6 @@ void Player::ControlAttack(void)
 {
 	if (lpKeyMng.getBuf()[KEY_INPUT_LEFT])
 	{
-		_pos.x -= WALK_SPEED;
-
 		if (_state_dir.first == OBJ_STATE::A_JUMP)
 		{
 			if (_state_dir.second != DIR::LEFT)
@@ -252,11 +283,19 @@ void Player::ControlAttack(void)
 		{
 			// ‚È‚µ
 		}
+
+		int tmpLeft = CheckHitStage()(CHECK_DIR::LEFT, { _pos.x - WALK_SPEED, _pos.y }, getHitOffset());
+		if (tmpLeft == NOTHIT)
+		{
+			_pos.x -= WALK_SPEED;
+		}
+		else
+		{
+			_pos.x = tmpLeft + getHitOffset()[static_cast<int>(CHECK_DIR::LEFT)];
+		}
 	}
 	else if (lpKeyMng.getBuf()[KEY_INPUT_RIGHT])
 	{
-		_pos.x += WALK_SPEED;
-
 		if (_state_dir.first == OBJ_STATE::A_JUMP)
 		{
 			if (_state_dir.second != DIR::RIGHT)
@@ -277,6 +316,16 @@ void Player::ControlAttack(void)
 		{
 			// ‚È‚µ
 		}
+
+		int tmpRight = CheckHitStage()(CHECK_DIR::RIGHT, { _pos.x + WALK_SPEED, _pos.y }, getHitOffset());
+		if (tmpRight == NOTHIT)
+		{
+			_pos.x += WALK_SPEED;
+		}
+		else
+		{
+			_pos.x = tmpRight - getHitOffset()[static_cast<int>(CHECK_DIR::RIGHT)];
+		}
 	}
 	else
 	{
@@ -286,11 +335,13 @@ void Player::ControlAttack(void)
 		}
 	}
 
-	if (CheckHitKey(KEY_INPUT_UP) && _tmpPos.y == 1300)
+	if (CheckHitKey(KEY_INPUT_UP) && CheckHitStage()(CHECK_DIR::DOWN, { _pos.x, static_cast<int>(_tmpPos.y) + 1 }, getHitOffset()) != NOTHIT)
 	{
 		_vel = INI_VEL_NORMAL;
 		setState({ OBJ_STATE::A_JUMP, _state_dir.second });
 	}
+
+
 }
 
 void Player::MagicUpdate(void)
@@ -351,14 +402,23 @@ void Player::StateRotate(void)
 
 void Player::VelUpdate(void)
 {
-	if (_tmpPos.y < 1300.0)
+	if (CheckHitStage()(CHECK_DIR::DOWN, { _pos.x, static_cast<int>(_tmpPos.y) + 1 }, getHitOffset()) == NOTHIT)
 	{
-		_vel = _vel - G_ACC_NORMAL;
+		if (_vel - G_ACC_NORMAL > -VEL_MAX)
+		{
+			_vel = _vel - G_ACC_NORMAL;
+		}
+		else
+		{
+			_vel = -VEL_MAX;
+		}
 	}
 
-	if (_vel != 0.0 && _tmpPos.y - _vel >= 1300.0)
+	int tmpDown = CheckHitStage()(CHECK_DIR::DOWN, { _pos.x, static_cast<int>(_tmpPos.y - _vel) }, getHitOffset());
+
+	if (_vel != 0.0 && tmpDown != NOTHIT)
 	{
-		_tmpPos.y = 1300.0;
+		_tmpPos.y = tmpDown - 1;
 		_vel = 0.0;
 		if (lpKeyMng.getBuf()[KEY_INPUT_LEFT] || lpKeyMng.getBuf()[KEY_INPUT_RIGHT])
 		{

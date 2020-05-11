@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 
-#define lpMenu Menu::GetInstance()
+#define lpMenuMng Menu::GetInstance()
 
 enum class MENU_TYPE
 {

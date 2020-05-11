@@ -26,36 +26,53 @@ int Enemy::Wait(Vector2 pPos)
 
 int Enemy::Move(Vector2 pPos)
 {
-	if (!_encntF)
+	if( !_jumpF)
 	{
-		int x;
-		int y;
-
-		if (_state_dir.second == DIR::RIGHT)
+		if (!_encntF)
 		{
-			_pos.x += _speed;
-			x = (_pos.x + 64) / MapCSize;
-			y = (_pos.y - 64) / MapCSize;
-			if(lpMapMng.HitMap[y][x] == 1)
+			int x;
+			int y;
+
+			if (_state_dir.second == DIR::RIGHT)
 			{
-				setState({ OBJ_STATE::WALK,DIR::LEFT });
+				_pos.x += _speed;
+				x = (_pos.x + 64);
+				y = (_pos.y - 16); 
+				if(lpMapMng.getHitMap({x,y}))		// •Ç
+				{
+					setState({ OBJ_STATE::WALK,DIR::LEFT });
+				}
+
+				x = (_pos.x + 64);
+				y = (_pos.y + 1); 
+				if(!lpMapMng.getHitMap({x,y}))		// °‚ª‚È‚¢
+				{
+					setState({ OBJ_STATE::WALK,DIR::LEFT });
+				}
 			}
+			else
+			{
+				_pos.x -= _speed;
+				x = (_pos.x - 64);
+				y = (_pos.y - 16);
+				if(lpMapMng.getHitMap({x,y}))
+				{
+					setState({ OBJ_STATE::WALK,DIR::RIGHT });
+				}
+
+				x = (_pos.x - 64);
+				y = (_pos.y + 1);
+				if(!lpMapMng.getHitMap({x,y}))
+				{
+					setState({ OBJ_STATE::WALK,DIR::RIGHT });
+				}
+			}
+			return _aState;
 		}
 		else
 		{
-			_pos.x -= _speed;
-			x = (_pos.x - 64) / MapCSize;
-			y = (_pos.y - 64) / MapCSize;
-			if(lpMapMng.HitMap[y][x] == 1)
-			{
-				setState({ OBJ_STATE::WALK,DIR::RIGHT });
-			}
+			return 	AtkMove(pPos);
 		}
-		return _aState;
-	}
-	else
-	{
-		return 	AtkMove(pPos);
 	}
 }
 
@@ -64,23 +81,23 @@ int Enemy::Search(Vector2 pPos)
 	_plDir = pPos.x > _pos.x ? DIR::RIGHT : DIR::LEFT;
 	if (_waitCnt >= _waitTime)
 	{
-		if ((pPos.x - _pos.x)  * (static_cast<int>(_state_dir.second) - 1) <= _rangeS &&
-			(pPos.x - _pos.x)  * (static_cast<int>(_state_dir.second) - 1) >= -80)
+		if( pPos.y < _pos.y + 10 && pPos.y > _pos.y - 10)
 		{
-			if ((pPos.x - _pos.x) * (static_cast<int>(_state_dir.second) - 1) <= _rangeA)
+			if ((pPos.x - _pos.x)  * (static_cast<int>(_state_dir.second) - 1) <= _rangeS &&
+				(pPos.x - _pos.x)  * (static_cast<int>(_state_dir.second) - 1) >= -80) 
 			{
-				aState(static_cast<int>(MOVE_SELECT::ATTACK));
-				lpImageMng.AddDraw({ lpImageMng.getImage("excPoint")[0],_pos.x,_pos.y - 40,0.0,LAYER::EX,10 });
-				return _aState;
+				if ((pPos.x - _pos.x) * (static_cast<int>(_state_dir.second) - 1) <= _rangeA)
+				{
+					aState(static_cast<int>(MOVE_SELECT::ATTACK));
+					lpImageMng.AddDraw({ lpImageMng.getImage("excPoint")[0],_pos.x,_pos.y - 40,0.0,LAYER::EX,10 });
+					return _aState;
+				}
+				lpImageMng.AddDraw({ lpImageMng.getImage("queMark")[0],_pos.x,_pos.y - 40,0.0,LAYER::EX,10 });
+				_encntF = true;
+				return static_cast<int>(MOVE_SELECT::MOVE);
 			}
-			lpImageMng.AddDraw({ lpImageMng.getImage("queMark")[0],_pos.x,_pos.y - 40,0.0,LAYER::EX,10 });
-			_encntF = true;
-			return static_cast<int>(MOVE_SELECT::MOVE);
 		}
-		else
-		{
-			_encntF = false;
-		}
+		_encntF = false;
 	}
 	return _work;
 }
@@ -121,6 +138,7 @@ Enemy::Enemy()
 
 void Enemy::Init(void)
 {
+	_jumpF = false;
 	_waitTime = std::rand() % 180;
 	_waitCnt = 0;
 	_waitF = true;
@@ -133,13 +151,13 @@ void Enemy::Init(void)
 
 void Enemy::Gravity(void)
 {
-		int x = _pos.x / MapCSize;
-		int y = _pos.y / MapCSize;
-
-		if(lpMapMng.HitMap[y][x] != 1)
+		if(!lpMapMng.getHitMap(_pos))
 		{
 				_pos.y++;
+				_jumpF = true;
+				return;
 		}
+		_jumpF = false;
 }
 
 

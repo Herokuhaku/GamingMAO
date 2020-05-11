@@ -38,6 +38,8 @@ static const int e_fn_ptr_num = 5;
 			&Enemy::AtkMove,&Enemy::Attack,
 			&Enemy::Search,};	// autoMaton
 
+	bool _jumpF;		// ジャンプフラグ
+	
 	void aState(int work);
 	int _aState;		// autoMatonState
 	int _work;		// 作業用

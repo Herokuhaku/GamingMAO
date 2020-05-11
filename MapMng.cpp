@@ -1,7 +1,8 @@
+#include <DxLib.h>
 #include "MapMng.h"
 #include "Graphic/ImageMng.h"
-#include "DxLib.h"
 #include "Scene/SceneMng.h"
+#include "KeyMng.h"
 
 MapMng* MapMng::sInstance = nullptr;
 
@@ -27,9 +28,65 @@ std::vector<std::string> MapMng::split(std::string str, char delimiter)
 	return result;
 }
 
+MapData MapMng::GetMapIndex(int no)
+{
+	if (mapindex.find(no) == mapindex.end())
+	{
+		char text[256];
+		char mk = ',';
+		int cnt;
+			std::string twork[static_cast<int>(MAP_DATA::MAX)];
+
+		do {
+			cnt = 0;
+			for (int i = 0; i < static_cast<int>(MAP_DATA::MAX); i++)
+			{
+				twork[i].erase(twork[i].begin(), twork[i].end());
+			}
+			fgets(text, 256, indexFp);
+			for (int i = 0; i < 256 && text[i] != NULL; i++)
+			{
+				if (text[i] != ',')
+				{
+					twork[cnt] += text[i];
+				}
+				else
+				{
+					cnt++;
+					if (cnt >= static_cast<int>(MAP_DATA::MAX))
+					{
+						// errer
+						exit(1);
+					}
+				}
+			}
+			mapindex[std::stoi(twork[static_cast<int>(MAP_DATA::NO)])] = {
+							std::stoi(twork[static_cast<int>(MAP_DATA::NO)]),
+							twork[static_cast<int>(MAP_DATA::MAPLINK)],
+							std::stoi(twork[static_cast<int>(MAP_DATA::LAYER)]),
+							std::stoi(twork[static_cast<int>(MAP_DATA::BACK)]),
+							std::stoi(twork[static_cast<int>(MAP_DATA::NEXT)]) };
+
+		} while (no != std::stoi(twork[static_cast<int>(MAP_DATA::NO)]));
+	}
+	return mapindex[no];
+}
+
+void MapMng::StageTrans(int no)
+{
+	if (no < 1 || no > 2)
+	{
+		exit(1);
+	}
+	_mapdata = GetMapIndex(no);
+	nowStage = no;
+	MapID = std::get<static_cast<int>(MAP_DATA::MAPLINK)>(_mapdata);
+	MapUpdate();
+}
+
 bool MapMng::MapUpdate(void)
 {
-	std::ifstream ifs("mapdata/map.csv");
+	std::ifstream ifs(MapID.c_str());
 	std::string line;
 
 	int y = 0;
@@ -50,6 +107,8 @@ bool MapMng::MapUpdate(void)
 
 	HitMapUpdate();		// 当たり判定
 	BlockLayer();		// ブロック描画の更新
+	
+	SetBgLayer(std::get<static_cast<int>(MAP_DATA::LAYER)>(_mapdata));		// レイヤーの更新
 
 	return true;
 }
@@ -65,6 +124,10 @@ void MapMng::HitMapUpdate(void)
 			if (tmpMap >= 0 && tmpMap <= 23)
 			{
 				HitMap[y][x] = 1;
+			}
+			else
+			{
+				HitMap[y][x] = 0;
 			}
 		}
 	}
@@ -84,6 +147,11 @@ void MapMng::MapDraw(void)
 void MapMng::BlockDraw()
 {
 	lpImageMng.AddDraw({ _layer[LAYER::BLOCK],GameMapSize.x/2,GameMapSize.y/2,0.0,LAYER::BLOCK,0 });
+	if ((lpKeyMng.getOldBuf()[KEY_INPUT_SPACE] && !lpKeyMng.getBuf()[KEY_INPUT_SPACE]))
+	{
+		StageTrans(2);
+		lpImageMng.setGkind(ScrEff::FADE);
+	}
 }
 
 void MapMng::BackGround(void)
@@ -108,7 +176,7 @@ void MapMng::BlockLayer(void)
 		{
 			if (GameMap[y][x] != -1)
 			{
-				DrawRotaGraph(x*16, y*16, 1.0, 0, lpImageMng.getImage("Block")[GameMap[y][x]], true);
+				DrawRotaGraph(x*16+(CHIP_SIZE/2), y*16, 1.0, 0, lpImageMng.getImage("Block")[GameMap[y][x]], true);
 			}
 		}
 	}
@@ -116,6 +184,12 @@ void MapMng::BlockLayer(void)
 
 void MapMng::SetBgLayer(int bgNo)
 {
+	int layer = std::get<static_cast<int>(MAP_DATA::LAYER)>(_mapdata);
+	if(_oldLayerNo == layer)
+	{
+		return;
+	}
+	_oldLayerNo = layer;
 	int bgX = 928;
 	int bgY = 777;
 	
@@ -130,6 +204,7 @@ void MapMng::SetBgLayer(int bgNo)
 	SetDrawScreen(_layer0);
 	ClsDrawScreen();
 	
+	// 変わるときにデータを消す
 	switch(bgNo)
 	{
 		case 1:
@@ -191,16 +266,33 @@ MapMng::MapMng():
 	_layer1 = MakeScreen(GameMapSize.x, GameMapSize.y, true);
 	_layer2 = MakeScreen(GameMapSize.x, GameMapSize.y, true);
 
-	SetBgLayer(1);
-
 	layerPosX = 0;
+	_oldLayerNo = 0;
 
-	MapUpdate();
-	BlockLayer();
+	fopen_s(&indexFp,"mapdata/index.txt","r");
+	if(indexFp == nullptr)
+	{
+		return;
+	}
+
+	StageTrans(1);
+
 	SetDrawBright(0,0,0);
 }
 
 MapMng::~MapMng()
 {
+		fclose(indexFp);
+}
 
+bool MapMng::getHitMap(const Vector2& pos)
+{
+	Vector2 chip = pos / CHIP_SIZE;
+
+	if (chip.x < 0 || chip.x >= MapChipX || chip.y < 0 || chip.y >= MapChipY)
+	{
+		return true;
+	}
+
+	return (HitMap[chip.y][chip.x] == 1);
 }

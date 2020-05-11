@@ -18,8 +18,8 @@ s_dragon::s_dragon()
 	_state_dir = { OBJ_STATE::NORMAL,DIR::RIGHT };
 //	_alive = true;
 	Init();
-	_pos.y = 1000;
-	_pos.x = 10;
+	_pos.y = 800;
+	_pos.x = 50;
 //
 }
 

@@ -76,7 +76,7 @@ std::unique_ptr<BaceScene> GameScene::Update(std::unique_ptr<BaceScene> own)
 bool GameScene::Init(void)
 {
 	_objList.clear();
-	_objList.emplace_back(new Player({ 400,900 }));
+	_objList.emplace_back(new Player({ 400,300 }));
 	lpSceneMng.SetPlObj(_objList[0]);
 	_objList.emplace_back(new camera());
 	_enemyList.emplace_back(new s_dragon());
