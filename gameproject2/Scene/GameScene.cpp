@@ -58,6 +58,16 @@ std::unique_ptr<BaceScene> GameScene::Update(std::unique_ptr<BaceScene> own)
 		(*data).Update();
 	}
 
+	if (CheckHitKey(KEY_INPUT_S))
+	{
+		lpImageMng.setGkind(ScrEff::SPR_FADE);
+	}
+
+	if (CheckHitKey(KEY_INPUT_D))
+	{
+		lpImageMng.setGkind(ScrEff::SQ_FADE);
+	}
+
 	getAttackQue();
 	CheckHitAttack()(_objList, _attackList);
 	CheckHitAttack()(_enemyList, _attackList);

@@ -1,2 +1,12 @@
-﻿  CheckHitAttack.cpp
+﻿  ImageMng.cpp
+c:\users\ewan1\onedrive\desktop\gameproject2\graphic\imagemng.cpp(71): warning C4244: '=': 'T' から 'int' への変換です。データが失われる可能性があります。
+          with
+          [
+              T=double
+          ]
+c:\users\ewan1\onedrive\desktop\gameproject2\graphic\imagemng.cpp(72): warning C4244: '=': 'T' から 'int' への変換です。データが失われる可能性があります。
+          with
+          [
+              T=double
+          ]
   gameproject2.vcxproj -> C:\Users\ewan1\OneDrive\Desktop\gameproject2\Debug\gameproject2.exe

@@ -1,5 +1,6 @@
 #pragma once
 #include <DxLib.h>
+#include <cmath>
 #include <map>
 #include <vector>
 #include <tuple>
@@ -31,6 +32,8 @@ enum class EFFECT
 enum class ScrEff
 {
 	FADE,
+	SPR_FADE,
+	SQ_FADE,
 	MAX
 };
 
@@ -86,6 +89,8 @@ private:
 	//---------------------------------------------------------
 	void ScreenEffect(void);		// 画面エフェクトの分岐
 	void Fade(void);				// 画面エフェクト：フェード
+	void SprFade(void);				// 画面エフェクト：スパイラルフェード
+	void SqFade(void);				// 画面エフェクト：スクエア
 	
 	ScrEff _Gkind;
 	int _fadeCnt;
