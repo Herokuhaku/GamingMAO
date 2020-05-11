@@ -35,7 +35,7 @@ MapData MapMng::GetMapIndex(int no)
 		char text[256];
 		char mk = ',';
 		int cnt;
-			std::string twork[static_cast<int>(MAP_DATA::MAX)];
+		std::string twork[static_cast<int>(MAP_DATA::MAX)];
 
 		do {
 			cnt = 0;
@@ -60,12 +60,14 @@ MapData MapMng::GetMapIndex(int no)
 					}
 				}
 			}
+			// 読み込むデータが正しいという前提で作ってある
 			mapindex[std::stoi(twork[static_cast<int>(MAP_DATA::NO)])] = {
 							std::stoi(twork[static_cast<int>(MAP_DATA::NO)]),
 							twork[static_cast<int>(MAP_DATA::MAPLINK)],
 							std::stoi(twork[static_cast<int>(MAP_DATA::LAYER)]),
 							std::stoi(twork[static_cast<int>(MAP_DATA::BACK)]),
-							std::stoi(twork[static_cast<int>(MAP_DATA::NEXT)]) };
+							std::stoi(twork[static_cast<int>(MAP_DATA::NEXT)]), 
+							std::stoi(twork[static_cast<int>(MAP_DATA::BRANCH)])};
 
 		} while (no != std::stoi(twork[static_cast<int>(MAP_DATA::NO)]));
 	}
@@ -148,11 +150,6 @@ void MapMng::MapDraw(void)
 void MapMng::BlockDraw()
 {
 	lpImageMng.AddDraw({ _layer[LAYER::BLOCK],GameMapSize.x/2,GameMapSize.y/2,0.0,LAYER::BLOCK,0 });
-	if ((lpKeyMng.getOldBuf()[KEY_INPUT_SPACE] && !lpKeyMng.getBuf()[KEY_INPUT_SPACE]))
-	{
-		StageTrans(2);
-		lpImageMng.setGkind(ScrEff::FADE);
-	}
 }
 
 void MapMng::BackGround(void)
@@ -297,3 +294,16 @@ bool MapMng::getHitMap(const Vector2& pos)
 
 	return (HitMap[chip.y][chip.x] == 1);
 }
+
+int MapMng::getGameMapM(const Vector2& pos)
+{
+	Vector2 chip = pos / CHIP_SIZE;
+
+	if (chip.x < 0 || chip.x >= MapChipX || chip.y < 0 || chip.y >= MapChipY)
+	{
+		return 0;
+	}
+	
+	return GameMap[chip.y][chip.x];
+}
+

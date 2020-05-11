@@ -35,15 +35,33 @@ void Player::Update(void)
 
 	if ((lpKeyMng.getOldBuf()[KEY_INPUT_Z] && !lpKeyMng.getBuf()[KEY_INPUT_Z]))
 	{
-		lpMapMng.StageTrans(std::get<3>(lpMapMng.GetMapIndex(lpMapMng.GetnowStage())));
+		int y = _pos.y - 50;
+		// if(座標を見て一番左のポータル)
+		if (lpMapMng.getGameMapM({ _pos.x,y }) == 41)
+		{
+		//	int c = lpMapMng.GetnowStage();
+		//auto b = lpMapMng.GetMapIndex(lpMapMng.GetnowStage());
+		//int a = std::get<4>(lpMapMng.GetMapIndex(lpMapMng.GetnowStage()));
+
+			//lpMapMng.StageTrans(std::get<4>(lpMapMng.GetMapIndex(lpMapMng.GetnowStage())));
+			lpMapMng.StageTrans(2);
+			//lpImageMng.setGkind(ScrEff::FADE);
+			_pos = { 100, 1350 };
+			//// 4 = MAP_DATA::NEXT
+		}
+		// if(座標 一番左のポータル)
+		if (lpMapMng.getGameMapM({ _pos.x,y }) == 9)
+		{
+			lpMapMng.StageTrans(std::get<3>(lpMapMng.GetMapIndex(lpMapMng.GetnowStage())));
 		// 3 = MAP_DATA::BACK
+		}
+		// if(座標 真ん中のポータル)
+		{
+		//lpMapMng.StageTrans(std::get<4>(lpMapMng.GetMapIndex(lpMapMng.GetnowStage())));
+		// 4 = MAP_DATA::NEXT
+		}
 	}
 
-	if ((lpKeyMng.getOldBuf()[KEY_INPUT_X] && !lpKeyMng.getBuf()[KEY_INPUT_X]))
-	{
-		lpMapMng.StageTrans(std::get<4>(lpMapMng.GetMapIndex(lpMapMng.GetnowStage())));
-		// 3 = MAP_DATA::NEXT
-	}
 
 
 
