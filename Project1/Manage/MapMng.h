@@ -17,7 +17,19 @@
 #define MapOffSetY 16 * 5
 #define CHIP_SIZE 16
 
-	using MapData = std::tuple<int,std::string,int,int,int>;
+	// <自分,MAPの格納場所,Layer,前のMAP,次のMAP,分岐先のMAP>
+	using MapData = std::tuple<int,std::string,int,int,int,int>;
+
+	enum class MAP_DATA
+	{
+		NO,
+		MAPLINK,
+		LAYER,
+		BACK,
+		NEXT,
+		BRANCH,
+		MAX
+	};
 
 class MapMng
 {
@@ -51,6 +63,7 @@ public:
 	void BackGround(void);
 	void BlockLayer(void);
 	bool getHitMap(const Vector2& pos);
+	int getGameMapM(const Vector2& pos);	// posの位置のGameMapを返却 Member
 	std::map<LAYER, int> _layer;
 	const Vector2Template<int> GameMapSize;	// ゲーム画面のマップの大きさ
 	std::vector<std::string> split(std::string str, char del);
@@ -73,15 +86,6 @@ private:
 	int _oldLayerNo;
 	
 	// Mapの移動
-	enum class MAP_DATA
-	{
-		NO,
-		MAPLINK,
-		LAYER,
-		BACK,
-		NEXT,
-		MAX
-	};
 
 	FILE *indexFp;				
 	std::string MapID;
@@ -92,6 +96,7 @@ private:
 
 	// Mapの移動
 	
+
 	static MapMng *sInstance;
 	MapMng();
 	~MapMng();
