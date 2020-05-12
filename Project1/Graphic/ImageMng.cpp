@@ -127,16 +127,10 @@ void ImageMng::ScreenEffect(void)
 	switch(_Gkind)
 	{
 			case ScrEff::FADE:
-				Fade();
-				break;
-			case ScrEff::SPR_FADE:
-				SprFade();
-				break;
-			case ScrEff::SQ_FADE:
-				SqFade();
-				break;
-			default:
-				break;
+					Fade();
+					break;
+			defoult:
+					break;
 	}
 }
 
@@ -152,51 +146,16 @@ void ImageMng::Fade(void)
 	}
 }
 
-void ImageMng::SprFade(void)
-{
-	double ex_rate = -abs(_fadeCnt * (1.0 / 3.0) - 50.0) + 50.0;
-	DrawRotaGraph(lpSceneMng.ScreenSize.x / 2, lpSceneMng.ScreenSize.y / 2, ex_rate, 0.0, getImage("spiral_fade")[0], true);
-	if (_fadeCnt >= 300)
-	{
-		_Gkind = ScrEff::MAX;
-	}
-	_fadeCnt++;
-}
-
-void ImageMng::SqFade(void)
-{
-	for (int x = 0; x < 11; x++)
-	{
-		for (int y = 0; y < 6; y++)
-		{
-			//DrawGraph(x * 64 - (y % 2 * 32), y * 64 - 24, getImage("square_fade")[_fadeCnt / 20], true);
-			DrawRotaGraph(x * 128 - (y % 2 * 64) + 64, y * 128 + 24, 2.0, 0.0, getImage("square_fade")[_fadeCnt / 20], true);
-		}
-	}
-	_fadeCnt++;
-
-	if (_fadeCnt >= 300)
-	{
-		_Gkind = ScrEff::MAX;
-	}
-}
-
 void ImageMng::setGkind(ScrEff kind)
 {
 	_Gkind = kind;
 	switch(_Gkind)
 	{
 			case ScrEff::FADE:
-				_fadeCnt = 255;
-				break;
-			case ScrEff::SPR_FADE:
-				_fadeCnt = 0;
-				break;
-			case ScrEff::SQ_FADE:
-				_fadeCnt = 0;
-				break;
+					_fadeCnt = 255;
+					break;
 			default:
-				break;
+					break;
 	}
 }
 
@@ -213,8 +172,7 @@ ImageMng::~ImageMng()
 
 void ImageMng::ImageMngInit(void)
 {
-	getImage("image/spiral_fade.png", "spiral_fade");
-	getImage("image/square_fade.png", "square_fade", 64, 64, 15, 1);
+	getImage("image/effect.png", "gripEffect", 64, 64, 3, 1);
 	_fadeCnt = 255;
 	_Gkind = ScrEff::MAX;
 }

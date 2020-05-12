@@ -19,7 +19,7 @@ class Player :
 {
 public:
 	Player();
-	Player(Vector2Template<int> pos, int stage, TIME time);
+	Player(Vector2Template<int> pos);
 	~Player();
 
 	void Update(void)override;
@@ -36,8 +36,6 @@ private:
 	void ControlNormal(void);
 	void ControlAttack(void);
 	void (Player::*_control)(void); // ã2‚Â‚ÌŠÖ”ƒ|ƒCƒ“ƒ^
-
-	void StopWalk(void);
 
 	void MagicUpdate(void);
 	int _coolTime;

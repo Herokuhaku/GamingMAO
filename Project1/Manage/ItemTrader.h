@@ -28,7 +28,7 @@ public:
 	}
 	
 	void Draw(void);
-	void BagDraw(Vector2D pos);
+	void BagDraw(Vector2D pos,LAYER lay);
 	void Trade(COLOR_TYPE color1, COLOR_TYPE color2);
 	const void SetItemList(Vector2 pos, ITEM_TYPE itype,COLOR_TYPE ctype);
 	void AddBag(void);

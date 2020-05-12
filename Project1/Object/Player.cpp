@@ -7,26 +7,18 @@ Player::Player()
 {
 }
 
-Player::Player(Vector2Template<int> pos, int stage, TIME time)
+Player::Player(Vector2Template<int> pos)
 {
 	_pos = pos;
 	_tmpPos = {static_cast<double>(pos.x),static_cast<double>(pos.y)};
-
 	_state_dir = { OBJ_STATE::NORMAL, DIR::RIGHT };
-
 	_coolTime = 0;
 	_anmEfkHd = -1;
 	_rotateFlag = false;
-
 	_control = &Player::ControlNormal;
-
 	_type = OBJ_TYPE::PLAYER;
-
 	setHitOffset({ 14,10,70,0 });
 	_drawOffset_y = 45;
-
-	_time = time;
-	_stage = stage;
 
 	setHP(HP_MAX);
 	Init();
@@ -38,20 +30,15 @@ Player::~Player()
 
 void Player::Update(void)
 {
-	if (!MenuUpdate() && _time == lpTimeMng.getTime())
+	if (!MenuUpdate())
 	{
 		(this->*_control)();
-	}
-	else
-	{
-		StopWalk();
-	}
 
+	}
 	if (CheckHitKey(KEY_INPUT_T))
 	{
 		lpTradeMng.AddBag();
 	}
-	
 
 	VelUpdate();
 	MagicUpdate();
@@ -86,7 +73,7 @@ void Player::Draw(void)
 		{
 			tmpNum = 2;
 		}
-		lpImageMng.AddDraw({ lpImageMng.getImage("hp_bar")[tmpNum], _pos.x - 27 + 6 * i, _pos.y - 60 - _drawOffset_y, 0.0, LAYER::UI, 0 });
+		lpImageMng.AddDraw({ lpImageMng.getImage("hp_bar")[tmpNum], _pos.x - 27 + 6 * i, _pos.y - 60 - _drawOffset_y, 0.0, LAYER::CHAR, 160 });
 	}
 }
 
@@ -375,18 +362,6 @@ void Player::ControlAttack(void)
 	{
 		_vel = INI_VEL_NORMAL;
 		setState({ OBJ_STATE::A_JUMP, _state_dir.second });
-	}
-}
-
-void Player::StopWalk(void)
-{
-	if (_state_dir.first == OBJ_STATE::DASH || _state_dir.first == OBJ_STATE::WALK)
-	{
-		setState({ OBJ_STATE::NORMAL, _state_dir.second });
-	}
-	if (_state_dir.first == OBJ_STATE::A_DASH || _state_dir.first == OBJ_STATE::A_WALK)
-	{
-		setState({ OBJ_STATE::A_NORMAL, _state_dir.second });
 	}
 }
 

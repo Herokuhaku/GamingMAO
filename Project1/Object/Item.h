@@ -30,6 +30,7 @@ public:
 
 	void Update(void);
 	void Draw(void);
+	void OLDraw(LAYER lay);		// ˆá‚¤ƒŒƒCƒ„[‚É“ü‚ê‚½‚¢‚Æ‚«—p
 private:
 	void Init(void);
 	ITEM_TYPE _itemtype;

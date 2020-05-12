@@ -12,7 +12,7 @@ Item::Item(Vector2 pos, ITEM_TYPE itemtype,COLOR_TYPE colortype,int no)
 	_pos = pos;
 	_itemtype = itemtype;
 	_colortype = colortype;
-
+	_zOrder = 201;
 	Init();
 
 }
@@ -31,6 +31,16 @@ void Item::Draw(void)
 {
 //	lpImageMng.AddDraw({ lpImageMng.getImage("BlueBook")[0],_pos.x,lpSceneMng.GetcPos().y+100,0.0,LAYER::CHAR,100 });
 	Object::Draw();
+}
+
+void Item::OLDraw(LAYER lay)
+{
+	if (!anmUpdate())
+	{
+		return;
+	}
+
+	lpImageMng.AddDraw({ _anmMap[_state_dir][_anmFlame].first, _pos.x, _pos.y - _drawOffset_y, _rad, lay, _zOrder });
 }
 
 void Item::Init(void)
