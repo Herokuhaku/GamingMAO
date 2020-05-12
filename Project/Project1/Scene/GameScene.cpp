@@ -75,7 +75,7 @@ std::unique_ptr<BaceScene> GameScene::Update(std::unique_ptr<BaceScene> own)
 	lpMapMng.MapDraw();
 	if (!lpMenuMng.GetMixFlag())
 	{
-		lpTradeMng.BagDraw({ 200,200 });
+		lpTradeMng.BagDraw({ 200,200 },LAYER::CHAR);
 	}
 	return own;
 }
@@ -89,6 +89,7 @@ bool GameScene::Init(void)
 	_enemyList.emplace_back(new s_dragon());
 
 	lpTradeMng.SetItemList({ 400,1300 }, ITEM_TYPE::BOOK, COLOR_TYPE::BLUE);
+	lpTradeMng.SetItemList({ 600,1300 }, ITEM_TYPE::BOOK, COLOR_TYPE::BLUE);
 
 	return false;
 }

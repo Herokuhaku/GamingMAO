@@ -1,4 +1,82 @@
-﻿  Menu.cpp
+﻿  EffekseerMng.cpp
+  ImageMng.cpp
+C:\Users\satou\Desktop\GamingMAO\Project\Project1\Graphic\ImageMng.cpp(71,29): warning C4244: '=': 'T' から 'int' への変換です。データが失われる可能性があります。
+          with
+          [
+              T=double
+          ]
+C:\Users\satou\Desktop\GamingMAO\Project\Project1\Graphic\ImageMng.cpp(72,29): warning C4244: '=': 'T' から 'int' への変換です。データが失われる可能性があります。
+          with
+          [
+              T=double
+          ]
+C:\Users\satou\Desktop\GamingMAO\Project\Project1\Graphic\ImageMng.cpp(132,11): warning C4102: 'defoult': ラベルは 1 度も参照されません。
+  ItemTrader.cpp
+C:\Users\satou\Desktop\GamingMAO\Project\Project1\Manage\ItemTrader.cpp(16,34): warning C4244: '=': 'T' から 'T' への変換です。データが失われる可能性があります。
+          with
+          [
+              T=double
+          ]
+          and
+          [
+              T=int
+          ]
+C:\Users\satou\Desktop\GamingMAO\Project\Project1\Manage\ItemTrader.cpp(17,34): warning C4244: '=': 'T' から 'T' への変換です。データが失われる可能性があります。
+          with
+          [
+              T=double
+          ]
+          and
+          [
+              T=int
+          ]
+C:\Users\satou\Desktop\GamingMAO\Project\Project1\Manage\ItemTrader.cpp(47,70): warning C4267: '引数': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.25.28610\include\utility(151,1): warning C4267: '初期化中': 'size_t' から '_Ty2' に変換しました。データが失われているかもしれません。
+          with
+          [
+              _Ty2=int
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.25.28610\include\xmemory(670): message : コンパイル対象の関数 テンプレート インスタンス化 'std::pair<std::shared_ptr<Item>,int>::pair<std::shared_ptr<Item>&,_Ty,0>(_Other1,_Other2 &&) noexcept' のリファレンスを確認してください
+          with
+          [
+              _Ty=unsigned __int64,
+              _Other1=std::shared_ptr<Item> &,
+              _Other2=unsigned __int64
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.25.28610\include\xmemory(671): message : コンパイル対象の関数 テンプレート インスタンス化 'std::pair<std::shared_ptr<Item>,int>::pair<std::shared_ptr<Item>&,_Ty,0>(_Other1,_Other2 &&) noexcept' のリファレンスを確認してください
+          with
+          [
+              _Ty=unsigned __int64,
+              _Other1=std::shared_ptr<Item> &,
+              _Other2=unsigned __int64
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.25.28610\include\vector(682): message : コンパイル対象の関数 テンプレート インスタンス化 'void std::_Default_allocator_traits<_Alloc>::construct<_Ty,std::shared_ptr<Item>&,unsigned __int64>(_Alloc &,_Objty *const ,std::shared_ptr<Item> &,unsigned __int64 &&)' のリファレンスを確認してください
+          with
+          [
+              _Alloc=std::allocator<std::pair<std::shared_ptr<Item>,int>>,
+              _Ty=std::pair<std::shared_ptr<Item>,int>,
+              _Objty=std::pair<std::shared_ptr<Item>,int>
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.25.28610\include\vector(687): message : コンパイル対象の関数 テンプレート インスタンス化 'void std::_Default_allocator_traits<_Alloc>::construct<_Ty,std::shared_ptr<Item>&,unsigned __int64>(_Alloc &,_Objty *const ,std::shared_ptr<Item> &,unsigned __int64 &&)' のリファレンスを確認してください
+          with
+          [
+              _Alloc=std::allocator<std::pair<std::shared_ptr<Item>,int>>,
+              _Ty=std::pair<std::shared_ptr<Item>,int>,
+              _Objty=std::pair<std::shared_ptr<Item>,int>
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.25.28610\include\vector(700): message : コンパイル対象の関数 テンプレート インスタンス化 'void std::vector<std::pair<std::shared_ptr<Item>,int>,std::allocator<std::pair<std::shared_ptr<Item>,int>>>::_Emplace_back_with_unused_capacity<std::shared_ptr<Item>&,_Ty>(std::shared_ptr<Item> &,_Ty &&)' のリファレンスを確認してください
+          with
+          [
+              _Ty=unsigned __int64
+          ]
+C:\Users\satou\Desktop\GamingMAO\Project\Project1\Manage\ItemTrader.cpp(59): message : コンパイル対象の関数 テンプレート インスタンス化 'void std::vector<std::pair<std::shared_ptr<Item>,int>,std::allocator<std::pair<std::shared_ptr<Item>,int>>>::emplace_back<std::shared_ptr<Item>&,unsigned __int64>(std::shared_ptr<Item> &,unsigned __int64 &&)' のリファレンスを確認してください
+  MapMng.cpp
+C:\Users\satou\Desktop\GamingMAO\Project\Project1\Manage\MapMng.cpp(159,37): warning C4244: '=': 'T' から 'int' への変換です。データが失われる可能性があります。
+          with
+          [
+              T=double
+          ]
+  Menu.cpp
 C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.25.28610\include\tuple(163,47): warning C4244: '初期化中': '_Ty' から '_Ty' への変換です。データが失われる可能性があります。
           with
           [
@@ -54,14 +132,14 @@ C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.2
               _Tag=std::_Exact_args_t,
               _This2=int &
           ]
-C:\Users\GrapeHero\Desktop\GamingMAO\Project\Project1\Manage\Menu.cpp(193): message : コンパイル対象の関数 テンプレート インスタンス化 'std::tuple<int,int,int,double,LAYER,int>::tuple<_Ty&,T,T&,double,LAYER,int,0>(_This2,T &&,T &,double &&,LAYER &&,int &&) noexcept' のリファレンスを確認してください
+C:\Users\satou\Desktop\GamingMAO\Project\Project1\Manage\Menu.cpp(193): message : コンパイル対象の関数 テンプレート インスタンス化 'std::tuple<int,int,int,double,LAYER,int>::tuple<_Ty&,T,T&,double,LAYER,int,0>(_This2,T &&,T &,double &&,LAYER &&,int &&) noexcept' のリファレンスを確認してください
           with
           [
               _Ty=int,
               T=double,
               _This2=int &
           ]
-C:\Users\GrapeHero\Desktop\GamingMAO\Project\Project1\Manage\Menu.cpp(193): message : コンパイル対象の関数 テンプレート インスタンス化 'std::tuple<int,int,int,double,LAYER,int>::tuple<_Ty&,T,T&,double,LAYER,int,0>(_This2,T &&,T &,double &&,LAYER &&,int &&) noexcept' のリファレンスを確認してください
+C:\Users\satou\Desktop\GamingMAO\Project\Project1\Manage\Menu.cpp(193): message : コンパイル対象の関数 テンプレート インスタンス化 'std::tuple<int,int,int,double,LAYER,int>::tuple<_Ty&,T,T&,double,LAYER,int,0>(_This2,T &&,T &,double &&,LAYER &&,int &&) noexcept' のリファレンスを確認してください
           with
           [
               _Ty=int,
@@ -107,79 +185,18 @@ C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.2
               _Tag=std::_Exact_args_t,
               _This2=double &
           ]
-  CheckHitStage.cpp
+  Enemy.cpp
+  s_dragon.cpp
+  Item.cpp
+  Object.cpp
+  Player.cpp
+  camera.cpp
+  GameScene.cpp
+  SceneMng.cpp
   TitleScene.cpp
+  CheckHitAttack.cpp
+  CheckHitStage.cpp
+  main.cpp
   コードを生成中...
-Effekseer_vs2019_x64_d.lib(Effekseer.Color.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseer_vs2019_x64_d.lib(Effekseer.Color.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-Effekseer_vs2019_x64_d.lib(Effekseer.DefaultEffectLoader.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseer_vs2019_x64_d.lib(Effekseer.DefaultEffectLoader.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-Effekseer_vs2019_x64_d.lib(Effekseer.DefaultFile.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseer_vs2019_x64_d.lib(Effekseer.DefaultFile.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-Effekseer_vs2019_x64_d.lib(Effekseer.Effect.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseer_vs2019_x64_d.lib(Effekseer.Effect.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-Effekseer_vs2019_x64_d.lib(Effekseer.EffectNode.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseer_vs2019_x64_d.lib(Effekseer.EffectNode.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-Effekseer_vs2019_x64_d.lib(Effekseer.EffectNodeModel.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseer_vs2019_x64_d.lib(Effekseer.EffectNodeModel.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-Effekseer_vs2019_x64_d.lib(Effekseer.EffectNodeRibbon.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseer_vs2019_x64_d.lib(Effekseer.EffectNodeRibbon.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-Effekseer_vs2019_x64_d.lib(Effekseer.EffectNodeRing.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseer_vs2019_x64_d.lib(Effekseer.EffectNodeRing.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-Effekseer_vs2019_x64_d.lib(Effekseer.EffectNodeSprite.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseer_vs2019_x64_d.lib(Effekseer.EffectNodeSprite.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-Effekseer_vs2019_x64_d.lib(Effekseer.EffectNodeTrack.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseer_vs2019_x64_d.lib(Effekseer.EffectNodeTrack.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-Effekseer_vs2019_x64_d.lib(Effekseer.FCurves.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseer_vs2019_x64_d.lib(Effekseer.FCurves.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-Effekseer_vs2019_x64_d.lib(Effekseer.Instance.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseer_vs2019_x64_d.lib(Effekseer.Instance.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-Effekseer_vs2019_x64_d.lib(Effekseer.InstanceChunk.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseer_vs2019_x64_d.lib(Effekseer.InstanceChunk.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-Effekseer_vs2019_x64_d.lib(Effekseer.InstanceContainer.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseer_vs2019_x64_d.lib(Effekseer.InstanceContainer.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-Effekseer_vs2019_x64_d.lib(Effekseer.InstanceGlobal.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseer_vs2019_x64_d.lib(Effekseer.InstanceGlobal.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-Effekseer_vs2019_x64_d.lib(Effekseer.InstanceGroup.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseer_vs2019_x64_d.lib(Effekseer.InstanceGroup.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-Effekseer_vs2019_x64_d.lib(Effekseer.InternalScript.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseer_vs2019_x64_d.lib(Effekseer.InternalScript.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-Effekseer_vs2019_x64_d.lib(Effekseer.Manager.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseer_vs2019_x64_d.lib(Effekseer.Manager.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-Effekseer_vs2019_x64_d.lib(Effekseer.Matrix44.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseer_vs2019_x64_d.lib(Effekseer.Matrix44.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-Effekseer_vs2019_x64_d.lib(Effekseer.RectF.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseer_vs2019_x64_d.lib(Effekseer.RectF.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-Effekseer_vs2019_x64_d.lib(Effekseer.Setting.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseer_vs2019_x64_d.lib(Effekseer.Setting.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-Effekseer_vs2019_x64_d.lib(Effekseer.Server.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseer_vs2019_x64_d.lib(Effekseer.Server.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-Effekseer_vs2019_x64_d.lib(Effekseer.Socket.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseer_vs2019_x64_d.lib(Effekseer.Socket.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-Effekseer_vs2019_x64_d.lib(Effekseer.Vector2D.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseer_vs2019_x64_d.lib(Effekseer.Vector2D.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-Effekseer_vs2019_x64_d.lib(Effekseer.Vector3D.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseer_vs2019_x64_d.lib(Effekseer.Vector3D.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-Effekseer_vs2019_x64_d.lib(Culling3D.Grid.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseer_vs2019_x64_d.lib(Culling3D.Grid.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-Effekseer_vs2019_x64_d.lib(Culling3D.Layer.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseer_vs2019_x64_d.lib(Culling3D.Layer.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-Effekseer_vs2019_x64_d.lib(Culling3D.Matrix44.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseer_vs2019_x64_d.lib(Culling3D.Matrix44.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-Effekseer_vs2019_x64_d.lib(Culling3D.ObjectInternal.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseer_vs2019_x64_d.lib(Culling3D.ObjectInternal.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-Effekseer_vs2019_x64_d.lib(Culling3D.ReferenceObject.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseer_vs2019_x64_d.lib(Culling3D.ReferenceObject.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-Effekseer_vs2019_x64_d.lib(Culling3D.Vector3DF.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseer_vs2019_x64_d.lib(Culling3D.Vector3DF.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-Effekseer_vs2019_x64_d.lib(Culling3D.WorldInternal.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseer_vs2019_x64_d.lib(Culling3D.WorldInternal.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-Effekseer_vs2019_x64_d.lib(Effekseer.Material.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseer_vs2019_x64_d.lib(Effekseer.Material.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-Effekseer_vs2019_x64_d.lib(Effekseer.CompiledMaterial.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseer_vs2019_x64_d.lib(Effekseer.CompiledMaterial.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-Effekseer_vs2019_x64_d.lib(Effekseer.EfkEfcFactory.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseer_vs2019_x64_d.lib(Effekseer.EfkEfcFactory.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-Effekseer_vs2019_x64_d.lib(Effekseer.Parameters.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseer_vs2019_x64_d.lib(Effekseer.Parameters.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-Effekseer_vs2019_x64_d.lib(Effekseer.CustomAllocator.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseer_vs2019_x64_d.lib(Effekseer.CustomAllocator.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-Effekseer_vs2019_x64_d.lib(Effekseer.Mat43f.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseer_vs2019_x64_d.lib(Effekseer.Mat43f.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-Effekseer_vs2019_x64_d.lib(Effekseer.Mat44f.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseer_vs2019_x64_d.lib(Effekseer.Mat44f.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-Effekseer_vs2019_x64_d.lib(Effekseer.SIMDUtils.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseer_vs2019_x64_d.lib(Effekseer.SIMDUtils.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-EffekseerRendererDX9_vs2019_x64_d.lib(EffekseerRenderer.CommonUtils.obj) : warning LNK4099: PDB 'EffekseerRendererDX9.pdb' が 'EffekseerRendererDX9_vs2019_x64_d.lib(EffekseerRenderer.CommonUtils.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\EffekseerRendererDX9.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-EffekseerRendererDX9_vs2019_x64_d.lib(EffekseerRenderer.DDSTextureLoader.obj) : warning LNK4099: PDB 'EffekseerRendererDX9.pdb' が 'EffekseerRendererDX9_vs2019_x64_d.lib(EffekseerRenderer.DDSTextureLoader.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\EffekseerRendererDX9.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-EffekseerRendererDX9_vs2019_x64_d.lib(EffekseerRenderer.DXTK.DDSTextureLoader.obj) : warning LNK4099: PDB 'EffekseerRendererDX9.pdb' が 'EffekseerRendererDX9_vs2019_x64_d.lib(EffekseerRenderer.DXTK.DDSTextureLoader.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\EffekseerRendererDX9.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-EffekseerRendererDX9_vs2019_x64_d.lib(EffekseerRenderer.IndexBufferBase.obj) : warning LNK4099: PDB 'EffekseerRendererDX9.pdb' が 'EffekseerRendererDX9_vs2019_x64_d.lib(EffekseerRenderer.IndexBufferBase.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\EffekseerRendererDX9.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-EffekseerRendererDX9_vs2019_x64_d.lib(EffekseerRenderer.PngTextureLoader.obj) : warning LNK4099: PDB 'EffekseerRendererDX9.pdb' が 'EffekseerRendererDX9_vs2019_x64_d.lib(EffekseerRenderer.PngTextureLoader.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\EffekseerRendererDX9.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-EffekseerRendererDX9_vs2019_x64_d.lib(EffekseerRenderer.RenderStateBase.obj) : warning LNK4099: PDB 'EffekseerRendererDX9.pdb' が 'EffekseerRendererDX9_vs2019_x64_d.lib(EffekseerRenderer.RenderStateBase.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\EffekseerRendererDX9.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-EffekseerRendererDX9_vs2019_x64_d.lib(EffekseerRenderer.Renderer.obj) : warning LNK4099: PDB 'EffekseerRendererDX9.pdb' が 'EffekseerRendererDX9_vs2019_x64_d.lib(EffekseerRenderer.Renderer.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\EffekseerRendererDX9.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-EffekseerRendererDX9_vs2019_x64_d.lib(EffekseerRenderer.Renderer_Impl.obj) : warning LNK4099: PDB 'EffekseerRendererDX9.pdb' が 'EffekseerRendererDX9_vs2019_x64_d.lib(EffekseerRenderer.Renderer_Impl.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\EffekseerRendererDX9.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-EffekseerRendererDX9_vs2019_x64_d.lib(EffekseerRenderer.VertexBufferBase.obj) : warning LNK4099: PDB 'EffekseerRendererDX9.pdb' が 'EffekseerRendererDX9_vs2019_x64_d.lib(EffekseerRenderer.VertexBufferBase.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\EffekseerRendererDX9.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-EffekseerRendererDX9_vs2019_x64_d.lib(EffekseerRendererDX9.DeviceObject.obj) : warning LNK4099: PDB 'EffekseerRendererDX9.pdb' が 'EffekseerRendererDX9_vs2019_x64_d.lib(EffekseerRendererDX9.DeviceObject.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\EffekseerRendererDX9.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-EffekseerRendererDX9_vs2019_x64_d.lib(EffekseerRendererDX9.IndexBuffer.obj) : warning LNK4099: PDB 'EffekseerRendererDX9.pdb' が 'EffekseerRendererDX9_vs2019_x64_d.lib(EffekseerRendererDX9.IndexBuffer.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\EffekseerRendererDX9.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-EffekseerRendererDX9_vs2019_x64_d.lib(EffekseerRendererDX9.MaterialLoader.obj) : warning LNK4099: PDB 'EffekseerRendererDX9.pdb' が 'EffekseerRendererDX9_vs2019_x64_d.lib(EffekseerRendererDX9.MaterialLoader.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\EffekseerRendererDX9.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-EffekseerRendererDX9_vs2019_x64_d.lib(EffekseerRendererDX9.ModelLoader.obj) : warning LNK4099: PDB 'EffekseerRendererDX9.pdb' が 'EffekseerRendererDX9_vs2019_x64_d.lib(EffekseerRendererDX9.ModelLoader.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\EffekseerRendererDX9.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-EffekseerRendererDX9_vs2019_x64_d.lib(EffekseerRendererDX9.ModelRenderer.obj) : warning LNK4099: PDB 'EffekseerRendererDX9.pdb' が 'EffekseerRendererDX9_vs2019_x64_d.lib(EffekseerRendererDX9.ModelRenderer.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\EffekseerRendererDX9.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-EffekseerRendererDX9_vs2019_x64_d.lib(EffekseerRendererDX9.RenderState.obj) : warning LNK4099: PDB 'EffekseerRendererDX9.pdb' が 'EffekseerRendererDX9_vs2019_x64_d.lib(EffekseerRendererDX9.RenderState.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\EffekseerRendererDX9.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-EffekseerRendererDX9_vs2019_x64_d.lib(EffekseerRendererDX9.Renderer.obj) : warning LNK4099: PDB 'EffekseerRendererDX9.pdb' が 'EffekseerRendererDX9_vs2019_x64_d.lib(EffekseerRendererDX9.Renderer.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\EffekseerRendererDX9.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-EffekseerRendererDX9_vs2019_x64_d.lib(EffekseerRendererDX9.Shader.obj) : warning LNK4099: PDB 'EffekseerRendererDX9.pdb' が 'EffekseerRendererDX9_vs2019_x64_d.lib(EffekseerRendererDX9.Shader.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\EffekseerRendererDX9.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-EffekseerRendererDX9_vs2019_x64_d.lib(EffekseerRendererDX9.TextureLoader.obj) : warning LNK4099: PDB 'EffekseerRendererDX9.pdb' が 'EffekseerRendererDX9_vs2019_x64_d.lib(EffekseerRendererDX9.TextureLoader.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\EffekseerRendererDX9.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-EffekseerRendererDX9_vs2019_x64_d.lib(EffekseerRendererDX9.VertexBuffer.obj) : warning LNK4099: PDB 'EffekseerRendererDX9.pdb' が 'EffekseerRendererDX9_vs2019_x64_d.lib(EffekseerRendererDX9.VertexBuffer.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\EffekseerRendererDX9.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-EffekseerRendererDX9_vs2019_x64_d.lib(EffekseerMaterialCompilerDX9.obj) : warning LNK4099: PDB 'EffekseerRendererDX9.pdb' が 'EffekseerRendererDX9_vs2019_x64_d.lib(EffekseerMaterialCompilerDX9.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\EffekseerRendererDX9.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-EffekseerRendererDX11_vs2019_x64_d.lib(EffekseerRendererDX11.DeviceObject.obj) : warning LNK4099: PDB 'EffekseerRendererDX11.pdb' が 'EffekseerRendererDX11_vs2019_x64_d.lib(EffekseerRendererDX11.DeviceObject.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\EffekseerRendererDX11.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-EffekseerRendererDX11_vs2019_x64_d.lib(EffekseerRendererDX11.IndexBuffer.obj) : warning LNK4099: PDB 'EffekseerRendererDX11.pdb' が 'EffekseerRendererDX11_vs2019_x64_d.lib(EffekseerRendererDX11.IndexBuffer.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\EffekseerRendererDX11.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-EffekseerRendererDX11_vs2019_x64_d.lib(EffekseerRendererDX11.MaterialLoader.obj) : warning LNK4099: PDB 'EffekseerRendererDX11.pdb' が 'EffekseerRendererDX11_vs2019_x64_d.lib(EffekseerRendererDX11.MaterialLoader.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\EffekseerRendererDX11.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-EffekseerRendererDX11_vs2019_x64_d.lib(EffekseerRendererDX11.ModelLoader.obj) : warning LNK4099: PDB 'EffekseerRendererDX11.pdb' が 'EffekseerRendererDX11_vs2019_x64_d.lib(EffekseerRendererDX11.ModelLoader.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\EffekseerRendererDX11.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-EffekseerRendererDX11_vs2019_x64_d.lib(EffekseerRendererDX11.ModelRenderer.obj) : warning LNK4099: PDB 'EffekseerRendererDX11.pdb' が 'EffekseerRendererDX11_vs2019_x64_d.lib(EffekseerRendererDX11.ModelRenderer.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\EffekseerRendererDX11.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-EffekseerRendererDX11_vs2019_x64_d.lib(EffekseerRendererDX11.RenderState.obj) : warning LNK4099: PDB 'EffekseerRendererDX11.pdb' が 'EffekseerRendererDX11_vs2019_x64_d.lib(EffekseerRendererDX11.RenderState.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\EffekseerRendererDX11.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-EffekseerRendererDX11_vs2019_x64_d.lib(EffekseerRendererDX11.Renderer.obj) : warning LNK4099: PDB 'EffekseerRendererDX11.pdb' が 'EffekseerRendererDX11_vs2019_x64_d.lib(EffekseerRendererDX11.Renderer.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\EffekseerRendererDX11.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-EffekseerRendererDX11_vs2019_x64_d.lib(EffekseerRendererDX11.Shader.obj) : warning LNK4099: PDB 'EffekseerRendererDX11.pdb' が 'EffekseerRendererDX11_vs2019_x64_d.lib(EffekseerRendererDX11.Shader.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\EffekseerRendererDX11.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-EffekseerRendererDX11_vs2019_x64_d.lib(EffekseerRendererDX11.TextureLoader.obj) : warning LNK4099: PDB 'EffekseerRendererDX11.pdb' が 'EffekseerRendererDX11_vs2019_x64_d.lib(EffekseerRendererDX11.TextureLoader.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\EffekseerRendererDX11.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-EffekseerRendererDX11_vs2019_x64_d.lib(EffekseerRendererDX11.VertexBuffer.obj) : warning LNK4099: PDB 'EffekseerRendererDX11.pdb' が 'EffekseerRendererDX11_vs2019_x64_d.lib(EffekseerRendererDX11.VertexBuffer.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\EffekseerRendererDX11.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-EffekseerRendererDX11_vs2019_x64_d.lib(EffekseerMaterialCompilerDX11.obj) : warning LNK4099: PDB 'EffekseerRendererDX11.pdb' が 'EffekseerRendererDX11_vs2019_x64_d.lib(EffekseerMaterialCompilerDX11.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\EffekseerRendererDX11.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-EffekseerForDXLib_vs2019_x64_d.lib(EffekseerForDXLib.obj) : warning LNK4099: PDB 'EffekseerForDXLib_vs2019.pdb' が 'EffekseerForDXLib_vs2019_x64_d.lib(EffekseerForDXLib.obj)' で、または 'C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\EffekseerForDXLib_vs2019.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-  Project1.vcxproj -> C:\Users\GrapeHero\Desktop\GamingMAO\Project\x64\Debug\Project1.exe
+C:\Users\satou\Desktop\GamingMAO\Project\Project1\Object\Enemy\Enemy.cpp(83): warning C4715: 'Enemy::Move': 値を返さないコントロール パスがあります。
+  Project1.vcxproj -> C:\Users\satou\Desktop\GamingMAO\Project\x64\Debug\Project1.exe

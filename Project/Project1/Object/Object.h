@@ -80,6 +80,7 @@ public:
 	bool isAlive(void);
 
 	virtual void Draw(void);
+
 	bool anmUpdate(void);
 
 	void setAttack(const std::string key, std::vector<atkData>& data);
@@ -88,9 +89,6 @@ public:
 	std::vector<atkData> getAttackQue(void);
 	void stopAttack(void);
 private:
-	std::map<std::pair<OBJ_STATE, DIR>, AnmVec> _anmMap;	// アニメーションを保存するとこ
-	unsigned int _anmTime;		// アニメーションの経過時間
-	unsigned int _anmFlame;		// アニメーションの現在のコマ数
 
 	int _hp;						// 体力
 	int _inv;						// 無敵時間　0なら無敵ではない
@@ -99,6 +97,10 @@ private:
 	static std::map<std::string, std::vector<atkData>> _attackMap;	// 攻撃の情報
 	std::vector<std::pair<std::string, unsigned int>> _attackData;	// 攻撃中の攻撃
 protected:
+	std::map<std::pair<OBJ_STATE, DIR>, AnmVec> _anmMap;	// アニメーションを保存するとこ
+	unsigned int _anmTime;		// アニメーションの経過時間
+	unsigned int _anmFlame;		// アニメーションの現在のコマ数
+
 	Vector2 _pos;					// 座標(x:中心　y:下辺)
 	double _rad;					// 角度
 	int _drawOffset_y;				// 描画時のオフセット(画像の中央座標 - 下辺座標)

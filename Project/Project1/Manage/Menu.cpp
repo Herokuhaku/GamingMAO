@@ -216,8 +216,8 @@ void Menu::MixDraw(void)
 
 void Menu::Item1(void)
 {
-	lpImageMng.AddDraw({ lpImageMng.getImage("Menu")[0],_cpos.x + 200,_cpos.y,0.0,LAYER::CHAR,200 });
-	lpTradeMng.BagDraw({ -200,0 });
+	lpImageMng.AddDraw({ lpImageMng.getImage("Menu")[0],_cpos.x + 200,_cpos.y,0.0,LAYER::EX,20 });
+	lpTradeMng.BagDraw({ -200,0 },LAYER::EX);
 	//Item[0] = ;
 }
 

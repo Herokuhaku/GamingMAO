@@ -136,6 +136,8 @@ void Object::Draw(void)
 	lpImageMng.AddDraw({ _anmMap[_state_dir][_anmFlame].first, _pos.x, _pos.y - _drawOffset_y, _rad, LAYER::CHAR, _zOrder });
 }
 
+
+
 bool Object::anmUpdate(void)
 {
 	// 範囲外チェック
