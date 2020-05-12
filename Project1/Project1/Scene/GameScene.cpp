@@ -3,8 +3,8 @@
 #include "../Object/Player.h"
 #include "../Object/camera.h"
 #include "../Object/Enemy/s_dragon.h"
-#include "../MapMng.h"
-#include "../ItemTrader.h"
+#include "../Manage/MapMng.h"
+#include "../Manage/ItemTrader.h"
 
 GameScene::GameScene()
 {

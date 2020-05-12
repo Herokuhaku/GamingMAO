@@ -1,7 +1,7 @@
 #include "Player.h"
-#include "../Menu.h"
-#include "../ItemTrader.h"
-#include "../ButtonMng.h"
+#include "../Manage/Menu.h"
+#include "../Manage/ItemTrader.h"
+#include "../Manage/ButtonMng.h"
 
 Player::Player()
 {

@@ -1,7 +1,7 @@
 #include <algorithm>
 #include <string>
 #include "ImageMng.h"
-#include "../MapMng.h"
+#include "../Manage/MapMng.h"
 #include "../Scene/SceneMng.h"
 
 #define SCREEN_SIZE_X lpSceneMng.ScreenSize.x

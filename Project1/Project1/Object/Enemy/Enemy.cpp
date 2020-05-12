@@ -1,6 +1,6 @@
 #include "Enemy.h"
 #include "../../Scene/SceneMng.h"
-#include "../../MapMng.h"
+#include "../../Manage/MapMng.h"
 
 void Enemy::Update(void)
 {
