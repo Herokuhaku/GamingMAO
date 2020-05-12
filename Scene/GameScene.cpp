@@ -3,8 +3,9 @@
 #include "../Object/Player.h"
 #include "../Object/camera.h"
 #include "../Object/Enemy/s_dragon.h"
-#include "../MapMng.h"
-#include "../ItemTrader.h"
+#include "../Manage/MapMng.h"
+#include "../Manage/ItemTrader.h"
+#include "../Manage/Menu.h"
 
 GameScene::GameScene()
 {
@@ -60,16 +61,22 @@ std::unique_ptr<BaceScene> GameScene::Update(std::unique_ptr<BaceScene> own)
 
 	getAttackQue();
 	CheckHitAttack()(_objList, _attackList);
-	CheckHitAttack()(_objList, _attackList);
+	CheckHitAttack()(_enemyList, _attackList);
+
+
 
 	for (auto data : _objList)
 	{
 		(*data).Draw();
+		(*data).attackUpdate();
 	}
 
 	lpTradeMng.Draw();
 	lpMapMng.MapDraw();
-
+	if (!lpMenuMng.GetMixFlag())
+	{
+		lpTradeMng.BagDraw({ 200,200 },LAYER::CHAR);
+	}
 	return own;
 }
 
@@ -81,9 +88,8 @@ bool GameScene::Init(void)
 	_objList.emplace_back(new camera());
 	_enemyList.emplace_back(new s_dragon());
 
-
-
-	lpTradeMng.SetItemList({ 400,300 }, ITEM_TYPE::BOOK, COLOR_TYPE::BLUE);
+	lpTradeMng.SetItemList({ 400,1300 }, ITEM_TYPE::BOOK, COLOR_TYPE::BLUE);
+	lpTradeMng.SetItemList({ 600,1300 }, ITEM_TYPE::BOOK, COLOR_TYPE::BLUE);
 
 	return false;
 }

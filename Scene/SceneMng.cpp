@@ -2,8 +2,8 @@
 #include "SceneMng.h"
 #include "TitleScene.h"
 #include "../Graphic/ImageMng.h"
-#include "../ButtonMng.h"
-#include "../KeyMng.h"
+#include "../Manage/ButtonMng.h"
+#include "../Manage/KeyMng.h"
 
 SceneMng *SceneMng::sInstance = nullptr;
 

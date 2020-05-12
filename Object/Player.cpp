@@ -1,4 +1,7 @@
 #include "Player.h"
+#include "../Manage/Menu.h"
+#include "../Manage/ItemTrader.h"
+#include "../Manage/ButtonMng.h"
 
 Player::Player()
 {
@@ -27,11 +30,18 @@ Player::~Player()
 
 void Player::Update(void)
 {
-	(this->*_control)();
+	if (!MenuUpdate())
+	{
+		(this->*_control)();
+
+	}
+	if (CheckHitKey(KEY_INPUT_T))
+	{
+		lpTradeMng.AddBag();
+	}
+
 	VelUpdate();
-
 	MagicUpdate();
-
 
 	if ((lpKeyMng.getOldBuf()[KEY_INPUT_Z] && !lpKeyMng.getBuf()[KEY_INPUT_Z]))
 	{
@@ -39,13 +49,8 @@ void Player::Update(void)
 		// if(座標を見て一番左のポータル)
 		if (lpMapMng.getGameMapM({ _pos.x,y }) == 41)
 		{
-		//	int c = lpMapMng.GetnowStage();
-		//auto b = lpMapMng.GetMapIndex(lpMapMng.GetnowStage());
-		//int a = std::get<4>(lpMapMng.GetMapIndex(lpMapMng.GetnowStage()));
-
-			//lpMapMng.StageTrans(std::get<4>(lpMapMng.GetMapIndex(lpMapMng.GetnowStage())));
-			lpMapMng.StageTrans(2);
-			//lpImageMng.setGkind(ScrEff::FADE);
+			lpMapMng.StageTrans(std::get<4>(lpMapMng.GetMapIndex(lpMapMng.GetnowStage())));
+			lpImageMng.setGkind(ScrEff::FADE);
 			_pos = { 100, 1350 };
 			//// 4 = MAP_DATA::NEXT
 		}
@@ -53,6 +58,7 @@ void Player::Update(void)
 		if (lpMapMng.getGameMapM({ _pos.x,y }) == 9)
 		{
 			lpMapMng.StageTrans(std::get<3>(lpMapMng.GetMapIndex(lpMapMng.GetnowStage())));
+			lpImageMng.setGkind(ScrEff::FADE);
 		// 3 = MAP_DATA::BACK
 		}
 		// if(座標 真ん中のポータル)
@@ -61,8 +67,6 @@ void Player::Update(void)
 		// 4 = MAP_DATA::NEXT
 		}
 	}
-
-
 
 
 
@@ -85,7 +89,7 @@ void Player::Draw(void)
 		{
 			tmpNum = 2;
 		}
-		lpImageMng.AddDraw({ lpImageMng.getImage("hp_bar")[0], _pos.x - 27 + 6 * i, _pos.y - 60 - _drawOffset_y, 0.0, LAYER::UI, 0 });
+		lpImageMng.AddDraw({ lpImageMng.getImage("hp_bar")[tmpNum], _pos.x - 27 + 6 * i, _pos.y - 60 - _drawOffset_y, 0.0, LAYER::CHAR, 160 });
 	}
 }
 
@@ -196,6 +200,23 @@ void Player::Init(void)
 	data.emplace_back(lpImageMng.getImage("player_damaged")[3], 3);
 	setAnm({ OBJ_STATE::DEAD, DIR::RIGHT }, data);
 
+
+	std::vector<atkData> attack;
+	attack.reserve(350);
+	for (int i = 0; i < 180; i++)
+	{
+		attack.emplace_back(atkData(false, OBJ_TYPE::PLAYER, { 42,35 }, { 102,55 }, 5, 10, OBJ_TYPE::ENEMY));
+	}
+	for (int i = 180; i < 300; i++)
+	{
+		attack.emplace_back(atkData(true, OBJ_TYPE::PLAYER, { 42,35 }, { 102,55 }, 5, 10, OBJ_TYPE::ENEMY));
+	}
+	for (int i = 300; i < 350; i++)
+	{
+		attack.emplace_back(atkData(false, OBJ_TYPE::PLAYER, { 42,35 }, { 102,55 }, 5, 10, OBJ_TYPE::ENEMY));
+	}
+	setAttack("magic_fire", attack);
+
 	_vel = 0.0;
 	_tmpPos.y = static_cast<double>(_pos.y);
 }
@@ -273,7 +294,7 @@ void Player::ControlNormal(void)
 		StateRotate();
 		_control = &Player::ControlAttack;
 		_rotateFlag = true;
-
+		AddAttack("magic_fire");
 	}
 }
 
@@ -358,8 +379,6 @@ void Player::ControlAttack(void)
 		_vel = INI_VEL_NORMAL;
 		setState({ OBJ_STATE::A_JUMP, _state_dir.second });
 	}
-
-
 }
 
 void Player::MagicUpdate(void)
@@ -471,4 +490,23 @@ void Player::VelUpdate(void)
 	_type = OBJ_TYPE::PLAYER;
 
 	_pos.y = static_cast<int>(_tmpPos.y);
+}
+
+bool Player::MenuUpdate(void)
+{
+	if (lpButtonMng.Buttonf(0, XINPUT_BUTTON_BACK).first == 1 &&
+		lpButtonMng.Buttonf(0, XINPUT_BUTTON_BACK).second == 0)
+	{
+		MenuFlag = true;
+	}
+	//if (CheckHitKey(KEY_INPUT_D))
+	//{
+	//	MenuFlag = true;
+	//}
+	if (MenuFlag)
+	{
+		MenuFlag = lpMenuMng.Update();
+		return MenuFlag;
+	}
+	return false;
 }

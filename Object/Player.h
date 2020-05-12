@@ -2,7 +2,7 @@
 #include <DxLib.h>
 #include <cmath>
 #include "Object.h"
-#include "../KeyMng.h"
+#include "../Manage/KeyMng.h"
 #include "../func/CheckHitStage.h"
 
 
@@ -49,5 +49,10 @@ private:
 	double _vel;
 
 	Vector2Template<double> _tmpPos;
+
+	//
+	bool MenuUpdate(void);
+
+	bool MenuFlag;
 };
 

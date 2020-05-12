@@ -80,7 +80,7 @@ private:
 	std::map<std::string, std::vector<int>> _imageMap;					// 画像ID保存用
 	std::map<EFFECT, std::vector<std::pair<int, int>>>	_effectMap;		// エフェクト保存用
 
-	std::vector<DrawData> _drawList;						// 描画情報保存用
+	std::vector<DrawData> _drawList;							// 描画情報保存用
 	std::vector<std::tuple<EFFECT, Vector2Template<int>, int, int>> _effectList;		// 進行中のエフェクト
 
 	//---------------------------------------------------------

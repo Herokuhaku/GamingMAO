@@ -1,5 +1,5 @@
 #include "camera.h"
-#include "../MapMng.h"
+#include "../Manage/MapMng.h"
 
 void camera::Update(void)
 {

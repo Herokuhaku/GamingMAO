@@ -8,8 +8,8 @@ SeleScene::SeleScene()
 	arrowflag = true;
 	sel = 0;
 	sel2 = 0;
-	lpImageMng.getImage("image/select.png", "‘I‘ð");
-	lpImageMng.getImage("image/arrow.png", "–îˆó");
+	lpImageMng.getImage("image/select.png", "Select");
+	lpImageMng.getImage("image/arrow.png", "Arrow");
 }
 
 
@@ -73,7 +73,7 @@ std::unique_ptr<BaceScene> SeleScene::Update(std::unique_ptr<BaceScene> own)
 	}
 
 
-	lpImageMng.AddDraw({ lpImageMng.getImage("‘I‘ð")[0],300,250,0.0,LAYER::BG,0 });
-	lpImageMng.AddDraw({ lpImageMng.getImage("–îˆó")[0],arrow.x,arrow.y,0.0,LAYER::UI,0 });
+	lpImageMng.AddDraw({ lpImageMng.getImage("Select")[0],300,250,0.0,LAYER::BG,0 });
+	lpImageMng.AddDraw({ lpImageMng.getImage("Arrow")[0],arrow.x,arrow.y,0.0,LAYER::UI,0 });
 	return own;
 }

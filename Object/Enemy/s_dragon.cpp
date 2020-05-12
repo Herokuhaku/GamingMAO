@@ -20,6 +20,8 @@ s_dragon::s_dragon()
 	Init();
 	_pos.y = 800;
 	_pos.x = 50;
+	setHP(100);
+	setHitOffset({ 55, 55, 100, 0 });
 //
 }
 

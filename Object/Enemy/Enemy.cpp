@@ -1,12 +1,18 @@
 #include "Enemy.h"
 #include "../../Scene/SceneMng.h"
-#include "../../MapMng.h"
+#include "../../Manage/MapMng.h"
 
 void Enemy::Update(void)
 {
 	Gravity();
 	auto tmp = lpSceneMng.GetPlObj();
 	auto plPos = (*tmp)->getPos();
+	// ???
+	if (_aState < 0 || _aState >= 5)
+	{
+		_aState = 0;
+	}
+	// ???
 	_work = (this->*autoM[_aState])(plPos);
 	_work =	Search(plPos);
 	aState(_work);
@@ -147,6 +153,26 @@ void Enemy::Init(void)
 	_encntF = false;
 	_plDir = DIR::RIGHT;
 	_speed = 1;
+	_type = OBJ_TYPE::ENEMY;
+}
+
+void Enemy::Draw(void)
+{
+	Object::Draw();
+
+	int tmpNum;
+	for (int i = 0; i < 10; i++)
+	{
+		if (getHP() >= i * 10 + 1)
+		{
+			tmpNum = 0;
+		}
+		else
+		{
+			tmpNum = 2;
+		}
+		lpImageMng.AddDraw({ lpImageMng.getImage("hp_bar")[tmpNum], _pos.x - 27 + 6 * i, _pos.y - 30 - _drawOffset_y, 0.0, LAYER::EX,0 });
+	}
 }
 
 void Enemy::Gravity(void)

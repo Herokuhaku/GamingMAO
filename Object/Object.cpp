@@ -136,6 +136,8 @@ void Object::Draw(void)
 	lpImageMng.AddDraw({ _anmMap[_state_dir][_anmFlame].first, _pos.x, _pos.y - _drawOffset_y, _rad, LAYER::CHAR, _zOrder });
 }
 
+
+
 bool Object::anmUpdate(void)
 {
 	// 範囲外チェック
@@ -243,7 +245,10 @@ std::vector<atkData> Object::getAttackQue(void)
 			continue;
 		}
 
-		rtnvec.emplace_back(_attackMap[data->first][data->second]);
+		if (std::get<0>(_attackMap[data->first][data->second]))
+		{
+			rtnvec.emplace_back(_attackMap[data->first][data->second]);
+		}
 
 		data++;
 	}

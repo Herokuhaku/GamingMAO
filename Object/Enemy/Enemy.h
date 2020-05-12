@@ -21,6 +21,7 @@ public:
 	virtual int Search(Vector2 pPos);
 	virtual int Attack(Vector2 pPos);
 	virtual int AtkMove(Vector2 pPos);
+	void Draw(void);
 
 	Enemy();
 	~Enemy();
