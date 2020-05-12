@@ -136,8 +136,6 @@ void Object::Draw(void)
 	lpImageMng.AddDraw({ _anmMap[_state_dir][_anmFlame].first, _pos.x, _pos.y - _drawOffset_y, _rad, LAYER::CHAR, _zOrder });
 }
 
-
-
 bool Object::anmUpdate(void)
 {
 	// 範囲外チェック
@@ -259,5 +257,15 @@ std::vector<atkData> Object::getAttackQue(void)
 void Object::stopAttack(void)
 {
 	_attackData.clear();
+}
+
+void Object::setTimeLine(TIME time)
+{
+	_time = time;
+}
+
+TIME Object::getTimeLine(void)
+{
+	return _time;
 }
 

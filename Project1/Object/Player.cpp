@@ -7,7 +7,7 @@ Player::Player()
 {
 }
 
-Player::Player(Vector2Template<int> pos)
+Player(Vector2Template<int> pos, int stage, TIME time);
 {
 	_pos = pos;
 	_tmpPos = {static_cast<double>(pos.x),static_cast<double>(pos.y)};
@@ -20,6 +20,9 @@ Player::Player(Vector2Template<int> pos)
 	setHitOffset({ 14,10,70,0 });
 	_drawOffset_y = 45;
 
+	_time = time;
+	_stage = stage;
+
 	setHP(HP_MAX);
 	Init();
 }
@@ -30,11 +33,16 @@ Player::~Player()
 
 void Player::Update(void)
 {
-	if (!MenuUpdate())
+	if (!MenuUpdate() && _time == lpTimeMng.getTime())
 	{
 		(this->*_control)();
 
 	}
+	else
+	{
+		StopWalk();
+	}
+
 	if (CheckHitKey(KEY_INPUT_T))
 	{
 		lpTradeMng.AddBag();
@@ -378,6 +386,18 @@ void Player::ControlAttack(void)
 	{
 		_vel = INI_VEL_NORMAL;
 		setState({ OBJ_STATE::A_JUMP, _state_dir.second });
+	}
+}
+
+void Player::StopWalk(void)
+{
+	if (_state_dir.first == OBJ_STATE::DASH || _state_dir.first == OBJ_STATE::WALK)
+	{
+		setState({ OBJ_STATE::NORMAL, _state_dir.second });
+	}
+	if (_state_dir.first == OBJ_STATE::A_DASH || _state_dir.first == OBJ_STATE::A_WALK)
+	{
+		setState({ OBJ_STATE::A_NORMAL, _state_dir.second });
 	}
 }
 
