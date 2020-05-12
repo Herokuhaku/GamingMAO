@@ -1,9 +1,0 @@
-﻿  BaceScene.cpp
-  ImageMng.cpp
-  LAYER.cpp
-  main.cpp
-  SceneMng.cpp
-  TitleScene.cpp
-  SeleScene.cpp
-c:\users\ewan1\onedrive\desktop\aaaaaaaa\scene\selescene.cpp(19): fatal error C1075: '{': 一致するトークンが見つかりませんでした
-  コードを生成中...
