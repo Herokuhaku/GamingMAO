@@ -186,7 +186,7 @@ void ImageMng::FadeOut(void)
 		if(_plmoveF)
 		{
 			setGkind(ScrEff::FADEIN);
-			lpSceneMng.GetPlObj2()->nextPos();
+			lpSceneMng.GetPlObj2(lpTimeMng.getTime())->nextPos();
 		}
 		else
 		{

@@ -75,6 +75,7 @@ void Player::Update(void)
 		// if(座標 一番左のポータル)
 		if (lpMapMng.getGameMapM({ _pos.x,y }) == 9)
 		{
+			_nextPos = {2460,1350};
 			lpImageMng.plmoveF(true);
 			lpMapMng.StageTrans(std::get<3>(lpMapMng.GetMapIndex(lpMapMng.GetnowStage())));
 			lpImageMng.setGkind(ScrEff::FADEOUT);
