@@ -17,8 +17,8 @@
 #define MapOffSetY 16 * 5
 #define CHIP_SIZE 16
 
-	// <自分,MAPの格納場所,Layer,前のMAP,次のMAP,分岐先のMAP>
-	using MapData = std::tuple<int,std::string,int,int,int,int>;
+	// <自分,MAPの格納場所,Layer,前のMAP,次のMAP,分岐先のMAP,前X座標，Y座標, 後ろX座標，Y座標>
+	using MapData = std::tuple<int,std::string,int,int,int,int,int,int,int,int>;
 
 	enum class MAP_DATA
 	{
@@ -28,6 +28,10 @@
 		BACK,
 		NEXT,
 		BRANCH,
+		FPOSX,
+		FPOSY,
+		BPOSX,
+		BPOSY,
 		MAX
 	};
 
@@ -74,6 +78,10 @@ public:
 
 	MapData GetMapIndex(int no);
 	int GetnowStage(void) {return nowStage;	}
+	int GetFrontPosX(int no);
+	int GetFrontPosY(int no);
+	int GetBackPosX(int no);
+	int GetBackPosY(int no);
 
 private:
 	int GameMap[MapChipY][MapChipX];	// Y1440/16,X(2560/16)+壁2マス

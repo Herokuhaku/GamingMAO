@@ -61,17 +61,48 @@ MapData MapMng::GetMapIndex(int no)
 				}
 			}
 			// 読み込むデータが正しいという前提で作ってある
+			try
+			{
 			mapindex[std::stoi(twork[static_cast<int>(MAP_DATA::NO)])] = {
 							std::stoi(twork[static_cast<int>(MAP_DATA::NO)]),
 							twork[static_cast<int>(MAP_DATA::MAPLINK)],
 							std::stoi(twork[static_cast<int>(MAP_DATA::LAYER)]),
 							std::stoi(twork[static_cast<int>(MAP_DATA::BACK)]),
-							std::stoi(twork[static_cast<int>(MAP_DATA::NEXT)]), 
-							std::stoi(twork[static_cast<int>(MAP_DATA::BRANCH)])};
+							std::stoi(twork[static_cast<int>(MAP_DATA::NEXT)]),
+							std::stoi(twork[static_cast<int>(MAP_DATA::BRANCH)]),
+							std::stoi(twork[static_cast<int>(MAP_DATA::FPOSX)]),
+							std::stoi(twork[static_cast<int>(MAP_DATA::FPOSY)]),
+							std::stoi(twork[static_cast<int>(MAP_DATA::BPOSX)]),
+							std::stoi(twork[static_cast<int>(MAP_DATA::BPOSY)]) };
+			} 
+			catch(...)
+			{
+				exit(1);
+			}
 
 		} while (no != std::stoi(twork[static_cast<int>(MAP_DATA::NO)]));
 	}
 	return mapindex[no];
+}
+
+int MapMng::GetFrontPosX(int no)
+{
+	return std::get<static_cast<int>(MAP_DATA::FPOSX)>(GetMapIndex(no));
+}
+
+int MapMng::GetFrontPosY(int no)
+{
+	return std::get<static_cast<int>(MAP_DATA::FPOSY)>(GetMapIndex(no));
+}
+
+int MapMng::GetBackPosX(int no)
+{
+	return std::get<static_cast<int>(MAP_DATA::BPOSX)>(GetMapIndex(no));
+}
+
+int MapMng::GetBackPosY(int no)
+{
+	return std::get<static_cast<int>(MAP_DATA::BPOSY)>(GetMapIndex(no));
 }
 
 void MapMng::StageTrans(int no)
