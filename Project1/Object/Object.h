@@ -85,7 +85,7 @@ public:
 	void setTimeLine(TIME time);
 	TIME getTimeLine(void);
 
-	void nextPos(void) { _pos = _nextPos; };
+	void nextPos(void) { _pos = _nextPos; _tmpPos = { static_cast<double>(_nextPos.x),static_cast<double>(_nextPos.y) }; };
 private:
 	int _hp;						// 体力
 	int _inv;						// 無敵時間　0なら無敵ではない
@@ -113,7 +113,8 @@ protected:
 	unsigned int _anmFlame;		// アニメーションの現在のコマ数
 
 
-
+	Vector2Template<double> _tmpPos;
+protected:
 	// ステージ移動
 	Vector2 _nextPos;
 

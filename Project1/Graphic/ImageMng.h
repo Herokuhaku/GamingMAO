@@ -8,6 +8,7 @@
 #include <string>
 #include "EffekseerMng.h"
 
+#include "../Manage/MapMng.h"
 
 // 描画データの要素
 enum class DrawElm
@@ -96,9 +97,10 @@ private:
 	ScrEff _Gkind;
 	int _fadeCnt;
 	int _fadeSpeed;
-	bool _plmoveF;					// プレイヤーのステージ移動のフラグ
+	bool _plSmoveF;					// プレイヤーのステージ移動のフラグ
+	MAP_DATA _plFBXmoveF;				// プレイヤーがどの方向に移動したか
 public:
-	void plmoveF(bool flag) { _plmoveF = flag; };
+	void SetplmoveF(bool flag, MAP_DATA plf);
 private:
 	//---------------------------------------------------------
 

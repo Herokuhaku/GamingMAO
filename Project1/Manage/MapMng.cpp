@@ -68,12 +68,14 @@ MapData MapMng::GetMapIndex(int no)
 							twork[static_cast<int>(MAP_DATA::MAPLINK)],
 							std::stoi(twork[static_cast<int>(MAP_DATA::LAYER)]),
 							std::stoi(twork[static_cast<int>(MAP_DATA::BACK)]),
-							std::stoi(twork[static_cast<int>(MAP_DATA::NEXT)]),
+							std::stoi(twork[static_cast<int>(MAP_DATA::FRONT)]),
 							std::stoi(twork[static_cast<int>(MAP_DATA::BRANCH)]),
 							std::stoi(twork[static_cast<int>(MAP_DATA::FPOSX)]),
 							std::stoi(twork[static_cast<int>(MAP_DATA::FPOSY)]),
 							std::stoi(twork[static_cast<int>(MAP_DATA::BPOSX)]),
-							std::stoi(twork[static_cast<int>(MAP_DATA::BPOSY)]) };
+							std::stoi(twork[static_cast<int>(MAP_DATA::BPOSY)]),
+							std::stoi(twork[static_cast<int>(MAP_DATA::bPOSX)]),
+							std::stoi(twork[static_cast<int>(MAP_DATA::bPOSY)]) };
 			} 
 			catch(...)
 			{
@@ -105,17 +107,29 @@ int MapMng::GetBackPosY(int no)
 	return std::get<static_cast<int>(MAP_DATA::BPOSY)>(GetMapIndex(no));
 }
 
+int MapMng::GetBrancPosX(int no)
+{
+	return std::get<static_cast<int>(MAP_DATA::bPOSX)>(GetMapIndex(no));
+}
+
+int MapMng::GetBrancPosY(int no)
+{
+	return std::get<static_cast<int>(MAP_DATA::bPOSY)>(GetMapIndex(no));
+}
+
 void MapMng::StageTrans(int no)
 {
-	if (no < 1 || no > 2)
+	if (no < 1 || no > 4)
 	{
 		return;
 		exit(1);
 	}
+	SetDrawBright(255, 255, 255);
 	_mapdata = GetMapIndex(no);
 	nowStage = no;
 	MapID = std::get<static_cast<int>(MAP_DATA::MAPLINK)>(_mapdata);
 	MapUpdate();
+	SetDrawBright(0, 0, 0);
 }
 
 bool MapMng::MapUpdate(void)

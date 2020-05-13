@@ -172,7 +172,7 @@ void ImageMng::FadeIn(void)
 	if(_fadeCnt >= 255)
 	{
 		_Gkind = ScrEff::MAX;
-		_plmoveF = false;
+		_plSmoveF = false;
 	}
 }
 
@@ -183,9 +183,25 @@ void ImageMng::FadeOut(void)
 	_fadeCnt += _fadeSpeed;
 	if(_fadeCnt <= 0)
 	{
-		if(_plmoveF)
+		if(_plSmoveF)
 		{
 			setGkind(ScrEff::FADEIN);
+			// std::get ‚Å‚Í•Ï”‚ÍŽg‚¦‚È‚¢H
+			switch (_plFBXmoveF)
+			{
+			case MAP_DATA::BACK:
+			lpMapMng.StageTrans(std::get<3>(lpMapMng.GetMapIndex(lpMapMng.GetnowStage())));
+				break;
+			case MAP_DATA::FRONT:
+			lpMapMng.StageTrans(std::get<4>(lpMapMng.GetMapIndex(lpMapMng.GetnowStage())));
+				break;
+			case MAP_DATA::BRANCH:
+			lpMapMng.StageTrans(std::get<5>(lpMapMng.GetMapIndex(lpMapMng.GetnowStage())));
+				break;
+			default:
+				exit(1);
+				break;
+			}
 			lpSceneMng.GetPlObj2(lpTimeMng.getTime())->nextPos();
 		}
 		else
@@ -205,11 +221,11 @@ void ImageMng::setGkind(ScrEff kind)
 					break;
 			case ScrEff::FADEIN:
 					_fadeCnt = 0;
-					_fadeSpeed = 4;
+					_fadeSpeed = 8;
 					break;
 			case ScrEff::FADEOUT:
 					_fadeCnt = 255;
-					_fadeSpeed = -4;
+					_fadeSpeed = -8;
 					break;
 			case ScrEff::FADE2X:
 					_fadeCnt = 255;
@@ -218,6 +234,12 @@ void ImageMng::setGkind(ScrEff kind)
 			default:
 					break;
 	}
+}
+
+void ImageMng::SetplmoveF(bool flag, MAP_DATA plf)
+{
+	_plSmoveF = flag; 
+	_plFBXmoveF = plf; 
 }
 
 ImageMng::ImageMng()
@@ -237,6 +259,7 @@ void ImageMng::ImageMngInit(void)
 	_fadeCnt = 255;
 	_fadeSpeed = -2;
 	_Gkind = ScrEff::MAX;
-	_plmoveF = false;
+	_plSmoveF = false;
+	_plFBXmoveF = MAP_DATA::BACK;
 }
 

@@ -48,10 +48,9 @@ private:
 	bool _rotateFlag;
 
 	void VelUpdate(void);
+
+
 	double _vel;
-
-	Vector2Template<double> _tmpPos;
-
 	//
 	bool MenuUpdate(void);
 
