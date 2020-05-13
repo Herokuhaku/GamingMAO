@@ -24,6 +24,7 @@ Player::Player(Vector2Template<int> pos, int stage, TIME time)
 	_stage = stage;
 
 	setHP(HP_MAX);
+	_nextPos = { 0,0 };
 	Init();
 }
 
@@ -60,14 +61,17 @@ void Player::Update(void)
 		// if(座標を見て一番左のポータル)
 		if (lpMapMng.getGameMapM({ _pos.x,y }) == 41)
 		{
+			// nextPos = pos;
+			_nextPos = {100,1350};
+			lpImageMng.plmoveF(true);
 			lpMapMng.StageTrans(std::get<4>(lpMapMng.GetMapIndex(lpMapMng.GetnowStage())));
-			lpImageMng.setGkind(ScrEff::FADEIN);
-			_pos = { 100, 1350 };
+			lpImageMng.setGkind(ScrEff::FADEOUT);
 			//// 4 = MAP_DATA::NEXT
 		}
 		// if(座標 一番左のポータル)
 		if (lpMapMng.getGameMapM({ _pos.x,y }) == 9)
 		{
+			lpImageMng.plmoveF(true);
 			lpMapMng.StageTrans(std::get<3>(lpMapMng.GetMapIndex(lpMapMng.GetnowStage())));
 			lpImageMng.setGkind(ScrEff::FADEOUT);
 		// 3 = MAP_DATA::BACK
@@ -533,3 +537,4 @@ bool Player::MenuUpdate(void)
 	}
 	return false;
 }
+

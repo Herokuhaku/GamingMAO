@@ -18,6 +18,7 @@ Object::Object()
 	_hitOffset = {};
 	_drawOffset_y = 0;
 	_type = OBJ_TYPE::PLAYER;
+	_nextPos = { 0,0 };
 }
 
 Object::~Object()

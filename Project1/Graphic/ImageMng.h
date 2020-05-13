@@ -88,7 +88,7 @@ private:
 
 	//---------------------------------------------------------
 	void ScreenEffect(void);		// 画面エフェクトの分岐
-	void Fade(void);				// 画面エフェクト：フェード
+	void Fade(void);				// 画面エフェクト：フェード plF : プレイヤーのフェード（MAP移動）
 	void FadeIn(void);
 	void FadeOut(void);
 	//void Fade2x(void);
@@ -96,6 +96,10 @@ private:
 	ScrEff _Gkind;
 	int _fadeCnt;
 	int _fadeSpeed;
+	bool _plmoveF;					// プレイヤーのステージ移動のフラグ
+public:
+	void plmoveF(bool flag) { _plmoveF = flag; };
+private:
 	//---------------------------------------------------------
 
 	ImageMng();

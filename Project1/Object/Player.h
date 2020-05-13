@@ -56,5 +56,6 @@ private:
 	bool MenuUpdate(void);
 
 	bool MenuFlag;
+
 };
 

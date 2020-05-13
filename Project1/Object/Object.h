@@ -84,6 +84,8 @@ public:
 
 	void setTimeLine(TIME time);
 	TIME getTimeLine(void);
+
+	void nextPos(void) { _pos = _nextPos; };
 private:
 	int _hp;						// 体力
 	int _inv;						// 無敵時間　0なら無敵ではない
@@ -109,5 +111,10 @@ protected:
 	std::map<std::pair<OBJ_STATE, DIR>, AnmVec> _anmMap;	// アニメーションを保存するとこ
 	unsigned int _anmTime;		// アニメーションの経過時間
 	unsigned int _anmFlame;		// アニメーションの現在のコマ数
-};
 
+
+
+	// ステージ移動
+	Vector2 _nextPos;
+
+};

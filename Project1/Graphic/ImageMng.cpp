@@ -144,6 +144,11 @@ void ImageMng::ScreenEffect(void)
 			case ScrEff::FADE2X:
 					Fade();
 					break;
+			case ScrEff::MAX:
+					break;
+			default:
+				break;
+
 	}
 }
 
@@ -167,6 +172,7 @@ void ImageMng::FadeIn(void)
 	if(_fadeCnt >= 255)
 	{
 		_Gkind = ScrEff::MAX;
+		_plmoveF = false;
 	}
 }
 
@@ -177,7 +183,15 @@ void ImageMng::FadeOut(void)
 	_fadeCnt += _fadeSpeed;
 	if(_fadeCnt <= 0)
 	{
-		_Gkind = ScrEff::MAX;
+		if(_plmoveF)
+		{
+			setGkind(ScrEff::FADEIN);
+			lpSceneMng.GetPlObj2()->nextPos();
+		}
+		else
+		{
+			_Gkind = ScrEff::MAX;
+		}
 	}
 }
 
@@ -223,5 +237,6 @@ void ImageMng::ImageMngInit(void)
 	_fadeCnt = 255;
 	_fadeSpeed = -2;
 	_Gkind = ScrEff::MAX;
+	_plmoveF = false;
 }
 
