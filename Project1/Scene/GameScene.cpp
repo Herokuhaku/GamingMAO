@@ -58,7 +58,6 @@ std::unique_ptr<BaceScene> GameScene::Update(std::unique_ptr<BaceScene> own)
 
 	auto plObj = std::find_if(_objList.begin(), _objList.end(), [&](std::shared_ptr<Object> obj) { return ((*obj).getType() == OBJ_TYPE::PLAYER && (*obj).getTimeLine() == lpTimeMng.getTime()); });
 	//plObj
-	lpSceneMng.SetPlObj((*plObj));
 	for (auto data : _enemyList)
 	{
 		(*data).Update();
