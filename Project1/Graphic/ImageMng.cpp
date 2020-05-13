@@ -70,6 +70,12 @@ void ImageMng::Draw(void)
 	int x, y;
 	x = lpSceneMng.GetcPos().x - (SCREEN_SIZE_X / 2);
 	y = lpSceneMng.GetcPos().y - (SCREEN_SIZE_Y / 2);
+	
+	if (lpTimeMng.getTime() == TIME::FTR)
+	{
+		GraphFilter(_workLayer, DX_GRAPH_FILTER_HSB, 0, 0, -255, 0);
+	}
+	
 	DrawRectGraph(0, 0, x, y, SCREEN_SIZE_X, SCREEN_SIZE_Y, _workLayer, false, false);
 
 	DrawBox(0, lpSceneMng.ScreenSize.y - 100, lpSceneMng.ScreenSize.x, lpSceneMng.ScreenSize.y, 0x123456,true);
