@@ -3,6 +3,10 @@
 
 ItemTrader* ItemTrader::sInstance = nullptr;
 
+Vector2 _offpush = {200, 150 };
+
+
+
 void ItemTrader::Draw(void)
 {
 	for (auto data : _ItemList)
@@ -21,6 +25,8 @@ void ItemTrader::BagDraw(Vector2D pos,LAYER lay,int off)
 		(*data.first).OLDraw(lay);
 	}
 }
+
+
 
 void ItemTrader::Trade(COLOR_TYPE color1, COLOR_TYPE color2)
 {
@@ -46,6 +52,11 @@ const void ItemTrader::SetItemList(Vector2 pos, ITEM_TYPE itype, COLOR_TYPE ctyp
 {
 	_ItemList.emplace_back(new Item(pos, itype, ctype, _ItemList.size()));	// サイズ番号を入れる。
 	return;
+}
+
+std::shared_ptr<Item> ItemTrader::ReBag(int no)
+{
+	return _ItemBag.at(no).first;
 }
 
 

@@ -31,8 +31,11 @@ public:
 	void BagDraw(Vector2D pos,LAYER lay, int off);
 	void Trade(COLOR_TYPE color1, COLOR_TYPE color2);
 	const void SetItemList(Vector2 pos, ITEM_TYPE itype,COLOR_TYPE ctype);
+	std::shared_ptr<Item> ReBag(int no);
 	void AddBag(void);
 	void NoReturn(void);
+
+
 
 private:
 	ItemTrader();
@@ -42,6 +45,8 @@ private:
 	// std::map<std::pair<ITEM_TYPE, COLOR_TYPE>, int> _Itembag;
 	//std::vector<std::shared_ptr<Object>> _ItemBag;
 	std::vector<std::pair<std::shared_ptr<Item>,int>> _ItemBag;
+
+
 
 	int color;
 	Vector2 _pos;

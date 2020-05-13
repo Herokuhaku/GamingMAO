@@ -56,6 +56,7 @@ private:
 	void Item2(void);
 	void Item3(void);
 
+	void ItemSelectD(void);					// 決定と戻る。それと風呂敷などのDraw
 
 	// 
 	void Start(bool *a);
@@ -65,6 +66,8 @@ private:
 	void SelectDraw(void);					// Select画面での表示物
 	void MixDraw(void);						// Mix画面での表示物
 	
+	void ItemSelectDraw(void);
+
 	// 変数
 	static Menu* sInstance;
 
@@ -76,10 +79,10 @@ private:
 	bool _start;							// Updateが呼ばれた時点か1周した後かのふらぐ
 
 	Vector2D _cpos;
-
+	//Vector2 _pos;
 	SELECT_ITEM _selectNo;
 	
-	std::array<Item,3> Item;
+	std::vector<std::pair<std::shared_ptr<Item>, int>> _selectItem;
 
 
 };
