@@ -59,7 +59,7 @@ void Player::Update(void)
 	VelUpdate();
 	MagicUpdate();
 
-	if ((lpKeyMng.getOldBuf()[KEY_INPUT_UP] && !lpKeyMng.getBuf()[KEY_INPUT_UP]))
+	if ((lpKeyMng.getOldBuf()[KEY_INPUT_DOWN] && !lpKeyMng.getBuf()[KEY_INPUT_DOWN]))
 	{
 		int y = _pos.y - 50;
 		// if(座標を見て一番右のポータル)
