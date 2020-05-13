@@ -158,9 +158,9 @@ void MapMng::BackGround(void)
 	lpImageMng.AddDraw({ lpImageMng.getImage("ÉÅÉCÉìîwåi")[0],GameMapSize.x / 2,GameMapSize.y / 2,0.0,LAYER::BG,0 });
 
 	layerPosX = lpSceneMng.GetcPos().x + (500 - lpSceneMng.GetcPos().x) / 2;
-	lpImageMng.AddDraw({ _layer0,GameMapSize.x / 2,GameMapSize.y / 2 ,0.0,LAYER::BG,2 });
-	lpImageMng.AddDraw({ _layer1,GameMapSize.x / 2,GameMapSize.y / 2 ,0.0,LAYER::BG,1 });
-	lpImageMng.AddDraw({ _layer2,layerPosX,GameMapSize.y / 2 ,0.0,LAYER::BG,0 });
+	lpImageMng.AddDraw({ _layer0,GameMapSize.x / 2,GameMapSize.y / 2 ,0.0,LAYER::BG,3 });
+	lpImageMng.AddDraw({ _layer1,GameMapSize.x / 2,GameMapSize.y / 2 ,0.0,LAYER::BG,2 });
+	lpImageMng.AddDraw({ _layer2,layerPosX,		   GameMapSize.y / 2 ,0.0,LAYER::BG,1 });
 }
 
 void MapMng::BlockLayer(void)
