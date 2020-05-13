@@ -36,7 +36,6 @@ void EffekseerMng::stopEffectAll(void)
 
 void EffekseerMng::UpdateEffekseer(void)
 {
-	UpdateEffekseer2D();
 	for (auto data = _effectList.begin(); data != _effectList.end();)
 	{
 		int handle, time;
@@ -57,9 +56,13 @@ void EffekseerMng::UpdateEffekseer(void)
 			SetPosPlayingEffekseer2DEffect(handle,
 				static_cast<float>(*(pos.first) - static_cast<int>(lpSceneMng.GetcPos().x) + lpSceneMng.ScreenSize.x / 2  + offset.first * (static_cast<int>(*dir) - 1)),
 				static_cast<float>(*(pos.second) - static_cast<int>(lpSceneMng.GetcPos().y) + lpSceneMng.ScreenSize.y / 2 + offset.second), 0);
-			DrawEffekseer2D_Draw(handle);
 			data++;
 		}
+	}
+	UpdateEffekseer2D();
+	for (auto data : _effectList)
+	{
+		DrawEffekseer2D_Draw(std::get<0>(data));
 	}
 }
 
