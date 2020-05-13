@@ -36,10 +36,10 @@ public:
 
 	unsigned int GetFlame(void) { return _flame; };
 
-	const Vector2 GetPlPos(void) const;
-	const std::shared_ptr<Object> GetPlObj2(void) const;
-	const std::shared_ptr<Object>* GetPlObj(void) const;
-	void SetPlObj(std::shared_ptr<Object>& plObj);
+	const Vector2 GetPlPos(TIME time) const;
+	const std::shared_ptr<Object> GetPlObj2(TIME time) const;
+	const std::shared_ptr<Object>* GetPlObj(TIME time) const;
+	void SetPlObj(std::shared_ptr<Object>& plObj, TIME time);
 
 	const Vector2D GetcPos(void) const;
 	const std::shared_ptr<Vector2D> GetccPos(void) const;
@@ -49,7 +49,7 @@ public:
 private:
 	static SceneMng *sInstance;
 	std::unique_ptr<BaceScene> _activeScene;
-	std::shared_ptr<Object> _plObj;
+	std::map<TIME, std::shared_ptr<Object>> _plObj;
 	std::shared_ptr<Vector2D> _cPos;									// ÉJÉÅÉâç¿ïW
 
 	unsigned int _flame;

@@ -10,7 +10,7 @@ void camera::Update(void)
 	{
 		_oldPlPos[i] = _oldPlPos[i + 1];
 	}
-	_oldPlPos[2] = _plObj->getPos();
+	_oldPlPos[2] = _plObj.at(lpTimeMng.getTime())->getPos();
 	CheckPos();
 }
 
@@ -32,16 +32,19 @@ void camera::Draw(void)
 {
 }
 
-camera::camera() : _plObj{ lpSceneMng.GetPlObj2() }, _cPos{ new Vector2D(0,0) }
+camera::camera() : _cPos{ new Vector2D(0,0) }
 {
+	_plObj.emplace(TIME::NOW, lpSceneMng.GetPlObj2(TIME::NOW));
+	_plObj.emplace(TIME::FTR, lpSceneMng.GetPlObj2(TIME::FTR));
+
 	_cOffSet = { 0,-140 };
 
-	_cPos->x = _plObj->getPos().x;
-	_cPos->y = _plObj->getPos().y;
+	_cPos->x = _plObj.at(lpTimeMng.getTime())->getPos().x;
+	_cPos->y = _plObj.at(lpTimeMng.getTime())->getPos().y;
 	lpSceneMng.SetcPos(_cPos);
 	for (int i = 0; i < 10; i++)
 	{
-		_oldPlPos[i] = _plObj->getPos();
+		_oldPlPos[i] = _plObj.at(lpTimeMng.getTime())->getPos();
 	}
 }
 
