@@ -79,7 +79,7 @@ std::unique_ptr<BaceScene> GameScene::Update(std::unique_ptr<BaceScene> own)
 	lpTradeMng.Draw();
 	if (!lpMenuMng.GetMixFlag())
 	{
-		lpTradeMng.BagDraw({ 200,200 });
+		lpTradeMng.BagDraw({ 200,200 }, LAYER::CHAR);
 	}
 	lpMapMng.MapDraw();
 
