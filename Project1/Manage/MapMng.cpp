@@ -55,7 +55,7 @@ MapData MapMng::GetMapIndex(int no)
 					cnt++;
 					if (cnt >= static_cast<int>(MAP_DATA::MAX))
 					{
-						// errer
+						// error
 						exit(1);
 					}
 				}

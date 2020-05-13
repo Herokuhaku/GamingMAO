@@ -1,6 +1,8 @@
 #pragma once
 #include <vector>
+#include <array>
 #include "../common/Vector2.h"
+#include "ItemTrader.h"
 
 #define lpMenuMng Menu::GetInstance()
 
@@ -77,7 +79,7 @@ private:
 
 	SELECT_ITEM _selectNo;
 	
-	int Item[3];
+	std::array<Item,3> Item;
 
 
 };
