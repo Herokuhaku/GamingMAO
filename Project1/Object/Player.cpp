@@ -66,18 +66,18 @@ void Player::Update(void)
 		if (lpMapMng.getGameMapM({ _pos.x,y }) == 41)
 		{
 			// nextPos = pos;
-			_nextPos = {100,1350};
-			lpImageMng.plmoveF(true);
 			lpMapMng.StageTrans(std::get<4>(lpMapMng.GetMapIndex(lpMapMng.GetnowStage())));
+			_nextPos = { lpMapMng.GetFrontPosX(lpMapMng.GetnowStage()),lpMapMng.GetFrontPosY(lpMapMng.GetnowStage())};
+			lpImageMng.plmoveF(true);
 			lpImageMng.setGkind(ScrEff::FADEOUT);
 			//// 4 = MAP_DATA::NEXT
 		}
 		// if(座標 一番左のポータル)
 		if (lpMapMng.getGameMapM({ _pos.x,y }) == 9)
 		{
-			_nextPos = {2460,1350};
-			lpImageMng.plmoveF(true);
 			lpMapMng.StageTrans(std::get<3>(lpMapMng.GetMapIndex(lpMapMng.GetnowStage())));
+			_nextPos = { lpMapMng.GetBackPosX(lpMapMng.GetnowStage()),lpMapMng.GetBackPosY(lpMapMng.GetnowStage())};
+			lpImageMng.plmoveF(true);
 			lpImageMng.setGkind(ScrEff::FADEOUT);
 		// 3 = MAP_DATA::BACK
 		}
