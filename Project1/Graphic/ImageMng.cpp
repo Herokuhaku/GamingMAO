@@ -129,7 +129,14 @@ void ImageMng::ScreenEffect(void)
 			case ScrEff::FADE:
 					Fade();
 					break;
-			default:
+			case ScrEff::FADEIN:
+					FadeIn();
+					break;
+			case ScrEff::FADEOUT:
+					FadeOut();
+					break;
+			case ScrEff::FADE2X:
+					Fade();
 					break;
 	}
 }
@@ -138,11 +145,33 @@ void ImageMng::Fade(void)
 {
 	int bright = std::abs( 255 - std::abs(_fadeCnt - 255));
 	SetDrawBright(bright,bright,bright);
-	_fadeCnt += -2;
+	_fadeCnt += _fadeSpeed;
 	if(_fadeCnt <= -255)
 	{
 		_Gkind = ScrEff::MAX;
 		SetDrawBright(255,255,255);
+	}
+}
+
+void ImageMng::FadeIn(void)
+{
+	int bright = _fadeCnt;
+	SetDrawBright(bright,bright,bright);
+	_fadeCnt += _fadeSpeed;
+	if(_fadeCnt >= 255)
+	{
+		_Gkind = ScrEff::MAX;
+	}
+}
+
+void ImageMng::FadeOut(void)
+{
+	int bright = _fadeCnt;
+	SetDrawBright(bright,bright,bright);
+	_fadeCnt += _fadeSpeed;
+	if(_fadeCnt <= 0)
+	{
+		_Gkind = ScrEff::MAX;
 	}
 }
 
@@ -153,6 +182,18 @@ void ImageMng::setGkind(ScrEff kind)
 	{
 			case ScrEff::FADE:
 					_fadeCnt = 255;
+					break;
+			case ScrEff::FADEIN:
+					_fadeCnt = 0;
+					_fadeSpeed = 4;
+					break;
+			case ScrEff::FADEOUT:
+					_fadeCnt = 255;
+					_fadeSpeed = -4;
+					break;
+			case ScrEff::FADE2X:
+					_fadeCnt = 255;
+					_fadeSpeed = -4;
 					break;
 			default:
 					break;
@@ -174,6 +215,7 @@ void ImageMng::ImageMngInit(void)
 {
 	getImage("image/effect.png", "gripEffect", 64, 64, 3, 1);
 	_fadeCnt = 255;
+	_fadeSpeed = -2;
 	_Gkind = ScrEff::MAX;
 }
 

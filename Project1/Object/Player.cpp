@@ -61,7 +61,7 @@ void Player::Update(void)
 		if (lpMapMng.getGameMapM({ _pos.x,y }) == 41)
 		{
 			lpMapMng.StageTrans(std::get<4>(lpMapMng.GetMapIndex(lpMapMng.GetnowStage())));
-			lpImageMng.setGkind(ScrEff::FADE);
+			lpImageMng.setGkind(ScrEff::FADEIN);
 			_pos = { 100, 1350 };
 			//// 4 = MAP_DATA::NEXT
 		}
@@ -69,7 +69,7 @@ void Player::Update(void)
 		if (lpMapMng.getGameMapM({ _pos.x,y }) == 9)
 		{
 			lpMapMng.StageTrans(std::get<3>(lpMapMng.GetMapIndex(lpMapMng.GetnowStage())));
-			lpImageMng.setGkind(ScrEff::FADE);
+			lpImageMng.setGkind(ScrEff::FADEOUT);
 		// 3 = MAP_DATA::BACK
 		}
 		// if(座標 真ん中のポータル)
