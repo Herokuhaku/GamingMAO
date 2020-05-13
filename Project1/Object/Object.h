@@ -85,10 +85,6 @@ public:
 	void setTimeLine(TIME time);
 	TIME getTimeLine(void);
 private:
-	std::map<std::pair<OBJ_STATE, DIR>, AnmVec> _anmMap;	// アニメーションを保存するとこ
-	unsigned int _anmTime;		// アニメーションの経過時間
-	unsigned int _anmFlame;		// アニメーションの現在のコマ数
-
 	int _hp;						// 体力
 	int _inv;						// 無敵時間　0なら無敵ではない
 	std::array<int, 4> _hitOffset;	// 座標からの当たり判定の範囲 0:左 1:右 2:上 3:下
@@ -109,5 +105,9 @@ protected:
 	int _zOrder;							// Zオーダー
 	OBJ_TYPE _type;							// オブジェクトの種類
 	std::pair<OBJ_STATE, DIR> _state_dir;	// オブジェクトの状態
+
+	std::map<std::pair<OBJ_STATE, DIR>, AnmVec> _anmMap;	// アニメーションを保存するとこ
+	unsigned int _anmTime;		// アニメーションの経過時間
+	unsigned int _anmFlame;		// アニメーションの現在のコマ数
 };
 

@@ -7,7 +7,7 @@ Player::Player()
 {
 }
 
-Player(Vector2Template<int> pos, int stage, TIME time);
+Player::Player(Vector2Template<int> pos, int stage, TIME time)
 {
 	_pos = pos;
 	_tmpPos = {static_cast<double>(pos.x),static_cast<double>(pos.y)};

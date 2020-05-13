@@ -129,7 +129,7 @@ void ImageMng::ScreenEffect(void)
 			case ScrEff::FADE:
 					Fade();
 					break;
-			defoult:
+			default:
 					break;
 	}
 }
