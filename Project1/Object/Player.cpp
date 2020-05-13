@@ -43,6 +43,9 @@ void Player::Update(void)
 		StopWalk();
 	}
 
+
+
+
 	if (CheckHitKey(KEY_INPUT_T))
 	{
 		lpTradeMng.AddBag();
@@ -514,8 +517,8 @@ void Player::VelUpdate(void)
 
 bool Player::MenuUpdate(void)
 {
-	if (lpButtonMng.Buttonf(0, XINPUT_BUTTON_BACK).first == 1 &&
-		lpButtonMng.Buttonf(0, XINPUT_BUTTON_BACK).second == 0)
+	if ((lpButtonMng.Buttonf(0, XINPUT_BUTTON_BACK).first == 1 &&
+		lpButtonMng.Buttonf(0, XINPUT_BUTTON_BACK).second == 0) && _time == lpTimeMng.getTime())
 	{
 		MenuFlag = true;
 	}
@@ -523,7 +526,7 @@ bool Player::MenuUpdate(void)
 	//{
 	//	MenuFlag = true;
 	//}
-	if (MenuFlag)
+	if (MenuFlag && _time == lpTimeMng.getTime())
 	{
 		MenuFlag = lpMenuMng.Update();
 		return MenuFlag;
