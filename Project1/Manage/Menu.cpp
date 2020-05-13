@@ -1,7 +1,6 @@
 #include "Menu.h"
 #include "../Scene/SceneMng.h"
 #include "ButtonMng.h"
-#include "ItemTrader.h"
 
 Menu* Menu::sInstance = nullptr;
 
@@ -216,17 +215,31 @@ void Menu::MixDraw(void)
 
 void Menu::Item1(void)
 {
+	// •—˜C•~‚Æ˜g
 	lpImageMng.AddDraw({ lpImageMng.getImage("Menu")[0],_cpos.x + 200,_cpos.y,0.0,LAYER::EX,20 });
-	lpTradeMng.BagDraw({ -200,0 },LAYER::EX);
-	//Item[0] = ;
+	lpImageMng.AddDraw({ lpImageMng.getImage("Space")[0],_cpos.x - 200 + _offpush.x,_cpos.y - _offpush.y,0.0,LAYER::EX,30 });
+
+	// –îˆó
+
+	lpImageMng.AddDraw({ lpImageMng.getImage("Arrow")[0],lpSceneMng.GetcPos().x - 300,lpSceneMng.GetcPos().y,0.0,LAYER::EX,31 });
+	lpTradeMng.BagDraw({ -200,0 },LAYER::EX,200);
+
 }
 
 void Menu::Item2(void)
 {
+	// •—˜C•~‚Æ˜g
+	lpImageMng.AddDraw({ lpImageMng.getImage("Menu")[0],_cpos.x + 200,_cpos.y,0.0,LAYER::EX,20 });
+	lpImageMng.AddDraw({ lpImageMng.getImage("Space")[0],_cpos.x - 200 + _offpush.x,_cpos.y - _offpush.y,0.0,LAYER::EX,30 });
 
+	lpTradeMng.BagDraw({ -200,0 }, LAYER::EX,200);
 }
 
 void Menu::Item3(void)
 {
+	// •—˜C•~‚Æ˜g
+	lpImageMng.AddDraw({ lpImageMng.getImage("Menu")[0],_cpos.x + 200,_cpos.y,0.0,LAYER::EX,20 });
+	lpImageMng.AddDraw({ lpImageMng.getImage("Space")[0],_cpos.x - 200 + _offpush.x,_cpos.y - _offpush.y,0.0,LAYER::EX,30 });
 
+	lpTradeMng.BagDraw({ -200,0 }, LAYER::EX,200);
 }

@@ -11,13 +11,13 @@ void ItemTrader::Draw(void)
 	}
 }
 
-void ItemTrader::BagDraw(Vector2D pos,LAYER lay)
+void ItemTrader::BagDraw(Vector2D pos,LAYER lay,int off)
 {
 	_pos.x = lpSceneMng.GetcPos().x + pos.x;
 	_pos.y = lpSceneMng.GetcPos().y + pos.y;
 	for (auto data : _ItemBag)
 	{
-		(*data.first).setPos({_pos.x + (100*(data.second)),_pos.y});
+		(*data.first).setPos({_pos.x + (off*(data.second)),_pos.y});
 		(*data.first).OLDraw(lay);
 	}
 }

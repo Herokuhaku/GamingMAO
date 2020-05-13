@@ -47,6 +47,9 @@ void Player::Update(void)
 		StopWalk();
 	}
 
+
+
+
 	if (CheckHitKey(KEY_INPUT_T))
 	{
 		lpTradeMng.AddBag();
@@ -62,7 +65,7 @@ void Player::Update(void)
 		if (lpMapMng.getGameMapM({ _pos.x,y }) == 41)
 		{
 			lpMapMng.StageTrans(std::get<4>(lpMapMng.GetMapIndex(lpMapMng.GetnowStage())));
-			lpImageMng.setGkind(ScrEff::FADE);
+			lpImageMng.setGkind(ScrEff::FADEIN);
 			_pos = { 100, 1350 };
 			//// 4 = MAP_DATA::NEXT
 		}
@@ -70,7 +73,7 @@ void Player::Update(void)
 		if (lpMapMng.getGameMapM({ _pos.x,y }) == 9)
 		{
 			lpMapMng.StageTrans(std::get<3>(lpMapMng.GetMapIndex(lpMapMng.GetnowStage())));
-			lpImageMng.setGkind(ScrEff::FADE);
+			lpImageMng.setGkind(ScrEff::FADEOUT);
 		// 3 = MAP_DATA::BACK
 		}
 		// if(座標 真ん中のポータル)
@@ -518,8 +521,8 @@ void Player::VelUpdate(void)
 
 bool Player::MenuUpdate(void)
 {
-	if (lpButtonMng.Buttonf(0, XINPUT_BUTTON_BACK).first == 1 &&
-		lpButtonMng.Buttonf(0, XINPUT_BUTTON_BACK).second == 0)
+	if ((lpButtonMng.Buttonf(0, XINPUT_BUTTON_BACK).first == 1 &&
+		lpButtonMng.Buttonf(0, XINPUT_BUTTON_BACK).second == 0) && _time == lpTimeMng.getTime())
 	{
 		MenuFlag = true;
 	}
@@ -527,7 +530,7 @@ bool Player::MenuUpdate(void)
 	//{
 	//	MenuFlag = true;
 	//}
-	if (MenuFlag)
+	if (MenuFlag && _time == lpTimeMng.getTime())
 	{
 		MenuFlag = lpMenuMng.Update();
 		return MenuFlag;

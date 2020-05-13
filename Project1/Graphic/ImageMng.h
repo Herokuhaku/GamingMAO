@@ -31,6 +31,9 @@ enum class EFFECT
 enum class ScrEff
 {
 	FADE,
+	FADE2X,
+	FADEIN,
+	FADEOUT,
 	MAX
 };
 
@@ -86,9 +89,13 @@ private:
 	//---------------------------------------------------------
 	void ScreenEffect(void);		// 画面エフェクトの分岐
 	void Fade(void);				// 画面エフェクト：フェード
+	void FadeIn(void);
+	void FadeOut(void);
+	//void Fade2x(void);
 	
 	ScrEff _Gkind;
 	int _fadeCnt;
+	int _fadeSpeed;
 	//---------------------------------------------------------
 
 	ImageMng();

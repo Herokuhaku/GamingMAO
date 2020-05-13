@@ -70,6 +70,12 @@ void ImageMng::Draw(void)
 	int x, y;
 	x = lpSceneMng.GetcPos().x - (SCREEN_SIZE_X / 2);
 	y = lpSceneMng.GetcPos().y - (SCREEN_SIZE_Y / 2);
+	
+	if (lpTimeMng.getTime() == TIME::FTR)
+	{
+		GraphFilter(_workLayer, DX_GRAPH_FILTER_HSB, 0, 0, -255, 0);
+	}
+	
 	DrawRectGraph(0, 0, x, y, SCREEN_SIZE_X, SCREEN_SIZE_Y, _workLayer, false, false);
 
 	DrawBox(0, lpSceneMng.ScreenSize.y - 100, lpSceneMng.ScreenSize.x, lpSceneMng.ScreenSize.y, 0x123456,true);
@@ -129,7 +135,14 @@ void ImageMng::ScreenEffect(void)
 			case ScrEff::FADE:
 					Fade();
 					break;
-			default:
+			case ScrEff::FADEIN:
+					FadeIn();
+					break;
+			case ScrEff::FADEOUT:
+					FadeOut();
+					break;
+			case ScrEff::FADE2X:
+					Fade();
 					break;
 	}
 }
@@ -138,11 +151,33 @@ void ImageMng::Fade(void)
 {
 	int bright = std::abs( 255 - std::abs(_fadeCnt - 255));
 	SetDrawBright(bright,bright,bright);
-	_fadeCnt += -2;
+	_fadeCnt += _fadeSpeed;
 	if(_fadeCnt <= -255)
 	{
 		_Gkind = ScrEff::MAX;
 		SetDrawBright(255,255,255);
+	}
+}
+
+void ImageMng::FadeIn(void)
+{
+	int bright = _fadeCnt;
+	SetDrawBright(bright,bright,bright);
+	_fadeCnt += _fadeSpeed;
+	if(_fadeCnt >= 255)
+	{
+		_Gkind = ScrEff::MAX;
+	}
+}
+
+void ImageMng::FadeOut(void)
+{
+	int bright = _fadeCnt;
+	SetDrawBright(bright,bright,bright);
+	_fadeCnt += _fadeSpeed;
+	if(_fadeCnt <= 0)
+	{
+		_Gkind = ScrEff::MAX;
 	}
 }
 
@@ -153,6 +188,18 @@ void ImageMng::setGkind(ScrEff kind)
 	{
 			case ScrEff::FADE:
 					_fadeCnt = 255;
+					break;
+			case ScrEff::FADEIN:
+					_fadeCnt = 0;
+					_fadeSpeed = 4;
+					break;
+			case ScrEff::FADEOUT:
+					_fadeCnt = 255;
+					_fadeSpeed = -4;
+					break;
+			case ScrEff::FADE2X:
+					_fadeCnt = 255;
+					_fadeSpeed = -4;
 					break;
 			default:
 					break;
@@ -174,6 +221,7 @@ void ImageMng::ImageMngInit(void)
 {
 	getImage("image/effect.png", "gripEffect", 64, 64, 3, 1);
 	_fadeCnt = 255;
+	_fadeSpeed = -2;
 	_Gkind = ScrEff::MAX;
 }
 
