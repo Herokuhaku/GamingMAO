@@ -53,8 +53,8 @@ void ItemTrader::AddBag(void)
 {
 	for (auto data = _ItemList.begin();data != _ItemList.end();)
 	{
-		if ((*data)->getPos().x - 50 <= (*lpSceneMng.GetPlObj())->getPos().x + 50 &&
-			(*data)->getPos().x + 50 >= (*lpSceneMng.GetPlObj())->getPos().x - 50)
+		if ((*data)->getPos().x - 50 <= (*lpSceneMng.GetPlObj(lpTimeMng.getTime()))->getPos().x + 50 &&
+			(*data)->getPos().x + 50 >= (*lpSceneMng.GetPlObj(lpTimeMng.getTime()))->getPos().x - 50)
 		{
 			_ItemBag.emplace_back(*data,_ItemBag.size());
 			data = _ItemList.erase(data);		// ŽŸ‚ð•Ô‚·

@@ -37,6 +37,10 @@ void Player::Update(void)
 	{
 		(this->*_control)();
 
+		if ((lpKeyMng.getOldBuf()[KEY_INPUT_LSHIFT] && !lpKeyMng.getBuf()[KEY_INPUT_LSHIFT]))
+		{
+			lpTimeMng.ChangeTime();
+		}
 	}
 	else
 	{

@@ -1,6 +1,6 @@
 #pragma once
 
-enum class TIME
+enum class TIME : int
 {
 	NOW,	// åªç›
 	FTR,	// ñ¢óà
@@ -34,11 +34,14 @@ public:
 	void setTime(TIME time);
 	TIME getTime(void);
 
-
+	void ChangeTime(void);
+	void resetFlag(void);
 private:
 	static TimeMng* sInstance;
 
 	TIME _crTime;
+	bool _changeFlag;
+	int _changeTime;
 
 	TimeMng();
 	~TimeMng();

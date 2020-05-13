@@ -51,14 +51,6 @@ std::unique_ptr<BaceScene> GameScene::Update(std::unique_ptr<BaceScene> own)
 		(*data).Update();
 	}
 
-	if ((lpKeyMng.getOldBuf()[KEY_INPUT_LSHIFT] && !lpKeyMng.getBuf()[KEY_INPUT_LSHIFT]))
-	{
-		lpTimeMng.setTime(static_cast<TIME>(1 - static_cast<int>(lpTimeMng.getTime())));
-	}
-
-	auto plObj = std::find_if(_objList.begin(), _objList.end(), [&](std::shared_ptr<Object> obj) { return ((*obj).getType() == OBJ_TYPE::PLAYER && (*obj).getTimeLine() == lpTimeMng.getTime()); });
-	//plObj
-	lpSceneMng.SetPlObj((*plObj));
 	for (auto data : _enemyList)
 	{
 		(*data).Update();
@@ -83,6 +75,8 @@ std::unique_ptr<BaceScene> GameScene::Update(std::unique_ptr<BaceScene> own)
 	}
 	lpMapMng.MapDraw();
 
+	lpTimeMng.resetFlag();
+
 	return own;
 }
 
@@ -90,8 +84,9 @@ bool GameScene::Init(void)
 {
 	_objList.clear();
 	_objList.emplace_back(new Player({ 400,900 }, 1, TIME::NOW));
-	lpSceneMng.SetPlObj(_objList[0]);
+	lpSceneMng.SetPlObj(_objList[0], TIME::NOW);
 	_objList.emplace_back(new Player({ 400,900 }, 1, TIME::FTR));
+	lpSceneMng.SetPlObj(_objList[1], TIME::FTR);
 	_objList.emplace_back(new camera());
 	_enemyList.emplace_back(new s_dragon());
 

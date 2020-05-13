@@ -5,7 +5,7 @@
 void Enemy::Update(void)
 {
 	Gravity();
-	auto tmp = lpSceneMng.GetPlObj();
+	auto tmp = lpSceneMng.GetPlObj(TIME::FTR);
 	auto plPos = (*tmp)->getPos();
 	// ???
 	if (_aState < 0 || _aState >= 5)

@@ -24,24 +24,39 @@ void SceneMng::Run(void)
 	}
 }
 
-const Vector2 SceneMng::GetPlPos(void) const
+const Vector2 SceneMng::GetPlPos(TIME time) const
 {
-	return _plObj->getPos();
+	if (_plObj.find(time) == _plObj.end())
+	{
+		exit(1);
+		return { 0,0 };
+	}
+	return _plObj.at(time)->getPos();
 }
 
-const std::shared_ptr<Object> SceneMng::GetPlObj2(void) const
+const std::shared_ptr<Object> SceneMng::GetPlObj2(TIME time) const
 {
-	return _plObj;
+	if (_plObj.find(time) == _plObj.end())
+	{
+		exit(1);
+		return nullptr;
+	}
+	return _plObj.at(time);
 }
 
-const std::shared_ptr<Object>* SceneMng::GetPlObj(void) const
+const std::shared_ptr<Object>* SceneMng::GetPlObj(TIME time) const
 {
-	return &_plObj;
+	if (_plObj.find(time) == _plObj.end())
+	{
+		exit(1);
+		return nullptr;
+	}
+	return &(_plObj.at(time));
 }
 
-void SceneMng::SetPlObj(std::shared_ptr<Object>& plObj)
+void SceneMng::SetPlObj(std::shared_ptr<Object>& plObj, TIME time)
 {
-	_plObj = plObj;
+	_plObj.try_emplace(time, plObj);
 }
 
 const Vector2D SceneMng::GetcPos(void) const
