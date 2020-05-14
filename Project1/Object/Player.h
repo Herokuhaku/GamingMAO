@@ -41,7 +41,6 @@ private:
 
 	void MagicUpdate(void);
 	int _coolTime;
-	int _anmEfkHd;
 
 	void StateRotate(void);
 

@@ -66,7 +66,22 @@ void Object::damagingHP(int damage)
 	_hp -= damage;
 	if (_hp <= 0)
 	{
-		_state_dir.first = OBJ_STATE::DEAD;
+		setState({ OBJ_STATE::DEAD, _state_dir.second });
+		if (_type == OBJ_TYPE::PLAYER)
+		{
+			stopAttack();
+			lpEffectMng.stopEffect(_anmEfkHd);
+		}
+	}
+	else if (_type == OBJ_TYPE::PLAYER)
+	{
+		setState({ OBJ_STATE::DAMAGE, _state_dir.second });
+		stopAttack();
+		lpEffectMng.stopEffect(_anmEfkHd);
+	}
+	else
+	{
+
 	}
 }
 

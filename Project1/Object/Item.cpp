@@ -40,7 +40,7 @@ void Item::OLDraw(LAYER lay)
 		return;
 	}
 
-	lpImageMng.AddBackDraw({ _anmMap[_state_dir][_anmFlame].first, _pos.x, _pos.y - _drawOffset_y, _rad, lay, _zOrder });
+	lpImageMng.AddDraw({ _anmMap[_state_dir][_anmFlame].first, _pos.x, _pos.y - _drawOffset_y, _rad, lay, _zOrder });
 }
 
 void Item::Init(void)

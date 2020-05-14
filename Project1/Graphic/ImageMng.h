@@ -72,6 +72,7 @@ public:
 	std::vector<int> getImage(const std::string& filename, const std::string& key, int size_x, int size_y, int cnt_x, int cnt_y);
 
 	void Draw(void);				// 描画
+	void Draw(int screen, bool deleteFlag);
 	void UpdateEffect(void);		// エフェクトの描画と更新
 
 	void AddDraw(DrawData data);	// 描画情報の追加 _workLayer

@@ -45,6 +45,9 @@ public:
 	const std::shared_ptr<Vector2D> GetccPos(void) const;
 	void SetcPos(std::shared_ptr<Vector2D> cPos);
 
+	void SetNum(int num);			// _workのset
+	int GetNum(void);				// _workのget
+
 	const Vector2 ScreenSize = { 1280,720 };
 private:
 	static SceneMng *sInstance;
@@ -53,6 +56,8 @@ private:
 	std::shared_ptr<Vector2D> _cPos;									// カメラ座標
 
 	unsigned int _flame;
+
+	int _work;				// gameover用スクリーン
 
 	bool SysInit(void);
 	SceneMng();

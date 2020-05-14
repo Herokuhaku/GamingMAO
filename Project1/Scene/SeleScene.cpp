@@ -68,7 +68,7 @@ std::unique_ptr<BaceScene> SeleScene::Update(std::unique_ptr<BaceScene> own)
 		}
 		else
 		{
-			arrow.y = 80 + 250;
+			arrow.y = 80 + 250;	
 		}
 	}
 

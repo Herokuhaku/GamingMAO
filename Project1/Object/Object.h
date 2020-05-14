@@ -85,7 +85,7 @@ public:
 	void setTimeLine(TIME time);
 	TIME getTimeLine(void);
 
-	int getStage(void) {return _stage;};
+	int getStage(void) { return _stage; };
 
 	void nextPos(void) { _pos = _nextPos; _tmpPos = { static_cast<double>(_nextPos.x),static_cast<double>(_nextPos.y) }; };
 private:
@@ -111,9 +111,10 @@ protected:
 	std::pair<OBJ_STATE, DIR> _state_dir;	// オブジェクトの状態
 
 	std::map<std::pair<OBJ_STATE, DIR>, AnmVec> _anmMap;	// アニメーションを保存するとこ
-	unsigned int _anmTime;		// アニメーションの経過時間
-	unsigned int _anmFlame;		// アニメーションの現在のコマ数
+	unsigned int _anmTime;			// アニメーションの経過時間
+	unsigned int _anmFlame;			// アニメーションの現在のコマ数
 
+	int _anmEfkHd;					// effekseerのアニメーションハンドル
 
 	Vector2Template<double> _tmpPos;
 protected:

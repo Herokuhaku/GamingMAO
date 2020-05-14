@@ -6,7 +6,6 @@
 #include "SceneMng.h"
 #include "../Manage/KeyMng.h"
 
-
 TitleScene::TitleScene()
 {
 	lpImageMng.getImage("image/hurosiki.png", "•—˜C•~");

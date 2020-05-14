@@ -111,6 +111,78 @@ void ImageMng::Draw(void)
 	_drawList[1].clear();
 }
 
+void ImageMng::Draw(int screen, bool deleteFlag)
+{
+	UpdateEffect();
+	// レイヤーとzオーダーでソート
+	std::sort(_drawList[0].begin(), _drawList[0].end(), [](DrawData i, DrawData j) {
+		return (std::tie(std::get<static_cast<int>(DrawElm::LAYER)>(i), std::get<static_cast<int>(DrawElm::ZORDER)>(i)) <
+			std::tie(std::get<static_cast<int>(DrawElm::LAYER)>(j), std::get<static_cast<int>(DrawElm::ZORDER)>(j)));
+	});
+
+	std::sort(_drawList[1].begin(), _drawList[1].end(), [](DrawData i, DrawData j) {
+		return (std::tie(std::get<static_cast<int>(DrawElm::LAYER)>(i), std::get<static_cast<int>(DrawElm::ZORDER)>(i)) <
+			std::tie(std::get<static_cast<int>(DrawElm::LAYER)>(j), std::get<static_cast<int>(DrawElm::ZORDER)>(j)));
+	});
+
+	SetDrawScreen(_workLayer);
+	ClsDrawScreen();
+
+	for (auto data : _drawList[0])
+	{
+		int id, x, y;
+		double rad;
+		LAYER layer;
+
+		std::tie(id, x, y, rad, layer, std::ignore) = data;
+
+		DrawRotaGraph(x, y, 1.0, rad, id, true);
+	}
+
+
+	SetDrawScreen(_screen);
+	ClsDrawScreen();
+
+	int x, y;
+	x = lpSceneMng.GetcPos().x - (SCREEN_SIZE_X / 2);
+	y = lpSceneMng.GetcPos().y - (SCREEN_SIZE_Y / 2);
+
+	if (lpTimeMng.getTime() == TIME::FTR)
+	{
+		GraphFilter(_workLayer, DX_GRAPH_FILTER_HSB, 0, 0, -255, 0);
+	}
+
+	DrawRectGraph(0, 0, x, y, SCREEN_SIZE_X, SCREEN_SIZE_Y, _workLayer, false, false);
+
+	DrawBox(0, lpSceneMng.ScreenSize.y - 100, lpSceneMng.ScreenSize.x, lpSceneMng.ScreenSize.y, 0x123456, true);
+	DrawEffekseer2D_Begin();
+	lpEffectMng.UpdateEffekseer();
+	DrawEffekseer2D_End();
+
+	for (auto data : _drawList[1])
+	{
+		int id, x, y;
+		double rad;
+		LAYER layer;
+
+		std::tie(id, x, y, rad, layer, std::ignore) = data;
+
+		DrawRotaGraph(x, y, 1.0, rad, id, true);
+	}
+
+	SetDrawScreen(screen);
+	ClsDrawScreen();
+	DrawGraph(0, 0, _screen, true);
+
+	ScreenEffect();
+
+	if (deleteFlag)
+	{
+		_drawList[0].clear();
+		_drawList[1].clear();
+	}
+}
+
 void ImageMng::UpdateEffect(void)
 {
 	for (auto data = _effectList.begin(); data != _effectList.end();)

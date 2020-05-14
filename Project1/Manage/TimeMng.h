@@ -36,6 +36,8 @@ public:
 
 	void ChangeTime(void);
 	void resetFlag(void);
+
+	void TimeInit(void);
 private:
 	static TimeMng* sInstance;
 

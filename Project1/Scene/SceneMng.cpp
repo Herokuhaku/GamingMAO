@@ -75,6 +75,16 @@ void SceneMng::SetcPos(std::shared_ptr<Vector2D> cPos)
 	_cPos = cPos;
 }
 
+void SceneMng::SetNum(int num)
+{
+	_work = num;
+}
+
+int SceneMng::GetNum(void)
+{
+	return _work;
+}
+
 
 bool SceneMng::SysInit(void)
 {
@@ -104,6 +114,8 @@ bool SceneMng::SysInit(void)
 	_cPos = work;
 
 	_flame = 0;
+
+ 	_work = MakeScreen(ScreenSize.x, ScreenSize.y, 0);
 
 	return rtnFlag;
 }

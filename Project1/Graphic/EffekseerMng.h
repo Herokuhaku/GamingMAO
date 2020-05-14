@@ -45,6 +45,7 @@ public:
 
 	// efcHd:ハンドル time:時間 pos_x,pos_y:座標 offset_x,pffset_y:オフセット dir:向き 
 	int playEffect(const int efcHd, const int time, int* pos_x, int* pos_y, int offset_x, int offset_y, DIR* dir);			
+	void stopEffect(int playEfcHd);
 	void stopEffectAll(void);																	// すべてのエフェクトを停止する
 
 	void UpdateEffekseer(void);																	// 再生中のエフェクトの更新

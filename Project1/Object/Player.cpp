@@ -13,15 +13,18 @@ Player::Player(Vector2Template<int> pos, int stage, TIME time)
 	_tmpPos = {static_cast<double>(pos.x),static_cast<double>(pos.y)};
 	_state_dir = { OBJ_STATE::NORMAL, DIR::RIGHT };
 	_coolTime = 0;
-	_anmEfkHd = -1;
 	_rotateFlag = false;
 	_control = &Player::ControlNormal;
 	_type = OBJ_TYPE::PLAYER;
+
 	setHitOffset({ 14,10,70,0 });
 	_drawOffset_y = 45;
 
 	_time = time;
 	_stage = stage;
+
+	_anmEfkHd = -1;
+
 
 	setHP(HP_MAX);
 	_nextPos = { 0,0 };
@@ -36,7 +39,10 @@ void Player::Update(void)
 {
 	if (!MenuUpdate() && _time == lpTimeMng.getTime())
 	{
-		(this->*_control)();
+		if (_state_dir.first != OBJ_STATE::DEAD && _state_dir.first != OBJ_STATE::DAMAGE)
+		{
+			(this->*_control)();
+		}
 
 		if ((lpKeyMng.getOldBuf()[KEY_INPUT_LSHIFT] && !lpKeyMng.getBuf()[KEY_INPUT_LSHIFT]))
 		{
@@ -58,7 +64,6 @@ void Player::Update(void)
 
 	VelUpdate();
 	MagicUpdate();
-
 
 	if ((lpKeyMng.getOldBuf()[KEY_INPUT_DOWN] && !lpKeyMng.getBuf()[KEY_INPUT_DOWN]))
 	{
@@ -109,7 +114,14 @@ void Player::Draw(void)
 	{
 		if (getHP() >= i * 10 + 1)
 		{
-			tmpNum = 0;
+			if (_state_dir.first == OBJ_STATE::DAMAGE)
+			{
+				tmpNum = 1;
+			}
+			else
+			{
+				tmpNum = 0;
+			}
 		}
 		else
 		{
@@ -213,13 +225,16 @@ void Player::Init(void)
 	data.emplace_back(lpImageMng.getImage("player_walk")[15], 120);
 	setAnm({ OBJ_STATE::WALK, DIR::RIGHT }, data);
 
-	data.reserve(1);
-	data.emplace_back(lpImageMng.getImage("player_damaged")[0], 3);
+	data.reserve(2);
+	data.emplace_back(lpImageMng.getImage("player_damaged")[0], 30);
+	data.emplace_back(-1, 0);
 	setAnm({ OBJ_STATE::DAMAGE, DIR::LEFT }, data);
 
-	data.emplace_back(lpImageMng.getImage("player_damaged")[1], 3);
+	data.emplace_back(lpImageMng.getImage("player_damaged")[1], 30);
+	data.emplace_back(-1, 0);
 	setAnm({ OBJ_STATE::DAMAGE, DIR::RIGHT }, data);
 
+	data.reserve(1);
 	data.emplace_back(lpImageMng.getImage("player_damaged")[2], 3);
 	setAnm({ OBJ_STATE::DEAD, DIR::LEFT } , data);
 
@@ -231,15 +246,15 @@ void Player::Init(void)
 	attack.reserve(350);
 	for (int i = 0; i < 180; i++)
 	{
-		attack.emplace_back(atkData(false, OBJ_TYPE::PLAYER, { 42,35 }, { 102,55 }, 5, 10, OBJ_TYPE::ENEMY));
+		attack.emplace_back(atkData(false, OBJ_TYPE::PLAYER, { 42,35 }, { 16,55 }, 5, 10, OBJ_TYPE::PLAYER));
 	}
 	for (int i = 180; i < 300; i++)
 	{
-		attack.emplace_back(atkData(true, OBJ_TYPE::PLAYER, { 42,35 }, { 102,55 }, 5, 10, OBJ_TYPE::ENEMY));
+		attack.emplace_back(atkData(true, OBJ_TYPE::PLAYER, { 42,35 }, { 162,55 }, 5, 10, OBJ_TYPE::PLAYER));
 	}
 	for (int i = 300; i < 350; i++)
 	{
-		attack.emplace_back(atkData(false, OBJ_TYPE::PLAYER, { 42,35 }, { 102,55 }, 5, 10, OBJ_TYPE::ENEMY));
+		attack.emplace_back(atkData(false, OBJ_TYPE::PLAYER, { 42,35 }, { 162,55 }, 5, 10, OBJ_TYPE::PLAYER));
 	}
 	setAttack("magic_fire", attack);
 

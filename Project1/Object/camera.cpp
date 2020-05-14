@@ -46,7 +46,6 @@ camera::camera() : _cPos{ new Vector2D(0,0) }
 	{
 		_oldPlPos[i] = _plObj.at(lpTimeMng.getTime())->getPos();
 	}
-	_stage = -1;
 }
 
 camera::~camera()

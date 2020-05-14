@@ -17,7 +17,7 @@ GameScene::GameScene()
 	lpImageMng.getImage("image/player_dash.png", "player_dash", 85, 90, 2, 2);
 	lpImageMng.getImage("image/player_jump.png", "player_jump", 85, 90, 2, 2);
 	lpImageMng.getImage("image/player_attack.png", "player_attack", 85, 90, 2, 12);
-	lpImageMng.getImage("image/player_dameged.png", "player_damaged", 85, 90, 2, 3);
+	lpImageMng.getImage("image/player_damaged.png", "player_damaged", 85, 90, 2, 3);
 
 	lpImageMng.getImage("image/small_dragonR.png", "s_dragonR", 128, 128, 4, 5);
 	lpImageMng.getImage("image/small_dragonL.png", "s_dragonL", 128, 128, 4, 5);
@@ -45,27 +45,19 @@ GameScene::~GameScene()
 
 std::unique_ptr<BaceScene> GameScene::Update(std::unique_ptr<BaceScene> own)
 {
-
 	for (auto data : _objList)
 	{
-		if ((*data).getStage() == lpMapMng.GetnowStage() || (*data).getStage() == -1)
-		{
-			(*data).Update();
-		}
+		(*data).Update();
 	}
 
 	for (auto data : _enemyList)
 	{
-		if ((*data).getStage() == lpMapMng.GetnowStage())
-		{
-			(*data).Update();
-		}
+		(*data).Update();
 	}
 
 	getAttackQue();
 	CheckHitAttack()(_objList, _attackList);
 	CheckHitAttack()(_enemyList, _attackList);
-
 
 
 	for (auto data : _objList)
@@ -86,11 +78,23 @@ std::unique_ptr<BaceScene> GameScene::Update(std::unique_ptr<BaceScene> own)
 	}
 
 	lpTradeMng.Draw();
+
+	lpMapMng.MapDraw();
+
+	// éÄÇÒÇ≈Ç¢ÇÈÉvÉåÉCÉÑÅ[ÇíTÇ∑
+	auto plDead = std::find_if(_objList.begin(), _objList.end(), [](std::shared_ptr<Object> obj) { return (obj->getType() == OBJ_TYPE::PLAYER && obj->getState().first == OBJ_STATE::DEAD); });
+
+	// éÄÇÒÇæÇ∆Ç´ÇÃèàóù
+	if (plDead != _objList.end())
+	{
+		lpImageMng.Draw(lpSceneMng.GetNum(), false);
+		own = std::make_unique<GameOverScene>();
+	}
+
 	if (!lpMenuMng.GetMixFlag())
 	{
-		lpTradeMng.BagDraw({ 800,680 }, LAYER::CHAR,100);
+		lpTradeMng.BagDraw({ 800,680 }, LAYER::CHAR, 100);
 	}
-	lpMapMng.MapDraw();
 
 	lpTimeMng.resetFlag();
 
@@ -108,8 +112,8 @@ bool GameScene::Init(void)
 	_enemyList.emplace_back(new s_dragon());
 
 	lpTradeMng.SetItemList({ 400,1300 }, ITEM_TYPE::BOOK, COLOR_TYPE::BLUE);
-
 	
+	lpTimeMng.TimeInit();
 
 	return false;
 }

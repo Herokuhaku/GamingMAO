@@ -25,6 +25,19 @@ int EffekseerMng::playEffect(const int efcHd, const int time, int* pos_x, int* p
 	return playEfcHd;
 }
 
+void EffekseerMng::stopEffect(int playEfkHd)
+{
+	auto eraseEfk = std::find_if(_effectList.begin(), _effectList.end(), [&](std::tuple<int, int, std::pair<int*, int*>, std::pair<int, int>, DIR*> val) {return std::get<0>(val) == playEfkHd; });
+	
+	if (eraseEfk == _effectList.end())
+	{
+		return;
+	}
+	
+	_effectList.erase(eraseEfk);
+	StopEffekseer2DEffect(playEfkHd);
+}
+
 void EffekseerMng::stopEffectAll(void)
 {
 	for (auto data : _effectList)
