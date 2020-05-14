@@ -17,11 +17,12 @@ void ItemTrader::Draw(void)
 
 void ItemTrader::BagDraw(Vector2D pos,LAYER lay,int off)
 {
-	_pos.x = lpSceneMng.GetcPos().x + pos.x;
-	_pos.y = lpSceneMng.GetcPos().y + pos.y;
+	_pos.x = pos.x;
+	_pos.y = pos.y;
 	for (auto data : _ItemBag)
 	{
 		(*data.first).setPos({_pos.x + (off*(data.second)),_pos.y});
+		//(*data.first).setPos({ 1000,700 });
 		(*data.first).OLDraw(lay);
 	}
 }
