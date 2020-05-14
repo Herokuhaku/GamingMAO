@@ -6,6 +6,8 @@ GameOverScene::GameOverScene()
 	_gameOverMoment = lpSceneMng.GetNum();
 	lpImageMng.getImage("image/GameOverChar.png", "gameover_char");
 	_gameOverScreen = MakeScreen(lpSceneMng.ScreenSize.x, lpSceneMng.ScreenSize.y, 0);
+
+	_control = &GameOverScene::SkipControl;
 }
 GameOverScene::~GameOverScene()
 {
@@ -13,8 +15,26 @@ GameOverScene::~GameOverScene()
 
 std::unique_ptr<BaceScene> GameOverScene::Update(std::unique_ptr<BaceScene> own)
 {
+	own = (this->*_control)(std::move(own));
+
 	Draw();
 	return own;
+}
+
+std::unique_ptr<BaceScene> GameOverScene::CursorControl(std::unique_ptr<BaceScene> scene)
+{
+	return scene;
+}
+
+std::unique_ptr<BaceScene> GameOverScene::SkipControl(std::unique_ptr<BaceScene> scene)
+{
+	// スペースキーを押すと暗くなっていくのをスキップできる
+	if (lpKeyMng.getBuf()[KEY_INPUT_SPACE] && !lpKeyMng.getOldBuf()[KEY_INPUT_SPACE])
+	{
+		_alphaPrm = 118;
+		_control = &GameOverScene::CursorControl;
+	}
+	return scene;
 }
 
 void GameOverScene::Draw(void)
@@ -30,6 +50,7 @@ void GameOverScene::Draw(void)
 
 		DrawGraph(0, 0, _gameOverMoment, true);
 
+		// 段々暗く
 		SetDrawBlendMode(DX_BLENDMODE_ALPHA, _alphaPrm);
 		DrawBox(0, 0, lpSceneMng.ScreenSize.x, lpSceneMng.ScreenSize.y, 0x000000, true);
 

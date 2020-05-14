@@ -101,8 +101,6 @@ void Player::Update(void)
 		{
 		}
 	}
-
-	Object::Draw();
 }
 
 void Player::Draw(void)
@@ -244,17 +242,17 @@ void Player::Init(void)
 
 	std::vector<atkData> attack;
 	attack.reserve(350);
-	for (int i = 0; i < 180; i++)
+	for (int i = 0; i < 100; i++)
 	{
-		attack.emplace_back(atkData(false, OBJ_TYPE::PLAYER, { 42,35 }, { 16,55 }, 5, 10, OBJ_TYPE::PLAYER));
+		attack.emplace_back(atkData(false, OBJ_TYPE::PLAYER, { 42,35 }, { 16,55 }, 10, 10, OBJ_TYPE::MAX));
 	}
-	for (int i = 180; i < 300; i++)
+	for (int i = 100; i < 200; i++)
 	{
-		attack.emplace_back(atkData(true, OBJ_TYPE::PLAYER, { 42,35 }, { 162,55 }, 5, 10, OBJ_TYPE::PLAYER));
+		attack.emplace_back(atkData(true, OBJ_TYPE::PLAYER, { 42,35 }, { 162,55 }, 10, 10, OBJ_TYPE::MAX));
 	}
-	for (int i = 300; i < 350; i++)
+	for (int i = 200; i < 220; i++)
 	{
-		attack.emplace_back(atkData(false, OBJ_TYPE::PLAYER, { 42,35 }, { 162,55 }, 5, 10, OBJ_TYPE::PLAYER));
+		attack.emplace_back(atkData(false, OBJ_TYPE::PLAYER, { 42,35 }, { 162,55 }, 10, 10, OBJ_TYPE::MAX));
 	}
 	setAttack("magic_fire", attack);
 

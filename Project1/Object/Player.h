@@ -27,9 +27,9 @@ public:
 	void Draw(void)override;
 private:
 	static constexpr int WALK_SPEED = 4;
-	static constexpr double G_ACC_NORMAL = 0.3;
-	static constexpr double INI_VEL_NORMAL = 8.0;
-	static constexpr double VEL_MAX = 8.0;
+	static constexpr double G_ACC_NORMAL = 0.4;
+	static constexpr double INI_VEL_NORMAL = 9.0;
+	static constexpr double VEL_MAX = 9.0;
 
 	void Init(void);
 

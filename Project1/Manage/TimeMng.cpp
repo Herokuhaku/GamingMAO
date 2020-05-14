@@ -42,11 +42,16 @@ void TimeMng::resetFlag(void)
 	}
 }
 
+void TimeMng::TimeInit(void)
+{
+	_changeFlag = false;
+	_changeTime = 0;
+}
+
 TimeMng::TimeMng()
 {
 	_crTime = TIME::NOW;
-	_changeFlag = false;
-	_changeTime = 0;
+	TimeInit();
 }
 
 TimeMng::~TimeMng()
