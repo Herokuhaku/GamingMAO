@@ -3,6 +3,8 @@
 #include "SceneMng.h"
 #include "SeleScene.h"
 #include "GameScene.h"
+#include "SceneMng.h"
+#include "../Manage/KeyMng.h"
 
 
 TitleScene::TitleScene()
@@ -16,15 +18,11 @@ TitleScene::~TitleScene()
 
 std::unique_ptr<BaceScene> TitleScene::Update(std::unique_ptr<BaceScene> own)
 {
-	lpImageMng.AddDraw({ lpImageMng.getImage("•—˜C•~")[0],300,250,0.0,LAYER::BG,0 });
+	lpImageMng.AddBackDraw({ lpImageMng.getImage("•—˜C•~")[0],lpSceneMng.ScreenSize.x / 2,lpSceneMng.ScreenSize.y / 2,0.0,LAYER::BG,0 });
 
-	if(lpSceneMng.GetFlame() == 0)
+	if (lpKeyMng.getBuf()[KEY_INPUT_RETURN] && !lpKeyMng.getOldBuf()[KEY_INPUT_RETURN])
 	{
 		lpImageMng.setGkind(ScrEff::FADE);
-	}
-
-	if (lpSceneMng.GetFlame() == 128)
-	{
 		return std::make_unique<GameScene>();
 	}
 
