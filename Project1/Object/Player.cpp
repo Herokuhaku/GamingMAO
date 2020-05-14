@@ -59,6 +59,7 @@ void Player::Update(void)
 	VelUpdate();
 	MagicUpdate();
 
+
 	if ((lpKeyMng.getOldBuf()[KEY_INPUT_DOWN] && !lpKeyMng.getBuf()[KEY_INPUT_DOWN]))
 	{
 		int y = _pos.y - 50;
@@ -66,7 +67,6 @@ void Player::Update(void)
 		if (lpMapMng.getGameMapM({ _pos.x,y }) == 41)
 		{
 			_nextPos = { lpMapMng.GetFrontPosX(lpMapMng.GetnowStage()),lpMapMng.GetFrontPosY(lpMapMng.GetnowStage()) };
-		//		_vel = 0.0;
 			lpImageMng.SetplmoveF(true, MAP_DATA::FRONT);
 			lpImageMng.setGkind(ScrEff::FADEOUT);
 		}
@@ -74,7 +74,6 @@ void Player::Update(void)
 		else if (lpMapMng.getGameMapM({ _pos.x,y }) == 9)
 		{
 			_nextPos = { lpMapMng.GetBackPosX(lpMapMng.GetnowStage()),lpMapMng.GetBackPosY(lpMapMng.GetnowStage()) };
-		//	_vel = 0.0;
 			lpImageMng.SetplmoveF(true, MAP_DATA::BACK);
 			lpImageMng.setGkind(ScrEff::FADEOUT);
 		}
@@ -82,7 +81,6 @@ void Player::Update(void)
 		else if (lpMapMng.getGameMapM({ _pos.x,y }) == 7)
 		{
 			_nextPos = { lpMapMng.GetBrancPosX(lpMapMng.GetnowStage()),lpMapMng.GetBrancPosY(lpMapMng.GetnowStage()) };
-		//	_vel = 0.0;
 			lpImageMng.SetplmoveF(true, MAP_DATA::BRANCH);
 			lpImageMng.setGkind(ScrEff::FADEOUT);
 

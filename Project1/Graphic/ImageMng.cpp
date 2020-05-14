@@ -44,7 +44,12 @@ void ImageMng::Draw(void)
 {
 	UpdateEffect();
 	// レイヤーとzオーダーでソート
-	std::sort(_drawList.begin(), _drawList.end(), [](DrawData i,DrawData j) {
+	std::sort(_drawList[0].begin(), _drawList[0].end(), [](DrawData i,DrawData j) {
+		return (std::tie(std::get<static_cast<int>(DrawElm::LAYER)>(i), std::get<static_cast<int>(DrawElm::ZORDER)>(i)) <
+			std::tie(std::get<static_cast<int>(DrawElm::LAYER)>(j), std::get<static_cast<int>(DrawElm::ZORDER)>(j)));
+	});
+
+	std::sort(_drawList[1].begin(), _drawList[1].end(), [](DrawData i,DrawData j) {
 		return (std::tie(std::get<static_cast<int>(DrawElm::LAYER)>(i), std::get<static_cast<int>(DrawElm::ZORDER)>(i)) <
 			std::tie(std::get<static_cast<int>(DrawElm::LAYER)>(j), std::get<static_cast<int>(DrawElm::ZORDER)>(j)));
 	});
@@ -52,7 +57,7 @@ void ImageMng::Draw(void)
 	SetDrawScreen(_workLayer);
 	ClsDrawScreen();
 
-	for (auto data : _drawList)
+	for (auto data : _drawList[0])
 	{
 		int id, x, y;
 		double rad;
@@ -83,11 +88,23 @@ void ImageMng::Draw(void)
 	lpEffectMng.UpdateEffekseer();
 	DrawEffekseer2D_End();
 
+	for (auto data : _drawList[1])
+	{
+		int id, x, y;
+		double rad;
+		LAYER layer;
+
+		std::tie(id, x, y, rad, layer, std::ignore) = data;
+
+		DrawRotaGraph(x, y, 1.0, rad, id, true);
+	}
+
 	ScreenEffect();
 
 	ScreenFlip();
 
-	_drawList.clear();
+	_drawList[0].clear();
+	_drawList[1].clear();
 }
 
 void ImageMng::UpdateEffect(void)
@@ -125,7 +142,12 @@ void ImageMng::UpdateEffect(void)
 
 void ImageMng::AddDraw(DrawData data)
 {
-	_drawList.emplace_back(data);
+	_drawList[0].emplace_back(data);
+}
+
+void ImageMng::AddBackDraw(DrawData data)
+{
+	_drawList[1].emplace_back(data);
 }
 
 void ImageMng::ScreenEffect(void)
