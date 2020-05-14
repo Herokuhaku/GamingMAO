@@ -4,6 +4,7 @@
 
 Menu* Menu::sInstance = nullptr;
 
+
 Menu::Menu()
 {
 	type = &Menu::SELECT;
@@ -13,7 +14,8 @@ Menu::Menu()
 	_offpush.y = 150;
 	_offpush.x = 200;
 	MixFlag = false;
-
+	tmpos = lpSceneMng.ScreenSize;
+	_cpos = tmpos / 2;
 	lpImageMng.getImage("image/ÉÅÉjÉÖÅ[.png", "Menu");
 	lpImageMng.getImage("image/Space.png", "Space");
 	lpImageMng.getImage("image/arrow.png", "Arrow");
@@ -32,7 +34,6 @@ bool Menu::Update(void)
 		_start = true;
 		lpButtonMng.Buttonf(0, XINPUT_BUTTON_BACK, 1, 1);
 	}
-	_cpos = lpSceneMng.GetcPos();
 
 	(this->*type)();	// select,mix,
 
@@ -189,40 +190,43 @@ void Menu::End(bool *a)
 void Menu::SelectDraw(void)
 {
 	// ïóòCï~ÇÃï`âÊ
-	lpImageMng.AddDraw({ lpImageMng.getImage("Menu")[0],_cpos.x + 200,_cpos.y,0.0,LAYER::EX,100 });
+	lpImageMng.AddBackDraw({ lpImageMng.getImage("Menu")[0],_cpos.x,_cpos.y,0.0,LAYER::EX,100 });
 
 	// ñÓàÛÇÃï`âÊ
-	lpImageMng.AddDraw({ lpImageMng.getImage("Arrow")[0],_cpos.x - 300,_cpos.y - 150 + (100 * _select),0,LAYER::EX,101 });
+	lpImageMng.AddBackDraw({ lpImageMng.getImage("Arrow")[0],_cpos.x - 300,_cpos.y - 150 + (100 * _select),0,LAYER::EX,101 });
 
 	// çáê¨ÇÃï∂éöï`âÊ
-	lpImageMng.AddDraw({ lpImageMng.getImage("Mix")[0],_cpos.x - 200,_cpos.y - 50,0.0,LAYER::EX,101 });
+	lpImageMng.AddBackDraw({ lpImageMng.getImage("Mix")[0],_cpos.x - 200,_cpos.y - 50,0.0,LAYER::EX,101 });
 }
 
 void Menu::MixDraw(void)
 {
 	// ïóòCï~ÇÃï`âÊ
-	lpImageMng.AddDraw({ lpImageMng.getImage("Menu")[0],_cpos.x + 200,_cpos.y,0.0,LAYER::EX,100 });
+	lpImageMng.AddBackDraw({ lpImageMng.getImage("Menu")[0],_cpos.x,_cpos.y,0.0,LAYER::EX,100 });
 
 	// ÉAÉCÉeÉÄëIë
 	for (int x = 0;x < 3;x++)
 	{
-		lpImageMng.AddDraw({ lpImageMng.getImage("Space")[0],_cpos.x - 200 + (_offpush.x * x),_cpos.y - _offpush.y,0.0,LAYER::EX,150 });
+		//lpImageMng.AddBackDraw({ lpImageMng.getImage("Space")[0],_cpos.x - 200 + (_offpush.x * x),_cpos.y - _offpush.y,0.0,LAYER::EX,150 });
+		lpImageMng.AddBackDraw({ lpImageMng.getImage("Space")[0],_cpos.x -200+(_offpush.x*x),_cpos.y - _offpush.y,0.0,LAYER::EX,100 });
 	}
 
 	// ñÓàÛ
-	lpImageMng.AddDraw({ lpImageMng.getImage("Arrow")[0],_cpos.x - 300 + (_offpush.x * _select),_cpos.y - _offpush.y,0.0,LAYER::EX,150 });
+	lpImageMng.AddBackDraw({ lpImageMng.getImage("Arrow")[0],_cpos.x - 300 + (_offpush.x * _select),_cpos.y - _offpush.y,0.0,LAYER::EX,150 });
 
 	// ëIëå„
 	ItemSelectDraw();
-
 }
 
 void Menu::ItemSelectDraw(void)
 {
 	for (auto data : _selectItem)
 	{
-		(*data.first).setPos({ static_cast<int>(lpSceneMng.GetcPos().x - 200 + (_offpush.x * (data.second))),static_cast<int>(lpSceneMng.GetcPos().y - _offpush.y) });
-		(*data.first).OLDraw(LAYER::EX);
+		if (data.first != nullptr)
+		{
+			(*data.first).setPos({_cpos.x - 200 + (_offpush.x * (data.second)),_cpos.y- _offpush.y });
+			(*data.first).OLDraw(LAYER::EX);
+		}
 	}
 }
 
@@ -232,7 +236,7 @@ void Menu::Item1(void)
 	if (lpButtonMng.Buttonf(0, XINPUT_BUTTON_B).first == 1 &&
 		lpButtonMng.Buttonf(0, XINPUT_BUTTON_B).second == 0)
 	{
-		// _selectItem.emplace_back({lpTradeMng.ReBag(0)});
+		_selectItem.at(0) = {lpTradeMng.ReBag(0), 0};
 		MixFlag = false;
 	}
 }
@@ -243,7 +247,7 @@ void Menu::Item2(void)
 	if (lpButtonMng.Buttonf(0, XINPUT_BUTTON_B).first == 1 &&
 		lpButtonMng.Buttonf(0, XINPUT_BUTTON_B).second == 0)
 	{
-		//_selectItem.at(1) = {lpTradeMng.ReBag(_select),1};
+		_selectItem.at(1) = {lpTradeMng.ReBag(_select),1};
 		MixFlag = false;
 	}
 }
@@ -254,7 +258,7 @@ void Menu::Item3(void)
 	if (lpButtonMng.Buttonf(0, XINPUT_BUTTON_B).first == 1 &&
 		lpButtonMng.Buttonf(0, XINPUT_BUTTON_B).second == 0)
 	{
-		//_selectItem.at(2) = {lpTradeMng.ReBag(_select), 2};
+		_selectItem.at(2) = {lpTradeMng.ReBag(_select), 2};
 		MixFlag = false;
 	}
 }
@@ -262,15 +266,15 @@ void Menu::Item3(void)
 void Menu::ItemSelectD(void)
 {
 	// ïóòCï~Ç∆òg
-	lpImageMng.AddDraw({ lpImageMng.getImage("Menu")[0],_cpos.x + 200,_cpos.y,0.0,LAYER::EX,20 });
-	lpImageMng.AddDraw({ lpImageMng.getImage("Space")[0],_cpos.x - 200 + _offpush.x,_cpos.y - _offpush.y,0.0,LAYER::EX,30 });
+	lpImageMng.AddBackDraw({ lpImageMng.getImage("Menu")[0],_cpos.x,_cpos.y,0.0,LAYER::EX,20 });
+	lpImageMng.AddBackDraw({ lpImageMng.getImage("Space")[0],_cpos.x,_cpos.y - _offpush.y,0.0,LAYER::EX,30 });
 
 	
 	// ñÓàÛ
-	lpImageMng.AddDraw({ lpImageMng.getImage("Arrow")[0],(lpSceneMng.GetcPos().x - 300) + (_select * 200),
-		lpSceneMng.GetcPos().y,0.0,LAYER::EX,31 });
+	lpImageMng.AddBackDraw({ lpImageMng.getImage("Arrow")[0],(_cpos.x - 300) + (_select * 200),
+		_cpos.y,0.0,LAYER::EX,31 });
 
-	lpTradeMng.BagDraw({ -200,0 }, LAYER::EX, 200);
+	lpTradeMng.BagDraw({ _cpos.x*1.0 -200,_cpos.y*1.0 }, LAYER::EX, 200);
 
 	// ñÓàÛÇâEÇ…à⁄ìÆÇ≥ÇπÇÈ
 	if (lpButtonMng.Buttonf(0, XINPUT_BUTTON_DPAD_RIGHT).first == 1 &&
