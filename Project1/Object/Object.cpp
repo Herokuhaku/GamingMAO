@@ -7,7 +7,6 @@ Object::Object()
 	_pos = { 0,0 };
 	_rad = 0.0;
 	_time = TIME::NOW;
-	_stage = 0;
 	_zOrder = 0;
 	_state_dir = { OBJ_STATE::NORMAL, DIR::RIGHT };
 	_alive = true;
