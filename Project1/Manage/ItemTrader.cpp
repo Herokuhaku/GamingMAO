@@ -57,8 +57,19 @@ const void ItemTrader::SetItemList(Vector2 pos, ITEM_TYPE itype, COLOR_TYPE ctyp
 
 std::shared_ptr<Item> ItemTrader::ReBag(int no)
 {
+	if (_ItemBag.empty() == true)
+	{
+		return nullptr;
+	}
+
+	if (_ItemBag.size() <= no)
+	{
+		return nullptr;
+	}
+
 	return _ItemBag.at(no).first;
 }
+
 
 
 void ItemTrader::AddBag(void)

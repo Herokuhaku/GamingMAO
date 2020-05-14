@@ -82,7 +82,9 @@ private:
 	//Vector2 _pos;
 	SELECT_ITEM _selectNo;
 	
-	std::array<std::pair<std::shared_ptr<Item>, int>,3> _selectItem;
+	static constexpr int _asize = 3;
+
+	std::array<std::pair<std::shared_ptr<Item>, int>,_asize> _selectItem;
 
 	Vector2 tmpos;
 	Vector2 tmpcpos;	// centerpos;

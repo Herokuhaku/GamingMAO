@@ -46,6 +46,11 @@ bool Menu::Update(void)
 		MixFlag = false;
 		_select = 0;
 		_start = false;
+
+		for (int x = 0;x < _asize;x++)
+		{
+			_selectItem.at(x) = { nullptr,0 };
+		}
 		return false;
 	}
 	
@@ -136,6 +141,7 @@ void Menu::ItemPup(void)
 		{
 			lpButtonMng.Buttonf(0, XINPUT_BUTTON_B, 1, 1);
 			_selectNo = static_cast<SELECT_ITEM>(_select);
+			_select = 0;
 			MixFlag = true;
 		}
 		// Select に戻る
@@ -228,38 +234,72 @@ void Menu::ItemSelectDraw(void)
 			(*data.first).OLDraw(LAYER::EX);
 		}
 	}
+
+
 }
 
 void Menu::Item1(void)
 {
 	ItemSelectD();
+	// 選択しているアイテムの表示
+	if (_selectItem.at(0).first != nullptr) //　その中にアイテムがある場合のみ。
+	{
+		(*_selectItem.at(0).first).setPos({_cpos.x,_cpos.y-_offpush.y});
+		(*_selectItem.at(0).first).OLDraw(LAYER::EX);
+	}
+
 	if (lpButtonMng.Buttonf(0, XINPUT_BUTTON_B).first == 1 &&
 		lpButtonMng.Buttonf(0, XINPUT_BUTTON_B).second == 0)
 	{
-		_selectItem.at(0) = {lpTradeMng.ReBag(0), 0};
-		MixFlag = false;
+		if (lpTradeMng.ReBag(_select) != nullptr)
+		{
+			_selectItem.at(0) = { lpTradeMng.ReBag(_select), 0 };
+			MixFlag = false;
+		}
 	}
+	// _selectItem.at(0).first->
 }
 
 void Menu::Item2(void)
 {
 	ItemSelectD();
+	// 選択しているアイテムの表示
+	if (_selectItem.at(1).first != nullptr) //　その中にアイテムがある場合のみ。
+	{
+		(*_selectItem.at(1).first).setPos({ _cpos.x,_cpos.y - _offpush.y });
+		(*_selectItem.at(1).first).OLDraw(LAYER::EX);
+	}
+
 	if (lpButtonMng.Buttonf(0, XINPUT_BUTTON_B).first == 1 &&
 		lpButtonMng.Buttonf(0, XINPUT_BUTTON_B).second == 0)
 	{
-		_selectItem.at(1) = {lpTradeMng.ReBag(_select),1};
-		MixFlag = false;
+		if (lpTradeMng.ReBag(_select) != nullptr)
+		{
+			_selectItem.at(1) = { lpTradeMng.ReBag(_select),1 };
+			MixFlag = false;
+		}
+
 	}
 }
 
 void Menu::Item3(void)
 {
 	ItemSelectD();
+	// 選択しているアイテムの表示
+	if (_selectItem.at(2).first != nullptr)	//　その中にアイテムがある場合のみ。
+	{
+		(*_selectItem.at(2).first).setPos({ _cpos.x,_cpos.y - _offpush.y });
+		(*_selectItem.at(2).first).OLDraw(LAYER::EX);
+	}
+
 	if (lpButtonMng.Buttonf(0, XINPUT_BUTTON_B).first == 1 &&
 		lpButtonMng.Buttonf(0, XINPUT_BUTTON_B).second == 0)
 	{
-		_selectItem.at(2) = {lpTradeMng.ReBag(_select), 2};
-		MixFlag = false;
+		if (lpTradeMng.ReBag(_select) != nullptr)
+		{
+			_selectItem.at(2) = { lpTradeMng.ReBag(_select), 2 };
+			MixFlag = false;
+		}
 	}
 }
 
