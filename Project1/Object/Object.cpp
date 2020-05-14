@@ -19,6 +19,7 @@ Object::Object()
 	_drawOffset_y = 0;
 	_type = OBJ_TYPE::PLAYER;
 	_nextPos = { 0,0 };
+	_stage = 1;
 }
 
 Object::~Object()
