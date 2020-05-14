@@ -101,8 +101,15 @@ private:
 	bool _plSmoveF;					// プレイヤーのステージ移動のフラグ
 	MAP_DATA _plFBXmoveF;				// プレイヤーがどの方向に移動したか
 public:
-	void SetplmoveF(bool flag, MAP_DATA plf);
+	void SetplmoveF(bool plSmoveF, MAP_DATA plf);
 private:
+	
+	int _screen;
+	int _screenCap;
+	bool _screenCapF;				// スクリーンキャプチャフラグ
+
+
+
 	//---------------------------------------------------------
 
 	ImageMng();

@@ -22,7 +22,7 @@ std::unique_ptr<BaceScene> TitleScene::Update(std::unique_ptr<BaceScene> own)
 
 	if (lpKeyMng.getBuf()[KEY_INPUT_RETURN] && !lpKeyMng.getOldBuf()[KEY_INPUT_RETURN])
 	{
-		lpImageMng.setGkind(ScrEff::FADE);
+		lpImageMng.setGkind(ScrEff::FADEOUT);
 		return std::make_unique<GameScene>();
 	}
 

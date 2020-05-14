@@ -69,7 +69,7 @@ void ImageMng::Draw(void)
 	}
 
 	
-	SetDrawScreen(DX_SCREEN_BACK);
+	SetDrawScreen(_screen);
 	ClsDrawScreen();
 
 	int x, y;
@@ -98,6 +98,10 @@ void ImageMng::Draw(void)
 
 		DrawRotaGraph(x, y, 1.0, rad, id, true);
 	}
+
+	SetDrawScreen(DX_SCREEN_BACK);
+	ClsDrawScreen();
+	DrawGraph(0,0,_screen,true);
 
 	ScreenEffect();
 
@@ -203,6 +207,9 @@ void ImageMng::FadeOut(void)
 	int bright = _fadeCnt;
 	SetDrawBright(bright,bright,bright);
 	_fadeCnt += _fadeSpeed;
+
+ 		DrawGraph(0,0,_screenCap,false);
+
 	if(_fadeCnt <= 0)
 	{
 		if(_plSmoveF)
@@ -230,6 +237,7 @@ void ImageMng::FadeOut(void)
 		{
 			_Gkind = ScrEff::MAX;
 		}
+			setGkind(ScrEff::FADEIN);
 	}
 }
 
@@ -246,6 +254,14 @@ void ImageMng::setGkind(ScrEff kind)
 					_fadeSpeed = 8;
 					break;
 			case ScrEff::FADEOUT:
+
+					SetDrawScreen(_screenCap);
+					ClsDrawScreen();
+					DrawGraph(0, 0, _screen, true);
+					_screenCapF = false;
+					SetDrawScreen(DX_SCREEN_BACK);
+
+					_screenCapF = true;
 					_fadeCnt = 255;
 					_fadeSpeed = -8;
 					break;
@@ -258,9 +274,9 @@ void ImageMng::setGkind(ScrEff kind)
 	}
 }
 
-void ImageMng::SetplmoveF(bool flag, MAP_DATA plf)
+void ImageMng::SetplmoveF(bool plSmoveF, MAP_DATA plf)
 {
-	_plSmoveF = flag; 
+	_plSmoveF = plSmoveF; 
 	_plFBXmoveF = plf; 
 }
 
@@ -268,6 +284,8 @@ ImageMng::ImageMng()
 {
 	ImageMngInit();
 	_workLayer = MakeScreen(2560,1440,  true);
+	_screenCap = MakeScreen(lpSceneMng.ScreenSize.x,lpSceneMng.ScreenSize.y,true);
+	_screen =  MakeScreen(lpSceneMng.ScreenSize.x,lpSceneMng.ScreenSize.y,true);
 }
 
 
@@ -283,5 +301,6 @@ void ImageMng::ImageMngInit(void)
 	_Gkind = ScrEff::MAX;
 	_plSmoveF = false;
 	_plFBXmoveF = MAP_DATA::BACK;
+	_screenCapF = true;
 }
 
