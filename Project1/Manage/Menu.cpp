@@ -224,7 +224,7 @@ void Menu::ItemSelectDraw(void)
 	{
 		if (data.first != nullptr)
 		{
-			(*data.first).setPos({ static_cast<int>(lpSceneMng.GetcPos().x - 200 + (_offpush.x * (data.second))),static_cast<int>(lpSceneMng.GetcPos().y - _offpush.y) });
+			(*data.first).setPos({_cpos.x - 200 + (_offpush.x * (data.second)),_cpos.y- _offpush.y });
 			(*data.first).OLDraw(LAYER::EX);
 		}
 	}
@@ -247,7 +247,7 @@ void Menu::Item2(void)
 	if (lpButtonMng.Buttonf(0, XINPUT_BUTTON_B).first == 1 &&
 		lpButtonMng.Buttonf(0, XINPUT_BUTTON_B).second == 0)
 	{
-		//_selectItem.at(1) = {lpTradeMng.ReBag(_select),1};
+		_selectItem.at(1) = {lpTradeMng.ReBag(_select),1};
 		MixFlag = false;
 	}
 }
@@ -258,7 +258,7 @@ void Menu::Item3(void)
 	if (lpButtonMng.Buttonf(0, XINPUT_BUTTON_B).first == 1 &&
 		lpButtonMng.Buttonf(0, XINPUT_BUTTON_B).second == 0)
 	{
-		//_selectItem.at(2) = {lpTradeMng.ReBag(_select), 2};
+		_selectItem.at(2) = {lpTradeMng.ReBag(_select), 2};
 		MixFlag = false;
 	}
 }
