@@ -3,7 +3,7 @@
 
 ItemTrader* ItemTrader::sInstance = nullptr;
 
-Vector2 _offpush = {200, 150 };
+//Vector2 _offpush = {200, 150 };
 
 
 

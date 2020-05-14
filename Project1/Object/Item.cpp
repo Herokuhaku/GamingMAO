@@ -29,7 +29,6 @@ void Item::Update(void)
 
 void Item::Draw(void)
 {
-//	lpImageMng.AddDraw({ lpImageMng.getImage("BlueBook")[0],_pos.x,lpSceneMng.GetcPos().y+100,0.0,LAYER::CHAR,100 });
 	Object::Draw();
 }
 
