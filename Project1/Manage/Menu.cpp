@@ -221,7 +221,7 @@ void Menu::ItemSelectDraw(void)
 {
 	for (auto data : _selectItem)
 	{
-		(*data.first).setPos({ static_cast<int>(lpSceneMng.GetcPos().x - 200 + (_offpush.x * (data.second))),static_cast<int>(lpSceneMng.GetcPos().y - _offpush.y) });
+		//(*data.first).setPos({ static_cast<int>(lpSceneMng.GetcPos().x - 200 + (_offpush.x * (data.second))),static_cast<int>(lpSceneMng.GetcPos().y - _offpush.y) });
 		(*data.first).OLDraw(LAYER::EX);
 	}
 }
@@ -232,7 +232,7 @@ void Menu::Item1(void)
 	if (lpButtonMng.Buttonf(0, XINPUT_BUTTON_B).first == 1 &&
 		lpButtonMng.Buttonf(0, XINPUT_BUTTON_B).second == 0)
 	{
-		// _selectItem.emplace_back({lpTradeMng.ReBag(0)});
+		_selectItem.at(0) = { lpTradeMng.ReBag(0),0 };
 		MixFlag = false;
 	}
 }

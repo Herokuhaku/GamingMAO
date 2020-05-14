@@ -82,7 +82,7 @@ private:
 	//Vector2 _pos;
 	SELECT_ITEM _selectNo;
 	
-	std::vector<std::pair<std::shared_ptr<Item>, int>> _selectItem;
+	std::array<std::pair<std::shared_ptr<Item>, int>,3> _selectItem;
 
 
 };
