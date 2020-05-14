@@ -66,21 +66,28 @@ void Player::Update(void)
 		// if(座標を見て一番右のポータル)
 		if (lpMapMng.getGameMapM({ _pos.x,y }) == 41)
 		{
-			_nextPos = { lpMapMng.GetFrontPosX(lpMapMng.GetnowStage()),lpMapMng.GetFrontPosY(lpMapMng.GetnowStage()) };
+			//_nextPos = { lpMapMng.GetFrontPosX(lpMapMng.GetnowStage()),lpMapMng.GetFrontPosY(lpMapMng.GetnowStage()) };
+			_nextPos = { lpMapMng.GetFrontPosX(_stage),lpMapMng.GetFrontPosY(_stage) };
+			_stage = std::get<4>(lpMapMng.GetMapIndex(_stage));
+			// 4 = MAP_DATA::FRONT
 			lpImageMng.SetplmoveF(true, MAP_DATA::FRONT);
 			lpImageMng.setGkind(ScrEff::FADEOUT);
 		}
 		// if(座標を見て一番左のポータル)
 		else if (lpMapMng.getGameMapM({ _pos.x,y }) == 9)
 		{
-			_nextPos = { lpMapMng.GetBackPosX(lpMapMng.GetnowStage()),lpMapMng.GetBackPosY(lpMapMng.GetnowStage()) };
+			_nextPos = { lpMapMng.GetBackPosX(_stage),lpMapMng.GetBackPosY(_stage) };
+			_stage = std::get<3>(lpMapMng.GetMapIndex(_stage));
+			// 3 = MAP_DATA::BACK
 			lpImageMng.SetplmoveF(true, MAP_DATA::BACK);
 			lpImageMng.setGkind(ScrEff::FADEOUT);
 		}
 		// if(座標 真ん中のポータル)
 		else if (lpMapMng.getGameMapM({ _pos.x,y }) == 7)
 		{
-			_nextPos = { lpMapMng.GetBrancPosX(lpMapMng.GetnowStage()),lpMapMng.GetBrancPosY(lpMapMng.GetnowStage()) };
+			_nextPos = { lpMapMng.GetBrancPosX(_stage),lpMapMng.GetBrancPosY(_stage) };
+			_stage = std::get<5>(lpMapMng.GetMapIndex(_stage));
+			// 5 = MAP_DATA::BRANCH
 			lpImageMng.SetplmoveF(true, MAP_DATA::BRANCH);
 			lpImageMng.setGkind(ScrEff::FADEOUT);
 

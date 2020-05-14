@@ -85,6 +85,8 @@ public:
 	void setTimeLine(TIME time);
 	TIME getTimeLine(void);
 
+	int getStage(void) {return _stage;};
+
 	void nextPos(void) { _pos = _nextPos; _tmpPos = { static_cast<double>(_nextPos.x),static_cast<double>(_nextPos.y) }; };
 private:
 	int _hp;						// ‘Ì—Í

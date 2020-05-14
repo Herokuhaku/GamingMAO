@@ -16,7 +16,6 @@ void Enemy::Update(void)
 	_work = (this->*autoM[_aState])(plPos);
 	_work =	Search(plPos);
 	aState(_work);
-	Draw();
 }
 
 int Enemy::Wait(Vector2 pPos)
@@ -154,6 +153,7 @@ void Enemy::Init(void)
 	_plDir = DIR::RIGHT;
 	_speed = 1;
 	_type = OBJ_TYPE::ENEMY;
+	_stage = 1;
 }
 
 void Enemy::Draw(void)

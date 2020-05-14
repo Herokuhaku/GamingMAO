@@ -124,12 +124,10 @@ void MapMng::StageTrans(int no)
 		return;
 		exit(1);
 	}
-	SetDrawBright(255, 255, 255);
 	_mapdata = GetMapIndex(no);
 	nowStage = no;
 	MapID = std::get<static_cast<int>(MAP_DATA::MAPLINK)>(_mapdata);
 	MapUpdate();
-	SetDrawBright(0, 0, 0);
 }
 
 bool MapMng::MapUpdate(void)

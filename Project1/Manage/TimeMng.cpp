@@ -1,4 +1,5 @@
 #include "TimeMng.h"
+#include "../Scene/SceneMng.h"
 
 TimeMng* TimeMng::sInstance = nullptr;
 
@@ -27,6 +28,12 @@ void TimeMng::resetFlag(void)
 	{
 		_crTime = static_cast<TIME>(1 - static_cast<int>(_crTime));
 		_changeFlag = false;
+
+		// ステージが変わっているか
+		if ((*lpSceneMng.GetPlObj(TIME::FTR))->getStage() != (*lpSceneMng.GetPlObj(TIME::NOW))->getStage())
+		{
+			lpMapMng.StageTrans((*lpSceneMng.GetPlObj(_crTime))->getStage());
+		}
 	}
 
 	if (_changeTime > 0)

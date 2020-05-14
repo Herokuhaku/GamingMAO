@@ -216,6 +216,7 @@ void ImageMng::FadeOut(void)
 		{
 			setGkind(ScrEff::FADEIN);
 			// std::get ‚Å‚Í•Ï”‚ÍŽg‚¦‚È‚¢H
+			SetDrawBright(255, 255, 255);
 			switch (_plFBXmoveF)
 			{
 			case MAP_DATA::BACK:
@@ -231,6 +232,7 @@ void ImageMng::FadeOut(void)
 				exit(1);
 				break;
 			}
+			SetDrawBright(0, 0, 0);
 			lpSceneMng.GetPlObj2(lpTimeMng.getTime())->nextPos();
 		}
 		else
@@ -251,7 +253,7 @@ void ImageMng::setGkind(ScrEff kind)
 					break;
 			case ScrEff::FADEIN:
 					_fadeCnt = 0;
-					_fadeSpeed = 8;
+					_fadeSpeed = 15;
 					break;
 			case ScrEff::FADEOUT:
 
@@ -263,7 +265,7 @@ void ImageMng::setGkind(ScrEff kind)
 
 					_screenCapF = true;
 					_fadeCnt = 255;
-					_fadeSpeed = -8;
+					_fadeSpeed = -15;
 					break;
 			case ScrEff::FADE2X:
 					_fadeCnt = 255;
