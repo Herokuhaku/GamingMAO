@@ -56,7 +56,7 @@ const std::shared_ptr<Object>* SceneMng::GetPlObj(TIME time) const
 
 void SceneMng::SetPlObj(std::shared_ptr<Object>& plObj, TIME time)
 {
-	_plObj.try_emplace(time, plObj);
+	_plObj.insert_or_assign(time, plObj);
 }
 
 const Vector2D SceneMng::GetcPos(void) const
@@ -83,6 +83,11 @@ void SceneMng::SetNum(int num)
 int SceneMng::GetNum(void)
 {
 	return _work;
+}
+
+int SceneMng::GetFont(void)
+{
+	return _fontHandle;
 }
 
 
@@ -115,7 +120,9 @@ bool SceneMng::SysInit(void)
 
 	_flame = 0;
 
- 	_work = MakeScreen(ScreenSize.x, ScreenSize.y, 0);
+ 	_work = MakeScreen(ScreenSize.x, ScreenSize.y, true);
+
+	_fontHandle = CreateFontToHandle("Terminal", 40, 1, DX_FONTTYPE_NORMAL);
 
 	return rtnFlag;
 }

@@ -2,6 +2,10 @@
 #include "BaceScene.h"
 #include "SceneMng.h"
 #include "../Manage/KeyMng.h"
+#include "GameScene.h"
+#include "TitleScene.h"
+
+using StrData = std::tuple<int, int, int, const TCHAR*, int>;	// カーソル番号、文字列の横サイズ、y座標、文字列、色
 
 class GameOverScene :
 	public BaceScene
@@ -17,9 +21,16 @@ private:
 
 	int _alphaPrm;
 
+	std::vector<StrData> _strSet;
+
+	int _cursor;
+	static constexpr int CURSOR_MAX = 1;
+
 	std::unique_ptr<BaceScene> CursorControl(std::unique_ptr<BaceScene> scene);
 	std::unique_ptr<BaceScene> SkipControl(std::unique_ptr<BaceScene> scene);
 	std::unique_ptr<BaceScene> (GameOverScene::*_control)(std::unique_ptr<BaceScene> scene);
+
+	bool Init(void);
 
 	void Draw(void);
 };
