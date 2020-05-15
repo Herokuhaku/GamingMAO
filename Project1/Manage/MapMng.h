@@ -74,7 +74,6 @@ public:
 	const Vector2Template<int> GameMapSize;	// ゲーム画面のマップの大きさ
 	std::vector<std::string> split(std::string str, char del);
 
-	int HitMap[MapChipY][MapChipX];		// 当たり判定Map
 
 	void StageTrans(int no);			// ステージの番号を引数に入れる
 
@@ -89,7 +88,8 @@ public:
 
 
 private:
-	int GameMap[MapChipY][MapChipX];	// Y1440/16,X(2560/16)+壁2マス
+	char GameMap[MapChipY][MapChipX];	// Y1440/16,X(2560/16)+壁2マス
+	char HitMap[MapChipY][MapChipX];		// 当たり判定Map
 
 	void SetBgLayer(int bgNo);		// 
 	int _layer0;
