@@ -262,13 +262,13 @@ void Player::Init(void)
 
 void Player::ControlNormal(void)
 {
-	if (lpKeyMng.getBuf()[KEY_INPUT_LEFT])
+	if (lpKeyMng.getBuf()[KEY_INPUT_LEFT] || lpButtonMng.Thumbf(0,XINPUT_THUMBL_X).first == 2)
 	{
 		if (_state_dir.first == OBJ_STATE::JUMP)
 		{
 			_state_dir.second = DIR::LEFT;
 		}
-		else if (!lpKeyMng.getOldBuf()[KEY_INPUT_LEFT] || _state_dir.first != OBJ_STATE::WALK || _state_dir.second != DIR::LEFT)
+		else if (!lpKeyMng.getOldBuf()[KEY_INPUT_LEFT] && lpButtonMng.Thumbf(0, XINPUT_THUMBL_X).second == 0 || _state_dir.first != OBJ_STATE::WALK || _state_dir.second != DIR::LEFT)
 		{
 			setState({ OBJ_STATE::WALK, DIR::LEFT });
 		}
@@ -287,13 +287,13 @@ void Player::ControlNormal(void)
 			_pos.x = tmpLeft + getHitOffset()[static_cast<int>(CHECK_DIR::LEFT)];
 		}
 	}
-	else if (lpKeyMng.getBuf()[KEY_INPUT_RIGHT])
+	else if (lpKeyMng.getBuf()[KEY_INPUT_RIGHT] || lpButtonMng.Thumbf(0, XINPUT_THUMBL_X).first == 1)
 	{
 		if (_state_dir.first == OBJ_STATE::JUMP)
 		{
 			_state_dir.second = DIR::RIGHT;
 		}
-		else if (!lpKeyMng.getOldBuf()[KEY_INPUT_RIGHT] || _state_dir.first != OBJ_STATE::WALK || _state_dir.second != DIR::RIGHT)
+		else if (!lpKeyMng.getOldBuf()[KEY_INPUT_RIGHT] && lpButtonMng.Thumbf(0, XINPUT_THUMBL_X).second == 0 || _state_dir.first != OBJ_STATE::WALK || _state_dir.second != DIR::RIGHT)
 		{
 			setState({ OBJ_STATE::WALK, DIR::RIGHT });
 		}
@@ -314,7 +314,8 @@ void Player::ControlNormal(void)
 	}
 	else
 	{
-		if ((lpKeyMng.getOldBuf()[KEY_INPUT_LEFT] || lpKeyMng.getOldBuf()[KEY_INPUT_RIGHT]) && _state_dir.first != OBJ_STATE::JUMP)
+		if ((lpKeyMng.getOldBuf()[KEY_INPUT_LEFT] || lpKeyMng.getOldBuf()[KEY_INPUT_RIGHT] ||
+			lpButtonMng.Thumbf(0, XINPUT_THUMBL_X).second != 0) && _state_dir.first != OBJ_STATE::JUMP)
 		{
 			setState({ OBJ_STATE::NORMAL, _state_dir.second });
 		}
@@ -326,7 +327,8 @@ void Player::ControlNormal(void)
 		setState({ OBJ_STATE::JUMP, _state_dir.second });
 	}
 
-	if (lpKeyMng.getBuf()[KEY_INPUT_SPACE] && !lpKeyMng.getOldBuf()[KEY_INPUT_SPACE] && _coolTime == 0)
+	if (((lpKeyMng.getBuf()[KEY_INPUT_SPACE] && !lpKeyMng.getOldBuf()[KEY_INPUT_SPACE] ) ||
+		lpButtonMng.Buttonf(0,XINPUT_BUTTON_B).first == 1 && lpButtonMng.Buttonf(0, XINPUT_BUTTON_B).second == 0) && _coolTime == 0)
 	{
 		_anmEfkHd = lpEffectMng.playEffect(lpEffectMng.getEffect("magic_fire"), DELAY_FIRE, &_pos.x, &_pos.y, PLAYER_SIZE_X / 2, -_drawOffset_y, &(_state_dir.second));
 		_coolTime = DELAY_FIRE;

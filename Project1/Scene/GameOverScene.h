@@ -1,11 +1,13 @@
 #pragma once
+#include "../Graphic/StringAddDraw.h"
 #include "BaceScene.h"
 #include "SceneMng.h"
 #include "../Manage/KeyMng.h"
 #include "GameScene.h"
 #include "TitleScene.h"
+#include "../Manage/ButtonMng.h"
 
-using StrData = std::tuple<int, int, int, const TCHAR*, int>;	// カーソル番号、文字列の横サイズ、y座標、文字列、色
+using StrData = std::tuple<int, int, const TCHAR*, int>;	// カーソル番号、y座標、文字列、色
 
 class GameOverScene :
 	public BaceScene
