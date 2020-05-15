@@ -47,12 +47,18 @@ std::unique_ptr<BaceScene> GameScene::Update(std::unique_ptr<BaceScene> own)
 {
 	for (auto data : _objList)
 	{
-		(*data).Update();
+		if ((*data).getStage() == lpMapMng.GetnowStage() || (*data).getStage() == -1)
+		{
+			(*data).Update();
+		}
 	}
 
 	for (auto data : _enemyList)
-	{
-		(*data).Update();
+	{	
+		if ((*data).getStage() == lpMapMng.GetnowStage() || (*data).getStage() == -1)
+		{
+			(*data).Update();
+		}
 	}
 
 	getAttackQue();
