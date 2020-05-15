@@ -5,6 +5,7 @@
 #include "../Manage/KeyMng.h"
 #include "GameScene.h"
 #include "TitleScene.h"
+#include "../Manage/ButtonMng.h"
 
 using StrData = std::tuple<int, int, const TCHAR*, int>;	// カーソル番号、y座標、文字列、色
 
