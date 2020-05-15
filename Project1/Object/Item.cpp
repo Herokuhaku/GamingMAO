@@ -13,8 +13,8 @@ Item::Item(Vector2 pos, ITEM_TYPE itemtype,COLOR_TYPE colortype,int no)
 	_itemtype = itemtype;
 	_colortype = colortype;
 	_zOrder = 201;
+	_bagNo = no;
 	Init();
-
 }
 
 Item::~Item()
@@ -41,6 +41,11 @@ void Item::OLDraw(LAYER lay)
 	}
 
 	lpImageMng.AddBackDraw({ _anmMap[_state_dir][_anmFlame].first, _pos.x, _pos.y - _drawOffset_y, _rad, lay, _zOrder });
+}
+
+int Item::GetBagNo(void)
+{
+	return _bagNo;
 }
 
 void Item::Init(void)

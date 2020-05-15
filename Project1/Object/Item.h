@@ -31,10 +31,12 @@ public:
 	void Update(void);
 	void Draw(void);
 	void OLDraw(LAYER lay);		// ˆá‚¤ƒŒƒCƒ„[‚É“ü‚ê‚½‚¢‚Æ‚«—p
+
+	int GetBagNo(void);
 private:
 	void Init(void);
 	ITEM_TYPE _itemtype;
 	COLOR_TYPE _colortype;
-	int _bagno;
+	int _bagNo;
 };
 

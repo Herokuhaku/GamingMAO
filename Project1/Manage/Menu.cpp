@@ -255,6 +255,19 @@ void Menu::Item1(void)
 		{
 			_selectItem.at(0) = { lpTradeMng.ReBag(_select), 0 };
 			MixFlag = false;
+			// arrayのサイズ分回す。
+			for (int i = 0;i<_asize;i++)		
+			{
+				// アイテムが入っている場合のみ
+				if (_selectItem.at(i).first != nullptr)	
+				{
+					// 同じアイテムが違うところに入っていたら違うほうのアイテムをnullptrにする
+					if ((*_selectItem.at(i).first).GetBagNo() == _select && _selectItem.at(i) != _selectItem.at(0))
+					{
+						_selectItem.at(i).first = nullptr;
+					}
+				}
+			}
 		}
 	}
 	// _selectItem.at(0).first->
@@ -277,6 +290,19 @@ void Menu::Item2(void)
 		{
 			_selectItem.at(1) = { lpTradeMng.ReBag(_select),1 };
 			MixFlag = false;
+			// arrayのサイズ分回す。
+			for (int i = 0;i < _asize;i++)
+			{
+				// アイテムが入っている場合のみ
+				if (_selectItem.at(i).first != nullptr)
+				{
+					// 同じアイテムが違うところに入っていたら違うほうのアイテムをnullptrにする
+					if ((*_selectItem.at(i).first).GetBagNo() == _select && _selectItem.at(i) != _selectItem.at(1))
+					{
+						_selectItem.at(i).first = nullptr;
+					}
+				}
+			}
 		}
 
 	}
@@ -299,6 +325,19 @@ void Menu::Item3(void)
 		{
 			_selectItem.at(2) = { lpTradeMng.ReBag(_select), 2 };
 			MixFlag = false;
+			// arrayのサイズ分回す。
+			for (int i = 0;i < _asize;i++)
+			{
+				// アイテムが入っている場合のみ
+				if (_selectItem.at(i).first != nullptr)
+				{
+					// 同じアイテムが違うところに入っていたら違うほうのアイテムをnullptrにする
+					if ((*_selectItem.at(i).first).GetBagNo() == _select && _selectItem.at(i) != _selectItem.at(2))
+					{
+						_selectItem.at(i).first = nullptr;
+					}
+				}
+			}
 		}
 	}
 }

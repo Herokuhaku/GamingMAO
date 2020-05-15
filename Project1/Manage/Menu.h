@@ -82,8 +82,7 @@ private:
 	//Vector2 _pos;
 	SELECT_ITEM _selectNo;
 	
-	static constexpr int _asize = 3;
-
+	static constexpr int _asize = 3;			// array‚Ì‘å‚«‚³
 	std::array<std::pair<std::shared_ptr<Item>, int>,_asize> _selectItem;
 
 	Vector2 tmpos;
