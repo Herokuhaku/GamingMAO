@@ -43,14 +43,14 @@ int Enemy::Move(Vector2 pPos)
 				_pos.x += _speed;
 				x = (_pos.x + 64);
 				y = (_pos.y - 16); 
-				if(lpMapMng.getHitMap({x,y}))		// ï«
+				if(lpMapMng.getHitMap({x,y},_stage))		// ï«
 				{
 					setState({ OBJ_STATE::WALK,DIR::LEFT });
 				}
 
 				x = (_pos.x + 64);
 				y = (_pos.y + 1); 
-				if(!lpMapMng.getHitMap({x,y}))		// è∞Ç™Ç»Ç¢
+				if(!lpMapMng.getHitMap({x,y},_stage))		// è∞Ç™Ç»Ç¢
 				{
 					setState({ OBJ_STATE::WALK,DIR::LEFT });
 				}
@@ -60,14 +60,14 @@ int Enemy::Move(Vector2 pPos)
 				_pos.x -= _speed;
 				x = (_pos.x - 64);
 				y = (_pos.y - 16);
-				if(lpMapMng.getHitMap({x,y}))
+				if(lpMapMng.getHitMap({x,y},_stage))
 				{
 					setState({ OBJ_STATE::WALK,DIR::RIGHT });
 				}
 
 				x = (_pos.x - 64);
 				y = (_pos.y + 1);
-				if(!lpMapMng.getHitMap({x,y}))
+				if(!lpMapMng.getHitMap({x,y},_stage))
 				{
 					setState({ OBJ_STATE::WALK,DIR::RIGHT });
 				}
@@ -177,7 +177,7 @@ void Enemy::Draw(void)
 
 void Enemy::Gravity(void)
 {
-		if(!lpMapMng.getHitMap(_pos))
+		if(!lpMapMng.getHitMap(_pos,_stage))
 		{
 				_pos.y++;
 				_jumpF = true;

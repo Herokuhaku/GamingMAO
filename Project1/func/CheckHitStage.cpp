@@ -1,6 +1,6 @@
 #include "CheckHitStage.h"
 
-int CheckHitStage::operator()(const CHECK_DIR & dir, const Vector2 & pos, const std::array<int, 4>& offset)
+int CheckHitStage::operator()(const CHECK_DIR & dir, const Vector2 & pos, const std::array<int, 4>& offset, int stage)
 {
 	int length = offset[static_cast<int>(CHECK_DIR::LEFT)] + offset[static_cast<int>(CHECK_DIR::RIGHT)];
 	int rtnPos = NOTHIT;
@@ -8,11 +8,11 @@ int CheckHitStage::operator()(const CHECK_DIR & dir, const Vector2 & pos, const 
 	switch (dir)
 	{
 	case CHECK_DIR::LEFT:
-		if (lpMapMng.getHitMap({ pos.x - offset[static_cast<int>(CHECK_DIR::LEFT)] + CHIP_SIZE, pos.y }))
+		if (lpMapMng.getHitMap({ pos.x - offset[static_cast<int>(CHECK_DIR::LEFT)] + CHIP_SIZE, pos.y },stage))
 		{
 			rtnPos = pos.x - offset[static_cast<int>(CHECK_DIR::LEFT)] + (CHIP_SIZE - (pos.x - offset[static_cast<int>(CHECK_DIR::LEFT)]) % CHIP_SIZE + CHIP_SIZE);
 		}
-		else if (lpMapMng.getHitMap({ pos.x - offset[static_cast<int>(CHECK_DIR::LEFT)], pos.y }))
+		else if (lpMapMng.getHitMap({ pos.x - offset[static_cast<int>(CHECK_DIR::LEFT)], pos.y },stage))
 		{
 			rtnPos = pos.x - offset[static_cast<int>(CHECK_DIR::LEFT)] + (CHIP_SIZE - (pos.x - offset[static_cast<int>(CHECK_DIR::LEFT)]) % CHIP_SIZE);
 		}
@@ -22,11 +22,11 @@ int CheckHitStage::operator()(const CHECK_DIR & dir, const Vector2 & pos, const 
 		}
 		break;
 	case CHECK_DIR::RIGHT:
-		if (lpMapMng.getHitMap({ pos.x + offset[static_cast<int>(CHECK_DIR::RIGHT)] - CHIP_SIZE, pos.y }))
+		if (lpMapMng.getHitMap({ pos.x + offset[static_cast<int>(CHECK_DIR::RIGHT)] - CHIP_SIZE, pos.y },stage))
 		{
 			rtnPos = pos.x + offset[static_cast<int>(CHECK_DIR::RIGHT)] - (pos.x + offset[static_cast<int>(CHECK_DIR::RIGHT)]) % CHIP_SIZE - 1 - CHIP_SIZE;
 		}
-		else if (lpMapMng.getHitMap({ pos.x + offset[static_cast<int>(CHECK_DIR::RIGHT)], pos.y }))
+		else if (lpMapMng.getHitMap({ pos.x + offset[static_cast<int>(CHECK_DIR::RIGHT)], pos.y },stage))
 		{
 			rtnPos = pos.x + offset[static_cast<int>(CHECK_DIR::RIGHT)] - (pos.x + offset[static_cast<int>(CHECK_DIR::RIGHT)]) % CHIP_SIZE - 1;
 		}
@@ -38,7 +38,7 @@ int CheckHitStage::operator()(const CHECK_DIR & dir, const Vector2 & pos, const 
 	case CHECK_DIR::DOWN:
 		for (int i = 0; i < length; i += CHIP_SIZE)
 		{
-			if (lpMapMng.getHitMap({ pos.x - offset[static_cast<int>(CHECK_DIR::LEFT)] +i, pos.y }))
+			if (lpMapMng.getHitMap({ pos.x - offset[static_cast<int>(CHECK_DIR::LEFT)] +i, pos.y },stage))
 			{
 				if (rtnPos < pos.y - pos.y % CHIP_SIZE)
 				{
@@ -47,7 +47,7 @@ int CheckHitStage::operator()(const CHECK_DIR & dir, const Vector2 & pos, const 
 			}
 		}
 
-		if (lpMapMng.getHitMap({ pos.x + offset[static_cast<int>(CHECK_DIR::RIGHT)], pos.y }))
+		if (lpMapMng.getHitMap({ pos.x + offset[static_cast<int>(CHECK_DIR::RIGHT)], pos.y },stage))
 		{
 			if (rtnPos < pos.y - pos.y % CHIP_SIZE)
 			{

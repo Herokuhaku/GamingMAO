@@ -69,7 +69,7 @@ void Player::Update(void)
 	{
 		int y = _pos.y - 50;
 		// if(座標を見て一番右のポータル)
-		if (lpMapMng.getGameMapM({ _pos.x,y }) == 41)
+		if (lpMapMng.getGameMapM({ _pos.x,y },_stage) == 41)
 		{
 			//_nextPos = { lpMapMng.GetFrontPosX(lpMapMng.GetnowStage()),lpMapMng.GetFrontPosY(lpMapMng.GetnowStage()) };
 			_nextPos = { lpMapMng.GetFrontPosX(_stage),lpMapMng.GetFrontPosY(_stage) };
@@ -79,7 +79,7 @@ void Player::Update(void)
 			lpImageMng.setGkind(ScrEff::FADEOUT);
 		}
 		// if(座標を見て一番左のポータル)
-		else if (lpMapMng.getGameMapM({ _pos.x,y }) == 9)
+		else if (lpMapMng.getGameMapM({ _pos.x,y },_stage) == 9)
 		{
 			_nextPos = { lpMapMng.GetBackPosX(_stage),lpMapMng.GetBackPosY(_stage) };
 			_stage = std::get<3>(lpMapMng.GetMapIndex(_stage));
@@ -88,7 +88,7 @@ void Player::Update(void)
 			lpImageMng.setGkind(ScrEff::FADEOUT);
 		}
 		// if(座標 真ん中のポータル)
-		else if (lpMapMng.getGameMapM({ _pos.x,y }) == 7)
+		else if (lpMapMng.getGameMapM({ _pos.x,y },_stage) == 7)
 		{
 			_nextPos = { lpMapMng.GetBrancPosX(_stage),lpMapMng.GetBrancPosY(_stage) };
 			_stage = std::get<5>(lpMapMng.GetMapIndex(_stage));
@@ -277,7 +277,7 @@ void Player::ControlNormal(void)
 			// なし
 		}
 
-		int tmpLeft = CheckHitStage()(CHECK_DIR::LEFT, { _pos.x - WALK_SPEED, _pos.y }, getHitOffset());
+		int tmpLeft = CheckHitStage()(CHECK_DIR::LEFT, { _pos.x - WALK_SPEED, _pos.y }, getHitOffset(),_stage);
 		if (tmpLeft == NOTHIT)
 		{
 			_pos.x -= WALK_SPEED;
@@ -302,7 +302,7 @@ void Player::ControlNormal(void)
 			// なし
 		}
 
-		int tmpRight = CheckHitStage()(CHECK_DIR::RIGHT, { _pos.x + WALK_SPEED, _pos.y }, getHitOffset());
+		int tmpRight = CheckHitStage()(CHECK_DIR::RIGHT, { _pos.x + WALK_SPEED, _pos.y }, getHitOffset(),_stage);
 		if (tmpRight == NOTHIT)
 		{
 			_pos.x += WALK_SPEED;
@@ -321,7 +321,7 @@ void Player::ControlNormal(void)
 		}
 	}
 
-	if (CheckHitKey(KEY_INPUT_UP) && CheckHitStage()(CHECK_DIR::DOWN, { _pos.x, static_cast<int>(_tmpPos.y) + 1 }, getHitOffset()) != NOTHIT)
+	if (CheckHitKey(KEY_INPUT_UP) && CheckHitStage()(CHECK_DIR::DOWN, { _pos.x, static_cast<int>(_tmpPos.y) + 1 }, getHitOffset(),_stage) != NOTHIT)
 	{
 		_vel = INI_VEL_NORMAL;
 		setState({ OBJ_STATE::JUMP, _state_dir.second });
@@ -364,7 +364,7 @@ void Player::ControlAttack(void)
 			// なし
 		}
 
-		int tmpLeft = CheckHitStage()(CHECK_DIR::LEFT, { _pos.x - WALK_SPEED, _pos.y }, getHitOffset());
+		int tmpLeft = CheckHitStage()(CHECK_DIR::LEFT, { _pos.x - WALK_SPEED, _pos.y }, getHitOffset(),_stage);
 		if (tmpLeft == NOTHIT)
 		{
 			_pos.x -= WALK_SPEED;
@@ -397,7 +397,7 @@ void Player::ControlAttack(void)
 			// なし
 		}
 
-		int tmpRight = CheckHitStage()(CHECK_DIR::RIGHT, { _pos.x + WALK_SPEED, _pos.y }, getHitOffset());
+		int tmpRight = CheckHitStage()(CHECK_DIR::RIGHT, { _pos.x + WALK_SPEED, _pos.y }, getHitOffset(),_stage);
 		if (tmpRight == NOTHIT)
 		{
 			_pos.x += WALK_SPEED;
@@ -415,7 +415,7 @@ void Player::ControlAttack(void)
 		}
 	}
 
-	if (CheckHitKey(KEY_INPUT_UP) && CheckHitStage()(CHECK_DIR::DOWN, { _pos.x, static_cast<int>(_tmpPos.y) + 1 }, getHitOffset()) != NOTHIT)
+	if (CheckHitKey(KEY_INPUT_UP) && CheckHitStage()(CHECK_DIR::DOWN, { _pos.x, static_cast<int>(_tmpPos.y) + 1 }, getHitOffset(),_stage) != NOTHIT)
 	{
 		_vel = INI_VEL_NORMAL;
 		setState({ OBJ_STATE::A_JUMP, _state_dir.second });
@@ -492,7 +492,7 @@ void Player::StateRotate(void)
 
 void Player::VelUpdate(void)
 {
-	if (CheckHitStage()(CHECK_DIR::DOWN, { _pos.x, static_cast<int>(_tmpPos.y) + 1 }, getHitOffset()) == NOTHIT)
+	if (CheckHitStage()(CHECK_DIR::DOWN, { _pos.x, static_cast<int>(_tmpPos.y) + 1 }, getHitOffset(),_stage) == NOTHIT)
 	{
 		if (_vel - G_ACC_NORMAL > -VEL_MAX)
 		{
@@ -504,7 +504,7 @@ void Player::VelUpdate(void)
 		}
 	}
 
-	int tmpDown = CheckHitStage()(CHECK_DIR::DOWN, { _pos.x, static_cast<int>(_tmpPos.y - _vel) }, getHitOffset());
+	int tmpDown = CheckHitStage()(CHECK_DIR::DOWN, { _pos.x, static_cast<int>(_tmpPos.y - _vel) }, getHitOffset(),_stage);
 
 	if (_vel != 0.0 && tmpDown != NOTHIT)
 	{

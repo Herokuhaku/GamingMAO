@@ -68,8 +68,8 @@ public:
 	void BlockDraw();
 	void BackGround(void);
 	void BlockLayer(void);
-	bool getHitMap(const Vector2& pos);
-	int getGameMapM(const Vector2& pos);	// posの位置のGameMapを返却 Member
+	bool getHitMap(const Vector2& pos, int stage);
+	char getGameMapM(const Vector2& pos, int stage);	// posの位置のGameMapを返却 Member
 	std::map<LAYER, int> _layer;
 	const Vector2Template<int> GameMapSize;	// ゲーム画面のマップの大きさ
 	std::vector<std::string> split(std::string str, char del);

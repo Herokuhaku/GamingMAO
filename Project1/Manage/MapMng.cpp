@@ -133,14 +133,22 @@ void MapMng::StageTrans(int no)
 bool MapMng::MapUpdate(void)
 {
 	bool flag = false;
+
 	for (int i = 0; i < ACTIVEMAP; i++)
 	{
+		if (_activeMap[i].second == std::get<static_cast<int>(MAP_DATA::NO)>(_mapdata))
+		{
+			_writNo = i;
+			flag = true;
+			break;
+		}
 		if (_activeMap[i].first)
 		{
 			_activeMap[i].first = false;
 			_activeMap[i].second = std::get<static_cast<int>(MAP_DATA::NO)>(_mapdata);
 			_writNo = i;
 			flag = true;
+			break;
 		}
 	}
 	
@@ -309,7 +317,6 @@ MapMng::MapMng():
 			}
 			_activeMap[wNo] = { true,1 };
 	}
-	_activeMap[0].first = false;
 
 	lpImageMng.getImage("image/background/main_back.png", "ÉÅÉCÉìîwåi");
 
@@ -349,7 +356,7 @@ MapMng::~MapMng()
 		fclose(indexFp);
 }
 
-bool MapMng::getHitMap(const Vector2& pos)
+bool MapMng::getHitMap(const Vector2& pos, int stage)
 {
 	Vector2 chip = pos / CHIP_SIZE;
 
@@ -357,11 +364,19 @@ bool MapMng::getHitMap(const Vector2& pos)
 	{
 		return true;
 	}
+	for (int i = 0; i < ACTIVEMAP; i++)
+	{
+		if (_activeMap[i].second == stage)
+		{
+			return (HitMap[chip.y][chip.x][i] == 1);
+		}
+	}
 
-	return (HitMap[chip.y][chip.x] == 1);
+	exit(1);
+	return (HitMap[chip.y][chip.x][stage] == 1);
 }
 
-int MapMng::getGameMapM(const Vector2& pos)
+char MapMng::getGameMapM(const Vector2& pos, int stage)
 {
 	Vector2 chip = pos / CHIP_SIZE;
 
@@ -369,7 +384,18 @@ int MapMng::getGameMapM(const Vector2& pos)
 	{
 		return 0;
 	}
-	
-	return GameMap[chip.y][chip.x][;
+
+	for (int i = 0; i < ACTIVEMAP; i++)
+	{
+		if (_activeMap[i].second == stage)
+		{
+			char a = GameMap[chip.y][chip.x][i];
+
+			return GameMap[chip.y][chip.x][i];
+		}
+	}
+
+	exit(1);
+	return GameMap[chip.y][chip.x][stage];
 }
 
