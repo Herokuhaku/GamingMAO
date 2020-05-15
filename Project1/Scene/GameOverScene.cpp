@@ -5,7 +5,7 @@ GameOverScene::GameOverScene()
 	_alphaPrm = 0;
 	_gameOverMoment = lpSceneMng.GetNum();
 	lpImageMng.getImage("image/GameOverChar.png", "gameover_char");
-	_gameOverScreen = MakeScreen(lpSceneMng.ScreenSize.x, lpSceneMng.ScreenSize.y, 0);
+	_gameOverScreen = MakeScreen(lpSceneMng.ScreenSize.x, lpSceneMng.ScreenSize.y, true);
 
 	_control = &GameOverScene::SkipControl;
 
@@ -81,16 +81,9 @@ std::unique_ptr<BaceScene> GameOverScene::SkipControl(std::unique_ptr<BaceScene>
 
 bool GameOverScene::Init(void)
 {
-	int strLen;
-	int strWidth;
+	_strSet.emplace_back(StrData(0, 500, "RESTART", 0x33ff33));
 
-	strLen = strlen("RESTART");
-	strWidth = GetDrawStringWidthToHandle("RESTART", strLen, lpSceneMng.GetFont());
-	_strSet.emplace_back(StrData(0, strWidth, 500, "RESTART", 0x33ff33));
-
-	strLen = strlen("QUIT");
-	strWidth = GetDrawStringWidthToHandle("QUIT", strLen, lpSceneMng.GetFont());
-	_strSet.emplace_back(StrData(1, strWidth, 600, "QUIT", 0xff3333));
+	_strSet.emplace_back(StrData(1, 600, "QUIT", 0xff3333));
 
 	return true;
 }
@@ -118,30 +111,25 @@ void GameOverScene::Draw(void)
 	}
 	else
 	{
-		SetDrawScreen(_gameOverMoment);
-		ClsDrawScreen();
-
 		for (auto data : _strSet)
 		{
-			int cursor, width, pos_y, color;
+			int cursor, pos_y, color;
 			const TCHAR* str;
 
-			std::tie(cursor, width, pos_y, str, color) = data;
+			std::tie(cursor, pos_y, str, color) = data;
 
 			if (cursor == _cursor)
 			{
-				DrawStringToHandle((lpSceneMng.ScreenSize.x - width) / 2, pos_y, str, color, lpSceneMng.GetFont());
+				lpStrAdd.AddDraw(str, lpSceneMng.ScreenSize.x / 2, pos_y, color, DRAW_TO_CENTER);
 			}
 			else
 			{
-				DrawStringToHandle((lpSceneMng.ScreenSize.x - width) / 2, pos_y, str, 0xaaaaaa, lpSceneMng.GetFont());
+				lpStrAdd.AddDraw(str, lpSceneMng.ScreenSize.x / 2, pos_y, 0xaaaaaa, DRAW_TO_CENTER);
 			}
 		}
-
-		lpImageMng.AddBackDraw({ _gameOverMoment, lpSceneMng.ScreenSize.x / 2, lpSceneMng.ScreenSize.y / 2, 0.0, LAYER::EX, INT_MAX - 15 });
 	}
 
 	SetDrawScreen(tmpScreen);
 
-	lpImageMng.AddBackDraw({ _gameOverScreen, lpSceneMng.ScreenSize.x / 2, lpSceneMng.ScreenSize.y / 2, 0.0, LAYER::EX, INT_MAX - 20 });
+	lpImageMng.AddBackDraw({ _gameOverScreen, lpSceneMng.ScreenSize.x / 2, lpSceneMng.ScreenSize.y / 2, 0.0, LAYER::EX, 1000 });
 }

@@ -15,7 +15,12 @@ void SceneMng::Run(void)
 	{
 		lpKeyMng.KeyUpdate();
 		lpButtonMng.Run();
+
+		lpStrAdd.ClearScreen();
+
 		_activeScene = (*_activeScene).Update(std::move(_activeScene));
+		
+		lpStrAdd.Draw();
 		lpImageMng.Draw();
 
 		_flame++;
@@ -85,12 +90,6 @@ int SceneMng::GetNum(void)
 	return _work;
 }
 
-int SceneMng::GetFont(void)
-{
-	return _fontHandle;
-}
-
-
 bool SceneMng::SysInit(void)
 {
 	bool rtnFlag = true;
@@ -121,8 +120,6 @@ bool SceneMng::SysInit(void)
 	_flame = 0;
 
  	_work = MakeScreen(ScreenSize.x, ScreenSize.y, true);
-
-	_fontHandle = CreateFontToHandle("Terminal", 40, 1, DX_FONTTYPE_NORMAL);
 
 	return rtnFlag;
 }
