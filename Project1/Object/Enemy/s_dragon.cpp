@@ -56,6 +56,7 @@ void s_dragon::Init(void)
 	{
 		data.emplace_back(lpImageMng.getImage("s_dragonR")[12 + i], 20 + i * 20);
 	}
+	data.emplace_back(-1,2828);
 	setAnm({ OBJ_STATE::DEAD,DIR::RIGHT }, data);
 
 	// ç∂-------------------------------------------
@@ -75,12 +76,13 @@ void s_dragon::Init(void)
 	{
 		data.emplace_back(lpImageMng.getImage("s_dragonL")[16 + i], 20 + i * 20);
 	}
-	data.emplace_back(-10, 0);
+	data.emplace_back(-1, 0);
 	setAnm({ OBJ_STATE::ATTACK,DIR::LEFT }, data);
 
 	for (int i = 0; i < 4; i++)
 	{
 		data.emplace_back(lpImageMng.getImage("s_dragonL")[12 + i], 20 + i * 20);
 	}
+	data.emplace_back(-1, 2828);
 	setAnm({ OBJ_STATE::DEAD,DIR::LEFT }, data);
 }

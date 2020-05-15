@@ -6,9 +6,12 @@
 #include "../Manage/MapMng.h"
 #include "../Manage/ItemTrader.h"
 #include "../Manage/Menu.h"
+#include "../Object/Enemy/EnemyMng.h"
 
 GameScene::GameScene()
 {
+	lpEnemyMng;
+	
 	// âÊëú
 
 	// ÉvÉåÉCÉÑÅ[
@@ -53,17 +56,11 @@ std::unique_ptr<BaceScene> GameScene::Update(std::unique_ptr<BaceScene> own)
 		}
 	}
 
-	for (auto data : _enemyList)
-	{	
-		if ((*data).getStage() == lpMapMng.GetnowStage() || (*data).getStage() == -1)
-		{
-			(*data).Update();
-		}
-	}
+	lpEnemyMng.Update();
 
 	getAttackQue();
 	CheckHitAttack()(_objList, _attackList);
-	CheckHitAttack()(_enemyList, _attackList);
+	CheckHitAttack()(lpEnemyMng.GetenemyList(), _attackList);
 
 
 	for (auto data : _objList)
@@ -75,13 +72,7 @@ std::unique_ptr<BaceScene> GameScene::Update(std::unique_ptr<BaceScene> own)
 		}
 	}
 
-	for (auto data : _enemyList)
-	{
-		if ((*data).getStage() == lpMapMng.GetnowStage())
-		{
-			(*data).Draw();
-		}
-	}
+	lpEnemyMng.Draw();
 
 	lpTradeMng.Draw();
 
@@ -116,7 +107,8 @@ bool GameScene::Init(void)
 	_objList.emplace_back(new Player({ 400,900 }, 1, TIME::FTR));
 	lpSceneMng.SetPlObj(_objList[1], TIME::FTR);
 	_objList.emplace_back(new camera());
-	_enemyList.emplace_back(new s_dragon());
+
+	lpEnemyMng.Init();
 
 	lpTradeMng.SetItemList({ 400,1300 }, ITEM_TYPE::BOOK, COLOR_TYPE::BLUE);
 	
@@ -145,7 +137,7 @@ void GameScene::getAttackQue(void)
 		}
 	}
 
-	for (auto data : _enemyList)
+	for (auto data : lpEnemyMng.GetenemyList())
 	{
 		tmpData.clear();
 

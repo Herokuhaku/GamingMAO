@@ -48,6 +48,8 @@ public:
 	void SetNum(int num);			// _workのset
 	int GetNum(void);				// _workのget
 
+	int GetFont(void);				// フォントのハンドルのget
+
 	const Vector2 ScreenSize = { 1280,720 };
 private:
 	static SceneMng *sInstance;
@@ -58,6 +60,8 @@ private:
 	unsigned int _flame;
 
 	int _work;				// gameover用スクリーン
+
+	int _fontHandle;		// フォントのハンドル
 
 	bool SysInit(void);
 	SceneMng();
