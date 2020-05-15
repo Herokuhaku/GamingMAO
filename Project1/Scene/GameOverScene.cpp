@@ -44,6 +44,23 @@ std::unique_ptr<BaceScene> GameOverScene::CursorControl(std::unique_ptr<BaceScen
 		}
 	}
 
+	if (lpButtonMng.Thumbf(0, XINPUT_THUMBL_Y).first == 2 && lpButtonMng.Thumbf(0, XINPUT_THUMBL_Y).second == 0)
+	{
+		_cursor--;
+		if (_cursor < 0)
+		{
+			_cursor = CURSOR_MAX;
+		}
+	}
+	else if (lpButtonMng.Thumbf(0, XINPUT_THUMBL_Y).first == 1 && lpButtonMng.Thumbf(0,XINPUT_THUMBL_Y).second == 0)
+	{
+		_cursor++;
+		if (_cursor > CURSOR_MAX)
+		{
+			_cursor = 0;
+		}
+	}
+
 	if (lpKeyMng.getBuf()[KEY_INPUT_SPACE] && !lpKeyMng.getOldBuf()[KEY_INPUT_SPACE])
 	{
 		switch (_cursor)
