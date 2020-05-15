@@ -126,7 +126,7 @@ void Object::setAnm(const std::pair<OBJ_STATE, DIR> state,AnmVec& data)
 
 bool Object::isAnmEnd(void)
 {
-	return _anmMap[_state_dir][_anmFlame].second == -1;
+	return _anmMap[_state_dir][_anmFlame].second == 2828;
 }
 
 bool Object::isAlive(void)
@@ -172,13 +172,21 @@ bool Object::anmUpdate(void)
 		{
 			_anmFlame++;
 			if (_anmFlame < _anmMap[_state_dir].size() && 
-				_anmMap[_state_dir][_anmFlame].second == 0)
+				_anmMap[_state_dir][_anmFlame].first == -1)
 			{
-				setState({ OBJ_STATE::NORMAL, _state_dir.second });
+				if (_anmMap[_state_dir][_anmFlame].second == 0)
+				{
+					setState({ OBJ_STATE::NORMAL, _state_dir.second });
+				}
+				else
+				{
+					_alive = false;
+				}
 			}
 		}
 		else
 		{
+			_alive = false;
 			return false;
 		}
 	}

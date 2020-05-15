@@ -72,6 +72,7 @@ public:
 	void setAnm(const std::pair<OBJ_STATE, DIR> state, AnmVec& data);
 	bool isAnmEnd(void);
 	bool isAlive(void);
+	bool Alive(void) { return _alive; };
 
 	virtual void Draw(void);
 	bool anmUpdate(void);

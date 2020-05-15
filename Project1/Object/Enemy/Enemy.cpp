@@ -93,7 +93,7 @@ int Enemy::Search(Vector2 pPos)
 			{
 				if ((pPos.x - _pos.x) * (static_cast<int>(_state_dir.second) - 1) <= _rangeA)
 				{
-					aState(static_cast<int>(MOVE_SELECT::ATTACK));
+					//aState(static_cast<int>(MOVE_SELECT::ATTACK));
 					lpImageMng.AddDraw({ lpImageMng.getImage("excPoint")[0],_pos.x,_pos.y - 40,0.0,LAYER::EX,10 });
 					return _aState;
 				}
