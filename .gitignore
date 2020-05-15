@@ -705,3 +705,4 @@ ASALocalRun/
 *.swp
 *.~
 *.un~
+/Project1/Log.txt
