@@ -132,6 +132,23 @@ void MapMng::StageTrans(int no)
 
 bool MapMng::MapUpdate(void)
 {
+	bool flag = false;
+	for (int i = 0; i < ACTIVEMAP; i++)
+	{
+		if (_activeMap[i].first)
+		{
+			_activeMap[i].first = false;
+			_activeMap[i].second = std::get<static_cast<int>(MAP_DATA::NO)>(_mapdata);
+			_writNo = i;
+			flag = true;
+		}
+	}
+	
+	if (!flag)
+	{
+		exit(1);
+	}
+
 	std::ifstream ifs(MapID.c_str());
 	std::string line;
 
@@ -145,7 +162,7 @@ bool MapMng::MapUpdate(void)
 		x = 0;
 		for (int i = 0;i < save.size();i++)
 		{
-			GameMap[y][x] = stoi(save.at(i));
+			GameMap[y][x][_writNo] = stoi(save.at(i));
 			x++;
 		}
 		y++;
@@ -166,21 +183,21 @@ void MapMng::HitMapUpdate(void)
 	{
 		for (int x = 0; x < MapChipX;x++)
 		{
-			tmpMap = GameMap[y][x];
+			tmpMap = GameMap[y][x][_writNo];
 			if (tmpMap >= 0 && tmpMap <= 23)
 			{
-				HitMap[y][x] = 1;
+				HitMap[y][x][_writNo] = 1;
 			}
 			else
 			{
-				HitMap[y][x] = 0;
+				HitMap[y][x][_writNo] = 0;
 			}
 		}
 	}
 	// ”wŒi‚Æ‡‚í‚¹‚é‚½‚ß‚ÉˆêŽž“I‚É‘‚¢‚Ä‚¢‚é‚¾‚¯
 	for (int x = 0; x < MapChipX; x++)
 	{
-		HitMap[82][x] = 1;
+		HitMap[82][x][_writNo] = 1;
 	}
 }
 
@@ -215,9 +232,9 @@ void MapMng::BlockLayer(void)
 	{
 		for (int x = 0; x < MapChipX;x++)
 		{
-			if (GameMap[y][x] != -1)
+			if (GameMap[y][x][_writNo] != -1)
 			{
-				DrawRotaGraph(x*16+(CHIP_SIZE/2), y*16, 1.0, 0, lpImageMng.getImage("Block")[GameMap[y][x]], true);
+				DrawRotaGraph(x*16+(CHIP_SIZE/2), y*16, 1.0, 0, lpImageMng.getImage("Block")[GameMap[y][x][_writNo]], true);
 			}
 		}
 	}
@@ -280,14 +297,19 @@ MapMng::MapMng():
 	GameMapSize{2560,1440}
 {
 	SetDrawBright(255,255,255);
-	for (int y = 0;y < MapChipY;y++)
+	for(int wNo = 0; wNo < ACTIVEMAP; wNo++)
 	{
-		for (int x = 0;x < MapChipX;x++)
-		{
-			GameMap[y][x] = 0;
-			HitMap[y][x] = 0;
-		}
+			for (int y = 0;y < MapChipY;y++)
+			{
+					for (int x = 0;x < MapChipX;x++)
+					{
+							GameMap[y][x][wNo] = 0;
+							HitMap[y][x][wNo] = 0;
+					}
+			}
+			_activeMap[wNo] = { true,1 };
 	}
+	_activeMap[0].first = false;
 
 	lpImageMng.getImage("image/background/main_back.png", "ƒƒCƒ“”wŒi");
 
@@ -315,6 +337,7 @@ MapMng::MapMng():
 	{
 		return;
 	}
+
 
 	StageTrans(1);
 
@@ -347,6 +370,6 @@ int MapMng::getGameMapM(const Vector2& pos)
 		return 0;
 	}
 	
-	return GameMap[chip.y][chip.x];
+	return GameMap[chip.y][chip.x][;
 }
 
