@@ -58,9 +58,9 @@ private:
 
 	void ItemSelectD(void);					// Œˆ’è‚Æ–ß‚éB‚»‚ê‚Æ•—˜C•~‚È‚Ç‚ÌDraw
 
-	// 
-	void Start(bool *a);
-	void End(bool *a);
+	//
+	void SelectCount(int& select,int thumb);				// –îˆó‚Ì‘€ì
+
 
 	// ‰æ‘œ•`‰æ‚Ü‚Æ‚ß
 	void SelectDraw(void);					// Select‰æ–Ê‚Å‚Ì•\¦•¨

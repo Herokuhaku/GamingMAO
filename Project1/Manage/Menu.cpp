@@ -65,6 +65,9 @@ bool Menu::GetMixFlag(void)
 
 void Menu::SELECT(void)
 {
+	// 矢印操作(スティック)
+	SelectCount(_select,XINPUT_THUMBL_Y);
+	//　矢印操作 (DPAD)
 	if (lpButtonMng.Buttonf(0,XINPUT_BUTTON_DPAD_UP).first == 1&&
 		lpButtonMng.Buttonf(0,XINPUT_BUTTON_DPAD_UP).second == 0)
 	{
@@ -112,6 +115,8 @@ void Menu::ItemPup(void)
 {
 	if (!MixFlag)
 	{
+		// 矢印操作(スティック)
+		SelectCount(_select,XINPUT_THUMBL_X);
 		// 矢印を右に移動させる
 		if (lpButtonMng.Buttonf(0, XINPUT_BUTTON_DPAD_RIGHT).first == 1 &&
 			lpButtonMng.Buttonf(0, XINPUT_BUTTON_DPAD_RIGHT).second == 0)
@@ -132,7 +137,6 @@ void Menu::ItemPup(void)
 				_select = 2;
 			}
 		}
-
 		MixDraw();
 
 		// アイテムを選択
@@ -175,23 +179,31 @@ void Menu::ItemMup(void)
 	
 }
 
-void Menu::Start(bool *a)
+void Menu::SelectCount(int& select, int thumb)
 {
-	if (*a == false)
+	// 矢印を右 or 上に移動させる
+	if (lpButtonMng.Thumbf(0, thumb).first == 1 &&
+		lpButtonMng.Thumbf(0, thumb).second == 0)
 	{
-		lpButtonMng.Buttonf(0, XINPUT_BUTTON_A, 1, 1);
-		*a = true;
+		select++;
+		if (select > 2)
+		{
+			select = 0;
+		}
 	}
+	// 矢印を左 or 下に移動させる
+	if (lpButtonMng.Thumbf(0, thumb).first == 2 &&
+		lpButtonMng.Thumbf(0, thumb).second == 0)
+	{
+		select--;
+		if (select < 0)
+		{
+			select = 2;
+		}
+	}
+
 }
 
-void Menu::End(bool *a)
-{
-	if (lpButtonMng.Buttonf(0, XINPUT_BUTTON_A).first == 1 &&
-		lpButtonMng.Buttonf(0, XINPUT_BUTTON_A).second == 0)
-	{
-		*a = false;
-	}
-}
 
 void Menu::SelectDraw(void)
 {
@@ -355,26 +367,27 @@ void Menu::ItemSelectD(void)
 
 	lpTradeMng.BagDraw({ _cpos.x*1.0 -200,_cpos.y*1.0 }, LAYER::EX, 200);
 
-	// 矢印を右に移動させる
-	if (lpButtonMng.Buttonf(0, XINPUT_BUTTON_DPAD_RIGHT).first == 1 &&
-		lpButtonMng.Buttonf(0, XINPUT_BUTTON_DPAD_RIGHT).second == 0)
-	{
-		_select++;
-		if (_select > 2)
-		{
-			_select = 0;
-		}
-	}
-	//　矢印を左に移動させる
-	if (lpButtonMng.Buttonf(0, XINPUT_BUTTON_DPAD_LEFT).first == 1 &&
-		lpButtonMng.Buttonf(0, XINPUT_BUTTON_DPAD_LEFT).second == 0)
-	{
-		_select--;
-		if (_select < 0)
-		{
-			_select = 2;
-		}
-	}
+	SelectCount(_select,XINPUT_THUMBL_X);
+	//// 矢印を右に移動させる
+	//if (lpButtonMng.Buttonf(0, XINPUT_BUTTON_DPAD_RIGHT).first == 1 &&
+	//	lpButtonMng.Buttonf(0, XINPUT_BUTTON_DPAD_RIGHT).second == 0)
+	//{
+	//	_select++;
+	//	if (_select > 2)
+	//	{
+	//		_select = 0;
+	//	}
+	//}
+	////　矢印を左に移動させる
+	//if (lpButtonMng.Buttonf(0, XINPUT_BUTTON_DPAD_LEFT).first == 1 &&
+	//	lpButtonMng.Buttonf(0, XINPUT_BUTTON_DPAD_LEFT).second == 0)
+	//{
+	//	_select--;
+	//	if (_select < 0)
+	//	{
+	//		_select = 2;
+	//	}
+	//}
 
 	if (lpButtonMng.Buttonf(0, XINPUT_BUTTON_A).first == 1 &&
 		lpButtonMng.Buttonf(0, XINPUT_BUTTON_A).second == 0)
