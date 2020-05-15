@@ -11,7 +11,10 @@ void ItemTrader::Draw(void)
 {
 	for (auto data : _ItemList)
 	{
-		(*data).Draw();
+		if ((*data).getStage() == lpMapMng.GetnowStage())
+		{
+			(*data).Draw();
+		}
 	}
 }
 
