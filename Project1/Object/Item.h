@@ -5,14 +5,14 @@
 enum class COLOR_TYPE :int
 {
 	BLACK = 0x000000,
-	RED = 0xff0000,			// 赤の魔石
+	RED = 0xff0000,				// 赤の魔石
 	GREEN = 0x00ff00,			// 緑の魔石
 	BLUE = 0x0000ff,			// 青の魔石
 	YELLOW = 0xffff00,			// イエローの魔石
 	MAGENTA = 0xff00ff,			// マゼンタの魔石
 	CYAN = 0x00ffff,			// シアンの魔石
 	WHITE = 0xffffff,
-	MAX = 0xfffff				// 最高値
+	MAX = 0xffffff+1			// 最高値
 };
 
 enum class ITEM_TYPE

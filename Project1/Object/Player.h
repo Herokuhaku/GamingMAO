@@ -9,7 +9,7 @@
 #define PLAYER_SIZE_X	85
 #define PLAYER_SIZE_Y	90
 
-#define DELAY_FIRE		350
+#define DELAY_FIRE		220
 
 #define HP_MAX			100
 
