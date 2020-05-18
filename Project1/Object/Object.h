@@ -64,7 +64,7 @@ public:
 	bool checkInv(void);
 	void InvUpdate(void);
 
-	OBJ_TYPE getType(void) { return _type; };
+	OBJ_TYPE getObjType(void) { return _type; };
 
 	void setHitOffset(std::array<int, 4> ary);
 	std::array<int, 4> getHitOffset(void);

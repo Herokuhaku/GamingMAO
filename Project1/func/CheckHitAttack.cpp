@@ -26,7 +26,7 @@ void CheckHitAttack::operator()(const std::vector<std::shared_ptr<Object>>& objl
 			Vector2 objPos = obj->getPos();
 			std::array<int, 4> hitBox = obj->getHitOffset();
 
-			if (obj->getType() == OBJ_TYPE::CAMERA)
+			if (obj->getObjType() == OBJ_TYPE::CAMERA)
 			{
 				continue;
 			}
@@ -35,7 +35,7 @@ void CheckHitAttack::operator()(const std::vector<std::shared_ptr<Object>>& objl
 			{
 			case OBJ_TYPE::ENEMY:
 			case OBJ_TYPE::PLAYER:
-				if (obj->getType() != target)
+				if (obj->getObjType() != target)
 				{
 					continue;
 				}
@@ -102,7 +102,7 @@ void CheckHitAttack::operator()(const std::vector<std::shared_ptr<Enemy>>& objli
 			Vector2 objPos = obj->getPos();
 			std::array<int, 4> hitBox = obj->getHitOffset();
 
-			if (obj->getType() == OBJ_TYPE::CAMERA)
+			if (obj->getObjType() == OBJ_TYPE::CAMERA)
 			{
 				continue;
 			}
@@ -111,7 +111,7 @@ void CheckHitAttack::operator()(const std::vector<std::shared_ptr<Enemy>>& objli
 			{
 			case OBJ_TYPE::ENEMY:
 			case OBJ_TYPE::PLAYER:
-				if (obj->getType() != target)
+				if (obj->getObjType() != target)
 				{
 					continue;
 				}

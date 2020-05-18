@@ -48,6 +48,39 @@ int Item::GetBagNo(void)
 	return _bagNo;
 }
 
+std::pair<ITEM_TYPE, COLOR_TYPE> Item::getItemType(void)
+{
+	return {_itemtype, _colortype};
+}
+
+void Item::ChangeType(ITEM_TYPE item,COLOR_TYPE color)
+{
+	_itemtype = item;
+	_colortype = color;
+
+	AnmVec data;
+
+	_anmMap.clear();
+	data.clear();
+
+	switch (_colortype)
+	{
+	case COLOR_TYPE::CYAN:
+		break;
+	case COLOR_TYPE::MAGENTA:
+		break;
+	case COLOR_TYPE::YELLOW:
+		break;
+	default:
+		break;
+	}
+	if (data.size() == 0)
+	{
+		return;
+	}
+	setAnm({ OBJ_STATE::NORMAL, DIR::RIGHT }, data);			// dirの初期値はRIGHTなのを覚えておく(OBJのコンストラクタで初期化)
+}
+
 void Item::Init(void)
 {
 	AnmVec data;

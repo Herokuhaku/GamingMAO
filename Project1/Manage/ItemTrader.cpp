@@ -32,24 +32,27 @@ void ItemTrader::BagDraw(Vector2D pos,LAYER lay,int off)
 
 
 
-void ItemTrader::Trade(COLOR_TYPE color1, COLOR_TYPE color2)
+COLOR_TYPE ItemTrader::Trade(COLOR_TYPE color1, COLOR_TYPE color2)
 {
-	if (color1 == color2) { return; }	// ìØÇ∂êFìØémÇÃë´ÇµéZÇÕÇµÇ»Ç¢
+	color = static_cast<int>(color1) + static_cast<int>(color2);
+
+	return static_cast<COLOR_TYPE>(color);
+}
+
+bool ItemTrader::TradeCheck(COLOR_TYPE color1, COLOR_TYPE color2)
+{
+	if (color1 == color2) { return false; }	// ìØÇ∂êFìØémÇÃë´ÇµéZÇÕÇµÇ»Ç¢
 
 	// RGBà»äOÇÃë´ÇµéZÇ‡ÇµÇ»Ç¢
 	if (color1 != COLOR_TYPE::RED && color1 != COLOR_TYPE::BLUE && color1 != COLOR_TYPE::GREEN)
 	{
-		return;
+		return false;
 	}
 	else if (color2 != COLOR_TYPE::RED && color2 != COLOR_TYPE::BLUE && color2 != COLOR_TYPE::GREEN)
 	{
-		return;
+		return false;
 	}
-
-	color = static_cast<int>(color1) + static_cast<int>(color2);
-
-	return;
-
+	return true;
 }
 
 const void ItemTrader::SetItemList(Vector2 pos, ITEM_TYPE itype, COLOR_TYPE ctype)
@@ -74,6 +77,21 @@ std::shared_ptr<Item> ItemTrader::ReBag(int no)
 }
 
 
+
+void ItemTrader::DeleteItem(std::shared_ptr<Item> &item)
+{
+	for (auto bag =_ItemBag.begin() ; bag != _ItemBag.end();)
+	{
+		if ((*bag).first == item)
+		{
+			bag = _ItemBag.erase(std::move(bag));
+		}
+		else
+		{
+			bag++;
+		}
+	}
+}
 
 void ItemTrader::AddBag(void)
 {

@@ -1,6 +1,7 @@
 #include "Menu.h"
 #include "../Scene/SceneMng.h"
 #include "ButtonMng.h"
+#include "../Graphic/StringAddDraw.h"
 
 Menu* Menu::sInstance = nullptr;
 
@@ -11,6 +12,7 @@ Menu::Menu()
 	_start = false;
 	push_select = false;
 	_select = 0;
+	_select2 = 0;
 	_offpush.y = 150;
 	_offpush.x = 200;
 	MixFlag = false;
@@ -20,6 +22,7 @@ Menu::Menu()
 	lpImageMng.getImage("image/Space.png", "Space");
 	lpImageMng.getImage("image/arrow.png", "Arrow");
 	lpImageMng.getImage("image/合成.png", "Mix");
+
 }
 
 Menu::~Menu()
@@ -117,6 +120,7 @@ void Menu::ItemPup(void)
 	{
 		// 矢印操作(スティック)
 		SelectCount(_select,XINPUT_THUMBL_X);
+
 		// 矢印を右に移動させる
 		if (lpButtonMng.Buttonf(0, XINPUT_BUTTON_DPAD_RIGHT).first == 1 &&
 			lpButtonMng.Buttonf(0, XINPUT_BUTTON_DPAD_RIGHT).second == 0)
@@ -137,6 +141,29 @@ void Menu::ItemPup(void)
 				_select = 2;
 			}
 		}
+
+		// 矢印を上にずらす
+		if (lpButtonMng.Thumbf(0, XINPUT_THUMBL_Y).first == 2 && lpButtonMng.Thumbf(0, XINPUT_THUMBL_Y).second == 0)
+		{
+			_select2++;
+			if (_select2 > 1)
+			{
+				_select2 = 0;
+			}
+		}
+		// 矢印を下にずらす
+		if (lpButtonMng.Thumbf(0, XINPUT_THUMBL_Y).first == 1 && lpButtonMng.Thumbf(0, XINPUT_THUMBL_Y).second == 0)
+		{
+			_select2--;
+			if (_select2 < 0)
+			{
+				_select2 = 1;
+			}
+		}
+
+		// 決定描画
+		lpStrAdd.AddDraw("決定", _cpos.x, _cpos.y+75, 0xffffff, DRAW_TO_CENTER);
+
 		MixDraw();
 
 		// アイテムを選択
@@ -157,6 +184,7 @@ void Menu::ItemPup(void)
 	}
 	else 
 	{
+		// 何番目のアイテム選択しているか。
 		switch (_selectNo)
 		{
 		case SELECT_ITEM::ITEM1:
@@ -172,6 +200,23 @@ void Menu::ItemPup(void)
 			break;
 		}
 	}
+}
+
+bool Menu::Mix(ItemS& item1, ItemS& item2, ItemS& item3)
+{
+	if (item1->getItemType().first == ITEM_TYPE::BOOK || item2->getItemType().first == ITEM_TYPE::BOOK)
+	{
+		return false;
+	}
+	if (!lpTradeMng.TradeCheck(item1->getItemType().second, item2->getItemType().second))
+	{
+		return false;
+	}
+
+	item1->ChangeType(ITEM_TYPE::STONE, lpTradeMng.Trade(item1->getItemType().second, item2->getItemType().second));
+	lpTradeMng.DeleteItem(item2);
+	
+	return true;
 }
 
 void Menu::ItemMup(void)
@@ -225,13 +270,18 @@ void Menu::MixDraw(void)
 	// アイテム選択
 	for (int x = 0;x < 3;x++)
 	{
-		//lpImageMng.AddBackDraw({ lpImageMng.getImage("Space")[0],_cpos.x - 200 + (_offpush.x * x),_cpos.y - _offpush.y,0.0,LAYER::EX,150 });
 		lpImageMng.AddBackDraw({ lpImageMng.getImage("Space")[0],_cpos.x -200+(_offpush.x*x),_cpos.y - _offpush.y,0.0,LAYER::EX,100 });
 	}
 
 	// 矢印
-	lpImageMng.AddBackDraw({ lpImageMng.getImage("Arrow")[0],_cpos.x - 300 + (_offpush.x * _select),_cpos.y - _offpush.y,0.0,LAYER::EX,150 });
-
+	if (_select2 == 0)
+	{
+		lpImageMng.AddBackDraw({ lpImageMng.getImage("Arrow")[0],_cpos.x - 300 + (_offpush.x * _select),_cpos.y - _offpush.y,0.0,LAYER::EX,150 });
+	}
+	else
+	{
+		lpImageMng.AddBackDraw({ lpImageMng.getImage("Arrow")[0],_cpos.x-75,_cpos.y + 100,0.0,LAYER::EX,150 });
+	}
 	// 選択後
 	ItemSelectDraw();
 }
@@ -246,8 +296,6 @@ void Menu::ItemSelectDraw(void)
 			(*data.first).OLDraw(LAYER::EX);
 		}
 	}
-
-
 }
 
 void Menu::Item1(void)
