@@ -37,6 +37,14 @@ Player::~Player()
 
 void Player::Update(void)
 {
+	VelUpdate();
+	// 操作しているプレイヤーじゃない
+	if (_stage != lpMapMng.GetnowStage())
+	{
+		return;
+	}
+		
+	MagicUpdate();
 	if (!MenuUpdate() && _time == lpTimeMng.getTime())
 	{
 		if (_state_dir.first != OBJ_STATE::DEAD && _state_dir.first != OBJ_STATE::DAMAGE)
@@ -55,16 +63,10 @@ void Player::Update(void)
 		StopWalk();
 	}
 
-
-
-
-	if (CheckHitKey(KEY_INPUT_T))
+	if (CheckHitKey(KEY_INPUT_T) || lpButtonMng.Buttonf(0, XINPUT_BUTTON_X).first == 1)
 	{
 		lpTradeMng.AddBag();
 	}
-
-	VelUpdate();
-	MagicUpdate();
 
 	if ((lpKeyMng.getOldBuf()[KEY_INPUT_DOWN] && !lpKeyMng.getBuf()[KEY_INPUT_DOWN]))
 	{
@@ -72,10 +74,7 @@ void Player::Update(void)
 		// if(座標を見て一番右のポータル)
 		if (lpMapMng.getGameMapM({ _pos.x,y },_stage) == 41)
 		{
-			//_nextPos = { lpMapMng.GetFrontPosX(lpMapMng.GetnowStage()),lpMapMng.GetFrontPosY(lpMapMng.GetnowStage()) };
 			_nextPos = { lpMapMng.GetFrontPosX(_stage),lpMapMng.GetFrontPosY(_stage) };
-			_stage = std::get<4>(lpMapMng.GetMapIndex(_stage));
-			// 4 = MAP_DATA::FRONT
 			lpImageMng.SetplmoveF(true, MAP_DATA::FRONT);
 			lpImageMng.setGkind(ScrEff::FADEOUT);
 		}
@@ -83,8 +82,6 @@ void Player::Update(void)
 		else if (lpMapMng.getGameMapM({ _pos.x,y },_stage) == 9)
 		{
 			_nextPos = { lpMapMng.GetBackPosX(_stage),lpMapMng.GetBackPosY(_stage) };
-			_stage = std::get<3>(lpMapMng.GetMapIndex(_stage));
-			// 3 = MAP_DATA::BACK
 			lpImageMng.SetplmoveF(true, MAP_DATA::BACK);
 			lpImageMng.setGkind(ScrEff::FADEOUT);
 		}
@@ -92,8 +89,6 @@ void Player::Update(void)
 		else if (lpMapMng.getGameMapM({ _pos.x,y },_stage) == 7)
 		{
 			_nextPos = { lpMapMng.GetBrancPosX(_stage),lpMapMng.GetBrancPosY(_stage) };
-			_stage = std::get<5>(lpMapMng.GetMapIndex(_stage));
-			// 5 = MAP_DATA::BRANCH
 			lpImageMng.SetplmoveF(true, MAP_DATA::BRANCH);
 			lpImageMng.setGkind(ScrEff::FADEOUT);
 

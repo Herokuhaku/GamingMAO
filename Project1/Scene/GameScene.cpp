@@ -50,10 +50,7 @@ std::unique_ptr<BaceScene> GameScene::Update(std::unique_ptr<BaceScene> own)
 {
 	for (auto data : _objList)
 	{
-		if ((*data).getStage() == lpMapMng.GetnowStage() || (*data).getStage() == -1)
-		{
-			(*data).Update();
-		}
+		(*data).Update();
 	}
 
 	lpEnemyMng.Update();
