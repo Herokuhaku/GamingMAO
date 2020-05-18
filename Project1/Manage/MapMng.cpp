@@ -3,6 +3,7 @@
 #include "../Graphic/ImageMng.h"
 #include "../Scene/SceneMng.h"
 #include "KeyMng.h"
+#include "../Object/Enemy/EnemyMng.h"
 
 MapMng* MapMng::sInstance = nullptr;
 
@@ -127,6 +128,7 @@ void MapMng::StageTrans(int no)
 	_mapdata = GetMapIndex(no);
 	MapID = std::get<static_cast<int>(MAP_DATA::MAPLINK)>(_mapdata);
 	MapUpdate();
+	lpEnemyMng.StageTDelete();
 }
 
 bool MapMng::MapUpdate(void)
