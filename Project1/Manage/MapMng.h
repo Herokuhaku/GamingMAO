@@ -70,14 +70,15 @@ public:
 	void BlockLayer(void);
 	bool getHitMap(const Vector2& pos, int stage);
 	char getGameMapM(const Vector2& pos, int stage);	// posの位置のGameMapを返却 Member
-	std::map<LAYER, int> _layer;
+
 	const Vector2Template<int> GameMapSize;	// ゲーム画面のマップの大きさ
+
 	std::vector<std::string> split(std::string str, char del);
 
 	void StageTrans(int no);			// ステージの番号を引数に入れる
 
 	MapData GetMapIndex(int no);
-	int GetnowStage(void) {return nowStage;	}
+	int GetnowStage(void) { return nowStage.first; }
 	int GetFrontPosX(int no);
 	int GetFrontPosY(int no);
 	int GetBackPosX(int no);
@@ -88,6 +89,7 @@ public:
 
 #define ACTIVEMAP 4
 private:
+	int _layer[ACTIVEMAP];
 	char GameMap[MapChipY][MapChipX][ACTIVEMAP];	// Y1440/16,X(2560/16)+壁2マス
 	char HitMap[MapChipY][MapChipX][ACTIVEMAP];		// 当たり判定Map
 	std::pair<bool, int> _activeMap[ACTIVEMAP];		// <保存していいか,stage>    UpdateをするMAP
@@ -107,7 +109,7 @@ private:
 	MapData _mapdata;
 	std::map<int,MapData> mapindex;
 
-	int nowStage;
+	std::pair<int,int> nowStage;					// <現在のステージ,_activeMap内の現在のステージの添え字>
 
 	// Mapの移動
 	

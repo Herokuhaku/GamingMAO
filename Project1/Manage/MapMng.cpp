@@ -125,7 +125,6 @@ void MapMng::StageTrans(int no)
 		exit(1);
 	}
 	_mapdata = GetMapIndex(no);
-	nowStage = no;
 	MapID = std::get<static_cast<int>(MAP_DATA::MAPLINK)>(_mapdata);
 	MapUpdate();
 }
@@ -134,18 +133,31 @@ bool MapMng::MapUpdate(void)
 {
 	bool flag = false;
 
+	int oldStage = nowStage.first;
+	nowStage.first = std::get<static_cast<int>(MAP_DATA::NO)>(_mapdata);
+
 	for (int i = 0; i < ACTIVEMAP; i++)
 	{
-		if (_activeMap[i].second == std::get<static_cast<int>(MAP_DATA::NO)>(_mapdata))
+		if (_activeMap[i].second == nowStage.first)
 		{
+			nowStage.second = i;
 			_writNo = i;
+			_activeMap[i].first = false;
 			flag = true;
-			break;
+			return true;
 		}
 		if (_activeMap[i].first)
 		{
+//			if (oldStage != (*lpSceneMng.GetPlObj(TIME::FTR))->getStage() &&
+//					oldStage != (*lpSceneMng.GetPlObj(TIME::NOW))->getStage())
+			TIME checkTime = lpTimeMng.getTime() == TIME::FTR ? TIME::NOW : TIME::FTR;
+			if(oldStage != (*lpSceneMng.GetPlObj(checkTime))->getStage())
+			{
+				_activeMap[nowStage.second].first = true;
+			}
+			nowStage.second = i;
 			_activeMap[i].first = false;
-			_activeMap[i].second = std::get<static_cast<int>(MAP_DATA::NO)>(_mapdata);
+			_activeMap[i].second = nowStage.first;
 			_writNo = i;
 			flag = true;
 			break;
@@ -168,7 +180,7 @@ bool MapMng::MapUpdate(void)
 		std::vector<std::string> save = split(line, ',');
 
 		x = 0;
-		for (int i = 0;i < save.size();i++)
+		for (int i = 0; i < save.size(); i++)
 		{
 			GameMap[y][x][_writNo] = stoi(save.at(i));
 			x++;
@@ -179,7 +191,7 @@ bool MapMng::MapUpdate(void)
 	HitMapUpdate();		// 当たり判定
 	BlockLayer();		// ブロック描画の更新
 	
-	SetBgLayer(std::get<static_cast<int>(MAP_DATA::LAYER)>(_mapdata));		// レイヤーの更新
+	SetBgLayer(nowStage.first);		// レイヤーの更新
 
 	return true;
 }
@@ -217,7 +229,7 @@ void MapMng::MapDraw(void)
 
 void MapMng::BlockDraw()
 {
-	lpImageMng.AddDraw({ _layer[LAYER::BLOCK],GameMapSize.x/2,GameMapSize.y/2,0.0,LAYER::BLOCK,0 });
+	lpImageMng.AddDraw({ _layer[nowStage.second],GameMapSize.x/2,GameMapSize.y/2,0.0,LAYER::BLOCK,0 });
 }
 
 void MapMng::BackGround(void)
@@ -233,7 +245,7 @@ void MapMng::BackGround(void)
 
 void MapMng::BlockLayer(void)
 {
-	SetDrawScreen(_layer[LAYER::BLOCK]);
+	SetDrawScreen(_layer[_writNo]);
 	ClsDrawScreen();
 
 	for (int y = 0;y < MapChipY;y++)
@@ -315,7 +327,7 @@ MapMng::MapMng():
 							HitMap[y][x][wNo] = 0;
 					}
 			}
-			_activeMap[wNo] = { true,1 };
+			_activeMap[wNo] = { true,0 };
 	}
 
 	lpImageMng.getImage("image/background/main_back.png", "メイン背景");
@@ -330,7 +342,12 @@ MapMng::MapMng():
 
 	lpImageMng.getImage("image/back/block/For/Tileset.png", "Block",16,16,10,6);
 
-	_layer[LAYER::BLOCK] = MakeScreen(GameMapSize.x, GameMapSize.y, true);
+	nowStage = { 0,0 };
+
+	for (int i = 0; i < ACTIVEMAP; i++)
+	{
+		_layer[i] = MakeScreen(GameMapSize.x, GameMapSize.y, true);
+	}
 
 	_layer0 = MakeScreen(GameMapSize.x, GameMapSize.y, true);
 	_layer1 = MakeScreen(GameMapSize.x, GameMapSize.y, true);
@@ -347,6 +364,8 @@ MapMng::MapMng():
 
 
 	StageTrans(1);
+
+//	_activeMap[0] = { false,1 };
 
 	SetDrawBright(0,0,0);
 }
