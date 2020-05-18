@@ -23,12 +23,12 @@ public:
 	virtual int AtkMove(Vector2 pPos);
 	void Draw(void);
 
-	Enemy();
-	~Enemy();
 private:
 	void Init(void);
 	void Gravity(void);
 protected:
+	Enemy();
+	~Enemy();
 
 using e_fn_ptr = int(Enemy::*)(Vector2 pPos);	// 
 

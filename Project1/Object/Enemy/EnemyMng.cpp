@@ -40,7 +40,7 @@ void EnemyMng::StageTDelete(void)
 
 void EnemyMng::Init(void)
 {
-	_enemyList.emplace_back(new s_dragon());	
+	_enemyList.emplace_back(new s_dragon({ 800,50 },1));
 }
 
 EnemyMng::EnemyMng()

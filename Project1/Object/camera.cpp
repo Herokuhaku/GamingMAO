@@ -25,6 +25,12 @@ bool camera::CheckPos(void)
 	{
 		_cPos->x = lpMapMng.GameMapSize.x - (lpSceneMng.ScreenSize.x / 2);
 	}
+
+	if (_cPos->y <  490)		// ‚È‚º490‚¾H
+	{
+		_cPos->y = 490;
+	}
+
 	return false;
 }
 

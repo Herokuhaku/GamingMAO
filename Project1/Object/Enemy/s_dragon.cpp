@@ -7,22 +7,19 @@ void s_dragon::Update(void)
 }
 
 //s_dragon::s_dragon(Vector2Template<int> pos, double rad, TIME time, int stage, OBJ_TYPE type, std::pair<OBJ_STATE, DIR> state_dir)
-s_dragon::s_dragon()
+s_dragon::s_dragon(Vector2 pos, int stage)
 	{
-//		_pos = pos;
-//	_rad = rad;
-//	_time = TIME::NOW;
-//	_stage = stage;
-//	_zOrder = 10;
-//	//_state_dir = { state_dir.first, state_dir.second };
+	_pos = pos;
+	_stage = stage;
 	_state_dir = { OBJ_STATE::NORMAL,DIR::RIGHT };
-//	_alive = true;
-	Init();
-	_pos.y = 800;
-	_pos.x = 50;
 	setHP(100);
 	setHitOffset({ 55, 55, 100, 0 });
-//
+	
+	while (!lpMapMng.getHitMap(_pos, _stage))
+	{
+		_pos.y += 1;
+	}
+	Init();
 }
 
 s_dragon::~s_dragon()
