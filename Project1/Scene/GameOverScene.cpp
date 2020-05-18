@@ -61,7 +61,8 @@ std::unique_ptr<BaceScene> GameOverScene::CursorControl(std::unique_ptr<BaceScen
 		}
 	}
 
-	if (lpKeyMng.getBuf()[KEY_INPUT_SPACE] && !lpKeyMng.getOldBuf()[KEY_INPUT_SPACE])
+	if ((lpKeyMng.getBuf()[KEY_INPUT_SPACE] && !lpKeyMng.getOldBuf()[KEY_INPUT_SPACE]) ||
+		(lpButtonMng.Buttonf(0,XINPUT_BUTTON_B).first == 1 && lpButtonMng.Buttonf(0,XINPUT_BUTTON_B).second == 0))
 	{
 		switch (_cursor)
 		{
@@ -82,7 +83,8 @@ std::unique_ptr<BaceScene> GameOverScene::CursorControl(std::unique_ptr<BaceScen
 std::unique_ptr<BaceScene> GameOverScene::SkipControl(std::unique_ptr<BaceScene> scene)
 {
 	// スペースキーを押すと暗くなっていくのをスキップできる
-	if (lpKeyMng.getBuf()[KEY_INPUT_SPACE] && !lpKeyMng.getOldBuf()[KEY_INPUT_SPACE])
+	if ((lpKeyMng.getBuf()[KEY_INPUT_SPACE] && !lpKeyMng.getOldBuf()[KEY_INPUT_SPACE]) || 
+		(lpButtonMng.Buttonf(0, XINPUT_BUTTON_B).first == 1 && lpButtonMng.Buttonf(0, XINPUT_BUTTON_B).second == 0))
 	{
 		_alphaPrm = 118;
 		_control = &GameOverScene::CursorControl;

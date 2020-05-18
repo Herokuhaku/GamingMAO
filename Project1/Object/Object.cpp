@@ -121,7 +121,7 @@ std::array<int, 4> Object::getHitOffset(void)
 
 void Object::setAnm(const std::pair<OBJ_STATE, DIR> state,AnmVec& data)
 {
-	_anmMap.try_emplace(state, std::move(data));
+	_anmMap.try_emplace(state, std::move(data));	// data‚ğ“n‚µ‚½Œãdata‚Íg‚í‚È‚¢‚½‚ßmove‚ÅˆÚs‚·‚é
 }
 
 bool Object::isAnmEnd(void)

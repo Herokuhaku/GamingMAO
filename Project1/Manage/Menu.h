@@ -6,6 +6,8 @@
 
 #define lpMenuMng Menu::GetInstance()
 
+using ItemS = std::shared_ptr<Item>;
+
 enum class MENU_TYPE
 {
 	SELECT,			// 選択画面
@@ -50,6 +52,9 @@ private:
 
 	void SELECT(void);						// メニュー開いた状態
 	void ItemPup(void);						// Itemの合成
+
+	bool Mix(ItemS& item1,ItemS& item2,ItemS& item3);							// 合成処理
+
 	void ItemMup(void);						// Itemの分解
 
 	void Item1(void);
@@ -57,7 +62,6 @@ private:
 	void Item3(void);
 
 	void ItemSelectD(void);					// 決定と戻る。それと風呂敷などのDraw
-
 	//
 	void SelectCount(int& select,int thumb);				// 矢印の操作
 
@@ -73,7 +77,8 @@ private:
 
 	Vector2 _offpush;						// 間隔
 	MENU_TYPE _type;
-	int _select;
+	int _select;							// 何番目か。 いろんなところで使う
+	int _select2;							// 別方向の何番目かが欲しくなった時用
 
 	bool push_select;						// メニュー決定
 	bool _start;							// Updateが呼ばれた時点か1周した後かのふらぐ
@@ -83,9 +88,10 @@ private:
 	SELECT_ITEM _selectNo;
 	
 	static constexpr int _asize = 3;			// arrayの大きさ
-	std::array<std::pair<std::shared_ptr<Item>, int>,_asize> _selectItem;
+	std::array<std::pair<ItemS, int>,_asize> _selectItem;
 
 	Vector2 tmpos;
 	Vector2 tmpcpos;	// centerpos;
+
 };
 

@@ -33,6 +33,8 @@ public:
 	void OLDraw(LAYER lay);		// ˆá‚¤ƒŒƒCƒ„[‚É“ü‚ê‚½‚¢‚Æ‚«—p
 
 	int GetBagNo(void);
+	std::pair<ITEM_TYPE, COLOR_TYPE> getItemType(void);
+	void ChangeType(ITEM_TYPE item, COLOR_TYPE color);
 private:
 	void Init(void);
 	ITEM_TYPE _itemtype;
