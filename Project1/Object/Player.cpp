@@ -44,7 +44,8 @@ void Player::Update(void)
 			(this->*_control)();
 		}
 
-		if ((lpKeyMng.getOldBuf()[KEY_INPUT_LSHIFT] && !lpKeyMng.getBuf()[KEY_INPUT_LSHIFT]))
+		if (((lpKeyMng.getOldBuf()[KEY_INPUT_LSHIFT] && !lpKeyMng.getBuf()[KEY_INPUT_LSHIFT])) || 
+			lpButtonMng.Buttonf(0,XINPUT_BUTTON_LEFT_SHOULDER).first == 0 && lpButtonMng.Buttonf(0,XINPUT_BUTTON_LEFT_SHOULDER).second == 1)
 		{
 			lpTimeMng.ChangeTime();
 		}
@@ -321,7 +322,7 @@ void Player::ControlNormal(void)
 		}
 	}
 
-	if (CheckHitKey(KEY_INPUT_UP) && CheckHitStage()(CHECK_DIR::DOWN, { _pos.x, static_cast<int>(_tmpPos.y) + 1 }, getHitOffset(),_stage) != NOTHIT)
+	if ((CheckHitKey(KEY_INPUT_UP) || lpButtonMng.Buttonf(0, XINPUT_BUTTON_A).first == 1) && CheckHitStage()(CHECK_DIR::DOWN, { _pos.x, static_cast<int>(_tmpPos.y) + 1 }, getHitOffset(),_stage) != NOTHIT)
 	{
 		_vel = INI_VEL_NORMAL;
 		setState({ OBJ_STATE::JUMP, _state_dir.second });
@@ -341,7 +342,7 @@ void Player::ControlNormal(void)
 
 void Player::ControlAttack(void)
 {
-	if (lpKeyMng.getBuf()[KEY_INPUT_LEFT])
+	if (lpKeyMng.getBuf()[KEY_INPUT_LEFT] || lpButtonMng.Thumbf(0, XINPUT_THUMBL_X).first == 2)
 	{
 		if (_state_dir.first == OBJ_STATE::A_JUMP)
 		{
@@ -351,7 +352,7 @@ void Player::ControlAttack(void)
 			}
 			_state_dir.second = DIR::LEFT;
 		}
-		else if (!lpKeyMng.getOldBuf()[KEY_INPUT_LEFT] || _state_dir.first != OBJ_STATE::A_WALK || _state_dir.second != DIR::LEFT)
+		else if (!lpKeyMng.getOldBuf()[KEY_INPUT_LEFT] && lpButtonMng.Thumbf(0, XINPUT_THUMBL_X).second == 0 || _state_dir.first != OBJ_STATE::A_WALK || _state_dir.second != DIR::LEFT)
 		{
 			if (_state_dir.second != DIR::LEFT)
 			{
@@ -374,7 +375,7 @@ void Player::ControlAttack(void)
 			_pos.x = tmpLeft + getHitOffset()[static_cast<int>(CHECK_DIR::LEFT)];
 		}
 	}
-	else if (lpKeyMng.getBuf()[KEY_INPUT_RIGHT])
+	else if (lpKeyMng.getBuf()[KEY_INPUT_RIGHT] || lpButtonMng.Thumbf(0, XINPUT_THUMBL_X).first == 1)
 	{
 		if (_state_dir.first == OBJ_STATE::A_JUMP)
 		{
@@ -384,7 +385,7 @@ void Player::ControlAttack(void)
 			}
 			_state_dir.second = DIR::RIGHT;
 		}
-		else if (!lpKeyMng.getOldBuf()[KEY_INPUT_RIGHT] || _state_dir.first != OBJ_STATE::A_WALK || _state_dir.second != DIR::RIGHT)
+		else if (!lpKeyMng.getOldBuf()[KEY_INPUT_RIGHT] && lpButtonMng.Thumbf(0, XINPUT_THUMBL_X).second == 0 || _state_dir.first != OBJ_STATE::A_WALK || _state_dir.second != DIR::RIGHT)
 		{
 			if (_state_dir.second != DIR::RIGHT)
 			{
@@ -409,13 +410,14 @@ void Player::ControlAttack(void)
 	}
 	else
 	{
-		if ((lpKeyMng.getOldBuf()[KEY_INPUT_LEFT] || lpKeyMng.getOldBuf()[KEY_INPUT_RIGHT]) && _state_dir.first != OBJ_STATE::A_JUMP)
+		if ((lpKeyMng.getOldBuf()[KEY_INPUT_LEFT] || lpKeyMng.getOldBuf()[KEY_INPUT_RIGHT] ||
+			lpButtonMng.Thumbf(0, XINPUT_THUMBL_X).second != 0) && _state_dir.first != OBJ_STATE::JUMP)
 		{
 			setState({ OBJ_STATE::A_NORMAL, _state_dir.second });
 		}
 	}
 
-	if (CheckHitKey(KEY_INPUT_UP) && CheckHitStage()(CHECK_DIR::DOWN, { _pos.x, static_cast<int>(_tmpPos.y) + 1 }, getHitOffset(),_stage) != NOTHIT)
+	if ((CheckHitKey(KEY_INPUT_UP) || lpButtonMng.Buttonf(0,XINPUT_BUTTON_A).first == 1)&& CheckHitStage()(CHECK_DIR::DOWN, { _pos.x, static_cast<int>(_tmpPos.y) + 1 }, getHitOffset(),_stage) != NOTHIT)
 	{
 		_vel = INI_VEL_NORMAL;
 		setState({ OBJ_STATE::A_JUMP, _state_dir.second });

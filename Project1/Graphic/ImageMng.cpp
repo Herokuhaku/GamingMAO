@@ -369,7 +369,6 @@ ImageMng::~ImageMng()
 
 void ImageMng::ImageMngInit(void)
 {
-	getImage("image/effect.png", "gripEffect", 64, 64, 3, 1);
 	_fadeCnt = 255;
 	_fadeSpeed = -2;
 	_Gkind = ScrEff::MAX;
