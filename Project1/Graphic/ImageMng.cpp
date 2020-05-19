@@ -3,6 +3,7 @@
 #include "ImageMng.h"
 #include "../Manage/MapMng.h"
 #include "../Scene/SceneMng.h"
+#include "../Object/Enemy/EnemyMng.h"
 
 #define SCREEN_SIZE_X lpSceneMng.ScreenSize.x
 #define SCREEN_SIZE_Y lpSceneMng.ScreenSize.y
@@ -316,20 +317,27 @@ void ImageMng::FadeOut(void)
 			SetDrawBright(255, 255, 255);
 			switch (_plFBXmoveF)
 			{
+			int nstage;
 			case MAP_DATA::BACK:
-			(*lpSceneMng.GetPlObj(lpTimeMng.getTime()))->setStage(std::get<3>(lpMapMng.GetMapIndex(lpMapMng.GetnowStage())));
-			lpMapMng.StageTrans(std::get<3>(lpMapMng.GetMapIndex(lpMapMng.GetnowStage())));
-			// 3 = MAP_DATA::BACK
+				nstage = std::get<3>(lpMapMng.GetMapIndex(lpMapMng.GetnowStage()));
+				lpEnemyMng.StageTrans(lpMapMng.GetnowStage(), nstage);
+				(*lpSceneMng.GetPlObj(lpTimeMng.getTime()))->setStage(nstage);
+				lpMapMng.StageTrans(std::get<3>(lpMapMng.GetMapIndex(lpMapMng.GetnowStage())));
+				// 3 = MAP_DATA::BACK
 				break;
 			case MAP_DATA::FRONT:
-			(*lpSceneMng.GetPlObj(lpTimeMng.getTime()))->setStage(std::get<4>(lpMapMng.GetMapIndex(lpMapMng.GetnowStage())));
-			lpMapMng.StageTrans(std::get<4>(lpMapMng.GetMapIndex(lpMapMng.GetnowStage())));
-			// 4 = MAP_DATA::FRONT
+				nstage = std::get<4>(lpMapMng.GetMapIndex(lpMapMng.GetnowStage()));
+				lpEnemyMng.StageTrans(lpMapMng.GetnowStage(), nstage);
+				(*lpSceneMng.GetPlObj(lpTimeMng.getTime()))->setStage(nstage);
+				lpMapMng.StageTrans(std::get<4>(lpMapMng.GetMapIndex(lpMapMng.GetnowStage())));
+				// 4 = MAP_DATA::FRONT
 				break;
 			case MAP_DATA::BRANCH:
-			(*lpSceneMng.GetPlObj(lpTimeMng.getTime()))->setStage(std::get<5>(lpMapMng.GetMapIndex(lpMapMng.GetnowStage())));
-			lpMapMng.StageTrans(std::get<5>(lpMapMng.GetMapIndex(lpMapMng.GetnowStage())));
-			// 5 = MAP_DATA::BRANCH
+				nstage = std::get<5>(lpMapMng.GetMapIndex(lpMapMng.GetnowStage()));
+				lpEnemyMng.StageTrans(lpMapMng.GetnowStage(), nstage);
+				(*lpSceneMng.GetPlObj(lpTimeMng.getTime()))->setStage(nstage);
+				lpMapMng.StageTrans(std::get<5>(lpMapMng.GetMapIndex(lpMapMng.GetnowStage())));
+				// 5 = MAP_DATA::BRANCH
 				break;
 			default:
 				exit(1);
