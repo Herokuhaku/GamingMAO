@@ -11,6 +11,12 @@ enum class MOVE_SELECT
 	MAX
 };
 
+enum class ENEMY_TYPE
+{
+	s_dragon,
+	MAX
+};
+
 class Enemy :
 	public Object
 {

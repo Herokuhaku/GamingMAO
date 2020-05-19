@@ -369,7 +369,6 @@ MapMng::MapMng():
 	_mapdata = GetMapIndex(1);
 	MapID = std::get<static_cast<int>(MAP_DATA::MAPLINK)>(_mapdata);
 	MapUpdate();
-	lpEnemyMng.Init();
 
 //	_activeMap[0] = { false,1 };
 

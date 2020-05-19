@@ -38,7 +38,16 @@ void EnemyMng::StageTrans(int nowStage)
 
 void EnemyMng::StageTPop(int nowStage)
 {
-	_enemyList.emplace_back(new s_dragon({ 800,50 },nowStage));
+	if (nowStage > _enemyPlace.size())
+	{
+		// ƒGƒ‰[
+		exit(1);
+	//	return;
+	}
+	for (int i = 0; i < _enemyPlace[nowStage].size(); i++)
+	{
+		_enemyList.emplace_back(new s_dragon(_enemyPlace[nowStage][i].second, nowStage));
+	}
 }
 
 void EnemyMng::StageTDelete(void)
@@ -53,12 +62,26 @@ void EnemyMng::StageTDelete(void)
 
 void EnemyMng::Init(void)
 {
+	if (_epF)
+	{
+		// ‚Æ‚è‚ ‚¦‚¸è‘‚«
+		_enemyPlace[1] = { { ENEMY_TYPE::s_dragon, {  800,   50 } },{ ENEMY_TYPE::s_dragon, { 1200,  200 } } };
+		_enemyPlace[2] = { { ENEMY_TYPE::s_dragon, {  800,   50 } },{ ENEMY_TYPE::s_dragon, { 1200,  200 } } };
+		_enemyPlace[3] = { { ENEMY_TYPE::s_dragon, {  768, 1056 } },{ ENEMY_TYPE::s_dragon, { 1200,  200 } } };
+		_enemyPlace[4] = { { ENEMY_TYPE::s_dragon, {   48, 1040 } },{ ENEMY_TYPE::s_dragon, {  272,  128 } } };
+
+
+
+		_epF = false;
+	}
+
 	_enemyList.clear();
 	_enemyList.emplace_back(new s_dragon({ 800,50 },1, false));
 }
 
 EnemyMng::EnemyMng()
 {
+	_epF = true;
 }
 
 EnemyMng::~EnemyMng()

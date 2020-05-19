@@ -1,5 +1,6 @@
 #pragma once
 #include <memory>
+#include <map>
 #include <vector>
 #include "Enemy.h"
 
@@ -45,6 +46,9 @@ class EnemyMng
 			static EnemyMng *sInstance;
 
 			std::vector<std::shared_ptr<Enemy>> _enemyList;
+
+			std::map<int,std::vector<std::pair<ENEMY_TYPE,Vector2>>> _enemyPlace;
+			bool _epF;							// _enemyPlace ‚ğì‚éƒtƒ‰ƒO
 
 			EnemyMng();
 			~EnemyMng();
