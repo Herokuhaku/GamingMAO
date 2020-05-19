@@ -76,8 +76,8 @@ void EnemyMng::Init(void)
 	if (_epF)
 	{
 		// Ç∆ÇËÇ†Ç¶Ç∏éËèëÇ´
-		_enemyPlace[1] = { { ENEMY_TYPE::s_dragon, {  800,   50 } },{ ENEMY_TYPE::s_dragon, { 1200,  200 } } };
-		_enemyPlace[2] = { { ENEMY_TYPE::s_dragon, {  800,   50 } },{ ENEMY_TYPE::s_dragon, { 1200,  200 } } };
+		_enemyPlace[1] = { { ENEMY_TYPE::s_dragon, {  448,  464 } },{ ENEMY_TYPE::s_dragon, {  896,  624 } } };
+		_enemyPlace[2] = { { ENEMY_TYPE::s_dragon, {  800, 1280 } },{ ENEMY_TYPE::s_dragon, { 1264, 1280 } } };
 		_enemyPlace[3] = { { ENEMY_TYPE::s_dragon, {  768, 1056 } },{ ENEMY_TYPE::s_dragon, { 1200,  200 } } };
 		_enemyPlace[4] = { { ENEMY_TYPE::s_dragon, {   48, 1040 } },{ ENEMY_TYPE::s_dragon, {  272,  128 } } };
 
@@ -87,7 +87,7 @@ void EnemyMng::Init(void)
 	}
 
 	_enemyList.clear();
-	_enemyList.emplace_back(new s_dragon({ 800,50 },1, false));
+	_enemyList.emplace_back(new s_dragon({ 448,446 },1, false));
 }
 
 EnemyMng::EnemyMng()
