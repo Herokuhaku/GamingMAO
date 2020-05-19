@@ -9,9 +9,9 @@
 
 ImageMng* ImageMng::sInstance = nullptr;
 
-void ImageMng::setEffect(EFFECT effect, Vector2Template<int> pos)
+void ImageMng::setEffect(EFFECT effect, Vector2Template<int> pos, double ex_rate, int zOrder, int blend_mode, int blend_prm)
 {
-	//_effectList.emplace_back(std::make_tuple(effect, pos, 0, 0));
+	_effectList.emplace_back(std::make_tuple(effect, pos, ex_rate, zOrder, blend_mode, blend_prm, 0, 0));
 }
 
 std::vector<int> ImageMng::getImage(const std::string& key)
@@ -59,13 +59,19 @@ void ImageMng::Draw(void)
 
 	for (auto data : _drawList[0])
 	{
-		int id, x, y;
-		double rad;
+		int id, x, y, blend, prm;
+		double ex_rate, rad;
 		LAYER layer;
 
-		std::tie(id, x, y, rad, layer, std::ignore) = data;
+		std::tie(id, x, y, ex_rate, rad, layer, std::ignore, blend, prm) = data;
 
-		DrawRotaGraph(x, y, 1.0, rad, id, true);
+		if (blend != _oldBlend.first || prm != _oldBlend.second)
+		{
+			SetDrawBlendMode(blend, prm);
+			_oldBlend = { blend, prm };
+		}
+
+		DrawRotaGraph(x, y, ex_rate, rad, id, true);
 	}
 
 	
@@ -90,13 +96,19 @@ void ImageMng::Draw(void)
 
 	for (auto data : _drawList[1])
 	{
-		int id, x, y;
-		double rad;
+		int id, x, y, blend, prm;
+		double ex_rate, rad;
 		LAYER layer;
 
-		std::tie(id, x, y, rad, layer, std::ignore) = data;
+		std::tie(id, x, y, ex_rate, rad, layer, std::ignore, blend, prm) = data;
 
-		DrawRotaGraph(x, y, 1.0, rad, id, true);
+		if (blend != _oldBlend.first || prm != _oldBlend.second)
+		{
+			SetDrawBlendMode(blend, prm);
+			_oldBlend = { blend, prm };
+		}
+
+		DrawRotaGraph(x, y, ex_rate, rad, id, true);
 	}
 
 	SetDrawScreen(DX_SCREEN_BACK);
@@ -130,13 +142,19 @@ void ImageMng::Draw(int screen, bool deleteFlag)
 
 	for (auto data : _drawList[0])
 	{
-		int id, x, y;
-		double rad;
+		int id, x, y, blend, prm;
+		double ex_rate, rad;
 		LAYER layer;
 
-		std::tie(id, x, y, rad, layer, std::ignore) = data;
+		std::tie(id, x, y, ex_rate, rad, layer, std::ignore, blend, prm) = data;
 
-		DrawRotaGraph(x, y, 1.0, rad, id, true);
+		if (blend != _oldBlend.first || prm != _oldBlend.second)
+		{
+			SetDrawBlendMode(blend, prm);
+			_oldBlend = { blend, prm };
+		}
+
+		DrawRotaGraph(x, y, ex_rate, rad, id, true);
 	}
 
 
@@ -161,13 +179,19 @@ void ImageMng::Draw(int screen, bool deleteFlag)
 
 	for (auto data : _drawList[1])
 	{
-		int id, x, y;
-		double rad;
+		int id, x, y, blend, prm;
+		double ex_rate, rad;
 		LAYER layer;
 
-		std::tie(id, x, y, rad, layer, std::ignore) = data;
+		std::tie(id, x, y, ex_rate, rad, layer, std::ignore, blend, prm) = data;
 
-		DrawRotaGraph(x, y, 1.0, rad, id, true);
+		if (blend != _oldBlend.first || prm != _oldBlend.second)
+		{
+			SetDrawBlendMode(blend, prm);
+			_oldBlend = { blend, prm };
+		}
+
+		DrawRotaGraph(x, y, ex_rate, rad, id, true);
 	}
 
 	SetDrawScreen(screen);
@@ -189,17 +213,18 @@ void ImageMng::UpdateEffect(void)
 	{
 		EFFECT effect;
 		Vector2Template<int> pos;
-		int count, flame;
+		int count, flame, blend, zOrder, prm;
+		double ex_rate;
 
-		std::tie(effect, pos, count, flame) = (*data);
+		std::tie(effect, pos, ex_rate, zOrder, blend, prm, count, flame) = (*data);
 
-   		AddDraw({ _effectMap[effect][count].first , pos.x, pos.y, 0.0, LAYER::UI, 1000 });
+		AddDraw({ _effectMap[effect][count].first , pos.x, pos.y, ex_rate, 0.0, LAYER::UI, 1000, blend, prm });
 
-		std::get<3>(*data)++;
+		flame++;
 
 		if (flame >= _effectMap[effect][count].second)
 		{
-			std::get<2>(*data)++;
+			count++;
 			if (_effectMap[effect][count].second == -1)
 			{
 				data = _effectList.erase(data);
@@ -381,5 +406,6 @@ void ImageMng::ImageMngInit(void)
 	_plSmoveF = false;
 	_plFBXmoveF = MAP_DATA::BACK;
 	_screenCapF = true;
+	_oldBlend = { DX_BLENDMODE_NOBLEND,0 };
 }
 

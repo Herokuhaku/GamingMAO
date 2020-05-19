@@ -16,9 +16,11 @@ enum class DrawElm
 	ID,
 	X,
 	Y,
+	EX_RATE,
 	RAD,
 	LAYER,
-	ZORDER
+	ZORDER,
+	BLEND
 };
 
 // エフェクトの種類
@@ -40,7 +42,7 @@ enum class ScrEff
 
 #define lpImageMng ImageMng::getInstance()
 
-using DrawData = std::tuple<int, int, int, double, LAYER, int>;	// 描画用データ　画像ID, 座標x, y, 角度, レイヤー, zオーダー
+using DrawData = std::tuple<int, int, int, double, double,  LAYER, int, int, int>;	// 描画用データ　画像ID, 座標x, y, 拡大率、角度, レイヤー, zオーダー、ブレンド、パラメータ
 
 class ImageMng
 {
@@ -65,7 +67,7 @@ public:
 		sInstance = nullptr;
 	}
 
-	void setEffect(EFFECT effect, Vector2Template<int> pos);
+	void setEffect(EFFECT effect, Vector2Template<int> pos, double ex_rate, int zOrder, int blend_mode, int blend_prm);
 
 	std::vector<int> getImage(const std::string& key);
 	std::vector<int> getImage(const std::string& filename, const std::string& key);
@@ -87,7 +89,7 @@ private:
 	std::map<EFFECT, std::vector<std::pair<int, int>>>	_effectMap;		// エフェクト保存用
 
 	std::vector<DrawData> _drawList[2];							// 描画情報保存用
-	std::vector<std::tuple<EFFECT, Vector2Template<int>, int, int>> _effectList;		// 進行中のエフェクト
+	std::vector<std::tuple<EFFECT, Vector2Template<int>, double, int, int, int, int, int>> _effectList;		// 進行中のエフェクト
 
 	//---------------------------------------------------------
 	void ScreenEffect(void);		// 画面エフェクトの分岐
@@ -110,6 +112,7 @@ private:
 	bool _screenCapF;				// スクリーンキャプチャフラグ
 
 
+	std::pair<int, int> _oldBlend;
 
 	//---------------------------------------------------------
 

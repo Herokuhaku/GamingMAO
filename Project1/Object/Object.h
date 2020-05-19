@@ -109,6 +109,7 @@ protected:
 	bool _alive;					// 生きてるか
 
 	int _zOrder;							// Zオーダー
+	int _exRate;							// 拡大率
 	OBJ_TYPE _type;							// オブジェクトの種類
 	std::pair<OBJ_STATE, DIR> _state_dir;	// オブジェクトの状態
 

@@ -76,7 +76,7 @@ std::unique_ptr<BaceScene> GameScene::Update(std::unique_ptr<BaceScene> own)
 	lpMapMng.MapDraw();
 
 	// €‚ñ‚Å‚¢‚éƒvƒŒƒCƒ„[‚ğ’T‚·
-	auto plDead = std::find_if(_objList.begin(), _objList.end(), [](std::shared_ptr<Object> obj) { return (obj->getType() == OBJ_TYPE::PLAYER && obj->getState().first == OBJ_STATE::DEAD); });
+	auto plDead = std::find_if(_objList.begin(), _objList.end(), [](std::shared_ptr<Object> obj) { return (obj->getObjType() == OBJ_TYPE::PLAYER && obj->getState().first == OBJ_STATE::DEAD); });
 
 	// €‚ñ‚¾‚Æ‚«‚Ìˆ—
 	if (plDead != _objList.end())

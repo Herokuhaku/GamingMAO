@@ -231,20 +231,20 @@ void MapMng::MapDraw(void)
 
 void MapMng::BlockDraw()
 {
-	lpImageMng.AddDraw({ _layer[nowStage.second],GameMapSize.x/2,GameMapSize.y/2,0.0,LAYER::BLOCK,0 });
+	lpImageMng.AddDraw({ _layer[nowStage.second], GameMapSize.x / 2, GameMapSize.y / 2, 1.0, 0.0, LAYER::BLOCK, 0, DX_BLENDMODE_NOBLEND, 0 });
 }
 
 void MapMng::BackGround(void)
 {
 	// 描画用データ　画像ID, 座標x, y, 角度, レイヤー, zオーダー
-	lpImageMng.AddDraw({ lpImageMng.getImage("メイン背景")[0],GameMapSize.x / 2,GameMapSize.y / 2,0.0,LAYER::BG,0 });
+	lpImageMng.AddDraw({ lpImageMng.getImage("メイン背景")[0], GameMapSize.x / 2, GameMapSize.y / 2, 1.0, 0.0, LAYER::BG, 0, DX_BLENDMODE_NOBLEND, 0 });
 
 	layerPosX = lpSceneMng.GetcPos().x + (500 - lpSceneMng.GetcPos().x) / 2;
 //	int layerPosY = GameMapSize.y / 2 + (lpSceneMng.GetcPos().y - 1111);
 	int layerPosY = GameMapSize.y / 2;
-	lpImageMng.AddDraw({ _layer0,GameMapSize.x / 2,GameMapSize.y / 2 ,0.0,LAYER::BG,3 });
-	lpImageMng.AddDraw({ _layer1,GameMapSize.x / 2,GameMapSize.y / 2 ,0.0,LAYER::BG,2 });
-	lpImageMng.AddDraw({ _layer2,layerPosX		  ,layerPosY		 ,0.0,LAYER::BG,1 });
+	lpImageMng.AddDraw({ _layer0, GameMapSize.x / 2, GameMapSize.y / 2, 1.0, 0.0, LAYER::BG, 3, DX_BLENDMODE_NOBLEND, 0 });
+	lpImageMng.AddDraw({ _layer1, GameMapSize.x / 2, GameMapSize.y / 2, 1.0, 0.0, LAYER::BG, 2, DX_BLENDMODE_NOBLEND, 0 });
+	lpImageMng.AddDraw({ _layer2, layerPosX		   , layerPosY		  , 1.0, 0.0, LAYER::BG, 1, DX_BLENDMODE_NOBLEND, 0 });
 }
 
 void MapMng::BlockLayer(void)

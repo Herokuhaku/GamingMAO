@@ -73,7 +73,7 @@ std::unique_ptr<BaceScene> SeleScene::Update(std::unique_ptr<BaceScene> own)
 	}
 
 
-	lpImageMng.AddBackDraw({ lpImageMng.getImage("Select")[0],300,250,0.0,LAYER::BG,0 });
-	lpImageMng.AddBackDraw({ lpImageMng.getImage("Arrow")[0],arrow.x,arrow.y,0.0,LAYER::UI,0 });
+	lpImageMng.AddBackDraw({ lpImageMng.getImage("Select")[0], 300, 250, 1.0, 0.0, LAYER::BG, 0, DX_BLENDMODE_NOBLEND, 0 });
+	lpImageMng.AddBackDraw({ lpImageMng.getImage("Arrow")[0], arrow.x, arrow.y, 1.0, 0.0, LAYER::UI, 0, DX_BLENDMODE_NOBLEND, 0 });
 	return own;
 }

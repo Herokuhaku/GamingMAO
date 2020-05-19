@@ -8,13 +8,17 @@ Object::Object()
 	_rad = 0.0;
 	_time = TIME::NOW;
 	_zOrder = 0;
+	_exRate = 1.0;
 	_state_dir = { OBJ_STATE::NORMAL, DIR::RIGHT };
 	_alive = true;
+
 	_anmFlame = 0;
 	_anmTime = 0;
+
 	_hp = -1;
 	_inv = 0;
 	_hitOffset = {};
+
 	_drawOffset_y = 0;
 	_type = OBJ_TYPE::PLAYER;
 	_nextPos = { 0,0 };
@@ -149,7 +153,7 @@ void Object::Draw(void)
 		return;
 	}
 
-	lpImageMng.AddDraw({ _anmMap[_state_dir][_anmFlame].first, _pos.x, _pos.y - _drawOffset_y, _rad, LAYER::CHAR, _zOrder });
+	lpImageMng.AddDraw({ _anmMap[_state_dir][_anmFlame].first, _pos.x, _pos.y - _drawOffset_y, _exRate, _rad, LAYER::CHAR, _zOrder, DX_BLENDMODE_NOBLEND, 0 });
 }
 
 bool Object::anmUpdate(void)

@@ -43,7 +43,7 @@ int StringAddDraw::AddDraw(const TCHAR * string, int pos_x, int pos_y, int color
 
 void StringAddDraw::Draw()
 {
-	lpImageMng.AddBackDraw({ _strScreen, lpSceneMng.ScreenSize.x / 2, lpSceneMng.ScreenSize.y / 2, 0.0, LAYER::EX, 100000 });
+	lpImageMng.AddBackDraw({ _strScreen, lpSceneMng.ScreenSize.x / 2, lpSceneMng.ScreenSize.y / 2, 1.0, 0.0, LAYER::EX, 100000, DX_BLENDMODE_NOBLEND, 0 });
 }
 
 void StringAddDraw::ClearScreen(void)
