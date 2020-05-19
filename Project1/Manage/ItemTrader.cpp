@@ -91,6 +91,7 @@ void ItemTrader::DeleteItem(std::shared_ptr<Item> &item)
 			bag++;
 		}
 	}
+	BagTypeSort();
 }
 
 void ItemTrader::AddBag(void)
@@ -108,12 +109,51 @@ void ItemTrader::AddBag(void)
 			data++;								// ‘‚â‚³‚È‚¢‚Æ‰ñ‚ç‚È‚¢ else‚¶‚á‚È‚­‚Ä‚àŸ‚ğ•Ï‚¦‚·‚©‚ç++‚Æ“¯‚¶’l
 		}
 	}
+	BagTypeSort();
 }
 
 
 void ItemTrader::NoReturn(void)
 {
 	
+}
+
+void ItemTrader::BagNoSort(void)
+{
+	int count = 0;
+	for (int i = 0;i < _ItemBag.size();i++)
+	{
+		if (_ItemBag.at(i).second != count)
+		{
+			_ItemBag.at(i).second = count;
+			_ItemBag.at(i).first->SetBagNo(count);
+		}
+		count++;
+	}
+}
+
+int ItemTrader::BagTypeSort(void)
+{
+	int _stone = 0;
+	int _book  = 0;
+
+	for (auto data : _ItemBag)
+	{
+		switch(data.first->getItemType().first)
+		{
+		case ITEM_TYPE::BOOK:
+			data.first->setItemTypeNo(_book,-1);
+			_book++;
+			break;
+		case ITEM_TYPE::STONE:
+			data.first->setItemTypeNo(-1, _stone);
+			_stone++;
+			break;
+		default:
+			break;
+		};
+	}
+	return 0;
 }
 
 ItemTrader::ItemTrader()

@@ -42,15 +42,16 @@ class MapMng
 public:
 	static MapMng& GetInstans()
 	{
-		if (sInstance == nullptr)
-		{
-			Create();
-		}
+		Create();
+		
 		return *sInstance;
 	}
 	static void Create(void)
 	{
-		sInstance = new MapMng();
+		if (sInstance == nullptr)
+		{
+			sInstance = new MapMng();
+		}
 	}
 
 	static void Destroy(void)
