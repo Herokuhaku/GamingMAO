@@ -8,12 +8,15 @@ Item::Item()
 
 Item::Item(Vector2 pos, ITEM_TYPE itemtype,COLOR_TYPE colortype,int no)
 {
+	_book = 0;
+	_stone = 0;
 	_type = OBJ_TYPE::ITEM;
 	_pos = pos;
 	_itemtype = itemtype;
 	_colortype = colortype;
 	_zOrder = 201;
 	_bagNo = no;
+
 	Init();
 }
 
@@ -24,12 +27,11 @@ Item::~Item()
 
 void Item::Update(void)
 {
-	Draw();
+	// 効果のあるアイテムを動かす用
 }
 
 void Item::Draw(void)
 {
-//	lpImageMng.AddDraw({ lpImageMng.getImage("BlueBook")[0],_pos.x,lpSceneMng.GetcPos().y+100,0.0,LAYER::CHAR,100 });
 	Object::Draw();
 }
 
@@ -43,9 +45,23 @@ void Item::OLDraw(LAYER lay)
 	lpImageMng.AddBackDraw({ _anmMap[_state_dir][_anmFlame].first, _pos.x, _pos.y - _drawOffset_y, 1.0, _rad, lay, _zOrder, DX_BLENDMODE_NOBLEND, 0 });
 }
 
+void Item::SetBagNo(int no)
+{
+	_bagNo = no;
+	return;
+}
+
 int Item::GetBagNo(void)
 {
 	return _bagNo;
+}
+
+const void Item::setItemTypeNo(int book,int stone)
+{
+	_stone = stone;
+	_book = book;
+
+	return ;
 }
 
 std::pair<ITEM_TYPE, COLOR_TYPE> Item::getItemType(void)
@@ -66,10 +82,16 @@ void Item::ChangeType(ITEM_TYPE item,COLOR_TYPE color)
 	switch (_colortype)
 	{
 	case COLOR_TYPE::CYAN:
+		lpImageMng.getImage("image/item/Cyan_Stone.png", "CyanStone");
+		data.emplace_back(lpImageMng.getImage("CyanStone")[0], 0);
 		break;
 	case COLOR_TYPE::MAGENTA:
+		lpImageMng.getImage("image/item/Magenta_Stone.png", "MagentaStone");
+		data.emplace_back(lpImageMng.getImage("MagentaStone")[0], 0);
 		break;
 	case COLOR_TYPE::YELLOW:
+		lpImageMng.getImage("image/item/Yellow_Stone.png", "YellowStone");
+		data.emplace_back(lpImageMng.getImage("YellowStone")[0], 0);
 		break;
 	default:
 		break;
@@ -92,22 +114,15 @@ void Item::Init(void)
 
 		switch (_colortype)
 		{
-		case COLOR_TYPE::BLACK:
-			break;
 		case COLOR_TYPE::BLUE:
+			lpImageMng.getImage("image/item/Blue_Book.png", "BlueBook");
 			data.emplace_back(lpImageMng.getImage("BlueBook")[0],0);
-			break;
-		case COLOR_TYPE::CYAN:
 			break;
 		case COLOR_TYPE::GREEN:
 			break;
-		case COLOR_TYPE::MAGENTA:
-			break;
 		case COLOR_TYPE::RED:
 			break;
-		case COLOR_TYPE::YELLOW:
-			break;
-		case COLOR_TYPE::WHITE:
+		default:
 			break;
 		}
 		break;
@@ -118,16 +133,28 @@ void Item::Init(void)
 		case COLOR_TYPE::BLACK:
 			break;
 		case COLOR_TYPE::BLUE:
+			lpImageMng.getImage("image/item/Blue_Stone.png", "BlueStone");
+			data.emplace_back(lpImageMng.getImage("BlueStone")[0], 0);
 			break;
 		case COLOR_TYPE::CYAN:
+			lpImageMng.getImage("image/item/CYAN_Stone.png", "CyanStone");
+			data.emplace_back(lpImageMng.getImage("CyanStone")[0], 0);
 			break;
 		case COLOR_TYPE::GREEN:
+			lpImageMng.getImage("image/item/Green_Stone.png", "GreenStone");
+			data.emplace_back(lpImageMng.getImage("GreenStone")[0], 0);
 			break;
 		case COLOR_TYPE::MAGENTA:
+			lpImageMng.getImage("image/item/Magenta_Stone.png", "MagentaStone");
+			data.emplace_back(lpImageMng.getImage("MagentaStone")[0], 0);
 			break;
 		case COLOR_TYPE::RED:
+			lpImageMng.getImage("image/item/Red_Stone.png", "RedStone");
+			data.emplace_back(lpImageMng.getImage("RedStone")[0], 0);
 			break;
 		case COLOR_TYPE::YELLOW:
+			lpImageMng.getImage("image/item/Yellow_Stone.png", "YellowStone");
+			data.emplace_back(lpImageMng.getImage("YellowStone")[0], 0);
 			break;
 		case COLOR_TYPE::WHITE:
 			break;

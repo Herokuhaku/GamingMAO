@@ -32,10 +32,6 @@ GameScene::GameScene()
 	lpImageMng.getImage("image/HPbar.png", "hp_bar", 6, 12, 3, 1);
 
 
-	// アイテム
-
-	lpImageMng.getImage("image/BlueBook.png", "BlueBook");
-
 	// エフェクト
 	lpEffectMng.getEffect("effect/player_attack_fire.efk", "magic_fire", 1.0);
 
@@ -107,7 +103,9 @@ bool GameScene::Init(void)
 
 	lpEnemyMng.Init();
 
-	lpTradeMng.SetItemList({ 400,1300 }, ITEM_TYPE::BOOK, COLOR_TYPE::BLUE);
+	lpTradeMng.SetItemList({ 400,1300 }, ITEM_TYPE::STONE, COLOR_TYPE::BLUE);
+	lpTradeMng.SetItemList({ 400,1500 }, ITEM_TYPE::STONE, COLOR_TYPE::RED);
+	lpTradeMng.SetItemList({ 400,1700 }, ITEM_TYPE::STONE, COLOR_TYPE::GREEN);
 	
 	lpTimeMng.TimeInit();
 

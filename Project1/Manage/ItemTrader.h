@@ -38,15 +38,15 @@ public:
 	void AddBag(void);
 	void NoReturn(void);
 
+	void BagNoSort(void);
 
+	int BagTypeSort(void);
 
 private:
 	ItemTrader();
 	~ItemTrader();
 	static ItemTrader* sInstance;
 	std::vector<std::shared_ptr<Item>>_ItemList;
-	// std::map<std::pair<ITEM_TYPE, COLOR_TYPE>, int> _Itembag;
-	//std::vector<std::shared_ptr<Object>> _ItemBag;
 	std::vector<std::pair<std::shared_ptr<Item>,int>> _ItemBag;
 
 	

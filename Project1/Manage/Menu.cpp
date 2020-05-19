@@ -167,13 +167,24 @@ void Menu::ItemPup(void)
 		MixDraw();
 
 		// アイテムを選択
-		if (lpButtonMng.Buttonf(0, XINPUT_BUTTON_B).first == 1 &&
-			lpButtonMng.Buttonf(0, XINPUT_BUTTON_B).second == 0)
+		if ((lpButtonMng.Buttonf(0, XINPUT_BUTTON_B).first == 1 &&
+			lpButtonMng.Buttonf(0, XINPUT_BUTTON_B).second == 0))
 		{
-			lpButtonMng.Buttonf(0, XINPUT_BUTTON_B, 1, 1);
-			_selectNo = static_cast<SELECT_ITEM>(_select);
-			_select = 0;
-			MixFlag = true;
+			if (_select2 == 0)
+			{
+				lpButtonMng.Buttonf(0, XINPUT_BUTTON_B, 1, 1);
+				_selectNo = static_cast<SELECT_ITEM>(_select);
+				_select = 0;
+				MixFlag = true;
+			}
+			else if (_select2 == 1)
+			{
+				lpButtonMng.Buttonf(0, XINPUT_BUTTON_B, 1, 1);
+				if (_selectItem.at(0).first != nullptr && _selectItem.at(1).first != nullptr && _selectItem.at(2).first != nullptr)
+				{
+					Mix(_selectItem.at(0).first, _selectItem.at(1).first, _selectItem.at(2).first);
+				}
+			}
 		}
 		// Select に戻る
 		if (lpButtonMng.Buttonf(0, XINPUT_BUTTON_A).first == 1 &&
@@ -215,7 +226,12 @@ bool Menu::Mix(ItemS& item1, ItemS& item2, ItemS& item3)
 
 	item1->ChangeType(ITEM_TYPE::STONE, lpTradeMng.Trade(item1->getItemType().second, item2->getItemType().second));
 	lpTradeMng.DeleteItem(item2);
-	
+	lpTradeMng.BagNoSort();
+	// アイテムの二つ目を消すため合成リストからも消す
+	for (int i = 0;i < 3;i++)
+	{
+		_selectItem.at(i) = { nullptr,i};
+	}
 	return true;
 }
 

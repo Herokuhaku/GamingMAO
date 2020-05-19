@@ -32,13 +32,19 @@ public:
 	void Draw(void);
 	void OLDraw(LAYER lay);		// à·Ç§ÉåÉCÉÑÅ[Ç…ì¸ÇÍÇΩÇ¢Ç∆Ç´óp
 
+	void SetBagNo(int no);
 	int GetBagNo(void);
+	const void setItemTypeNo(int book,int stone);
 	std::pair<ITEM_TYPE, COLOR_TYPE> getItemType(void);
 	void ChangeType(ITEM_TYPE item, COLOR_TYPE color);
+
 private:
 	void Init(void);
 	ITEM_TYPE _itemtype;
 	COLOR_TYPE _colortype;
 	int _bagNo;
+
+	int _book;
+	int _stone;
 };
 
