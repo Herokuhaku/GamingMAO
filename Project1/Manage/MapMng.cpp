@@ -128,7 +128,7 @@ void MapMng::StageTrans(int no)
 	_mapdata = GetMapIndex(no);
 	MapID = std::get<static_cast<int>(MAP_DATA::MAPLINK)>(_mapdata);
 	MapUpdate();
-	lpEnemyMng.StageTDelete();
+	lpEnemyMng.StageTrans(no);
 }
 
 bool MapMng::MapUpdate(void)
@@ -366,8 +366,10 @@ MapMng::MapMng():
 		return;
 	}
 
-
-	StageTrans(1);
+	_mapdata = GetMapIndex(1);
+	MapID = std::get<static_cast<int>(MAP_DATA::MAPLINK)>(_mapdata);
+	MapUpdate();
+	lpEnemyMng.Init();
 
 //	_activeMap[0] = { false,1 };
 

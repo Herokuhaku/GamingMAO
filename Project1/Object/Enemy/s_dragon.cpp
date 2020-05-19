@@ -22,6 +22,23 @@ s_dragon::s_dragon(Vector2 pos, int stage)
 	Init();
 }
 
+s_dragon::s_dragon(Vector2 pos, int stage, bool flag)
+{
+	_pos = pos;
+	_stage = stage;
+	_state_dir = { OBJ_STATE::NORMAL,DIR::RIGHT };
+	setHP(100);
+	setHitOffset({ 55, 55, 100, 0 });
+	if (flag)
+	{
+		while (!lpMapMng.getHitMap(_pos, _stage))
+		{
+			_pos.y += 1;
+		}
+	}
+	Init();
+}
+
 s_dragon::~s_dragon()
 {
 }
