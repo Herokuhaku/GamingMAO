@@ -37,8 +37,8 @@ class EnemyMng
 			void Draw(void);
 			std::vector<std::shared_ptr<Enemy>> &GetenemyList(void);
 
-			void StageTrans(int nowStage);
-			void StageTPop(int nowStage);			// ステージが変わった際のEnemyの湧き
+			void StageTrans(int nowStage, int nextStage);
+			void StageTPop(int nowStage, int nextStage);			// ステージが変わった際のEnemyの湧き
 			void StageTDelete(void);		// トランス ステージが変わった際のEnemyの削除
 			
 			void Init(void);

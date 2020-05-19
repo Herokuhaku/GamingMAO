@@ -30,23 +30,34 @@ std::vector<std::shared_ptr<Enemy>> &EnemyMng::GetenemyList(void)
 	return _enemyList;
 }
 
-void EnemyMng::StageTrans(int nowStage)
+void EnemyMng::StageTrans(int nowStage, int nextStage)
 {
 	StageTDelete();
-	StageTPop(nowStage);
+	StageTPop(nowStage,nextStage);
 }
 
-void EnemyMng::StageTPop(int nowStage)
+void EnemyMng::StageTPop(int nowStage, int nextStage)
 {
-	if (nowStage > _enemyPlace.size())
+	if (nextStage > _enemyPlace.size())
 	{
 		// エラー
 		exit(1);
 	//	return;
 	}
-	for (int i = 0; i < _enemyPlace[nowStage].size(); i++)
+
+	for (int i = 0; i < ACTIVEMAP; i++)
 	{
-		_enemyList.emplace_back(new s_dragon(_enemyPlace[nowStage][i].second, nowStage));
+		if ((*lpSceneMng.GetPlObj(lpTimeMng.getTime()))->getStage() == nextStage)
+		{
+			// プレイヤーがいるMAPだから新しく敵を配置する必要がない	 
+			return;
+		}
+	}
+
+	for (int i = 0; i < _enemyPlace[nextStage].size(); i++)
+	{
+		
+		_enemyList.emplace_back(new s_dragon(_enemyPlace[nextStage][i].second, nextStage, false));
 	}
 }
 

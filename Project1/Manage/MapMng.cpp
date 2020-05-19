@@ -118,6 +118,11 @@ int MapMng::GetBrancPosY(int no)
 	return std::get<static_cast<int>(MAP_DATA::bPOSY)>(GetMapIndex(no));
 }
 
+const std::pair<bool, int>* MapMng::GetactiveMap(void) const
+{
+	return _activeMap;
+}
+
 void MapMng::StageTrans(int no)
 {
 	if (no < 1 || no > 4)
@@ -128,7 +133,6 @@ void MapMng::StageTrans(int no)
 	_mapdata = GetMapIndex(no);
 	MapID = std::get<static_cast<int>(MAP_DATA::MAPLINK)>(_mapdata);
 	MapUpdate();
-	lpEnemyMng.StageTrans(no);
 }
 
 bool MapMng::MapUpdate(void)

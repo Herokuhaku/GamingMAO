@@ -86,6 +86,7 @@ public:
 	int GetBrancPosX(int no);
 	int GetBrancPosY(int no);
 
+	const std::pair<bool, int> *GetactiveMap(void) const;
 
 #define ACTIVEMAP 4
 private:
