@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include <memory>
+#include <map>
 #include "../Object/Object.h"
 #include "../Object/Item.h"
 
@@ -38,20 +39,28 @@ public:
 	void AddBag(void);
 	void NoReturn(void);
 
-	void BagNoSort(void);
+	void BagNoSort(void);			// バッグの中のものを順番に番号を付ける
+	int BagTypeSort(void);			// バッグの中の石と本の数を数える
+	void BagTypeCount(void);		// 何色の石が何個あるか数える
 
-	int BagTypeSort(void);
+	void ChangeDir(DIR dir);		// Itemのdirを変える
+	
+	std::pair<int, int> getcount(void);	// 本,石の数を返す
+	
+	std::array<int, 6> getrock(void);	// 何色の石が何個あるかを返す //順番は 赤,緑,青,黄,マゼンタ,シアン
 
 private:
 	ItemTrader();
 	~ItemTrader();
 	static ItemTrader* sInstance;
-	std::vector<std::shared_ptr<Item>>_ItemList;
-	std::vector<std::pair<std::shared_ptr<Item>,int>> _ItemBag;
+	std::vector<std::shared_ptr<Item>>_ItemList;				// 落ちているアイテム
+	std::vector<std::pair<std::shared_ptr<Item>,int>> _ItemBag;	// 持っているアイテム
 
-	
+	std::array<int,6> rock;										// 石の種類とその数 //順番は 赤,緑,青,黄,マゼンタ,シアン
 
 	int color;
 	Vector2 _pos;
+	int _stone;
+	int _book;
 };
 
