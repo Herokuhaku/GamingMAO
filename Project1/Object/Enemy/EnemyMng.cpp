@@ -56,7 +56,6 @@ void EnemyMng::StageTPop(int nowStage, int nextStage)
 
 	for (int i = 0; i < _enemyPlace[nextStage].size(); i++)
 	{
-		
 		_enemyList.emplace_back(new s_dragon(_enemyPlace[nextStage][i].second, nextStage, false));
 	}
 }
