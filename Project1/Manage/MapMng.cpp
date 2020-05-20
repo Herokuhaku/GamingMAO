@@ -243,7 +243,7 @@ void MapMng::BackGround(void)
 	// 描画用データ　画像ID, 座標x, y, 角度, レイヤー, zオーダー
 	lpImageMng.AddDraw({ lpImageMng.getImage("メイン背景")[0], GameMapSize.x / 2, GameMapSize.y / 2, 1.0, 0.0, LAYER::BG, 0, DX_BLENDMODE_NOBLEND, 0 });
 
-	layerPosX = lpSceneMng.GetcPos().x + ((500 - lpSceneMng.GetcPos().x) / 2);
+	int layerPosX = lpSceneMng.GetcPos().x + ((500 - lpSceneMng.GetcPos().x) / 2);
 	int layerPosY = GameMapSize.y / 2 - ((1171 - lpSceneMng.GetcPos().y) / 7);
 
 	int layerPosX2 = lpSceneMng.GetcPos().x + ((500 - lpSceneMng.GetcPos().x) / 4);
@@ -366,7 +366,6 @@ MapMng::MapMng():
 	_layer1 = MakeScreen(GameMapSize.x, GameMapSize.y, true);
 	_layer2 = MakeScreen(GameMapSize.x, GameMapSize.y, true);
 
-	layerPosX = 0;
 	_oldLayerNo = 0;
 
 	fopen_s(&indexFp,"mapdata/index.txt","r");

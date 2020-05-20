@@ -101,7 +101,6 @@ private:
 	int _layer0;
 	int _layer1;
 	int _layer2;
-	int layerPosX;
 	int _oldLayerNo;
 	
 	// Map‚ÌˆÚ“®
