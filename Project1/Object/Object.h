@@ -91,7 +91,6 @@ public:
 
 	void nextPos(void) { _pos = _nextPos; _tmpPos = { static_cast<double>(_nextPos.x),static_cast<double>(_nextPos.y) }; };
 private:
-	int _hp;						// 体力
 	int _inv;						// 無敵時間　0なら無敵ではない
 	std::array<int, 4> _hitOffset;	// 座標からの当たり判定の範囲 0:左 1:右 2:上 3:下
 
@@ -99,6 +98,7 @@ private:
 	std::vector<std::pair<std::string, unsigned int>> _attackData;	// 攻撃中の攻撃
 
 protected:
+	int _hp;						// 体力
 	Vector2 _pos;					// 座標(x:中心　y:下辺)
 	double _rad;					// 角度
 	int _drawOffset_y;				// 描画時のオフセット(画像の中央座標 - 下辺座標)

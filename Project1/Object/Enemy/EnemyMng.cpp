@@ -11,7 +11,14 @@ void EnemyMng::Update(void)
 	//	_enemyList.erase(data);				// 範囲for文でのイテレータの取り方がわからない
 		(*data).Update();
 	}
-	_enemyList.erase(std::remove_if(_enemyList.begin(), _enemyList.end(), [](std::shared_ptr<Enemy>& data) {return !(*data).isAlive(); }),_enemyList.end());
+	_enemyList.erase(std::remove_if(_enemyList.begin(), _enemyList.end(), 
+		[&](std::shared_ptr<Enemy>& data)
+	       	{
+			return !(*data).isAlive(); 
+		}
+		),_enemyList.end());
+
+	enemyPop();
 }
 
 void EnemyMng::Draw(void)
@@ -45,18 +52,15 @@ void EnemyMng::StageTPop(int nowStage, int nextStage)
 	//	return;
 	}
 
-	for (int i = 0; i < ACTIVEMAP; i++)
+	if ((*lpSceneMng.GetPlObj(lpTimeMng.getTime()))->getStage() == nextStage)
 	{
-		if ((*lpSceneMng.GetPlObj(lpTimeMng.getTime()))->getStage() == nextStage)
-		{
 			// プレイヤーがいるMAPだから新しく敵を配置する必要がない	 
 			return;
-		}
 	}
 
 	for (int i = 0; i < _enemyPlace[nextStage].size(); i++)
 	{
-		_enemyList.emplace_back(new s_dragon(_enemyPlace[nextStage][i].second, nextStage, false));
+		_enemyList.emplace_back(new s_dragon(_enemyPlace[nextStage][i].second, nextStage,i, false));
 	}
 }
 
@@ -86,7 +90,30 @@ void EnemyMng::Init(void)
 	}
 
 	_enemyList.clear();
-	_enemyList.emplace_back(new s_dragon({ 448,446 },1, false));
+	_enemyList.emplace_back(new s_dragon({ 848,646 },1,0, false));
+}
+
+void EnemyMng::addDeadCnt(ENEMY_TYPE type, int stage, int pPos)
+{
+		_deadCnt.emplace_back(std::move(std::make_pair(type,std::make_pair(stage,pPos))));
+}
+
+void EnemyMng::enemyPop(void)
+{
+	for (auto data : _deadCnt)
+	{
+		_enemyList.emplace_back(new s_dragon(_enemyPlace[data.second.first][data.second.second].second,data.second.first, data.second.second, false));
+	}
+	_deadCnt.clear();
+	//auto iterator = _deadCnt.begin();
+	//auto iteEnd = _deadCnt.end()
+	//while(iterator != iteEnd)
+	//{
+	//	 _enemyList.emplace_back(new s_dragon(_enemyPlace[iterator->second][0].second,iterator->second , false));
+	//	 _deadCnt.erase(iterator);
+	//	 iterator = _deadCnt.begin();
+	//	 iteEnd = _deadCnt.end();
+	//}
 }
 
 EnemyMng::EnemyMng()

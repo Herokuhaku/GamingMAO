@@ -1,4 +1,5 @@
 #include "Enemy.h"
+#include "EnemyMng.h"
 #include "../../Scene/SceneMng.h"
 #include "../../Manage/MapMng.h"
 
@@ -153,7 +154,9 @@ void Enemy::Init(void)
 	_plDir = DIR::RIGHT;
 	_speed = 1;
 	_type = OBJ_TYPE::ENEMY;
+	_etype = ENEMY_TYPE::MAX;
 	_stage = 1;
+	_pPos = 1;
 }
 
 void Enemy::Draw(void)
@@ -202,5 +205,9 @@ void Enemy::aState(int work)
 
 Enemy::~Enemy()
 {
+	if (_hp <= 0)
+	{
+		lpEnemyMng.addDeadCnt(_etype, _stage, _pPos);
+	}
 }
 

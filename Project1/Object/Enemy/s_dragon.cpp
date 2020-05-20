@@ -22,10 +22,12 @@ s_dragon::s_dragon(Vector2 pos, int stage)
 	Init();
 }
 
-s_dragon::s_dragon(Vector2 pos, int stage, bool flag)
+s_dragon::s_dragon(Vector2 pos, int stage, int pPos, bool flag)
 {
 	_pos = pos;
 	_stage = stage;
+	_etype = ENEMY_TYPE::s_dragon;
+	_pPos = pPos;
 	_state_dir = { OBJ_STATE::NORMAL,DIR::RIGHT };
 	setHP(100);
 	setHitOffset({ 55, 55, 100, 0 });
@@ -99,4 +101,7 @@ void s_dragon::Init(void)
 	}
 	data.emplace_back(-1, 2828);
 	setAnm({ OBJ_STATE::DEAD,DIR::LEFT }, data);
+
+
+	_etype = ENEMY_TYPE::s_dragon;
 }

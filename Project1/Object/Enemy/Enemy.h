@@ -45,6 +45,9 @@ static const int e_fn_ptr_num = 5;
 			&Enemy::AtkMove,&Enemy::Attack,
 			&Enemy::Search,};	// autoMaton
 
+	ENEMY_TYPE _etype;
+	int _pPos;			// placePos popPos
+
 	bool _jumpF;		// ジャンプフラグ
 	
 	void aState(int work);
