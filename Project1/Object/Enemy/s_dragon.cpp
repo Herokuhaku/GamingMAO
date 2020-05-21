@@ -75,7 +75,7 @@ void s_dragon::Init(void)
 	data.emplace_back(-1,0);
 	setAnm({ OBJ_STATE::DAMAGE,DIR::RIGHT }, data);
 
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < 3; i++)
 	{
 		data.emplace_back(lpImageMng.getImage("s_dragonR")[12 + i], 20 + i * 20);
 	}
@@ -109,7 +109,7 @@ void s_dragon::Init(void)
 	data.emplace_back(-1,0);
 	setAnm({ OBJ_STATE::DAMAGE,DIR::LEFT }, data);
 
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < 3; i++)
 	{
 		data.emplace_back(lpImageMng.getImage("s_dragonL")[12 + i], 20 + i * 20);
 	}

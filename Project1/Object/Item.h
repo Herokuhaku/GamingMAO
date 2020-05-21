@@ -26,7 +26,7 @@ class Item :
 {
 public:
 	Item();
-	Item(Vector2 pos,ITEM_TYPE itemtype,COLOR_TYPE colortype,int no);	// pos,itemtype,colortype,ê∂ê¨î‘çÜ
+	Item(Vector2 pos,ITEM_TYPE itemtype,COLOR_TYPE colortype,int no,int stage);	// pos,itemtype,colortype,ê∂ê¨î‘çÜ
 	~Item();
 
 	void Update(void);

@@ -59,9 +59,9 @@ bool ItemTrader::TradeCheck(COLOR_TYPE color1, COLOR_TYPE color2)
 	return true;
 }
 
-const void ItemTrader::SetItemList(Vector2 pos, ITEM_TYPE itype, COLOR_TYPE ctype)
+const void ItemTrader::SetItemList(Vector2 pos, ITEM_TYPE itype, COLOR_TYPE ctype,int stage)
 {
-	_ItemList.emplace_back(new Item(pos, itype, ctype, _ItemList.size()));	// サイズ番号を入れる。
+	_ItemList.emplace_back(new Item(pos, itype, ctype, _ItemList.size(),stage));	// サイズ番号を入れる。
 	return;
 }
 

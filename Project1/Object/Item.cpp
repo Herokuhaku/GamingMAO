@@ -12,7 +12,7 @@ Item::Item()
 	_colortype = COLOR_TYPE::BLACK;
 }
 
-Item::Item(Vector2 pos, ITEM_TYPE itemtype,COLOR_TYPE colortype,int no)
+Item::Item(Vector2 pos, ITEM_TYPE itemtype,COLOR_TYPE colortype,int no,int stage)
 {
 	_book = 0;
 	_stone = 0;
@@ -22,6 +22,7 @@ Item::Item(Vector2 pos, ITEM_TYPE itemtype,COLOR_TYPE colortype,int no)
 	_colortype = colortype;
 	_zOrder = 201;
 	_bagNo = no;
+	_stage = stage;
 
 	Init();
 }

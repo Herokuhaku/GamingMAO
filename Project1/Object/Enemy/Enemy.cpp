@@ -2,14 +2,15 @@
 #include "EnemyMng.h"
 #include "../../Scene/SceneMng.h"
 #include "../../Manage/MapMng.h"
+#include "../../Manage/ItemTrader.h"
 
 void Enemy::Update(void)
 {
+	Gravity();
 	if (_state_dir.first == OBJ_STATE::DEAD)
 	{
 		return;
 	}
-	Gravity();
 	auto tmp = lpSceneMng.GetPlObj(TIME::FTR);
 	auto plPos = (*tmp)->getPos();
 	// ???
@@ -146,7 +147,7 @@ void Enemy::damagingHP(int damage)
 	_waitTime = 60;	// クールタイム
 	aState(static_cast<int>(MOVE_SELECT::WAIT));
 
-	int ddir = _plDir == DIR::LEFT ? 20 : -20;
+	int ddir = _plDir == DIR::LEFT ? 13 : -13;
 	_pos.x += ddir;
 
 	Object::damagingHP(damage);
@@ -224,6 +225,7 @@ Enemy::~Enemy()
 	if (_hp <= 0)
 	{
 		lpEnemyMng.addDeadCnt(_etype, _stage, _pPos);
+		lpTradeMng.SetItemList(_pos, ITEM_TYPE::STONE, COLOR_TYPE::GREEN, _stage);
 	}
 }
 

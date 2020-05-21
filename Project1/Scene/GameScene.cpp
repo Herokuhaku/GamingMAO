@@ -124,9 +124,9 @@ bool GameScene::Init(void)
 
 	lpEnemyMng.Init();
 
-	lpTradeMng.SetItemList({ 400,1300 }, ITEM_TYPE::STONE, COLOR_TYPE::BLUE);
-	lpTradeMng.SetItemList({ 400,1500 }, ITEM_TYPE::STONE, COLOR_TYPE::RED);
-	lpTradeMng.SetItemList({ 400,1700 }, ITEM_TYPE::STONE, COLOR_TYPE::GREEN);
+	lpTradeMng.SetItemList({ 400,1300 }, ITEM_TYPE::STONE, COLOR_TYPE::BLUE,1);
+	lpTradeMng.SetItemList({ 400,1500 }, ITEM_TYPE::STONE, COLOR_TYPE::RED,1);
+	lpTradeMng.SetItemList({ 400,1700 }, ITEM_TYPE::STONE, COLOR_TYPE::GREEN,1);
 	
 	lpTimeMng.TimeInit();
 
