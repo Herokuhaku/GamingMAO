@@ -58,7 +58,7 @@ public:
 
 	void setHP(int hp);
 	int getHP(void);
-	void damagingHP(int damage);
+	virtual void damagingHP(int damage);
 
 	void setInv(int time);
 	bool checkInv(void);

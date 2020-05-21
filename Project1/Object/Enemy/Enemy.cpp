@@ -5,6 +5,10 @@
 
 void Enemy::Update(void)
 {
+	if (_state_dir.first == OBJ_STATE::DEAD)
+	{
+		return;
+	}
 	Gravity();
 	auto tmp = lpSceneMng.GetPlObj(TIME::FTR);
 	auto plPos = (*tmp)->getPos();
@@ -94,7 +98,7 @@ int Enemy::Search(Vector2 pPos)
 			{
 				if ((pPos.x - _pos.x) * (static_cast<int>(_state_dir.second) - 1) <= _rangeA)
 				{
-					//aState(static_cast<int>(MOVE_SELECT::ATTACK));
+					aState(static_cast<int>(MOVE_SELECT::ATTACK));
 					lpImageMng.AddDraw({ lpImageMng.getImage("excPoint")[0], _pos.x, _pos.y - 40, 1.0, 0.0, LAYER::EX, 10, DX_BLENDMODE_NOBLEND, 0 });
 					return _aState;
 				}
@@ -133,6 +137,19 @@ int Enemy::AtkMove(Vector2 pPos)
 		_pos.x -= _speed + 1;
 	}
 	return _aState;
+}
+
+void Enemy::damagingHP(int damage)
+{
+	setState({ OBJ_STATE::DAMAGE, _state_dir.second });
+	_waitCnt = 0;
+	_waitTime = 60;	// クールタイム
+	aState(static_cast<int>(MOVE_SELECT::WAIT));
+
+	int ddir = _plDir == DIR::LEFT ? 20 : -20;
+	_pos.x += ddir;
+
+	Object::damagingHP(damage);
 }
 
 Enemy::Enemy()
@@ -188,7 +205,6 @@ void Enemy::Gravity(void)
 		}
 		_jumpF = false;
 }
-
 
 void Enemy::aState(int work)
 {
