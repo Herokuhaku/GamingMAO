@@ -12,6 +12,7 @@ enum class OBJ_TYPE
 	ENEMY,
 	ITEM,
 	CAMERA,
+	ATTACK,
 	MAX
 };
 

@@ -243,15 +243,12 @@ void MapMng::BackGround(void)
 	// 描画用データ　画像ID, 座標x, y, 角度, レイヤー, zオーダー
 	lpImageMng.AddDraw({ lpImageMng.getImage("メイン背景")[0], GameMapSize.x / 2, GameMapSize.y / 2, 1.0, 0.0, LAYER::BG, 0, DX_BLENDMODE_NOBLEND, 0 });
 
-	int layerPosX = lpSceneMng.GetcPos().x + ((500 - lpSceneMng.GetcPos().x) / 2);
-	int layerPosY = GameMapSize.y / 2 - ((1171 - lpSceneMng.GetcPos().y) / 7);
-
-	int layerPosX2 = lpSceneMng.GetcPos().x + ((500 - lpSceneMng.GetcPos().x) / 4);
-	int layerPosY2 = GameMapSize.y / 2 - ((1171 - lpSceneMng.GetcPos().y) / 4);
-
+	layerPosX = lpSceneMng.GetcPos().x + (500 - lpSceneMng.GetcPos().x) / 2;
+//	int layerPosY = GameMapSize.y / 2 + (lpSceneMng.GetcPos().y - 1111);
+	int layerPosY = GameMapSize.y / 2;
 	lpImageMng.AddDraw({ _layer0, GameMapSize.x / 2, GameMapSize.y / 2, 1.0, 0.0, LAYER::BG, 3, DX_BLENDMODE_NOBLEND, 0 });
-	lpImageMng.AddDraw({ _layer1, layerPosX		   , layerPosY		  , 1.0, 0.0, LAYER::BG, 2, DX_BLENDMODE_NOBLEND, 0 });
-	lpImageMng.AddDraw({ _layer2, layerPosX2	   , layerPosY2		  , 1.0, 0.0, LAYER::BG, 1, DX_BLENDMODE_NOBLEND, 0 });
+	lpImageMng.AddDraw({ _layer1, GameMapSize.x / 2, GameMapSize.y / 2, 1.0, 0.0, LAYER::BG, 2, DX_BLENDMODE_NOBLEND, 0 });
+	lpImageMng.AddDraw({ _layer2, layerPosX		   , layerPosY		  , 1.0, 0.0, LAYER::BG, 1, DX_BLENDMODE_NOBLEND, 0 });
 }
 
 void MapMng::BlockLayer(void)
@@ -300,19 +297,19 @@ void MapMng::SetBgLayer(int bgNo)
 			for (int i = 0; i < 4; i++)
 			{
 				SetDrawScreen(_layer2);
-				for (int j = 8; j >= 7; j--)
-				{
-					no = std::to_string(j);
-					DrawRotaGraph(bgX * i, GameMapSize.y - (bgY / 2) - MapOffSetY, 1.0, 0.0, lpImageMng.getImage(no)[0], true, false);
-				}
-				SetDrawScreen(_layer1);
 				for (int j = 6; j >= 6; j--)
 				{
 					no = std::to_string(j);
 					DrawRotaGraph(bgX * i, GameMapSize.y - (bgY / 2) - MapOffSetY, 1.0, 0.0, lpImageMng.getImage(no)[0], true, false);
 				}
+				SetDrawScreen(_layer1);
+				for (int j = 5; j >= 1; j--)
+				{
+					no = std::to_string(j);
+					DrawRotaGraph(bgX * i, GameMapSize.y - (bgY / 2) - MapOffSetY, 1.0, 0.0, lpImageMng.getImage(no)[0], true, false);
+				}
 				SetDrawScreen(_layer0);
-				for (int j = 5; j >= 0; j--)
+				for (int j = 1; j >= 0; j--)
 				{
 					no = std::to_string(j);
 					DrawRotaGraph(bgX * i, GameMapSize.y - (bgY / 2) - MapOffSetY, 1.0, 0.0, lpImageMng.getImage(no)[0], true, false);
@@ -350,8 +347,6 @@ MapMng::MapMng():
 	lpImageMng.getImage("image/background/layer_0004.png", "4");
 	lpImageMng.getImage("image/background/layer_0005.png", "5");
 	lpImageMng.getImage("image/background/layer_0006.png", "6");
-	lpImageMng.getImage("image/background/layer_0007.png", "7");
-	lpImageMng.getImage("image/background/layer_0008.png", "8");
 
 	lpImageMng.getImage("image/back/block/For/Tileset.png", "Block",16,16,10,6);
 
@@ -366,6 +361,7 @@ MapMng::MapMng():
 	_layer1 = MakeScreen(GameMapSize.x, GameMapSize.y, true);
 	_layer2 = MakeScreen(GameMapSize.x, GameMapSize.y, true);
 
+	layerPosX = 0;
 	_oldLayerNo = 0;
 
 	fopen_s(&indexFp,"mapdata/index.txt","r");
