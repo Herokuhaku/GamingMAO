@@ -93,6 +93,5 @@ private:
 	Vector2 tmpos;
 	Vector2 tmpcpos;	// centerpos;
 
-	int _count;
 };
 
