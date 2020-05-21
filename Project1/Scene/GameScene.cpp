@@ -27,6 +27,25 @@ GameScene::GameScene()
 	lpImageMng.getImage("image/exclamationpoint.png", "excPoint", 80, 80, 1, 1);
 	lpImageMng.getImage("image/questionmark.png", "queMark", 80, 80, 1, 1);
 
+	// アイテム
+	// 本
+	lpImageMng.getImage("image/item/Blue_Book.png", "BlueBook");
+	lpImageMng.getImage("image/item/Green_Book.png", "GreenBook");
+	lpImageMng.getImage("image/item/Red_Book.png", "RedBook");
+	// 石(通常)
+	lpImageMng.getImage("image/item/Blue_Stone.png", "BlueStone");
+	lpImageMng.getImage("image/item/Cyan_Stone.png", "CyanStone");
+	lpImageMng.getImage("image/item/Green_Stone.png", "GreenStone");
+	lpImageMng.getImage("image/item/Magenta_Stone.png", "MagentaStone");
+	lpImageMng.getImage("image/item/Red_Stone.png", "RedStone");
+	lpImageMng.getImage("image/item/Yellow_Stone.png", "YellowStone");
+	// 石(小)
+	lpImageMng.getImage("image/item/SRed_Stone.png", "500");
+	lpImageMng.getImage("image/item/SGreen_Stone.png", "501");
+	lpImageMng.getImage("image/item/SBlue_Stone.png", "502");
+	lpImageMng.getImage("image/item/SCyan_Stone.png", "503");
+	lpImageMng.getImage("image/item/SMagenta_Stone.png", "504");
+	lpImageMng.getImage("image/item/SYellow_Stone.png", "505");
 
 	// HPバー
 	lpImageMng.getImage("image/HPbar.png", "hp_bar", 6, 12, 3, 1);
@@ -68,6 +87,7 @@ std::unique_ptr<BaceScene> GameScene::Update(std::unique_ptr<BaceScene> own)
 	lpEnemyMng.Draw();
 
 	lpTradeMng.Draw();
+	ItemDraw();
 
 	lpMapMng.MapDraw();
 
@@ -83,7 +103,8 @@ std::unique_ptr<BaceScene> GameScene::Update(std::unique_ptr<BaceScene> own)
 
 	if (!lpMenuMng.GetMixFlag())
 	{
-		lpTradeMng.BagDraw({ 800,680 }, LAYER::CHAR, 100);
+		lpTradeMng.BagDraw({ 600,650 }, LAYER::CHAR, 200);
+
 	}
 
 	lpTimeMng.resetFlag();
@@ -144,6 +165,29 @@ void GameScene::getAttackQue(void)
 		{
 			_attackList.emplace_back(std::make_pair(que, data));
 		}
+	}
+}
+
+void GameScene::ItemDraw(void)
+{// 描画用データ　画像ID, 座標x, y, 拡大率、角度, レイヤー, zオーダー、ブレンド、パラメータ
+	Vector2 pos = { 500,650 };
+	int tmp = 500;
+	std::string no;
+	for (int i = 0;i < 6;i++)
+	{
+		no = std::to_string(tmp);
+		std::string _no = std::to_string(lpTradeMng.getrock().at(i));
+		if (i < 3)
+		{
+			lpImageMng.AddBackDraw({ lpImageMng.getImage(no)[0], pos.x + (i * 75),pos.y, 1.0, 0.0, LAYER::CHAR,150, DX_BLENDMODE_NOBLEND, 0 });
+			lpStrAdd.AddDraw(_no.c_str(), pos.x + (i * 75) + 20, pos.y-25, 0xffff00, DRAW_TO_LEFT);
+		}
+		else
+		{
+			lpImageMng.AddBackDraw({ lpImageMng.getImage(no)[0], pos.x - (3 * 75) + (i*75),pos.y + 50, 1.0, 0.0, LAYER::CHAR,150, DX_BLENDMODE_NOBLEND, 0 });
+			lpStrAdd.AddDraw(_no.c_str(), pos.x - (3 * 75) + (i * 75) +20, pos.y + 25, 0xffff00, DRAW_TO_LEFT);
+		}
+		tmp++;
 	}
 }
 

@@ -20,6 +20,7 @@ private:
 	bool Init(void);
 
 	void getAttackQue(void);
+	void ItemDraw(void);
 
 	std::vector<std::shared_ptr<Object>> _objList;
 
