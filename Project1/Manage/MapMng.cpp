@@ -231,6 +231,56 @@ void MapMng::MapDraw(void)
 {
 	BlockDraw();
 	BackGround();
+
+// Œã‚ÅŠÖ”‰»
+
+	if (lpSceneMng.GetPlPos(lpTimeMng.getTime()).x > test.pos.x - 200)
+	{
+		test.startF = true;
+	}
+
+	if (test.startF)
+	{
+		lpImageMng.AddDraw({ test.image[test.animKind][test.animFlame],test.pos.x,test.pos.y, 3.0, 0.0, LAYER::CHAR, 100, DX_BLENDMODE_NOBLEND, 0 });
+
+		test.icnt++;
+		if (test.imagecnt[test.animKind][test.animFlame] < test.icnt)
+		{
+			test.animFlame++;
+			test.icnt = 0;
+			if (test.animFlame > 7)
+			{
+				test.animFlame = 0;
+				if (!(lpSceneMng.GetPlPos(lpTimeMng.getTime()).x > test.pos.x - 200))
+				{
+					test.animKind++;
+					if (test.animKind > 2)
+					{
+						test.animKind = 0;
+						test.startF = false;
+					}
+				}
+				else
+				{
+					if (test.image[test.animKind][8] == -1)
+					{
+						test.animKind++;
+						if (test.animKind > 2)
+						{
+							test.animKind = 0;
+						}
+					}
+				}
+			}
+		}
+	}
+	else
+	{
+		test.animFlame = 0;
+		test.icnt = 0;
+		test.animKind = 0;
+		// ‚P‰ñ‚µ‚©‚±‚È‚¢‚Í‚¸
+	}
 }
 
 void MapMng::BlockDraw()
@@ -378,7 +428,35 @@ MapMng::MapMng():
 	MapID = std::get<static_cast<int>(MAP_DATA::MAPLINK)>(_mapdata);
 	MapUpdate();
 
-//	_activeMap[0] = { false,1 };
+	lpImageMng.getImage("image/Purple Portal Sprite Sheet.png", "potal",64,64,8,3);
+
+	for (int j = 0; j < 3; j++)
+	{
+		for (int i = 0; i < 8; i++)
+		{
+			test.image[j][i] = lpImageMng.getImage("potal")[j * 8 + i];
+			test.imagecnt[j][i] = 2 + ( i / 3 );
+		}
+	}
+
+	test.image[0][8] = -1;
+	test.image[1][8] = 0;
+	test.image[2][8] = -1;
+
+	for (int i = 0; i < 8; i++)
+	{
+		test.imagecnt[1][i] = 5;
+	}
+
+	test.pos = { 2480,1225 };
+	test.animFlame = 0;
+	test.icnt = 0;
+	test.animKind = 0;
+	test.startF = false;
+
+
+
+
 
 	SetDrawBright(0,0,0);
 }

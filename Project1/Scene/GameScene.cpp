@@ -116,7 +116,7 @@ std::unique_ptr<BaceScene> GameScene::Update(std::unique_ptr<BaceScene> own)
 bool GameScene::Init(void)
 {
 	_objList.clear();
-	_objList.emplace_back(new Player({ 400,900 }, 1, TIME::NOW));
+	_objList.emplace_back(new Player({ 2080,1311 }, 1, TIME::NOW));
 	lpSceneMng.SetPlObj(_objList[0], TIME::NOW);
 	_objList.emplace_back(new Player({ 400,900 }, 1, TIME::FTR));
 	lpSceneMng.SetPlObj(_objList[1], TIME::FTR);

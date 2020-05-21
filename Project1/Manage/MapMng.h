@@ -37,6 +37,17 @@
 		MAX
 	};
 
+	typedef struct {
+		Vector2 pos;
+		int image[3][9];
+		int imagecnt[3][8];
+		int animFlame;
+		int icnt;
+		int animKind;
+		bool startF;
+	} portal_t;
+
+
 class MapMng
 {
 public:
@@ -113,6 +124,7 @@ private:
 	std::pair<int,int> nowStage;					// <現在のステージ,_activeMap内の現在のステージの添え字>
 
 	// Mapの移動
+	portal_t test;
 	
 
 	static MapMng *sInstance;
