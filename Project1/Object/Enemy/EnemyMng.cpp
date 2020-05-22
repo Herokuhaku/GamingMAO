@@ -52,7 +52,9 @@ void EnemyMng::StageTPop(int nowStage, int nextStage)
 	//	return;
 	}
 
-	if ((*lpSceneMng.GetPlObj(lpTimeMng.getTime()))->getStage() == nextStage)
+	TIME ttime = lpTimeMng.getTime() == TIME::FTR ? TIME::NOW : TIME::FTR;
+
+	if ((*lpSceneMng.GetPlObj(ttime))->getStage() == nextStage)
 	{
 			// プレイヤーがいるMAPだから新しく敵を配置する必要がない	 
 			return;
