@@ -42,6 +42,7 @@ public:
 	}
 	bool Update(void);
 	bool GetMixFlag(void);
+	void ItemDraw(int tmp, Vector2 pos, Vector2 offset,Vector2 stroffset,LAYER lay);
 private:
 
 	Menu();

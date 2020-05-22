@@ -69,6 +69,37 @@ bool Menu::GetMixFlag(void)
 	return MixFlag;
 }
 
+void Menu::ItemDraw(int tmp,Vector2 pos,Vector2 offset,Vector2 stroffset,LAYER lay)
+{
+	Vector2 _pos = pos;
+	int _tmp = tmp;
+	std::string no;
+	for (int i = 0;i < 6;i++)
+	{
+		no = std::to_string(_tmp);
+		std::string _no = std::to_string(lpTradeMng.getrock().at(i));
+		if (i < 3)
+		{
+			lpImageMng.AddBackDraw({ lpImageMng.getImage(no)[0], _pos.x + (i * offset.x),_pos.y, 1.0, 0.0, lay,200, DX_BLENDMODE_NOBLEND, 0 });
+			lpStrAdd.AddDraw(_no.c_str(), _pos.x + (i * offset.x) + 20, _pos.y - 25, 0xffff00, DRAW_TO_LEFT);
+		}
+		else
+		{
+			lpImageMng.AddBackDraw({ lpImageMng.getImage(no)[0], _pos.x - (3 * offset.x) + (i * offset.x),_pos.y + offset.y, 1.0, 0.0, lay,200, DX_BLENDMODE_NOBLEND, 0 });
+			lpStrAdd.AddDraw(_no.c_str(), _pos.x - (3 * offset.x) + (i * offset.x) + 20, _pos.y + 25, 0xffff00, DRAW_TO_LEFT);
+		}
+		_tmp++;
+	}
+}
+//{
+//	lpImageMng.AddBackDraw({ lpImageMng.getImage(no)[0], pos.x + (i * 75),pos.y, 1.0, 0.0, LAYER::CHAR,150, DX_BLENDMODE_NOBLEND, 0 });
+//	lpStrAdd.AddDraw(_no.c_str(), pos.x + (i * 75) + 20, pos.y - 25, 0xffff00, DRAW_TO_LEFT);
+//}
+//		else
+//		{
+//		lpImageMng.AddBackDraw({ lpImageMng.getImage(no)[0], pos.x - (3 * 75) + (i * 75),pos.y + 50, 1.0, 0.0, LAYER::CHAR,150, DX_BLENDMODE_NOBLEND, 0 });
+//		lpStrAdd.AddDraw(_no.c_str(), pos.x - (3 * 75) + (i * 75) + 20, pos.y + 25, 0xffff00, DRAW_TO_LEFT);
+//		}
 
 void Menu::SELECT(void)
 {
@@ -350,12 +381,13 @@ void Menu::ItemSelectD(void)
 	lpImageMng.AddBackDraw({ lpImageMng.getImage("Menu")[0], _cpos.x, _cpos.y, 1.0, 0.0, LAYER::EX, 20, DX_BLENDMODE_NOBLEND, 0 });
 	lpImageMng.AddBackDraw({ lpImageMng.getImage("Space")[0], _cpos.x, _cpos.y - _offpush.y, 1.0, 0.0, LAYER::EX, 30, DX_BLENDMODE_NOBLEND, 0 });
 
-	
+
 	// –îˆó
 	lpImageMng.AddBackDraw({ lpImageMng.getImage("Arrow")[0], (_cpos.x - 300) + (_select * 200),
 		_cpos.y, 1.0, 0.0, LAYER::EX, 31, DX_BLENDMODE_NOBLEND, 0 });
 
-	lpTradeMng.BagDraw({static_cast<double>(_cpos.x) - 200.0, static_cast<double>(_cpos.y)}, LAYER::EX, 200);
+	ItemDraw(510, { _cpos.x - 200 ,_cpos.y }, { 200,150 }, {40,100}, LAYER::EX);
+	//lpTradeMng.BagDraw({static_cast<double>(_cpos.x) - 200.0, static_cast<double>(_cpos.y)}, LAYER::EX, 200);
 
 	SelectCount(_select,XINPUT_THUMBL_X);
 	//// –îˆó‚ð‰E‚ÉˆÚ“®‚³‚¹‚é

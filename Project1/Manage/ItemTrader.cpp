@@ -26,9 +26,9 @@ void ItemTrader::BagDraw(Vector2D pos,LAYER lay,int off)
 	{
 		if (data.first.itemtype == ITEM_TYPE::BOOK)
 		{
-			data.first.pos = { _pos.x + (200 * data.first.book),_pos.y };
+			data.first.pos = { _pos.x + (100 * data.first.book),_pos.y };
 			lpImageMng.AddBackDraw({ lpImageMng.getImage(data.first.image[0])[0],data.first.pos.x,data.first.pos.y, 1.0, 0.0,LAYER::EX, 0, DX_BLENDMODE_NOBLEND, 0 });
-		}		
+		}
 		else if (data.first.itemtype == ITEM_TYPE::STONE)
 		{
 			data.first.pos = { _pos.x + (100 * data.first.stone),_pos.y };
