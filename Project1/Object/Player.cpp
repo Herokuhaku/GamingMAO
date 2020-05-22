@@ -72,8 +72,8 @@ void Player::Update(void)
 	{
 		// 
 		bool flag =
-			std::pow(lpMapMng.GetPortal()->pos.x - _pos.x, 2.0) +
-				std::pow(lpMapMng.GetPortal()->pos.y + 50 - _pos.y, 2.0)
+			std::pow(lpMapMng.GetPortal()->Spos.x - _pos.x, 2.0) +
+				std::pow(lpMapMng.GetPortal()->Spos.y + 50 - _pos.y, 2.0)
 				<= 900 ? true : false;
 		// 900‚Í³‚µ‚¢’l‚¶‚á‚È‚¢
 		// 

@@ -143,7 +143,7 @@ void MapMng::StageTrans(int no)
 		auto a = GetMapIndex(std::get <static_cast<int>(MAP_DATA::BRANCH)>(_mapdata));
 		
 		test.stageF = true;
-		test.pos = { std::get<static_cast<int>(MAP_DATA::BPOSX)>(a), std::get<static_cast<int>(MAP_DATA::BPOSY)>(a) - 50 };
+		test.Spos = { std::get<static_cast<int>(MAP_DATA::BPOSX)>(a), std::get<static_cast<int>(MAP_DATA::BPOSY)>(a) - 50 };
 	}
 
 
@@ -204,9 +204,19 @@ bool MapMng::MapUpdate(void)
 		std::vector<std::string> save = split(line, ',');
 
 		x = 0;
+		int no;
 		for (int i = 0; i < save.size(); i++)
 		{
-			GameMap[y][x][_writNo] = stoi(save.at(i));
+			no = stoi(save.at(i));
+			if (no == 26)
+			{
+				tp.Spos = { x * 16, y * 16 };
+			}
+			if (no == 29)
+			{
+				tp.Epos = { x * 16, -50 };
+			}
+			GameMap[y][x][_writNo] = no;
 			x++;
 		}
 		y++;
@@ -249,45 +259,54 @@ void MapMng::MapDraw(void)
 {
 	BlockDraw();
 	BackGround();
+	PTDraw(&tp);
+}
 
-// Œã‚ÅŠÖ”‰»
-	if (test.stageF)
-	{
+void MapMng::PTDraw(portal_t* test)
+{
+	//if (test->stageF)
+	//{
 
-		if (lpSceneMng.GetPlPos(lpTimeMng.getTime()).x > test.pos.x - 200 && lpSceneMng.GetPlPos(lpTimeMng.getTime()).x < test.pos.x + 200)
+	bool flag =
+			std::pow(test->Spos.x - lpSceneMng.GetPlPos(lpTimeMng.getTime()).x, 2.0) +
+				std::pow(test->Spos.y + 50 - lpSceneMng.GetPlPos(lpTimeMng.getTime()).y, 2.0)
+				<= 40000.0 ? true : false;
+
+
+		if (flag)
 		{
-			test.startF = true;
+			test->startF = true;
 		}
 
-		if (test.startF)
+		if (test->startF)
 		{
-			lpImageMng.AddDraw({ test.image[test.animKind][test.animFlame],test.pos.x,test.pos.y, 3.0, 0.0, LAYER::CHAR, 100, DX_BLENDMODE_NOBLEND, 0 });
+			lpImageMng.AddDraw({ test->image[test->animKind][test->animFlame],test->Spos.x,test->Spos.y, 3.0, 0.0, LAYER::CHAR, 100, DX_BLENDMODE_NOBLEND, 0 });
 
-			test.icnt++;
-			if (test.imagecnt[test.animKind][test.animFlame] < test.icnt)
+			test->icnt++;
+			if (test->imagecnt[test->animKind][test->animFlame] < test->icnt)
 			{
-				test.animFlame++;
-				test.icnt = 0;
-				if (test.animFlame > 7)
+				test->animFlame++;
+				test->icnt = 0;
+				if (test->animFlame > 7)
 				{
-					test.animFlame = 0;
-					if (!(lpSceneMng.GetPlPos(lpTimeMng.getTime()).x > test.pos.x - 200 && lpSceneMng.GetPlPos(lpTimeMng.getTime()).x < test.pos.x + 200))
+					test->animFlame = 0;
+					if (!flag)
 					{
-						test.animKind++;
-						if (test.animKind > 2)
+						test->animKind++;
+						if (test->animKind > 2)
 						{
-							test.animKind = 0;
-							test.startF = false;
+							test->animKind = 0;
+							test->startF = false;
 						}
 					}
 					else
 					{
-						if (test.image[test.animKind][8] == -1)
+						if (test->image[test->animKind][8] == -1)
 						{
-							test.animKind++;
-							if (test.animKind > 2)
+							test->animKind++;
+							if (test->animKind > 2)
 							{
-								test.animKind = 0;
+								test->animKind = 0;
 							}
 						}
 					}
@@ -296,12 +315,29 @@ void MapMng::MapDraw(void)
 		}
 		else
 		{
-			test.animFlame = 0;
-			test.icnt = 0;
-			test.animKind = 0;
-			// ‚P‰ñ‚µ‚©‚±‚È‚¢‚Í‚¸
+			test->animFlame = 0;
+			test->icnt = 0;
+			test->animKind = 0;
 		}
-	}
+
+
+
+		if (flag)
+		{
+
+
+			if ((std::pow(test->Spos.x - lpSceneMng.GetPlPos(lpTimeMng.getTime()).x, 2.0) +
+				std::pow(test->Spos.y + 50 - lpSceneMng.GetPlPos(lpTimeMng.getTime()).y, 2.0)) <= 2000)
+			{
+				(*lpSceneMng.GetPlObj(lpTimeMng.getTime()))->setPos(test->Epos);
+			}
+		}
+
+
+
+
+
+//	}
 }
 
 void MapMng::BlockDraw()
@@ -398,6 +434,44 @@ void MapMng::SetBgLayer(int bgNo)
 MapMng::MapMng():
 	GameMapSize{2560,1440}
 {
+
+
+
+
+
+	lpImageMng.getImage("image/Purple Portal Sprite Sheet.png", "potal",64,64,8,3);
+
+	for (int j = 0; j < 3; j++)
+	{
+		for (int i = 0; i < 8; i++)
+		{
+			test.image[j][i] = lpImageMng.getImage("potal")[j * 8 + i];
+			test.imagecnt[j][i] = 2 + ( i / 3 );
+		}
+	}
+
+	test.image[0][8] = -1;
+	test.image[1][8] = 0;
+	test.image[2][8] = -1;
+
+	for (int i = 0; i < 8; i++)
+	{
+		test.imagecnt[1][i] = 5;
+	}
+
+	test.stageF = false;
+	test.Spos = { 0,0 };
+	test.Epos = { 0,0 };
+	test.animFlame = 0;
+	test.icnt = 0;
+	test.animKind = 0;
+	test.startF = false;
+
+	tp = test;
+
+
+
+
 	SetDrawBright(255,255,255);
 	for(int wNo = 0; wNo < ACTIVEMAP; wNo++)
 	{
@@ -449,33 +523,6 @@ MapMng::MapMng():
 	_mapdata = GetMapIndex(1);
 	MapID = std::get<static_cast<int>(MAP_DATA::MAPLINK)>(_mapdata);
 	MapUpdate();
-
-	lpImageMng.getImage("image/Purple Portal Sprite Sheet.png", "potal",64,64,8,3);
-
-	for (int j = 0; j < 3; j++)
-	{
-		for (int i = 0; i < 8; i++)
-		{
-			test.image[j][i] = lpImageMng.getImage("potal")[j * 8 + i];
-			test.imagecnt[j][i] = 2 + ( i / 3 );
-		}
-	}
-
-	test.image[0][8] = -1;
-	test.image[1][8] = 0;
-	test.image[2][8] = -1;
-
-	for (int i = 0; i < 8; i++)
-	{
-		test.imagecnt[1][i] = 5;
-	}
-
-	test.stageF = false;
-	test.pos = { 2480,1225 };
-	test.animFlame = 0;
-	test.icnt = 0;
-	test.animKind = 0;
-	test.startF = false;
 
 
 

@@ -18,7 +18,8 @@ void EnemyMng::Update(void)
 		}
 		),_enemyList.end());
 
-	enemyPop();
+	enemyPop((*lpSceneMng.GetPlObj(TIME::FTR))->getStage());
+	enemyPop((*lpSceneMng.GetPlObj(TIME::NOW))->getStage());
 }
 
 void EnemyMng::Draw(void)
@@ -70,9 +71,15 @@ void EnemyMng::StageTDelete(void)
 {
 	// pl1,pl2のどちらのステージにもない場合削除
 
-	_enemyList.erase(std::remove_if(_enemyList.begin(), _enemyList.end(), [](std::shared_ptr<Enemy>& data) {
-		return ((*data).getStage() != (*lpSceneMng.GetPlObj(TIME::FTR))->getStage() &&
-			(*data).getStage() != (*lpSceneMng.GetPlObj(TIME::NOW))->getStage());
+	_enemyList.erase(std::remove_if(_enemyList.begin(), _enemyList.end(), [&](std::shared_ptr<Enemy>& data) {
+		bool flag = false;
+		if ((*data).getStage() != (*lpSceneMng.GetPlObj(TIME::FTR))->getStage() &&
+			(*data).getStage() != (*lpSceneMng.GetPlObj(TIME::NOW))->getStage())
+		{
+			_deadStageCnt[(*data).getStage()]--;
+			flag = true;
+		}
+			return flag;
 	}),_enemyList.end());
 }
 
@@ -91,6 +98,11 @@ void EnemyMng::Init(void)
 		_epF = false;
 	}
 
+	for (int i = 0; i < STAGE_MAX; i++)
+	{
+		_deadStageCnt[i] = 0;
+	}
+
 	_enemyList.clear();
 	_enemyList.emplace_back(new s_dragon({ 848,646 },1,0, false));
 }
@@ -98,24 +110,28 @@ void EnemyMng::Init(void)
 void EnemyMng::addDeadCnt(ENEMY_TYPE type, int stage, int pPos)
 {
 		_deadCnt.emplace_back(std::move(std::make_pair(type,std::make_pair(stage,pPos))));
+		_deadStageCnt[stage]++;
 }
 
-void EnemyMng::enemyPop(void)
+void EnemyMng::enemyPop(int stage)
 {
-	for (auto data : _deadCnt)
+	_deadStageCnt[stage] += (std::rand() % 3000 == 0);		// 時間経過で湧くように
+
+	if (_deadStageCnt[stage] > 1)
 	{
-		_enemyList.emplace_back(new s_dragon(_enemyPlace[data.second.first][data.second.second].second,data.second.first, data.second.second, false));
+		for (auto data = _deadCnt.begin(); data != _deadCnt.end();)
+		{
+			if (data->second.first == stage)
+			{
+				_enemyList.emplace_back(new s_dragon(_enemyPlace[data->second.first][data->second.second].second, data->second.first, data->second.second, false));
+				data = _deadCnt.erase(data);
+				continue;
+				// dataが次のイテレータになったからインクリメントしない
+			}
+			++data;
+		}
+		_deadStageCnt[stage] = 0;
 	}
-	_deadCnt.clear();
-	//auto iterator = _deadCnt.begin();
-	//auto iteEnd = _deadCnt.end()
-	//while(iterator != iteEnd)
-	//{
-	//	 _enemyList.emplace_back(new s_dragon(_enemyPlace[iterator->second][0].second,iterator->second , false));
-	//	 _deadCnt.erase(iterator);
-	//	 iterator = _deadCnt.begin();
-	//	 iteEnd = _deadCnt.end();
-	//}
 }
 
 EnemyMng::EnemyMng()

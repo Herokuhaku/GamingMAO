@@ -43,7 +43,7 @@ public:
 
 	void addDeadCnt(ENEMY_TYPE type, int stage, int pPos);
 
-	void enemyPop(void);
+	void enemyPop(int stage);
 
 	void Init(void);
 private:
@@ -51,6 +51,8 @@ private:
 
 	std::vector<std::shared_ptr<Enemy>> _enemyList;
 	std::vector<std::pair<ENEMY_TYPE, std::pair<int, int>>> _deadCnt;		// <type, <stage, pPos>>
+#define STAGE_MAX 5
+	unsigned short _deadStageCnt[STAGE_MAX];					// アクセスしやすいように_deadCntと分けて配列を使う
 
 	std::map<int, std::vector<std::pair<ENEMY_TYPE, Vector2>>> _enemyPlace;
 	bool _epF;							// _enemyPlace を作るフラグ

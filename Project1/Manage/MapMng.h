@@ -39,7 +39,8 @@
 
 	typedef struct {
 		bool stageF;
-		Vector2 pos;
+		Vector2 Spos;
+		Vector2 Epos;
 		int image[3][9];
 		int imagecnt[3][8];
 		int animFlame;
@@ -78,6 +79,7 @@ public:
 	bool MapUpdate(void);
 	void HitMapUpdate(void);
 	void MapDraw(void);
+	void PTDraw(portal_t * test);
 	void BlockDraw();
 	void BackGround(void);
 	void BlockLayer(void);
@@ -129,6 +131,7 @@ private:
 
 	// Map‚ÌˆÚ“®
 	portal_t test;
+	portal_t tp;
 	
 
 	static MapMng *sInstance;
