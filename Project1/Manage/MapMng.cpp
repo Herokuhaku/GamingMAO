@@ -143,7 +143,7 @@ void MapMng::StageTrans(int no)
 		auto a = GetMapIndex(std::get <static_cast<int>(MAP_DATA::BRANCH)>(_mapdata));
 		
 		test.stageF = true;
-		test.pos = { std::get<static_cast<int>(MAP_DATA::BPOSX)>(a), std::get<static_cast<int>(MAP_DATA::BPOSY)>(a) };
+		test.pos = { std::get<static_cast<int>(MAP_DATA::BPOSX)>(a), std::get<static_cast<int>(MAP_DATA::BPOSY)>(a) - 50 };
 	}
 
 
