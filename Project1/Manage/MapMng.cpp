@@ -254,7 +254,7 @@ void MapMng::MapDraw(void)
 	if (test.stageF)
 	{
 
-		if (lpSceneMng.GetPlPos(lpTimeMng.getTime()).x > test.pos.x - 200)
+		if (lpSceneMng.GetPlPos(lpTimeMng.getTime()).x > test.pos.x - 200 && lpSceneMng.GetPlPos(lpTimeMng.getTime()).x < test.pos.x + 200)
 		{
 			test.startF = true;
 		}
@@ -271,7 +271,7 @@ void MapMng::MapDraw(void)
 				if (test.animFlame > 7)
 				{
 					test.animFlame = 0;
-					if (!(lpSceneMng.GetPlPos(lpTimeMng.getTime()).x > test.pos.x - 200))
+					if (!(lpSceneMng.GetPlPos(lpTimeMng.getTime()).x > test.pos.x - 200 && lpSceneMng.GetPlPos(lpTimeMng.getTime()).x < test.pos.x + 200))
 					{
 						test.animKind++;
 						if (test.animKind > 2)
