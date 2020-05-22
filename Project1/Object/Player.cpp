@@ -70,6 +70,13 @@ void Player::Update(void)
 
 	if ((lpKeyMng.getOldBuf()[KEY_INPUT_DOWN] && !lpKeyMng.getBuf()[KEY_INPUT_DOWN]))
 	{
+		// 
+		bool flag =
+			std::pow(lpMapMng.GetPortal()->pos.x - _pos.x, 2.0) +
+				std::pow(lpMapMng.GetPortal()->pos.y - _pos.y, 2.0)
+				<= 100 ? true : false;
+		// 
+
 		int y = _pos.y - 50;
 		// if(座標を見て一番右のポータル)
 		if (lpMapMng.getGameMapM({ _pos.x,y },_stage) == 41)
@@ -86,9 +93,10 @@ void Player::Update(void)
 			lpImageMng.setGkind(ScrEff::FADEOUT);
 		}
 		// if(座標 真ん中のポータル)
-		else if (lpMapMng.getGameMapM({ _pos.x,y },_stage) == 7)
+		else if (flag)
 		{
 			_nextPos = { lpMapMng.GetBrancPosX(_stage),lpMapMng.GetBrancPosY(_stage) };
+			lpMapMng.setstageF(false);
 			lpImageMng.SetplmoveF(true, MAP_DATA::BRANCH);
 			lpImageMng.setGkind(ScrEff::FADEOUT);
 

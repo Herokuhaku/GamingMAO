@@ -38,6 +38,7 @@
 	};
 
 	typedef struct {
+		bool stageF;
 		Vector2 pos;
 		int image[3][9];
 		int imagecnt[3][8];
@@ -100,6 +101,9 @@ public:
 
 	const std::pair<bool, int> *GetactiveMap(void) const;
 
+	const portal_t *GetPortal(void) const;
+	void setstageF(bool flag) {	test.stageF = flag;	};
+
 #define ACTIVEMAP 4
 private:
 	int _layer[ACTIVEMAP];
@@ -114,7 +118,7 @@ private:
 	int _layer2;
 	int _oldLayerNo;
 	
-	// Map‚ÌˆÚ“®
+	// Map‚ÌˆÚ“®w
 
 	FILE *indexFp;				
 	std::string MapID;

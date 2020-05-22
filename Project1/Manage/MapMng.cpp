@@ -123,6 +123,11 @@ const std::pair<bool, int>* MapMng::GetactiveMap(void) const
 	return _activeMap;
 }
 
+const portal_t * MapMng::GetPortal(void) const
+{
+	return &test;
+}
+
 void MapMng::StageTrans(int no)
 {
 	if (no < 1 || no > 4)
@@ -132,6 +137,19 @@ void MapMng::StageTrans(int no)
 	}
 	_mapdata = GetMapIndex(no);
 	MapID = std::get<static_cast<int>(MAP_DATA::MAPLINK)>(_mapdata);
+
+	if (std::get<static_cast<int>(MAP_DATA::BRANCH)>(_mapdata) != 0)
+	{
+		auto a = GetMapIndex(std::get <static_cast<int>(MAP_DATA::BRANCH)>(_mapdata));
+		
+		test.stageF = true;
+		test.pos = { std::get<static_cast<int>(MAP_DATA::BPOSX)>(a), std::get<static_cast<int>(MAP_DATA::BPOSY)>(a) };
+	}
+
+
+
+
+
 	MapUpdate();
 }
 
@@ -233,53 +251,56 @@ void MapMng::MapDraw(void)
 	BackGround();
 
 // Œã‚ÅŠÖ”‰»
-
-	if (lpSceneMng.GetPlPos(lpTimeMng.getTime()).x > test.pos.x - 200)
+	if (test.stageF)
 	{
-		test.startF = true;
-	}
 
-	if (test.startF)
-	{
-		lpImageMng.AddDraw({ test.image[test.animKind][test.animFlame],test.pos.x,test.pos.y, 3.0, 0.0, LAYER::CHAR, 100, DX_BLENDMODE_NOBLEND, 0 });
-
-		test.icnt++;
-		if (test.imagecnt[test.animKind][test.animFlame] < test.icnt)
+		if (lpSceneMng.GetPlPos(lpTimeMng.getTime()).x > test.pos.x - 200)
 		{
-			test.animFlame++;
-			test.icnt = 0;
-			if (test.animFlame > 7)
+			test.startF = true;
+		}
+
+		if (test.startF)
+		{
+			lpImageMng.AddDraw({ test.image[test.animKind][test.animFlame],test.pos.x,test.pos.y, 3.0, 0.0, LAYER::CHAR, 100, DX_BLENDMODE_NOBLEND, 0 });
+
+			test.icnt++;
+			if (test.imagecnt[test.animKind][test.animFlame] < test.icnt)
 			{
-				test.animFlame = 0;
-				if (!(lpSceneMng.GetPlPos(lpTimeMng.getTime()).x > test.pos.x - 200))
+				test.animFlame++;
+				test.icnt = 0;
+				if (test.animFlame > 7)
 				{
-					test.animKind++;
-					if (test.animKind > 2)
-					{
-						test.animKind = 0;
-						test.startF = false;
-					}
-				}
-				else
-				{
-					if (test.image[test.animKind][8] == -1)
+					test.animFlame = 0;
+					if (!(lpSceneMng.GetPlPos(lpTimeMng.getTime()).x > test.pos.x - 200))
 					{
 						test.animKind++;
 						if (test.animKind > 2)
 						{
 							test.animKind = 0;
+							test.startF = false;
+						}
+					}
+					else
+					{
+						if (test.image[test.animKind][8] == -1)
+						{
+							test.animKind++;
+							if (test.animKind > 2)
+							{
+								test.animKind = 0;
+							}
 						}
 					}
 				}
 			}
 		}
-	}
-	else
-	{
-		test.animFlame = 0;
-		test.icnt = 0;
-		test.animKind = 0;
-		// ‚P‰ñ‚µ‚©‚±‚È‚¢‚Í‚¸
+		else
+		{
+			test.animFlame = 0;
+			test.icnt = 0;
+			test.animKind = 0;
+			// ‚P‰ñ‚µ‚©‚±‚È‚¢‚Í‚¸
+		}
 	}
 }
 
@@ -449,6 +470,7 @@ MapMng::MapMng():
 		test.imagecnt[1][i] = 5;
 	}
 
+	test.stageF = false;
 	test.pos = { 2480,1225 };
 	test.animFlame = 0;
 	test.icnt = 0;
