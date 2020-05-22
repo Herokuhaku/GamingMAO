@@ -68,6 +68,12 @@ int Object::getHP(void)
 void Object::damagingHP(int damage)
 {
 	_hp -= damage;
+
+	if (damage <= 0)
+	{
+		return;
+	}
+
 	if (_hp <= 0)
 	{
 		setState({ OBJ_STATE::DEAD, _state_dir.second });
@@ -246,6 +252,10 @@ void Object::attackUpdate(void)
 		}
 		else
 		{
+			if (std::get<5>(_attackMap[data->first][data->second]) == -1)
+			{
+				data->second = 0;
+			}
 			data++;
 		}
 	}
@@ -295,5 +305,10 @@ void Object::setTimeLine(TIME time)
 TIME Object::getTimeLine(void)
 {
 	return _time;
+}
+
+void Object::IfHitAttack(void)
+{
+	// í èÌÇÕâΩÇ‡Ç»Çµ
 }
 
