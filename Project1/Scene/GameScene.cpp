@@ -94,7 +94,7 @@ std::unique_ptr<BaceScene> GameScene::Update(std::unique_ptr<BaceScene> own)
 	lpEnemyMng.Draw();
 
 	lpTradeMng.Draw();
-	lpMenuMng.ItemDraw(500, { 500,650 }, {20,25}, { 75,50 }, LAYER::CHAR);
+	lpMenuMng.ItemDraw(500, { 500,650 }, { 75,50 }, { 20,25 }, LAYER::CHAR);
 
 	lpMapMng.MapDraw();
 
