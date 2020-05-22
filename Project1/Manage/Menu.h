@@ -53,13 +53,11 @@ private:
 	void SELECT(void);						// メニュー開いた状態
 	void ItemPup(void);						// Itemの合成
 
-	bool Mix(ItemS& item1,ItemS& item2,ItemS& item3);							// 合成処理
+	bool Mix(ItemSave& item1,ItemSave& item2,ItemSave& item3);							// 合成処理
 
 	void ItemMup(void);						// Itemの分解
 
-	void Item1(void);
-	void Item2(void);
-	void Item3(void);
+	void Item(SELECT_ITEM item);
 
 	void ItemSelectD(void);					// 決定と戻る。それと風呂敷などのDraw
 	//
@@ -88,7 +86,7 @@ private:
 	SELECT_ITEM _selectNo;
 	
 	static constexpr int _asize = 3;			// arrayの大きさ
-	std::array<std::pair<ItemS, int>,_asize> _selectItem;
+	std::array<std::pair<ItemSave, int>,_asize> _sItem;
 
 	Vector2 tmpos;
 	Vector2 tmpcpos;	// centerpos;

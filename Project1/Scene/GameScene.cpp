@@ -103,8 +103,7 @@ std::unique_ptr<BaceScene> GameScene::Update(std::unique_ptr<BaceScene> own)
 
 	if (!lpMenuMng.GetMixFlag())
 	{
-		lpTradeMng.BagDraw({ 600,650 }, LAYER::CHAR, 200);
-
+		lpTradeMng.BagDraw({ 800,674 }, LAYER::CHAR, 200);
 	}
 
 	lpTimeMng.resetFlag();
@@ -125,8 +124,9 @@ bool GameScene::Init(void)
 	lpEnemyMng.Init();
 
 	lpTradeMng.SetItemList({ 400,1300 }, ITEM_TYPE::STONE, COLOR_TYPE::BLUE,1);
-	lpTradeMng.SetItemList({ 400,1500 }, ITEM_TYPE::STONE, COLOR_TYPE::RED,1);
-	lpTradeMng.SetItemList({ 400,1700 }, ITEM_TYPE::STONE, COLOR_TYPE::GREEN,1);
+	lpTradeMng.SetItemList({ 600,1300 }, ITEM_TYPE::STONE, COLOR_TYPE::RED,1);
+	lpTradeMng.SetItemList({ 800,1300 }, ITEM_TYPE::STONE, COLOR_TYPE::GREEN,1);
+	lpTradeMng.SetItemList({ 1000,1300 }, ITEM_TYPE::BOOK, COLOR_TYPE::BLUE, 1);
 	
 	lpTimeMng.TimeInit();
 

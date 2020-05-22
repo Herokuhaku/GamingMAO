@@ -18,6 +18,10 @@ Menu::Menu()
 	MixFlag = false;
 	tmpos = lpSceneMng.ScreenSize;
 	_cpos = tmpos / 2;
+	for (int i = 0;i < _asize;i++)
+	{
+		_sItem.at(i).first.itemtype = ITEM_TYPE::NON;
+	}
 	lpImageMng.getImage("image/メニュー.png", "Menu");
 	lpImageMng.getImage("image/Space.png", "Space");
 	lpImageMng.getImage("image/arrow.png", "Arrow");
@@ -52,7 +56,7 @@ bool Menu::Update(void)
 
 		for (int x = 0;x < _asize;x++)
 		{
-			_selectItem.at(x) = { nullptr,0 };
+			_sItem.at(x).first.itemtype = ITEM_TYPE::NON;
 		}
 		return false;
 	}
@@ -180,9 +184,11 @@ void Menu::ItemPup(void)
 			else if (_select2 == 1)
 			{
 				lpButtonMng.Buttonf(0, XINPUT_BUTTON_B, 1, 1);
-				if (_selectItem.at(0).first != nullptr && _selectItem.at(1).first != nullptr && _selectItem.at(2).first != nullptr)
+				if (_sItem.at(0).first.itemtype != ITEM_TYPE::NON &&
+					_sItem.at(1).first.itemtype != ITEM_TYPE::NON &&
+					_sItem.at(2).first.itemtype != ITEM_TYPE::NON)
 				{
-					Mix(_selectItem.at(0).first, _selectItem.at(1).first, _selectItem.at(2).first);
+					Mix(_sItem.at(0).first, _sItem.at(1).first, _sItem.at(2).first);
 				}
 			}
 		}
@@ -195,42 +201,30 @@ void Menu::ItemPup(void)
 	}
 	else 
 	{
-		// 何番目のアイテム選択しているか。
-		switch (_selectNo)
-		{
-		case SELECT_ITEM::ITEM1:
-			Item1();
-			break;
-		case SELECT_ITEM::ITEM2:
-			Item2();
-			break;
-		case SELECT_ITEM::ITEM3:
-			Item3();
-			break;
-		default:
-			break;
-		}
+
+		Item(_selectNo);
+
 	}
 }
 
-bool Menu::Mix(ItemS& item1, ItemS& item2, ItemS& item3)
+bool Menu::Mix(ItemSave& item1, ItemSave& item2, ItemSave& item3)
 {
-	if (item1->getItemType().first == ITEM_TYPE::BOOK || item2->getItemType().first == ITEM_TYPE::BOOK)
+	if (item1.itemtype == ITEM_TYPE::BOOK || item2.itemtype == ITEM_TYPE::BOOK)
 	{
 		return false;
 	}
-	if (!lpTradeMng.TradeCheck(item1->getItemType().second, item2->getItemType().second))
+	if (!lpTradeMng.TradeCheck(item1.colortype, item2.colortype))
 	{
 		return false;
 	}
 
-	item1->ChangeType(ITEM_TYPE::STONE, lpTradeMng.Trade(item1->getItemType().second, item2->getItemType().second));
+	item1.colortype =lpTradeMng.Trade(item1.colortype, item2.colortype);
 	lpTradeMng.DeleteItem(item2);
 	lpTradeMng.BagNoSort();
 	// アイテムの二つ目を消すため合成リストからも消す
 	for (int i = 0;i < 3;i++)
 	{
-		_selectItem.at(i) = { nullptr,i};
+		_sItem.at(i).first.itemtype = ITEM_TYPE::NON;
 	}
 	return true;
 }
@@ -304,113 +298,45 @@ void Menu::MixDraw(void)
 
 void Menu::ItemSelectDraw(void)
 {
-	for (auto data : _selectItem)
+	for (auto data : _sItem)
 	{
-		if (data.first != nullptr)
+		if (data.first.itemtype != ITEM_TYPE::NON)
 		{
-			(*data.first).setPos({_cpos.x - 200 + (_offpush.x * (data.second)),_cpos.y- _offpush.y });
-			(*data.first).OLDraw(LAYER::EX);
+			data.first.pos = { _cpos.x - 200 + (_offpush.x * (data.second)),_cpos.y - _offpush.y };
+			lpImageMng.AddBackDraw({ lpImageMng.getImage(data.first.image[0])[0],data.first.pos.x,data.first.pos.y, 1.0, 0.0,LAYER::EX, 0, DX_BLENDMODE_NOBLEND, 0 });
 		}
 	}
 }
 
-void Menu::Item1(void)
+void Menu::Item(SELECT_ITEM item)
 {
+	int no = static_cast<int>(item);
 	ItemSelectD();
 	// 選択しているアイテムの表示
-	if (_selectItem.at(0).first != nullptr) //　その中にアイテムがある場合のみ。
+	if (_sItem.at(no).first.itemtype != ITEM_TYPE::NON) //　その中にアイテムがある場合のみ。
 	{
-		(*_selectItem.at(0).first).setPos({_cpos.x,_cpos.y-_offpush.y});
-		(*_selectItem.at(0).first).OLDraw(LAYER::EX);
+		_sItem.at(no).first.pos = { _cpos.x,_cpos.y - _offpush.y };
+		lpImageMng.AddBackDraw({ lpImageMng.getImage(_sItem.at(no).first.image[0])[0],_sItem.at(no).first.pos.x,
+			_sItem.at(no).first.pos.y, 1.0, 0.0,LAYER::EX, 0, DX_BLENDMODE_NOBLEND, 0 });
 	}
 
 	if (lpButtonMng.Buttonf(0, XINPUT_BUTTON_B).first == 1 &&
 		lpButtonMng.Buttonf(0, XINPUT_BUTTON_B).second == 0)
 	{
-		if (lpTradeMng.ReBag(_select) != nullptr)
+		if (lpTradeMng.NoReturn(_select) == true)
 		{
-			_selectItem.at(0) = { lpTradeMng.ReBag(_select), 0 };
-			MixFlag = false;
-			// arrayのサイズ分回す。
-			for (int i = 0;i<_asize;i++)		
-			{
-				// アイテムが入っている場合のみ
-				if (_selectItem.at(i).first != nullptr)	
-				{
-					// 同じアイテムが違うところに入っていたら違うほうのアイテムをnullptrにする
-					if ((*_selectItem.at(i).first).GetBagNo() == _select && _selectItem.at(i) != _selectItem.at(0))
-					{
-						_selectItem.at(i).first = nullptr;
-					}
-				}
-			}
-		}
-	}
-	// _selectItem.at(0).first->
-}
-
-void Menu::Item2(void)
-{
-	ItemSelectD();
-	// 選択しているアイテムの表示
-	if (_selectItem.at(1).first != nullptr) //　その中にアイテムがある場合のみ。
-	{
-		(*_selectItem.at(1).first).setPos({ _cpos.x,_cpos.y - _offpush.y });
-		(*_selectItem.at(1).first).OLDraw(LAYER::EX);
-	}
-
-	if (lpButtonMng.Buttonf(0, XINPUT_BUTTON_B).first == 1 &&
-		lpButtonMng.Buttonf(0, XINPUT_BUTTON_B).second == 0)
-	{
-		if (lpTradeMng.ReBag(_select) != nullptr)
-		{
-			_selectItem.at(1) = { lpTradeMng.ReBag(_select),1 };
+			_sItem.at(no) = { lpTradeMng.ReturnBag(_select), no };
 			MixFlag = false;
 			// arrayのサイズ分回す。
 			for (int i = 0;i < _asize;i++)
 			{
 				// アイテムが入っている場合のみ
-				if (_selectItem.at(i).first != nullptr)
+				if (_sItem.at(i).first.itemtype != ITEM_TYPE::NON)
 				{
-					// 同じアイテムが違うところに入っていたら違うほうのアイテムをnullptrにする
-					if ((*_selectItem.at(i).first).GetBagNo() == _select && _selectItem.at(i) != _selectItem.at(1))
+				//	// 同じアイテムが違うところに入っていたら違うほうのアイテムをnullptrにする
+					if (_sItem.at(i).first.bagNo == _select && _sItem.at(i).second != _sItem.at(no).second)
 					{
-						_selectItem.at(i).first = nullptr;
-					}
-				}
-			}
-		}
-
-	}
-}
-
-void Menu::Item3(void)
-{
-	ItemSelectD();
-	// 選択しているアイテムの表示
-	if (_selectItem.at(2).first != nullptr)	//　その中にアイテムがある場合のみ。
-	{
-		(*_selectItem.at(2).first).setPos({ _cpos.x,_cpos.y - _offpush.y });
-		(*_selectItem.at(2).first).OLDraw(LAYER::EX);
-	}
-
-	if (lpButtonMng.Buttonf(0, XINPUT_BUTTON_B).first == 1 &&
-		lpButtonMng.Buttonf(0, XINPUT_BUTTON_B).second == 0)
-	{
-		if (lpTradeMng.ReBag(_select) != nullptr)
-		{
-			_selectItem.at(2) = { lpTradeMng.ReBag(_select), 2 };
-			MixFlag = false;
-			// arrayのサイズ分回す。
-			for (int i = 0;i < _asize;i++)
-			{
-				// アイテムが入っている場合のみ
-				if (_selectItem.at(i).first != nullptr)
-				{
-					// 同じアイテムが違うところに入っていたら違うほうのアイテムをnullptrにする
-					if ((*_selectItem.at(i).first).GetBagNo() == _select && _selectItem.at(i) != _selectItem.at(2))
-					{
-						_selectItem.at(i).first = nullptr;
+						_sItem.at(i).first.itemtype = ITEM_TYPE::NON;
 					}
 				}
 			}
@@ -429,7 +355,7 @@ void Menu::ItemSelectD(void)
 	lpImageMng.AddBackDraw({ lpImageMng.getImage("Arrow")[0], (_cpos.x - 300) + (_select * 200),
 		_cpos.y, 1.0, 0.0, LAYER::EX, 31, DX_BLENDMODE_NOBLEND, 0 });
 
-	lpTradeMng.BagDraw({ _cpos.x * 1.0 - 200, _cpos.y * 1.0 }, LAYER::EX, 200);
+	lpTradeMng.BagDraw({static_cast<double>(_cpos.x) - 200.0, static_cast<double>(_cpos.y)}, LAYER::EX, 200);
 
 	SelectCount(_select,XINPUT_THUMBL_X);
 	//// 矢印を右に移動させる
