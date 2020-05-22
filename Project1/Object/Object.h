@@ -90,14 +90,12 @@ public:
 	void setStage(int stage) { _stage = stage; };
 	int getStage(void) { return _stage; };
 
+	virtual void IfHitAttack(void);
+
 	void nextPos(void) { _pos = _nextPos; _tmpPos = { static_cast<double>(_nextPos.x),static_cast<double>(_nextPos.y) }; };
 private:
 	int _inv;						// 無敵時間　0なら無敵ではない
 	std::array<int, 4> _hitOffset;	// 座標からの当たり判定の範囲 0:左 1:右 2:上 3:下
-
-	static std::map<std::string, std::vector<atkData>> _attackMap;	// 攻撃の情報
-	std::vector<std::pair<std::string, unsigned int>> _attackData;	// 攻撃中の攻撃
-
 protected:
 	int _hp;						// 体力
 	Vector2 _pos;					// 座標(x:中心　y:下辺)
@@ -121,6 +119,9 @@ protected:
 	int _anmEfkHd;					// effekseerのアニメーションハンドル
 
 	Vector2Template<double> _tmpPos;
+
+	static std::map<std::string, std::vector<atkData>> _attackMap;	// 攻撃の情報
+	std::vector<std::pair<std::string, unsigned int>> _attackData;	// 攻撃中の攻撃
 protected:
 	// ステージ移動
 	Vector2 _nextPos;

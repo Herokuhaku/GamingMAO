@@ -92,6 +92,25 @@ void Item::ChangeDir(DIR dir)
 	_state_dir.second = dir;
 }
 
+ItemSave& Item::ReturnSave(void)
+{
+	setSave();
+	return save;
+}
+
+void Item::setSave(void)
+{
+	save.bagNo = _bagNo;
+	save.book = _book;
+	save.colortype = _colortype;
+	save.hp = _hp;
+	save.image[0] = _image[0];
+	save.image[1] = _image[1];
+	save.itemtype = _itemtype;
+	save.pos = _pos;
+	save.stone = _stone;
+}
+
 void Item::Init(void)
 {
 	_anmMap.clear();
@@ -106,13 +125,16 @@ void Item::Init(void)
 		switch (_colortype)
 		{
 		case COLOR_TYPE::BLUE:
-			data.emplace_back(lpImageMng.getImage("BlueBook")[0],0);
+			_image[0] = "BlueBook";
+			data.emplace_back(lpImageMng.getImage(_image[0])[0],0);
 			break;
 		case COLOR_TYPE::GREEN:
-			data.emplace_back(lpImageMng.getImage("GreenBook")[0], 0);
+			_image[0] = "GreenBook";
+			data.emplace_back(lpImageMng.getImage(_image[0])[0], 0);
 			break;
 		case COLOR_TYPE::RED:
-			data.emplace_back(lpImageMng.getImage("RedBook")[0], 0);
+			_image[0] = "RedBook";
+			data.emplace_back(lpImageMng.getImage(_image[0])[0], 0);
 			break;
 		default:
 			break;
@@ -125,22 +147,28 @@ void Item::Init(void)
 		case COLOR_TYPE::BLACK:
 			break;
 		case COLOR_TYPE::BLUE:
-			data.emplace_back(lpImageMng.getImage("BlueStone")[0], 0);
+			_image[0] = "BlueStone";
+			data.emplace_back(lpImageMng.getImage(_image[0])[0], 0);
 			break;
 		case COLOR_TYPE::CYAN:
-			data.emplace_back(lpImageMng.getImage("CyanStone")[0], 0);
+			_image[0] = "CyanStone";
+			data.emplace_back(lpImageMng.getImage(_image[0])[0], 0);
 			break;
 		case COLOR_TYPE::GREEN:
-			data.emplace_back(lpImageMng.getImage("GreenStone")[0], 0);
+			_image[0] = "GreenStone";
+			data.emplace_back(lpImageMng.getImage(_image[0])[0], 0);
 			break;
 		case COLOR_TYPE::MAGENTA:
-			data.emplace_back(lpImageMng.getImage("MagentaStone")[0], 0);
+			_image[0] = "MagentaStone";
+			data.emplace_back(lpImageMng.getImage(_image[0])[0], 0);
 			break;
 		case COLOR_TYPE::RED:
-			data.emplace_back(lpImageMng.getImage("RedStone")[0], 0);
+			_image[0] = "RedStone";
+			data.emplace_back(lpImageMng.getImage(_image[0])[0], 0);
 			break;
 		case COLOR_TYPE::YELLOW:
-			data.emplace_back(lpImageMng.getImage("YellowStone")[0], 0);
+			_image[0] = "YellowStone";
+			data.emplace_back(lpImageMng.getImage(_image[0])[0], 0);
 			break;
 		case COLOR_TYPE::WHITE:
 			break;
@@ -154,7 +182,6 @@ void Item::Init(void)
 	setAnm({ OBJ_STATE::NORMAL, DIR::RIGHT }, data);			// dirの初期値はRIGHTなのを覚えておく(OBJのコンストラクタで初期化)
 
 	// 小サイズ
-	// 通常サイズ
 	switch (_itemtype)
 	{
 	case ITEM_TYPE::BOOK:
@@ -166,24 +193,28 @@ void Item::Init(void)
 		case COLOR_TYPE::BLACK:
 			break;
 		case COLOR_TYPE::BLUE:
-			data.emplace_back(lpImageMng.getImage("SBlueStone")[0], 0);
+			_image[1] = "SBlueStone";
+			data.emplace_back(lpImageMng.getImage(_image[1])[0], 0);
 			break;
 		case COLOR_TYPE::CYAN:
-			data.emplace_back(lpImageMng.getImage("SCyanStone")[0], 0);
+			_image[1] = "SCyanStone";
+			data.emplace_back(lpImageMng.getImage(_image[1])[0], 0);
 			break;
 		case COLOR_TYPE::GREEN:
-			data.emplace_back(lpImageMng.getImage("SGreenStone")[0], 0);
+			_image[1] = "SGreenStone";
+			data.emplace_back(lpImageMng.getImage(_image[1])[0], 0);
 			break;
 		case COLOR_TYPE::MAGENTA:
-
-			data.emplace_back(lpImageMng.getImage("SMagentaStone")[0], 0);
+			_image[1] = "SMagentaStone";
+			data.emplace_back(lpImageMng.getImage(_image[1])[0], 0);
 			break;
 		case COLOR_TYPE::RED:
-			data.emplace_back(lpImageMng.getImage("SRedStone")[0], 0);
+			_image[1] = "SRedStone";
+			data.emplace_back(lpImageMng.getImage(_image[1])[0], 0);
 			break;
 		case COLOR_TYPE::YELLOW:
-
-			data.emplace_back(lpImageMng.getImage("SYellowStone")[0], 0);
+			_image[1] = "SYellowStone";
+			data.emplace_back(lpImageMng.getImage(_image[1])[0], 0);
 			break;
 		case COLOR_TYPE::WHITE:
 			break;

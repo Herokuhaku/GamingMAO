@@ -7,7 +7,7 @@ class FireBall :
 {
 public:
 	FireBall();
-	FireBall(Vector2 pos, DIR dir, int speed, TIME time, int stage, OBJ_TYPE target);
+	FireBall(Vector2 pos, DIR dir, Vector2 vec, TIME time, int stage, OBJ_TYPE target);
 	~FireBall();
 
 	void Update(void)override;
@@ -17,7 +17,7 @@ public:
 private:
 	void Init(void);
 
-	int _speed;
+	Vector2 _vec;
 	OBJ_TYPE _target;
 };
 

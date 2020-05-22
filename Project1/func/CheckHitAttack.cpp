@@ -12,9 +12,9 @@ void CheckHitAttack::operator()(const std::vector<std::shared_ptr<Object>>& objl
 		std::tie(flag, my_type, pos1, pos2, damage, invTime, target) = attack.first;
 
 		pos1.x = pos1.x * (static_cast<int>(attack.second->getState().second) - 1) + attack.second->getPos().x;
-		pos1.y = attack.second->getPos().y - pos1.y;
+		pos1.y = attack.second->getPos().y + pos1.y;
 		pos2.x = pos2.x * (static_cast<int>(attack.second->getState().second) - 1) + attack.second->getPos().x;
-		pos2.y = attack.second->getPos().y - pos2.y;
+		pos2.y = attack.second->getPos().y + pos2.y;
 
 		if (pos1.x > pos2.x)
 		{
@@ -27,6 +27,21 @@ void CheckHitAttack::operator()(const std::vector<std::shared_ptr<Object>>& objl
 			std::array<int, 4> hitBox = obj->getHitOffset();
 
 			if (obj->getObjType() == OBJ_TYPE::CAMERA)
+			{
+				continue;
+			}
+
+			if (attack.second->getTimeLine() != obj->getTimeLine())
+			{
+				continue;
+			}
+
+			if (attack.second->getStage() != obj->getStage())
+			{
+				continue;
+			}
+
+			if (attack.second->getObjType() == OBJ_TYPE::ATTACK)
 			{
 				continue;
 			}
@@ -70,8 +85,8 @@ void CheckHitAttack::operator()(const std::vector<std::shared_ptr<Object>>& objl
 			{
 				obj->damagingHP(damage);
 				obj->setInv(invTime);
+				attack.second->IfHitAttack();
 			}
-
 		}
 	}
 }
@@ -88,9 +103,9 @@ void CheckHitAttack::operator()(const std::vector<std::shared_ptr<Enemy>>& objli
 		std::tie(flag, my_type, pos1, pos2, damage, invTime, target) = attack.first;
 
 		pos1.x = pos1.x * (static_cast<int>(attack.second->getState().second) - 1) + attack.second->getPos().x;
-		pos1.y = attack.second->getPos().y - pos1.y;
+		pos1.y = attack.second->getPos().y + pos1.y;
 		pos2.x = pos2.x * (static_cast<int>(attack.second->getState().second) - 1) + attack.second->getPos().x;
-		pos2.y = attack.second->getPos().y - pos2.y;
+		pos2.y = attack.second->getPos().y + pos2.y;
 
 		if (pos1.x > pos2.x)
 		{
@@ -103,6 +118,16 @@ void CheckHitAttack::operator()(const std::vector<std::shared_ptr<Enemy>>& objli
 			std::array<int, 4> hitBox = obj->getHitOffset();
 
 			if (obj->getObjType() == OBJ_TYPE::CAMERA)
+			{
+				continue;
+			}
+
+			if (attack.second->getTimeLine() != obj->getTimeLine())
+			{
+				continue;
+			}
+
+			if (attack.second->getStage() != obj->getStage())
 			{
 				continue;
 			}
@@ -146,8 +171,8 @@ void CheckHitAttack::operator()(const std::vector<std::shared_ptr<Enemy>>& objli
 			{
 				obj->damagingHP(damage);
 				obj->setInv(invTime);
+				attack.second->IfHitAttack();
 			}
-
 		}
 	}
 }

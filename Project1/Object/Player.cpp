@@ -249,15 +249,15 @@ void Player::Init(void)
 	attack.reserve(350);
 	for (int i = 0; i < 100; i++)
 	{
-		attack.emplace_back(atkData(false, OBJ_TYPE::PLAYER, { 42,35 }, { 16,55 }, 10, 10, OBJ_TYPE::MAX));
+		attack.emplace_back(atkData(false, OBJ_TYPE::PLAYER, { 42,-55 }, { 16,-35 }, 10, 10, OBJ_TYPE::MAX));
 	}
 	for (int i = 100; i < 200; i++)
 	{
-		attack.emplace_back(atkData(true, OBJ_TYPE::PLAYER, { 42,35 }, { 162,55 }, 10, 10, OBJ_TYPE::MAX));
+		attack.emplace_back(atkData(true, OBJ_TYPE::PLAYER, { 42,-55 }, { 162,-35 }, 10, 10, OBJ_TYPE::MAX));
 	}
 	for (int i = 200; i < 220; i++)
 	{
-		attack.emplace_back(atkData(false, OBJ_TYPE::PLAYER, { 42,35 }, { 162,55 }, 10, 10, OBJ_TYPE::MAX));
+		attack.emplace_back(atkData(false, OBJ_TYPE::PLAYER, { 42,-55 }, { 162,-35 }, 10, 10, OBJ_TYPE::MAX));
 	}
 	setAttack("magic_fire", attack);
 

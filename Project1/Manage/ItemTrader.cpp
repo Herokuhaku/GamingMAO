@@ -22,17 +22,18 @@ void ItemTrader::BagDraw(Vector2D pos,LAYER lay,int off)
 {
 	_pos.x = pos.x;
 	_pos.y = pos.y;
-	for (auto data : _ItemBag)
+	for (auto data : _IBag)
 	{
-		if ((*data.first).getItemType().first == ITEM_TYPE::BOOK)
+		if (data.first.itemtype == ITEM_TYPE::BOOK)
 		{
-			(*data.first).setPos({ _pos.x + (200 * (*data.first).getItemTypeNo().first),_pos.y });
+			data.first.pos = { _pos.x + (100 * data.first.book),_pos.y };
+			lpImageMng.AddBackDraw({ lpImageMng.getImage(data.first.image[0])[0],data.first.pos.x,data.first.pos.y, 1.0, 0.0,LAYER::EX, 0, DX_BLENDMODE_NOBLEND, 0 });
 		}
-		else if ((*data.first).getItemType().first == ITEM_TYPE::STONE)
+		else if (data.first.itemtype == ITEM_TYPE::STONE)
 		{
-			(*data.first).setPos({ _pos.x + (100 * (*data.first).getItemTypeNo().second),_pos.y });
+			data.first.pos = { _pos.x + (100 * data.first.stone),_pos.y };
+			lpImageMng.AddBackDraw({ lpImageMng.getImage(data.first.image[0])[0],data.first.pos.x,data.first.pos.y, 1.0, 0.0,LAYER::EX, 0, DX_BLENDMODE_NOBLEND, 0 });
 		}
-		(*data.first).OLDraw(lay);
 	}
 }
 
@@ -65,30 +66,20 @@ const void ItemTrader::SetItemList(Vector2 pos, ITEM_TYPE itype, COLOR_TYPE ctyp
 	return;
 }
 
-std::shared_ptr<Item> ItemTrader::ReBag(int no)
+ItemSave& ItemTrader::ReturnBag(int no)
 {
-	if (_ItemBag.empty() == true)
-	{
-		return nullptr;
-	}
-
-	if (_ItemBag.size() <= no)
-	{
-		return nullptr;
-	}
-
-	return _ItemBag.at(no).first;
+	return _IBag.at(no).first;
 }
 
 
 
-void ItemTrader::DeleteItem(std::shared_ptr<Item> &item)
+void ItemTrader::DeleteItem(ItemSave &item)
 {
-	for (auto bag =_ItemBag.begin() ; bag != _ItemBag.end();)
+	for (auto bag = _IBag.begin();bag != _IBag.end();)
 	{
-		if ((*bag).first == item)
+		if ((*bag).first.bagNo == item.bagNo)
 		{
-			bag = _ItemBag.erase(std::move(bag));
+			bag = _IBag.erase(std::move(bag));
 		}
 		else
 		{
@@ -99,6 +90,7 @@ void ItemTrader::DeleteItem(std::shared_ptr<Item> &item)
 	BagTypeCount();
 }
 
+
 void ItemTrader::AddBag(void)
 {
 	for (auto data = _ItemList.begin();data != _ItemList.end();)
@@ -106,8 +98,7 @@ void ItemTrader::AddBag(void)
 		if ((*data)->getPos().x - 50 <= (*lpSceneMng.GetPlObj(lpTimeMng.getTime()))->getPos().x + 50 &&
 			(*data)->getPos().x + 50 >= (*lpSceneMng.GetPlObj(lpTimeMng.getTime()))->getPos().x - 50)
 		{
-			_ItemBag.emplace_back(*data,_ItemBag.size());
-			(*data)->ChangeDir(DIR::LEFT);
+		_IBag.emplace_back((*data)->ReturnSave(),_IBag.size());
 			data = _ItemList.erase(data);		// ŽŸ‚ð•Ô‚·
 		}
 		else
@@ -120,47 +111,55 @@ void ItemTrader::AddBag(void)
 }
 
 
-void ItemTrader::NoReturn(void)
+bool ItemTrader::NoReturn(int no)
 {
-	
+	if (_IBag.empty() == true)
+	{
+		return false;
+	}
+
+	if (_IBag.size() <= no)
+	{
+		return false;
+	}
+	return true;
 }
 
 void ItemTrader::BagNoSort(void)
 {
 	int count = 0;
-	for (int i = 0;i < _ItemBag.size();i++)
+	for (int i = 0;i < _IBag.size();i++)
 	{
-		if (_ItemBag.at(i).second != count)
+		if (_IBag.at(i).second != count)
 		{
-			_ItemBag.at(i).second = count;
-			_ItemBag.at(i).first->SetBagNo(count);
+			_IBag.at(i).second = count;
+			_IBag.at(i).first.bagNo = count;
 		}
 		count++;
 	}
 }
 
-int ItemTrader::BagTypeSort(void)
+void ItemTrader::BagTypeSort(void)
 {
 	_stone = 0;
 	_book  = 0;
 
-	for (auto data : _ItemBag)
+	for (auto &data:_IBag)
 	{
-		switch(data.first->getItemType().first)
+		switch(data.first.itemtype)
 		{
 		case ITEM_TYPE::BOOK:
-			data.first->setItemTypeNo(_book,-1);
+			data.first.book = _book;
 			_book++;
 			break;
 		case ITEM_TYPE::STONE:
-			data.first->setItemTypeNo(-1, _stone);
-			_stone++;
+			data.first.stone = _stone;
+ 			_stone++;
 			break;
 		default:
 			break;
 		};
 	}
-	return 0;
 }
 
 void ItemTrader::BagTypeCount(void)
@@ -169,11 +168,11 @@ void ItemTrader::BagTypeCount(void)
 	{
 		rock.at(i) = 0;
 	}
-	for (auto item : _ItemBag)
+	for (auto item : _IBag)
 	{
-		if ((*item.first).getItemType().first == ITEM_TYPE::STONE)
+		if (item.first.itemtype == ITEM_TYPE::STONE)
 		{
-			switch(item.first->getItemType().second)
+			switch(item.first.colortype)
 			{
 			case COLOR_TYPE::BLACK:
 				break;
@@ -202,13 +201,6 @@ void ItemTrader::BagTypeCount(void)
 	}
 }
 
-void ItemTrader::ChangeDir(DIR dir)
-{
-	for (auto item : _ItemBag)
-	{
-		(*item.first).ChangeDir(dir);
-	}
-}
 
 std::pair<int, int> ItemTrader::getcount(void)
 {

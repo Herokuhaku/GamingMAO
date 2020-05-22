@@ -90,6 +90,15 @@ int SceneMng::GetNum(void)
 	return _work;
 }
 
+int SceneMng::GetRand(int num)
+{
+	if (num <= 0)
+	{
+		return 0;
+	}
+	return (_rnd() % num);
+}
+
 bool SceneMng::SysInit(void)
 {
 	bool rtnFlag = true;
@@ -120,6 +129,10 @@ bool SceneMng::SysInit(void)
 	_flame = 0;
 
  	_work = MakeScreen(ScreenSize.x, ScreenSize.y, true);
+
+	std::random_device rd;
+	std::mt19937 makerand(rd());
+	_rnd = makerand;
 
 	return rtnFlag;
 }

@@ -1,4 +1,5 @@
 #pragma once
+#include <random>
 #include <memory>
 #include "BaceScene.h"
 #include "../Object/Object.h"
@@ -49,6 +50,8 @@ public:
 	void SetNum(int num);			// _workのset
 	int GetNum(void);				// _workのget
 
+	int GetRand(int num);			// ランダムな値を返す
+
 	const Vector2 ScreenSize = { 1280,720 };
 private:
 	static SceneMng *sInstance;
@@ -59,6 +62,8 @@ private:
 	unsigned int _flame;
 
 	int _work;				// gameover用スクリーン
+
+	std::mt19937 _rnd;
 
 	bool SysInit(void);
 	SceneMng();
