@@ -46,6 +46,10 @@ public:
 	void enemyPop(int stage);
 
 	void Init(void);
+
+	void SetPlStage(int no, int stage) { _plStage[no] = stage; };
+	int GetPlStage(int no) { return _plStage[no]; };
+	int GetPlStage(void) { return _plStage[1]; };
 private:
 	static EnemyMng *sInstance;
 
@@ -56,6 +60,8 @@ private:
 
 	std::map<int, std::vector<std::pair<ENEMY_TYPE, Vector2>>> _enemyPlace;
 	bool _epF;							// _enemyPlace ‚ğì‚éƒtƒ‰ƒO
+
+	int _plStage[2];
 
 	EnemyMng();
 	~EnemyMng();

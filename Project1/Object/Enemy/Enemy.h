@@ -69,4 +69,6 @@ static const int e_fn_ptr_num = 5;
 	bool _encntF;		// encoun
 	
 	int _speed;		// speed
+
+	int _plStage;	
 };

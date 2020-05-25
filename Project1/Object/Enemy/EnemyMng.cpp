@@ -8,7 +8,6 @@ void EnemyMng::Update(void)
 {
 	for(auto data : _enemyList)
 	{
-	//	_enemyList.erase(data);				// 範囲for文でのイテレータの取り方がわからない
 		(*data).Update();
 	}
 	_enemyList.erase(std::remove_if(_enemyList.begin(), _enemyList.end(), 
@@ -40,6 +39,7 @@ std::vector<std::shared_ptr<Enemy>> &EnemyMng::GetenemyList(void)
 
 void EnemyMng::StageTrans(int nowStage, int nextStage)
 {
+	SetPlStage(static_cast<int>(lpTimeMng.getTime()), nextStage);
 	StageTDelete();
 	StageTPop(nowStage,nextStage);
 }
@@ -105,6 +105,9 @@ void EnemyMng::Init(void)
 
 	_enemyList.clear();
 	_enemyList.emplace_back(new s_dragon({ 848,646 },1,0, false));
+
+	_plStage[0] = 1;
+	_plStage[1] = 1;
 }
 
 void EnemyMng::addDeadCnt(ENEMY_TYPE type, int stage, int pPos)

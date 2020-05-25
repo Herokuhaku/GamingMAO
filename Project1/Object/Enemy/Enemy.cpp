@@ -92,20 +92,23 @@ int Enemy::Search(Vector2 pPos)
 	_plDir = pPos.x > _pos.x ? DIR::RIGHT : DIR::LEFT;
 	if (_waitCnt >= _waitTime)
 	{
-		if( pPos.y < _pos.y + 10 && pPos.y > _pos.y - 10)
+		if (_stage == lpEnemyMng.GetPlStage())
 		{
-			if ((pPos.x - _pos.x)  * (static_cast<int>(_state_dir.second) - 1) <= _rangeS &&
-				(pPos.x - _pos.x)  * (static_cast<int>(_state_dir.second) - 1) >= -80) 
+			if (pPos.y < _pos.y + 10 && pPos.y > _pos.y - 10)
 			{
-				if ((pPos.x - _pos.x) * (static_cast<int>(_state_dir.second) - 1) <= _rangeA)
+				if ((pPos.x - _pos.x)  * (static_cast<int>(_state_dir.second) - 1) <= _rangeS &&
+					(pPos.x - _pos.x)  * (static_cast<int>(_state_dir.second) - 1) >= -80)
 				{
-					aState(static_cast<int>(MOVE_SELECT::ATTACK));
-					lpImageMng.AddDraw({ lpImageMng.getImage("excPoint")[0], _pos.x, _pos.y - 40, 1.0, 0.0, LAYER::EX, 10, DX_BLENDMODE_NOBLEND, 0 });
-					return _aState;
+					if ((pPos.x - _pos.x) * (static_cast<int>(_state_dir.second) - 1) <= _rangeA)
+					{
+						aState(static_cast<int>(MOVE_SELECT::ATTACK));
+						lpImageMng.AddDraw({ lpImageMng.getImage("excPoint")[0], _pos.x, _pos.y - 40, 1.0, 0.0, LAYER::EX, 10, DX_BLENDMODE_NOBLEND, 0 });
+						return _aState;
+					}
+					lpImageMng.AddDraw({ lpImageMng.getImage("queMark")[0], _pos.x, _pos.y - 40, 1.0, 0.0, LAYER::EX, 10, DX_BLENDMODE_NOBLEND, 0 });
+					_encntF = true;
+					return static_cast<int>(MOVE_SELECT::MOVE);
 				}
-				lpImageMng.AddDraw({ lpImageMng.getImage("queMark")[0], _pos.x, _pos.y - 40, 1.0, 0.0, LAYER::EX, 10, DX_BLENDMODE_NOBLEND, 0 });
-				_encntF = true;
-				return static_cast<int>(MOVE_SELECT::MOVE);
 			}
 		}
 		_encntF = false;
