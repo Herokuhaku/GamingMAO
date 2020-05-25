@@ -13,6 +13,7 @@ public:
 	camera();
 	~camera();
 private:
+	unsigned long long int _flame;			// ƒeƒXƒg
 	std::map<TIME, std::shared_ptr<Object>> _plObj;
 	std::shared_ptr<Vector2D> _cPos;
 	Vector2 _oldPlPos[10];

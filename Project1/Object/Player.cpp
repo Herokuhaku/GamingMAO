@@ -38,13 +38,13 @@ Player::~Player()
 void Player::Update(void)
 {
 	VelUpdate();
+	MagicUpdate();
 	// ‘€ì‚µ‚Ä‚¢‚éƒvƒŒƒCƒ„[‚¶‚á‚È‚¢
 	if (_stage != lpMapMng.GetnowStage())
 	{
 		return;
 	}
-		
-	MagicUpdate();
+	
 	if (!MenuUpdate() && _time == lpTimeMng.getTime())
 	{
 		if (_state_dir.first != OBJ_STATE::DEAD && _state_dir.first != OBJ_STATE::DAMAGE)

@@ -52,6 +52,7 @@ public:
 	virtual void Update(void);
 
 	void setPos(Vector2Template<int> pos);
+	void setPlTmpPos(Vector2Template<int> pos) { _tmpPos = { static_cast<double>(pos.x),static_cast<double>(pos.y) }; };
 	Vector2Template<int> getPos(void);
 
 	void setState(std::pair<OBJ_STATE, DIR> state);

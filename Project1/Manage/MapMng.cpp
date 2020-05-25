@@ -214,7 +214,7 @@ bool MapMng::MapUpdate(void)
 			}
 			if (no == 29)
 			{
-				tp.Epos = { x * 16, -50 };
+				tp.Epos = { x * 16, y * 16 };
 			}
 			GameMap[y][x][_writNo] = no;
 			x++;
@@ -324,12 +324,12 @@ void MapMng::PTDraw(portal_t* test)
 
 		if (flag)
 		{
-
-
 			if ((std::pow(test->Spos.x - lpSceneMng.GetPlPos(lpTimeMng.getTime()).x, 2.0) +
 				std::pow(test->Spos.y + 50 - lpSceneMng.GetPlPos(lpTimeMng.getTime()).y, 2.0)) <= 2000)
 			{
 				(*lpSceneMng.GetPlObj(lpTimeMng.getTime()))->setPos(test->Epos);
+				(*lpSceneMng.GetPlObj(lpTimeMng.getTime()))->setPlTmpPos(test->Epos);
+
 			}
 		}
 

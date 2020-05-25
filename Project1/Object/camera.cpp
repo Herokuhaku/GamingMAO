@@ -3,15 +3,22 @@
 
 void camera::Update(void)
 {
+	// Žv‚Á‚Ä‚½‚Ì‚Æˆá‚Á‚½‚ª‚±‚ê‚Í‚±‚ê‚Å‚¢‚¢
+	_oldPlPos[0] = _oldPlPos[0] + ((_oldPlPos[3] - _oldPlPos[0]) * 0.25);
+	_oldPlPos[1] = _oldPlPos[0] + ((_oldPlPos[3] -_oldPlPos[0])* 0.5);
+	_oldPlPos[2] = _oldPlPos[0] + ((_oldPlPos[3] - _oldPlPos[0]) * 0.75);
+	// Žv‚Á‚Ä‚½‚Ì‚Æˆá‚Á‚½‚ª‚±‚ê‚Í‚±‚ê‚Å‚¢‚¢
 	_cPos->x = _oldPlPos[0].x + _cOffSet.x;
 	_cPos->y = _oldPlPos[0].y + _cOffSet.y;
 
-	for (int i = 0; i < 3; i++)
-	{
-		_oldPlPos[i] = _oldPlPos[i + 1];
-	}
-	_oldPlPos[2] = _plObj.at(lpTimeMng.getTime())->getPos();
+	//for (int i = 0; i < 3; i++)
+	//{
+	//	_oldPlPos[i] = _oldPlPos[i + 1];
+	//}
+
+	_oldPlPos[3] = _plObj.at(lpTimeMng.getTime())->getPos();
 	CheckPos();
+	_flame++;
 }
 
 bool camera::CheckPos(void)
@@ -53,6 +60,7 @@ camera::camera() : _cPos{ new Vector2D(0,0) }
 		_oldPlPos[i] = _plObj.at(lpTimeMng.getTime())->getPos();
 	}
 	_stage = -1;
+	_flame = 0;
 }
 
 camera::~camera()
