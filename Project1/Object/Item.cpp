@@ -92,7 +92,7 @@ void Item::ChangeDir(DIR dir)
 	_state_dir.second = dir;
 }
 
-ItemSave& Item::ReturnSave(void)
+ItemSave &Item::ReturnSave(void)
 {
 	setSave();
 	return save;

@@ -23,7 +23,7 @@ enum class ITEM_TYPE
 	NON,
 };
 
-typedef struct
+struct ItemSave
 {
 	ITEM_TYPE itemtype;
 	COLOR_TYPE colortype;
@@ -33,7 +33,7 @@ typedef struct
 	int stone;				// Î‚Ì”Ô†@Î‚Å‚È‚¯‚ê‚Î-1
 	int hp;					// ‘Ì—Í
 	const char* image[2];	// ‰æ‘œ‚Ìí—Ş
-}ItemSave;
+};
 
 class Item :
 	public Object
@@ -56,7 +56,7 @@ public:
 	void ChangeType(ITEM_TYPE item, COLOR_TYPE color);
 	void ChangeDir(DIR dir);
 
-	ItemSave& ReturnSave(void);
+	ItemSave &ReturnSave(void);
 	void setSave(void);
 private:
 	void Init(void);

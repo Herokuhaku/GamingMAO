@@ -27,12 +27,12 @@ void ItemTrader::BagDraw(Vector2D pos,LAYER lay,int off)
 		if (data.first.itemtype == ITEM_TYPE::BOOK)
 		{
 			data.first.pos = { _pos.x + (100 * data.first.book),_pos.y };
-			lpImageMng.AddBackDraw({ lpImageMng.getImage(data.first.image[0])[0],data.first.pos.x,data.first.pos.y, 1.0, 0.0,LAYER::EX, 0, DX_BLENDMODE_NOBLEND, 0 });
+			lpImageMng.AddBackDraw({ lpImageMng.getImage(data.first.image[0])[0],data.first.pos.x,data.first.pos.y, 1.0, 0.0,LAYER::EX, 110, DX_BLENDMODE_NOBLEND, 0 });
 		}
 		else if (data.first.itemtype == ITEM_TYPE::STONE)
 		{
 			data.first.pos = { _pos.x + (100 * data.first.stone),_pos.y };
-			lpImageMng.AddBackDraw({ lpImageMng.getImage(data.first.image[0])[0],data.first.pos.x,data.first.pos.y, 1.0, 0.0,LAYER::EX, 0, DX_BLENDMODE_NOBLEND, 0 });
+			lpImageMng.AddBackDraw({ lpImageMng.getImage(data.first.image[0])[0],data.first.pos.x,data.first.pos.y, 1.0, 0.0,LAYER::EX, 110, DX_BLENDMODE_NOBLEND, 0 });
 		}
 	}
 }
@@ -66,12 +66,10 @@ const void ItemTrader::SetItemList(Vector2 pos, ITEM_TYPE itype, COLOR_TYPE ctyp
 	return;
 }
 
-ItemSave& ItemTrader::ReturnBag(int no)
+ItemSave &ItemTrader::ReturnBag(int no)
 {
 	return _IBag.at(no).first;
 }
-
-
 
 void ItemTrader::DeleteItem(ItemSave &item)
 {
@@ -88,8 +86,8 @@ void ItemTrader::DeleteItem(ItemSave &item)
 	}
 	BagTypeSort();
 	BagTypeCount();
+	BagNoSort();
 }
-
 
 void ItemTrader::AddBag(void)
 {
@@ -110,14 +108,27 @@ void ItemTrader::AddBag(void)
 	BagTypeCount();
 }
 
+void ItemTrader::AddBag(ItemSave&save)
+{
+	for (auto& bag : _IBag)
+	{
+		if (bag.first.bagNo == save.bagNo)
+		{
+			save.image[0] = ChangeName(save.itemtype,save.colortype);
+			bag.first = save;
+		}
+	}
+}
+
 
 bool ItemTrader::NoReturn(int no)
 {
+	// アイテムバッグに何も入っていない場合falseを返す
 	if (_IBag.empty() == true)
 	{
 		return false;
 	}
-
+	// 選んだ番号がサイズよりも大きい場合falseを返す
 	if (_IBag.size() <= no)
 	{
 		return false;
@@ -209,7 +220,6 @@ std::pair<int, int> ItemTrader::getcount(void)
 
 std::array<int, 6> ItemTrader::getrock(void)
 {
-
 	return rock;
 }
 
@@ -226,4 +236,61 @@ ItemTrader::ItemTrader()
 
 ItemTrader::~ItemTrader()
 {
+}
+
+const char* ItemTrader::ChangeName(ITEM_TYPE _itemtype,COLOR_TYPE _colortype)
+{
+	AnmVec data;
+	data.clear();
+
+	// 通常サイズ
+	switch (_itemtype)
+	{
+	case ITEM_TYPE::BOOK:
+
+		switch (_colortype)
+		{
+		case COLOR_TYPE::BLUE:
+			save.image[0] = "BlueBook";
+			break;
+		case COLOR_TYPE::GREEN:
+			save.image[0] = "GreenBook";
+			break;
+		case COLOR_TYPE::RED:
+			save.image[0] = "RedBook";
+			break;
+		default:
+			break;
+		}
+		break;
+	case ITEM_TYPE::STONE:
+
+		switch (_colortype)
+		{
+		case COLOR_TYPE::BLACK:
+			break;
+		case COLOR_TYPE::BLUE:
+			save.image[0] = "BlueStone";
+			break;
+		case COLOR_TYPE::CYAN:
+			save.image[0] = "CyanStone";
+			break;
+		case COLOR_TYPE::GREEN:
+			save.image[0] = "GreenStone";
+			break;
+		case COLOR_TYPE::MAGENTA:
+			save.image[0] = "MagentaStone";
+			break;
+		case COLOR_TYPE::RED:
+			save.image[0] = "RedStone";
+			break;
+		case COLOR_TYPE::YELLOW:
+			save.image[0] = "YellowStone";
+			break;
+		case COLOR_TYPE::WHITE:
+			break;
+		}
+		break;
+	}
+	return save.image[0];
 }

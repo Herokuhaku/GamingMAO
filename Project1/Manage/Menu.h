@@ -24,6 +24,13 @@ enum class SELECT_ITEM
 	MAX
 };
 
+struct Zorder
+{
+	static constexpr int furoshiki = 30;		// 風呂敷のzorder
+	static constexpr int space = 40;			// 空白のzorder
+	static constexpr int arrow = 50;			// 矢印のzorder
+	static constexpr int item = 100;			// アイテムのzorder
+};
 class Menu
 {
 public:
@@ -44,53 +51,52 @@ public:
 	bool GetMixFlag(void);
 	void ItemDraw(int tmp, Vector2 pos, Vector2 offset,Vector2 stroffset,LAYER lay);
 private:
-
 	Menu();
 	~Menu();
 
-	bool MixFlag;
 	void (Menu::* type)(void);				// メニュー
-
 	void SELECT(void);						// メニュー開いた状態
 	void ItemPup(void);						// Itemの合成
-
-	bool Mix(ItemSave& item1,ItemSave& item2,ItemSave& item3);							// 合成処理
-
 	void ItemMup(void);						// Itemの分解
 
-	void Item(SELECT_ITEM item);
-
-	void ItemSelectD(void);					// 決定と戻る。それと風呂敷などのDraw
-	//
-	void SelectCount(int& select,int thumb);				// 矢印の操作
-
+	void Item(SELECT_ITEM item);			// 選択場所を選択したあとの画面
+	
+	void SelectCount(int& select,int thumb);								// 矢印の操作
+	bool Mix(ItemSave& item1, ItemSave& item2, ItemSave& item3);			// 合成処理
 
 	// 画像描画まとめ
-	void SelectDraw(void);					// Select画面での表示物
-	void MixDraw(void);						// Mix画面での表示物
-	
+	void SelectDraw(void);						// Select画面での表示物
+	void MixDraw(void);							// Mix画面での表示物
+	void ItemSelectD(int no);						// 決定と戻る。それと風呂敷などのDraw
 	void ItemSelectDraw(void);
+	// 固定値
 
 	// 変数
 	static Menu* sInstance;
 
-	Vector2 _offpush;						// 間隔
+	bool MixFlag;
+
 	MENU_TYPE _type;
+
+
+
 	int _select;							// 何番目か。 いろんなところで使う
 	int _select2;							// 別方向の何番目かが欲しくなった時用
 
 	bool push_select;						// メニュー決定
 	bool _start;							// Updateが呼ばれた時点か1周した後かのふらぐ
 
-	Vector2 _cpos;
-	//Vector2 _pos;
-	SELECT_ITEM _selectNo;
-	
-	static constexpr int _asize = 3;			// arrayの大きさ
-	std::array<std::pair<ItemSave, int>,_asize> _sItem;
+	Vector2 _cpos;							// カメラのpos
+	Vector2 _offpush;						// 間隔
 
-	Vector2 tmpos;
-	Vector2 tmpcpos;	// centerpos;
+	SELECT_ITEM _selectNo;					// アイテム選択画面のどれを選んでいるか。
+	
+
+	static constexpr int _asize = 3;			// アイテムが選択できるarrayの大きさ
+	std::array<std::pair<ItemSave, int>,_asize> _sItem;		// アイテム合成のための枠　1つめに2つめのアイテムを混ぜる 3つめは設計図を入れる
+	Zorder _zorder;
+	Vector2 tmpos;		// ScreenSize
+	Vector2 tmpcpos;	// centerpos
 
 };
 
