@@ -7,6 +7,7 @@
 #include "../Manage/ItemTrader.h"
 #include "../Manage/Menu.h"
 #include "../Object/Enemy/EnemyMng.h"
+#include "../Object/Attack/AttackMng.h"
 
 GameScene::GameScene()
 {
@@ -46,20 +47,22 @@ GameScene::GameScene()
 	lpImageMng.getImage("image/item/SCyan_Stone.png", "503");
 	lpImageMng.getImage("image/item/SMagenta_Stone.png", "504");
 	lpImageMng.getImage("image/item/SYellow_Stone.png", "505");
-	// 石(透過)
-	lpImageMng.getImage("image/item/TRed_Stone.png", "510");	
-	lpImageMng.getImage("image/item/TGreen_Stone.png", "511");
-	lpImageMng.getImage("image/item/TBlue_Stone.png", "512");
-	lpImageMng.getImage("image/item/TCyan_Stone.png", "513");
-	lpImageMng.getImage("image/item/TMagenta_Stone.png", "514");
-	lpImageMng.getImage("image/item/TYellow_Stone.png", "515");
 
 	// HPバー
 	lpImageMng.getImage("image/HPbar.png", "hp_bar", 6, 12, 3, 1);
 
+	// 攻撃
+	lpImageMng.getImage("image/Attack/fireball.png", "fireball", 100, 100, 5, 6);
+	lpImageMng.getImage("image/Attack/bubble.png", "bubble");
+	lpImageMng.getImage("image/Attack/fruit.png", "fruit", 64, 64, 4, 1);
+	lpImageMng.getImage("image/Attack/poison_mist.png", "poison_mist", 320, 120, 1, 8);
+	lpImageMng.getImage("image/Attack/ice_wall.png", "ice_wall", 320, 120, 1, 8);
+	lpImageMng.getImage("image/Attack/magic_ring.png", "magic_ring", 100, 75, 2, 8);
+	lpImageMng.getImage("image/Attack/bomb.png", "bomb", 64, 64, 2, 1);
 
 	// エフェクト
 	lpEffectMng.getEffect("effect/player_attack_fire.efk", "magic_fire", 1.0);
+	lpEffectMng.getEffect("effect/player_attack_white_1.efk", "holy", 1.0);
 
 	Init();
 }
@@ -77,6 +80,8 @@ std::unique_ptr<BaceScene> GameScene::Update(std::unique_ptr<BaceScene> own)
 
 	lpEnemyMng.Update();
 
+	lpAtkMng.Update();
+
 	getAttackQue();
 	CheckHitAttack()(_objList, _attackList);
 	CheckHitAttack()(lpEnemyMng.GetenemyList(), _attackList);
@@ -93,8 +98,10 @@ std::unique_ptr<BaceScene> GameScene::Update(std::unique_ptr<BaceScene> own)
 
 	lpEnemyMng.Draw();
 
+	lpAtkMng.Draw();
+
 	lpTradeMng.Draw();
-	lpMenuMng.ItemDraw(500, { 500,650 }, { 75,50 }, { 20,25 }, LAYER::CHAR);
+	ItemDraw();
 
 	lpMapMng.MapDraw();
 
@@ -110,7 +117,8 @@ std::unique_ptr<BaceScene> GameScene::Update(std::unique_ptr<BaceScene> own)
 
 	if (!lpMenuMng.GetMixFlag())
 	{
-		lpTradeMng.BagDraw({ 800,674 }, LAYER::CHAR, 200);
+		lpTradeMng.BagDraw({ 600,650 }, LAYER::CHAR, 200);
+
 	}
 
 	lpTimeMng.resetFlag();
@@ -131,9 +139,8 @@ bool GameScene::Init(void)
 	lpEnemyMng.Init();
 
 	lpTradeMng.SetItemList({ 400,1300 }, ITEM_TYPE::STONE, COLOR_TYPE::BLUE,1);
-	lpTradeMng.SetItemList({ 600,1300 }, ITEM_TYPE::STONE, COLOR_TYPE::RED,1);
-	lpTradeMng.SetItemList({ 800,1300 }, ITEM_TYPE::STONE, COLOR_TYPE::GREEN,1);
-	lpTradeMng.SetItemList({ 1000,1300 }, ITEM_TYPE::BOOK, COLOR_TYPE::BLUE, 1);
+	lpTradeMng.SetItemList({ 400,1500 }, ITEM_TYPE::STONE, COLOR_TYPE::RED,1);
+	lpTradeMng.SetItemList({ 400,1700 }, ITEM_TYPE::STONE, COLOR_TYPE::GREEN,1);
 	
 	lpTimeMng.TimeInit();
 
@@ -175,26 +182,26 @@ void GameScene::getAttackQue(void)
 	}
 }
 
-//void GameScene::ItemDraw(void)
-//{// 描画用データ　画像ID, 座標x, y, 拡大率、角度, レイヤー, zオーダー、ブレンド、パラメータ
-//	Vector2 pos = { 500,650 };
-//	int tmp = 500;
-//	std::string no;
-//	for (int i = 0;i < 6;i++)
-//	{
-//		no = std::to_string(tmp);
-//		std::string _no = std::to_string(lpTradeMng.getrock().at(i));
-//		if (i < 3)
-//		{
-//			lpImageMng.AddBackDraw({ lpImageMng.getImage(no)[0], pos.x + (i * 75),pos.y, 1.0, 0.0, LAYER::CHAR,150, DX_BLENDMODE_NOBLEND, 0 });
-//			lpStrAdd.AddDraw(_no.c_str(), pos.x + (i * 75) + 20, pos.y-25, 0xffff00, DRAW_TO_LEFT);
-//		}
-//		else
-//		{
-//			lpImageMng.AddBackDraw({ lpImageMng.getImage(no)[0], pos.x - (3 * 75) + (i*75),pos.y + 50, 1.0, 0.0, LAYER::CHAR,150, DX_BLENDMODE_NOBLEND, 0 });
-//			lpStrAdd.AddDraw(_no.c_str(), pos.x - (3 * 75) + (i * 75) +20, pos.y + 25, 0xffff00, DRAW_TO_LEFT);
-//		}
-//		tmp++;
-//	}
-//}
+void GameScene::ItemDraw(void)
+{// 描画用データ　画像ID, 座標x, y, 拡大率、角度, レイヤー, zオーダー、ブレンド、パラメータ
+	Vector2 pos = { 500,650 };
+	int tmp = 500;
+	std::string no;
+	for (int i = 0;i < 6;i++)
+	{
+		no = std::to_string(tmp);
+		std::string _no = std::to_string(lpTradeMng.getrock().at(i));
+		if (i < 3)
+		{
+			lpImageMng.AddBackDraw({ lpImageMng.getImage(no)[0], pos.x + (i * 75),pos.y, 1.0, 0.0, LAYER::CHAR,150, DX_BLENDMODE_NOBLEND, 0 });
+			lpStrAdd.AddDraw(_no.c_str(), pos.x + (i * 75) + 20, pos.y-25, 0xffff00, DRAW_TO_LEFT);
+		}
+		else
+		{
+			lpImageMng.AddBackDraw({ lpImageMng.getImage(no)[0], pos.x - (3 * 75) + (i*75),pos.y + 50, 1.0, 0.0, LAYER::CHAR,150, DX_BLENDMODE_NOBLEND, 0 });
+			lpStrAdd.AddDraw(_no.c_str(), pos.x - (3 * 75) + (i * 75) +20, pos.y + 25, 0xffff00, DRAW_TO_LEFT);
+		}
+		tmp++;
+	}
+}
 

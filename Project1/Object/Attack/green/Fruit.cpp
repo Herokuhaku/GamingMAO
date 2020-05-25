@@ -1,6 +1,6 @@
 #include "Fruit.h"
-#include "../../Scene/SceneMng.h"
-#include "../../func/CheckHitStage.h"
+#include "../../../Scene/SceneMng.h"
+#include "../../../func/CheckHitStage.h"
 
 Fruit::Fruit()
 {
@@ -29,8 +29,11 @@ void Fruit::Update(void)
 {
 	_rad += _radSpeed;
 	_pos.x += _speed;
-	if (CheckHitStage()(static_cast<CHECK_DIR>(static_cast<int>(_state_dir.second) / 2), _pos, getHitOffset(), _stage) != NOTHIT)
+
+	int tmpData = CheckHitStage()(static_cast<CHECK_DIR>(static_cast<int>(_state_dir.second) / 2), _pos, getHitOffset(), _stage);
+	if (tmpData != NOTHIT)
 	{
+		_pos.x = tmpData - getHitOffset()[static_cast<int>(static_cast<int>(_state_dir.second) / 2)] * (static_cast<int>(_state_dir.second) - 1) * -1;
 		setState({ OBJ_STATE::DEAD, _state_dir.second });
 	}
 
@@ -80,8 +83,17 @@ void Fruit::Init(void)
 	}
 
 	std::vector<atkData> attack;
-	attack.emplace_back(atkData(true, OBJ_TYPE::ATTACK, { size,-size }, { -size,size }, 0, 0, _target));
+	attack.reserve(2);
+
+	attack.emplace_back(atkData(true, OBJ_TYPE::ATTACK, { -size, -size }, { size, size }, damage, 60, _target));
+	attack.emplace_back(atkData(true, OBJ_TYPE::ATTACK, { -size, -size }, { size, size }, 0, -1, _target));
+
 	setAttack("bubble", attack);
+
+	_type = OBJ_TYPE::ATTACK;
+	setHitOffset({ size,size,size,size });
+
+	AddAttack("bubble");
 
 	_radSpeed = (static_cast<int>(_state_dir.second) - 1) * (_speed / (size * 2 * acos(-1.0f)) * (acos(-1.0f) * 2));
 
@@ -90,10 +102,10 @@ void Fruit::Init(void)
 
 void Fruit::VelUpdate(void)
 {
-	int tmpDown = CheckHitStage()(CHECK_DIR::DOWN, { _pos.x, static_cast<int>(_tmpPos.y) + 1 }, getHitOffset(), _stage);
+	int tmpDown = CheckHitStage()(CHECK_DIR::DOWN, { _pos.x, static_cast<int>(_tmpPos.y) + getHitOffset()[static_cast<int>(CHECK_DIR::DOWN)] + 1 }, getHitOffset(), _stage);
 	if (tmpDown != NOTHIT)
 	{
-		_tmpPos.y = tmpDown - 1;
+		_tmpPos.y = tmpDown - getHitOffset()[static_cast<int>(CHECK_DIR::DOWN)] - 1;
 		_vel = 0.0;
 	}
 	else

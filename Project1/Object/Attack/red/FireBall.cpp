@@ -55,9 +55,9 @@ void FireBall::Init(void)
 	attack.reserve(31);
 	for (int i = 0; i < 30; i++)
 	{
-		attack.emplace_back(atkData(true, OBJ_TYPE::ATTACK, { 20,-6 }, { 0,14 }, 30, 10, _target));
+		attack.emplace_back(atkData(true, OBJ_TYPE::ATTACK, { 0, -6 }, { 20, 14 }, 30, 10, _target));
 	}
-	attack.emplace_back(atkData(false, OBJ_TYPE::ATTACK, { 0,0 }, { 0,0 }, 0, -1, _target));
+	attack.emplace_back(atkData(false, OBJ_TYPE::ATTACK, { 0, 0 }, { 0, 0 }, 0, -1, _target));
 
 	setAttack("fireball", attack);
 	 

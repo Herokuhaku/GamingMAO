@@ -1,6 +1,6 @@
 #pragma once
-#include "../Object.h"
-#include "../../func/CheckHitStage.h"
+#include "../../Object.h"
+#include "../../../func/CheckHitStage.h"
 
 class FireBall :
 	public Object

@@ -46,11 +46,18 @@ void Bubble::Init(void)
 	setAnm({ OBJ_STATE::NORMAL, _state_dir.second }, data);
 
 	std::vector<atkData> attack;
-	attack.emplace_back(atkData(true, OBJ_TYPE::ATTACK, { 40,-40 }, { -40,40 }, 0, 0, _target));
+	attack.reserve(2);
+
+	attack.emplace_back(atkData(true, OBJ_TYPE::ATTACK, { -40, -40 }, { 40, 40 }, 0, 0, _target));
+	attack.emplace_back(atkData(true, OBJ_TYPE::ATTACK, { -40, -40 }, { 40, 40 }, 0, -1, _target));
+
 	setAttack("bubble", attack);
 
 
 	_floatCount = 0;
 
+	_type = OBJ_TYPE::ATTACK;
 	setHitOffset({ 50,50,50,50 });
+
+	AddAttack("bubble");
 }

@@ -1,6 +1,6 @@
 #pragma once
-#include "../Object.h"
-#include "AttackMng.h"
+#include "../../Object.h"
+#include "../AttackMng.h"
 
 
 
