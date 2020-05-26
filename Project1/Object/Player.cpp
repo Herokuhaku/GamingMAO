@@ -2,6 +2,7 @@
 #include "../Manage/Menu.h"
 #include "../Manage/ItemTrader.h"
 #include "../Manage/ButtonMng.h"
+#include "../Scene/SceneMng.h"
 
 Player::Player()
 {
@@ -102,8 +103,12 @@ void Player::Update(void)
 			lpImageMng.setGkind(ScrEff::FADEOUT);
 
 		}
-		else
+		else if ( std::pow(lpMapMng.GetPortal2()->Spos.x - _pos.x, 2.0) +
+				std::pow(lpMapMng.GetPortal2()->Spos.y + 50 - _pos.y, 2.0)
+				<= 900 )
 		{
+				(*lpSceneMng.GetPlObj(lpTimeMng.getTime()))->setPos(lpMapMng.GetPortal2()->Epos);
+				(*lpSceneMng.GetPlObj(lpTimeMng.getTime()))->setPlTmpPos(lpMapMng.GetPortal2()->Epos);
 		}
 	}
 }

@@ -104,6 +104,7 @@ public:
 	const std::pair<bool, int> *GetactiveMap(void) const;
 
 	const portal_t *GetPortal(void) const;
+	const portal_t *GetPortal2(void) const;
 	void setstageF(bool flag) {	test.stageF = flag;	};
 
 #define ACTIVEMAP 4
@@ -131,7 +132,8 @@ private:
 
 	// Map‚ÌˆÚ“®
 	portal_t test;
-	portal_t tp;
+#define STAGE_MAX 5
+	portal_t tp[STAGE_MAX];
 	
 
 	static MapMng *sInstance;
