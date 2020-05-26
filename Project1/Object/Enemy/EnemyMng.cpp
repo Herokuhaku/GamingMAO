@@ -115,7 +115,7 @@ void EnemyMng::Init(void)
 	}
 
 	_enemyList.clear();
-	_enemyList.emplace_back(new s_dragon({ 848,646 },1,0, false));
+	_enemyList.emplace_back(new demon({ 848,646 },1,0, false));
 
 	_plStage[0] = 1;
 	_plStage[1] = 1;

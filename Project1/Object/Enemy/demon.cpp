@@ -47,77 +47,56 @@ demon::~demon()
 
 void demon::Init(void)
 {
-	AnmVec data;
-	// 右-------------------------------------------
+	AnmVec dataR;
+	AnmVec dataL;
+// 左右のアニメーションの登録-------------------------------------------
 	for (int i = 0; i < 2; i++)
 	{
-		data.emplace_back(lpImageMng.getImage("demonR")[4 + i], 20 + i * 20);
+		dataR.emplace_back(lpImageMng.getImage("demonR")[6 + i], 20 + i * 20);
+		dataL.emplace_back(lpImageMng.getImage("demonL")[6 + i], 20 + i * 20);
 	}
-	setAnm({ OBJ_STATE::NORMAL,DIR::RIGHT }, data);
+	setAnm({ OBJ_STATE::NORMAL,DIR::RIGHT }, dataR);
+	setAnm({ OBJ_STATE::NORMAL,DIR::LEFT }, dataL);
 
 	for (int i = 0; i < 6; i++)
 	{
-		data.emplace_back(lpImageMng.getImage("demonR")[i], 20 + i * 20);
+		dataR.emplace_back(lpImageMng.getImage("demonR")[i], 20 + i * 20);
+		dataL.emplace_back(lpImageMng.getImage("demonL")[i], 20 + i * 20);
 	}
-	setAnm({ OBJ_STATE::WALK,DIR::RIGHT }, data);
+	setAnm({ OBJ_STATE::WALK,DIR::RIGHT }, dataR);
+	setAnm({ OBJ_STATE::WALK,DIR::LEFT }, dataL);
 
 	for (int i = 0; i < 4; i++)
 	{
-		data.emplace_back(lpImageMng.getImage("demonR")[16 + i], 20 + i * 20);
+		dataR.emplace_back(lpImageMng.getImage("demonR")[24 + i], 20 + i * 20);
+		dataL.emplace_back(lpImageMng.getImage("demonL")[24 + i], 20 + i * 20);
 	}
-	data.emplace_back(-1, 0);
-	setAnm({ OBJ_STATE::ATTACK,DIR::RIGHT }, data);
+	dataR.emplace_back(-1, 0);
+	dataL.emplace_back(-1, 0);
+	setAnm({ OBJ_STATE::ATTACK,DIR::RIGHT }, dataR);
+	setAnm({ OBJ_STATE::ATTACK,DIR::LEFT }, dataL);
 
 	for (int i = 0; i < 2; i++)
 	{
-		data.emplace_back(lpImageMng.getImage("demonR")[8 + i], 20 + i * 20);
+		dataR.emplace_back(lpImageMng.getImage("demonR")[12 + i], 20 + i * 20);
+		dataL.emplace_back(lpImageMng.getImage("demonL")[12 + i], 20 + i * 20);
 	}
-	data.emplace_back(-1,0);
-	setAnm({ OBJ_STATE::DAMAGE,DIR::RIGHT }, data);
+	dataR.emplace_back(-1,0);
+	dataL.emplace_back(-1,0);
+	setAnm({ OBJ_STATE::DAMAGE,DIR::RIGHT }, dataR);
+	setAnm({ OBJ_STATE::DAMAGE,DIR::LEFT }, dataL);
 
 	for (int i = 0; i < 5; i++)
 	{
-		data.emplace_back(lpImageMng.getImage("demonR")[12 + i], 20 + i * 20);
+		dataR.emplace_back(lpImageMng.getImage("demonR")[18 + i], 20 + i * 20);
+		dataL.emplace_back(lpImageMng.getImage("demonL")[18 + i], 20 + i * 20);
 	}
-	data.emplace_back(-1,2828);
-	setAnm({ OBJ_STATE::DEAD,DIR::RIGHT }, data);
-
-	// 左-------------------------------------------
-	for (int i = 0; i < 2; i++)
-	{
-		data.emplace_back(lpImageMng.getImage("demonL")[4 + i], 20 + i * 20);
-	}
-	setAnm({ OBJ_STATE::NORMAL,DIR::LEFT }, data);
-
-	for (int i = 0; i < 6; i++)
-	{
-		data.emplace_back(lpImageMng.getImage("demonL")[i], 20 + i * 20);
-	}
-	setAnm({ OBJ_STATE::WALK,DIR::LEFT }, data);
-
-	for (int i = 0; i < 4; i++)
-	{
-		data.emplace_back(lpImageMng.getImage("demonL")[16 + i], 20 + i * 20);
-	}
-	data.emplace_back(-1, 0);
-	setAnm({ OBJ_STATE::ATTACK,DIR::LEFT }, data);
-
-	for (int i = 0; i < 2; i++)
-	{
-		data.emplace_back(lpImageMng.getImage("demonL")[8 + i], 20 + i * 20);
-	}
-	data.emplace_back(-1,0);
-	setAnm({ OBJ_STATE::DAMAGE,DIR::LEFT }, data);
-
-	for (int i = 0; i < 5; i++)
-	{
-		data.emplace_back(lpImageMng.getImage("demonL")[12 + i], 20 + i * 20);
-	}
-	data.emplace_back(-1, 2828);
-	setAnm({ OBJ_STATE::DEAD,DIR::LEFT }, data);
+	dataR.emplace_back(-1,2828);
+	dataL.emplace_back(-1, 2828);
+	setAnm({ OBJ_STATE::DEAD,DIR::RIGHT }, dataR);
+	setAnm({ OBJ_STATE::DEAD,DIR::LEFT }, dataL);
+// 左右のアニメーションの登録-------------------------------------------
 
 	_etype = ENEMY_TYPE::s_dragon;
-
-	_drawOffset_y + 30;
-	_drawOffset_y + 30;
+	_drawOffset_y = 64;
 }
