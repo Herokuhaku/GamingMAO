@@ -3,6 +3,7 @@
 
 
 EffekseerMng* EffekseerMng::sInstance = nullptr;
+std::map<std::string, int> EffekseerMng::_effectMap;
 
 int EffekseerMng::getEffect(const std::string & key)
 {

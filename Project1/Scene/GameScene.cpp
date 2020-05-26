@@ -44,9 +44,17 @@ GameScene::GameScene()
 	lpImageMng.getImage("image/item/SRed_Stone.png", "500");
 	lpImageMng.getImage("image/item/SGreen_Stone.png", "501");
 	lpImageMng.getImage("image/item/SBlue_Stone.png", "502");
-	lpImageMng.getImage("image/item/SCyan_Stone.png", "503");
+	lpImageMng.getImage("image/item/SYellow_Stone.png", "503");
 	lpImageMng.getImage("image/item/SMagenta_Stone.png", "504");
-	lpImageMng.getImage("image/item/SYellow_Stone.png", "505");
+	lpImageMng.getImage("image/item/SCyan_Stone.png", "505");
+
+	// êŒ(ìßâﬂ)
+	lpImageMng.getImage("image/item/TRed_Stone.png", "510");
+	lpImageMng.getImage("image/item/TGreen_Stone.png", "511");
+	lpImageMng.getImage("image/item/TBlue_Stone.png", "512");
+	lpImageMng.getImage("image/item/TYellow_Stone.png", "513");	
+	lpImageMng.getImage("image/item/TMagenta_Stone.png", "514");
+	lpImageMng.getImage("image/item/TCyan_Stone.png", "515");
 
 	// HPÉoÅ[
 	lpImageMng.getImage("image/HPbar.png", "hp_bar", 6, 12, 3, 1);

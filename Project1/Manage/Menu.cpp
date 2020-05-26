@@ -13,6 +13,8 @@ Menu::Menu()
 	push_select = false;
 	_select = 0;
 	_select2 = 0;
+	_count.x = 2;
+	_count.y = 1;
 	_offpush.y = 150;
 	_offpush.x = 200;
 	MixFlag = false;
@@ -54,7 +56,7 @@ bool Menu::Update(void)
 		MixFlag = false;
 		_select = 0;
 		_start = false;
-
+		_count = {2,1};
 		for (int x = 0;x < _asize;x++)
 		{
 			_sItem.at(x).first.itemtype = ITEM_TYPE::NON;
@@ -96,7 +98,7 @@ void Menu::ItemDraw(int tmp,Vector2 pos,Vector2 offset,Vector2 stroffset,LAYER l
 void Menu::SELECT(void)
 {
 	// 矢印操作(スティック)
-	SelectCount(_select,XINPUT_THUMBL_Y);
+	SelectCount(_select,XINPUT_THUMBL_Y,_count.y);
 	//　矢印操作 (DPAD)
 	if (lpButtonMng.Buttonf(0,XINPUT_BUTTON_DPAD_UP).first == 1&&
 		lpButtonMng.Buttonf(0,XINPUT_BUTTON_DPAD_UP).second == 0)
@@ -146,14 +148,14 @@ void Menu::ItemPup(void)
 	if (!MixFlag)
 	{
 		// 矢印操作(スティック)
-		SelectCount(_select,XINPUT_THUMBL_X);
+		SelectCount(_select,XINPUT_THUMBL_X,_count.x);
 
 		// 矢印を右に移動させる
 		if (lpButtonMng.Buttonf(0, XINPUT_BUTTON_DPAD_RIGHT).first == 1 &&
 			lpButtonMng.Buttonf(0, XINPUT_BUTTON_DPAD_RIGHT).second == 0)
 		{
 			_select++;
-			if (_select > 2)
+			if (_select > _count.x)
 			{
 				_select = 0;
 			}
@@ -165,7 +167,7 @@ void Menu::ItemPup(void)
 			_select--;
 			if (_select < 0)
 			{
-				_select = 2;
+				_select = _count.x;
 			}
 		}
 
@@ -173,7 +175,7 @@ void Menu::ItemPup(void)
 		if (lpButtonMng.Thumbf(0, XINPUT_THUMBL_Y).first == 2 && lpButtonMng.Thumbf(0, XINPUT_THUMBL_Y).second == 0)
 		{
 			_select2++;
-			if (_select2 > 1)
+			if (_select2 > _count.y)
 			{
 				_select2 = 0;
 			}
@@ -184,7 +186,7 @@ void Menu::ItemPup(void)
 			_select2--;
 			if (_select2 < 0)
 			{
-				_select2 = 1;
+				_select2 = _count.y;
 			}
 		}
 
@@ -203,15 +205,17 @@ void Menu::ItemPup(void)
 				_selectNo = static_cast<SELECT_ITEM>(_select);
 				_select = 0;
 				MixFlag = true;
+				_count.x = 5;
+				_count.y = 2;
 			}
 			else if (_select2 == 1)
 			{
 				lpButtonMng.Buttonf(0, XINPUT_BUTTON_B, 1, 1);
-				for (int i = 0;i < 3;i++)
+				for (int i = 0;i < _asize;i++)
 				{
 					if (_sItem.at(i).first.itemtype != ITEM_TYPE::NON && i == 2)
 					{
-							Mix(_sItem.at(0).first, _sItem.at(1).first, _sItem.at(2).first);
+						Mix(_sItem.at(0).first, _sItem.at(1).first, _sItem.at(2).first);
 					}
 
 				}
@@ -245,11 +249,70 @@ bool Menu::Mix(ItemSave& item1, ItemSave& item2, ItemSave& item3)
 	lpTradeMng.AddBag(item1);
 	lpTradeMng.DeleteItem(item2);
 	// アイテムの二つ目を消すため合成リストからも消す
-	for (int i = 0;i < 3;i++)
+	for (int i = 0;i < _asize;i++)
 	{
 		_sItem.at(i).first.itemtype = ITEM_TYPE::NON;
 	}
 	return true;
+}
+
+COLOR_TYPE Menu::ColorPtr(int no)
+{
+	COLOR_TYPE type;
+	switch (no)
+	{
+	case 0:
+		type = COLOR_TYPE::RED;
+		break;
+	case 1:
+		type = COLOR_TYPE::GREEN;
+		break;
+	case 2:
+		type = COLOR_TYPE::BLUE;
+		break;	
+	case 3:
+		type = COLOR_TYPE::YELLOW;
+		break;
+	case 4:
+		type = COLOR_TYPE::MAGENTA;
+		break;
+	case 5:
+		type = COLOR_TYPE::CYAN;
+		break;
+	default:
+		type = COLOR_TYPE::BLACK;
+		break;
+	}
+	return type;
+}
+
+void Menu::Ins(int no,ITEM_TYPE itemtype,COLOR_TYPE colortype)
+{
+	int _no = lpTradeMng.ReturnNo(itemtype, colortype);
+
+	if (_no == -1)
+	{
+		return;
+	}
+	// アイテムバッグの中身確認
+	if (lpTradeMng.NoReturn(_no) == true)
+	{
+		// 選択した合成欄にアイテムを入れる
+		_sItem.at(no) = { lpTradeMng.ReturnBag(_no), no };
+		MixFlag = false;
+		_select2 = 0;
+		// arrayのサイズ分回す。
+		for (int i = 0;i < _asize;i++)
+		{
+			// アイテムが入っている場合のみチェック
+			if (_sItem.at(i).first.itemtype != ITEM_TYPE::NON &&
+				// 同じアイテムが違うところに入っていたら違うほうのアイテムをNONにする
+				(_sItem.at(i).first.bagNo == _sItem.at(no).first.bagNo && _sItem.at(i).second != _sItem.at(no).second))
+			{
+				_sItem.at(i).first.itemtype = ITEM_TYPE::NON;
+			}
+		}
+	}
 }
 
 void Menu::ItemMup(void)
@@ -257,18 +320,19 @@ void Menu::ItemMup(void)
 	
 }
 
-void Menu::SelectCount(int& select, int thumb)
+void Menu::SelectCount(int& select, int thumb,int count)
 {
 	// 矢印を右 or 上に移動させる
 	if (lpButtonMng.Thumbf(0, thumb).first == 1 &&
 		lpButtonMng.Thumbf(0, thumb).second == 0)
 	{
 		select++;
-		if (select > 2)
+		if (select > count)
 		{
 			select = 0;
 		}
 	}
+
 	// 矢印を左 or 下に移動させる
 	if (lpButtonMng.Thumbf(0, thumb).first == 2 &&
 		lpButtonMng.Thumbf(0, thumb).second == 0)
@@ -276,12 +340,11 @@ void Menu::SelectCount(int& select, int thumb)
 		select--;
 		if (select < 0)
 		{
-			select = 2;
+			select = count;
 		}
 	}
 
 }
-
 
 void Menu::SelectDraw(void)
 {
@@ -336,7 +399,7 @@ void Menu::ItemSelectDraw(void)
 void Menu::Item(SELECT_ITEM item)
 {
 	int no = static_cast<int>(item);
-	ItemSelectD(no);
+
 	// 選択しているアイテムの表示
 	if (_sItem.at(no).first.itemtype != ITEM_TYPE::NON) //　その中にアイテムがある場合のみ。
 	{
@@ -345,45 +408,52 @@ void Menu::Item(SELECT_ITEM item)
 			_sItem.at(no).first.pos.y, 1.0, 0.0,LAYER::EX,_zorder.item, DX_BLENDMODE_NOBLEND, 0 });
 	}
 
+	// アイテム選択
+	ItemSelectD(no);
+
+	// 決定した場合
 	if (lpButtonMng.Buttonf(0, XINPUT_BUTTON_B).first == 1 &&
 		lpButtonMng.Buttonf(0, XINPUT_BUTTON_B).second == 0)
 	{
-		// アイテムバッグの中身確認
-		if (lpTradeMng.NoReturn(_select) == true)
+		if (ColorPtr(_select) != COLOR_TYPE::BLACK)
 		{
-			// 選択した合成欄にアイテムを入れる
-			_sItem.at(no) = { lpTradeMng.ReturnBag(_select), no };
-			MixFlag = false;
-			// arrayのサイズ分回す。
-			for (int i = 0;i < _asize;i++)
-			{
-				// アイテムが入っている場合のみチェック
-			if (_sItem.at(i).first.itemtype != ITEM_TYPE::NON && 
-			// 同じアイテムが違うところに入っていたら違うほうのアイテムをNONにする
-				(_sItem.at(i).first.bagNo == _select && _sItem.at(i).second != _sItem.at(no).second))
-				{
-					_sItem.at(i).first.itemtype = ITEM_TYPE::NON;
-				}
-			}
+			Ins(no, static_cast<ITEM_TYPE>(_select2), ColorPtr(_select));
+			_count = {2,1};
 		}
 	}
 }
 
 void Menu::ItemSelectD(int no)
 {
+	Vector2 pos = { _cpos.x - 200, _cpos.y -50 + 100 };
+	int tmp = 510;
+	std::string image;
+
 	// 風呂敷と枠
 	lpImageMng.AddBackDraw({ lpImageMng.getImage("Menu")[0], _cpos.x, _cpos.y, 1.0, 0.0, LAYER::EX, _zorder.furoshiki, DX_BLENDMODE_NOBLEND, 0 });
 	lpImageMng.AddBackDraw({ lpImageMng.getImage("Space")[0], _cpos.x, _cpos.y - _offpush.y, 1.0, 0.0, LAYER::EX,_zorder.space, DX_BLENDMODE_NOBLEND, 0 });
 
-
 	// 矢印
-	lpImageMng.AddBackDraw({ lpImageMng.getImage("Arrow")[0], (_cpos.x - 300) + (_select * 200),
-		_cpos.y, 1.0, 0.0, LAYER::EX, _zorder.arrow, DX_BLENDMODE_NOBLEND, 0 });
+	lpImageMng.AddBackDraw({ lpImageMng.getImage("Arrow")[0], (_cpos.x - 200) + (_select * 75),
+		_cpos.y -50 +(_select2 *100), 1.0, 0.0, LAYER::EX, _zorder.arrow, DX_BLENDMODE_NOBLEND, 0 });
 
 	//ItemDraw(510, { _cpos.x - 200 ,_cpos.y }, { 200,150 }, {40,100}, LAYER::EX);
-	lpTradeMng.BagDraw({ static_cast<double>(_cpos.x) - 200.0, static_cast<double>(_cpos.y)-50.0 }, LAYER::EX, { 0,100 }, {0.75,0.75});
+	//lpTradeMng.BagDraw({ static_cast<double>(_cpos.x) - 200.0, static_cast<double>(_cpos.y)-50.0 }, LAYER::EX, { 0,100 }, {0.75,0.75});
 
-	SelectCount(_select,XINPUT_THUMBL_X);
+
+	for (int i = 0;i < 6;i++)
+	{
+		image = std::to_string(tmp);
+		std::string _no = std::to_string(lpTradeMng.getrock().at(i));
+		lpImageMng.AddBackDraw({ lpImageMng.getImage(image)[0], pos.x + (i * 75),pos.y, 0.75, 0.0, LAYER::EX,_zorder.item, DX_BLENDMODE_NOBLEND, 0 });
+		tmp++;
+	}
+
+
+
+
+	SelectCount(_select,XINPUT_THUMBL_X,_count.x);
+	SelectCount(_select2, XINPUT_THUMBL_Y,_count.y);
 	//// 矢印を右に移動させる
 	//if (lpButtonMng.Buttonf(0, XINPUT_BUTTON_DPAD_RIGHT).first == 1 &&
 	//	lpButtonMng.Buttonf(0, XINPUT_BUTTON_DPAD_RIGHT).second == 0)
@@ -408,8 +478,8 @@ void Menu::ItemSelectD(int no)
 	if (lpButtonMng.Buttonf(0, XINPUT_BUTTON_A).first == 1 &&
 		lpButtonMng.Buttonf(0, XINPUT_BUTTON_A).second == 0)
 	{
-		_select = no;
+		_select = 0;
+		_count = { 2,1 };
 		MixFlag = false;
 	}
-
 }

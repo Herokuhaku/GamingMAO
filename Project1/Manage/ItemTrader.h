@@ -40,7 +40,7 @@ public:
 	void AddBag(void);
 	void AddBag(ItemSave &save);
 
-
+	int ReturnNo(ITEM_TYPE itemtype, COLOR_TYPE color);
 
 
 	
