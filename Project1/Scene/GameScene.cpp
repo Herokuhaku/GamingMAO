@@ -48,9 +48,17 @@ GameScene::GameScene()
 	lpImageMng.getImage("image/item/SRed_Stone.png", "500");
 	lpImageMng.getImage("image/item/SGreen_Stone.png", "501");
 	lpImageMng.getImage("image/item/SBlue_Stone.png", "502");
-	lpImageMng.getImage("image/item/SCyan_Stone.png", "503");
+	lpImageMng.getImage("image/item/SYellow_Stone.png", "503");
 	lpImageMng.getImage("image/item/SMagenta_Stone.png", "504");
-	lpImageMng.getImage("image/item/SYellow_Stone.png", "505");
+	lpImageMng.getImage("image/item/SCyan_Stone.png", "505");
+
+	// 石(透過)
+	lpImageMng.getImage("image/item/TRed_Stone.png", "510");
+	lpImageMng.getImage("image/item/TGreen_Stone.png", "511");
+	lpImageMng.getImage("image/item/TBlue_Stone.png", "512");
+	lpImageMng.getImage("image/item/TYellow_Stone.png", "513");	
+	lpImageMng.getImage("image/item/TMagenta_Stone.png", "514");
+	lpImageMng.getImage("image/item/TCyan_Stone.png", "515");
 
 	// HPバー
 	lpImageMng.getImage("image/HPbar.png", "hp_bar", 6, 12, 3, 1);
@@ -63,6 +71,8 @@ GameScene::GameScene()
 	lpImageMng.getImage("image/Attack/ice_wall.png", "ice_wall", 320, 120, 1, 8);
 	lpImageMng.getImage("image/Attack/magic_ring.png", "magic_ring", 100, 75, 2, 8);
 	lpImageMng.getImage("image/Attack/bomb.png", "bomb", 64, 64, 2, 1);
+	lpImageMng.getImage("image/Attack/cloud.png", "cloud");
+	lpImageMng.getImage("image/Attack/Lightning.png", "lightning", 128, 256, 4, 3);
 
 	// エフェクト
 	lpEffectMng.getEffect("effect/player_attack_fire.efk", "magic_fire", 1.0);

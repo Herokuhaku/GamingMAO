@@ -120,6 +120,20 @@ void ItemTrader::AddBag(ItemSave&save)
 	}
 }
 
+int ItemTrader::ReturnNo(ITEM_TYPE itemtype, COLOR_TYPE color)
+{
+	int no = -1;
+
+	for (auto bag : _IBag)
+	{
+		if (bag.first.colortype == color && bag.first.itemtype == itemtype)
+		{
+			no = bag.first.bagNo;
+		}
+	}
+		return no;
+}
+
 
 bool ItemTrader::NoReturn(int no)
 {
@@ -179,6 +193,7 @@ void ItemTrader::BagTypeCount(void)
 	{
 		rock.at(i) = 0;
 	}
+
 	for (auto item : _IBag)
 	{
 		if (item.first.itemtype == ITEM_TYPE::STONE)

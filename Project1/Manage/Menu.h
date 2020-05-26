@@ -28,7 +28,7 @@ struct Zorder
 {
 	static constexpr int furoshiki = 30;		// 風呂敷のzorder
 	static constexpr int space = 40;			// 空白のzorder
-	static constexpr int arrow = 50;			// 矢印のzorder
+	static constexpr int arrow = 150;			// 矢印のzorder
 	static constexpr int item = 100;			// アイテムのzorder
 };
 class Menu
@@ -61,13 +61,15 @@ private:
 
 	void Item(SELECT_ITEM item);			// 選択場所を選択したあとの画面
 	
-	void SelectCount(int& select,int thumb);								// 矢印の操作
+	void SelectCount(int& select,int thumb,int count);								// 矢印の操作
 	bool Mix(ItemSave& item1, ItemSave& item2, ItemSave& item3);			// 合成処理
 
+	COLOR_TYPE ColorPtr(int no);
+	void Ins(int no,ITEM_TYPE itemtype, COLOR_TYPE colortype);
 	// 画像描画まとめ
 	void SelectDraw(void);						// Select画面での表示物
 	void MixDraw(void);							// Mix画面での表示物
-	void ItemSelectD(int no);						// 決定と戻る。それと風呂敷などのDraw
+	void ItemSelectD(int no);					// 決定と戻る。それと風呂敷などのDraw
 	void ItemSelectDraw(void);
 	// 固定値
 
@@ -98,5 +100,6 @@ private:
 	Vector2 tmpos;		// ScreenSize
 	Vector2 tmpcpos;	// centerpos
 
+	Vector2 _count;
 };
 
