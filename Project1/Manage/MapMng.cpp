@@ -287,7 +287,7 @@ void MapMng::PTDraw(portal_t* test)
 	//	<= 40000.0 ? true : false;
 	Vector2 pos = { 0,0 };
 	if (std::pow(test->Epos.x - lpSceneMng.GetPlPos(lpTimeMng.getTime()).x, 2.0) +
-		std::pow(test->Epos.y + 50 - lpSceneMng.GetPlPos(lpTimeMng.getTime()).y, 2.0) <= 40000.0)
+		std::pow(test->Epos.y + 50 - lpSceneMng.GetPlPos(lpTimeMng.getTime()).y, 2.0) <= 20000.0)
 	{
 		flag = true;
 		pos = test->Epos;
@@ -295,7 +295,7 @@ void MapMng::PTDraw(portal_t* test)
 
 	if(		std::pow(test->Spos.x - lpSceneMng.GetPlPos(lpTimeMng.getTime()).x, 2.0) +
 				std::pow(test->Spos.y + 50 - lpSceneMng.GetPlPos(lpTimeMng.getTime()).y, 2.0)
-				<= 40000.0)
+				<= 20000.0)
 	{
 		flag = true;
 		pos = test->Spos;

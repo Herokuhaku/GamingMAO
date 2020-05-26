@@ -24,7 +24,7 @@ std::unique_ptr<BaceScene> TitleScene::Update(std::unique_ptr<BaceScene> own)
 		(lpButtonMng.Buttonf(0, XINPUT_BUTTON_B).first == 1 && lpButtonMng.Buttonf(0, XINPUT_BUTTON_B).second == 0))
 	{
 		lpImageMng.setGkind(ScrEff::FADEOUT);
-		return std::make_unique<GameScene>();
+		return std::make_unique<SeleScene>();
 	}
 
 	return std::move(own);
