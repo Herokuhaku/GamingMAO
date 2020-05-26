@@ -5,6 +5,7 @@
 #include "Enemy.h"
 
 #define lpEnemyMng EnemyMng::GetInstance()
+#define STAGE_MAX 5
 
 class EnemyMng
 {
@@ -55,7 +56,6 @@ private:
 
 	std::vector<std::shared_ptr<Enemy>> _enemyList;
 	std::vector<std::pair<ENEMY_TYPE, std::pair<int, int>>> _deadCnt;		// <type, <stage, pPos>>
-#define STAGE_MAX 5
 	unsigned short _deadStageCnt[STAGE_MAX];					// アクセスしやすいように_deadCntと分けて配列を使う
 
 	std::map<int, std::vector<std::pair<ENEMY_TYPE, Vector2>>> _enemyPlace;

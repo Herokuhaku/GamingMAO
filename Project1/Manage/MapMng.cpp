@@ -128,6 +128,11 @@ const portal_t * MapMng::GetPortal(void) const
 	return &test;
 }
 
+const portal_t * MapMng::GetPortal2(void) const
+{
+	return &tp[nowStage.first];
+}
+
 void MapMng::StageTrans(int no)
 {
 	if (no < 1 || no > 4)
@@ -199,6 +204,11 @@ bool MapMng::MapUpdate(void)
 	int y = 0;
 	int x = 0;
 
+	tp[nowStage.first].Spos = { 0, 0 };
+	tp[nowStage.first].Epos = { 0, 0 };
+	tp[nowStage.first].stageF = false;
+
+
 	while (std::getline(ifs, line))
 	{
 		std::vector<std::string> save = split(line, ',');
@@ -210,11 +220,12 @@ bool MapMng::MapUpdate(void)
 			no = stoi(save.at(i));
 			if (no == 26)
 			{
-				tp.Spos = { x * 16, y * 16 };
+				tp[nowStage.first].Spos = { x * 16, y * 16 };
 			}
 			if (no == 29)
 			{
-				tp.Epos = { x * 16, y * 16 };
+				tp[nowStage.first].Epos = { x * 16, y * 16 };
+				tp[nowStage.first].stageF = true;
 			}
 			GameMap[y][x][_writNo] = no;
 			x++;
@@ -259,18 +270,36 @@ void MapMng::MapDraw(void)
 {
 	BlockDraw();
 	BackGround();
-	PTDraw(&tp);
+	PTDraw(&tp[nowStage.first]);
 }
 
 void MapMng::PTDraw(portal_t* test)
 {
-	//if (test->stageF)
-	//{
+//---------------------------------------------------------------------------------------------------
+	if (!tp[nowStage.first].stageF)
+	{
+		return;
+	}
 
-	bool flag =
-			std::pow(test->Spos.x - lpSceneMng.GetPlPos(lpTimeMng.getTime()).x, 2.0) +
+	bool flag = false;
+	//	std::pow(test->Spos.x - lpSceneMng.GetPlPos(lpTimeMng.getTime()).x, 2.0) +
+	//	std::pow(test->Spos.y + 50 - lpSceneMng.GetPlPos(lpTimeMng.getTime()).y, 2.0)
+	//	<= 40000.0 ? true : false;
+	Vector2 pos = { 0,0 };
+	if (std::pow(test->Epos.x - lpSceneMng.GetPlPos(lpTimeMng.getTime()).x, 2.0) +
+		std::pow(test->Epos.y + 50 - lpSceneMng.GetPlPos(lpTimeMng.getTime()).y, 2.0) <= 40000.0)
+	{
+		flag = true;
+		pos = test->Epos;
+	}
+
+	if(		std::pow(test->Spos.x - lpSceneMng.GetPlPos(lpTimeMng.getTime()).x, 2.0) +
 				std::pow(test->Spos.y + 50 - lpSceneMng.GetPlPos(lpTimeMng.getTime()).y, 2.0)
-				<= 40000.0 ? true : false;
+				<= 40000.0)
+	{
+		flag = true;
+		pos = test->Spos;
+	}
 
 
 		if (flag)
@@ -280,7 +309,7 @@ void MapMng::PTDraw(portal_t* test)
 
 		if (test->startF)
 		{
-			lpImageMng.AddDraw({ test->image[test->animKind][test->animFlame],test->Spos.x,test->Spos.y, 3.0, 0.0, LAYER::CHAR, 100, DX_BLENDMODE_NOBLEND, 0 });
+			lpImageMng.AddDraw({ test->image[test->animKind][test->animFlame],pos.x,pos.y, 3.0, 0.0, LAYER::CHAR, 100, DX_BLENDMODE_NOBLEND, 0 });
 
 			test->icnt++;
 			if (test->imagecnt[test->animKind][test->animFlame] < test->icnt)
@@ -320,24 +349,7 @@ void MapMng::PTDraw(portal_t* test)
 			test->animKind = 0;
 		}
 
-
-
-		if (flag)
-		{
-			if ((std::pow(test->Spos.x - lpSceneMng.GetPlPos(lpTimeMng.getTime()).x, 2.0) +
-				std::pow(test->Spos.y + 50 - lpSceneMng.GetPlPos(lpTimeMng.getTime()).y, 2.0)) <= 2000)
-			{
-				(*lpSceneMng.GetPlObj(lpTimeMng.getTime()))->setPos(test->Epos);
-				(*lpSceneMng.GetPlObj(lpTimeMng.getTime()))->setPlTmpPos(test->Epos);
-
-			}
-		}
-
-
-
-
-
-//	}
+//---------------------------------------------------------------------------------------------------
 }
 
 void MapMng::BlockDraw()
@@ -467,10 +479,10 @@ MapMng::MapMng():
 	test.animKind = 0;
 	test.startF = false;
 
-	tp = test;
-
-
-
+	for (int i = 0; i < STAGE_MAX; i++)
+	{
+		tp[i] = test;
+	}
 
 	SetDrawBright(255,255,255);
 	for(int wNo = 0; wNo < ACTIVEMAP; wNo++)
