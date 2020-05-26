@@ -1,7 +1,7 @@
 #include "AttackMng.h"
-#include "FireBall.h"
-#include "Bubble.h"
-#include "BubbleBlast.h"
+#include "red/FireBall.h"
+#include "blue/Bubble.h"
+#include "blue/BubbleBlast.h"
 
 AttackMng* AttackMng::sInstance = nullptr;
 

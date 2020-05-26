@@ -119,7 +119,7 @@ void Fruit::VelUpdate(void)
 			_vel += G_ACC;
 		}
 
-		tmpDown = CheckHitStage()(CHECK_DIR::DOWN, { _pos.x, static_cast<int>(_tmpPos.y) + _vel + 1 }, getHitOffset(), _stage);
+		tmpDown = CheckHitStage()(CHECK_DIR::DOWN, { _pos.x, static_cast<int>(_tmpPos.y + _vel) + 1 }, getHitOffset(), _stage);
 
 		if (tmpDown != NOTHIT)
 		{

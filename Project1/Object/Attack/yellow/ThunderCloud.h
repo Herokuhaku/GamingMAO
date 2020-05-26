@@ -6,7 +6,6 @@ class ThunderCloud :
 {
 public:
 	ThunderCloud();
-	ThunderCloud();
 	~ThunderCloud();
 
 	void Update(void)override;
