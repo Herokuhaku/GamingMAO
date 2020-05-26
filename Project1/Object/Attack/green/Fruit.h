@@ -31,7 +31,7 @@ private:
 
 	FRUIT_TYPE _frType;
 
-	int _radSpeed;
+	double _radSpeed;
 
 	static constexpr double G_ACC = 0.4;
 	static constexpr double ACC_MAX = 8.0;

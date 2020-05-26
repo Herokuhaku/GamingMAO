@@ -63,6 +63,8 @@ GameScene::GameScene()
 	lpImageMng.getImage("image/Attack/ice_wall.png", "ice_wall", 320, 120, 1, 8);
 	lpImageMng.getImage("image/Attack/magic_ring.png", "magic_ring", 100, 75, 2, 8);
 	lpImageMng.getImage("image/Attack/bomb.png", "bomb", 64, 64, 2, 1);
+	lpImageMng.getImage("image/Attack/cloud.png", "cloud");
+	lpImageMng.getImage("image/Attack/Lightning.png", "lightning", 128, 256, 4, 3);
 
 	// エフェクト
 	lpEffectMng.getEffect("effect/player_attack_fire.efk", "magic_fire", 1.0);
