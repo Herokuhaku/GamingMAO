@@ -34,15 +34,15 @@ public:
 	bool TradeCheck(COLOR_TYPE color1, COLOR_TYPE color2);
 	const void SetItemList(Vector2 pos, ITEM_TYPE itype,COLOR_TYPE ctype, int stage);
 	bool NoReturn(int no);
-	ItemSave &ReturnBag(int no);
+	ItemSave& ReturnBag(int no);
 
 	void DeleteItem(ItemSave& item);
 	void AddBag(void);
+	void AddBag(ItemSave &save);
 
 
-	void BagNoSort(void);			// バッグの中のものを順番に番号を付ける
-	void BagTypeSort(void);			// バッグの中の石と本の数を数える
-	void BagTypeCount(void);		// 何色の石が何個あるか数える
+
+
 	
 	std::pair<int, int> getcount(void);	// 本,石の数を返す
 	
@@ -55,6 +55,11 @@ private:
 	std::vector<std::shared_ptr<Item>>_ItemList;				// 落ちているアイテム
 //	std::vector<std::pair<std::shared_ptr<Item>,int>> _ItemBag;	// 持っているアイテム
 
+	void BagTypeSort(void);			// バッグの中の石と本の数を数える
+	void BagTypeCount(void);		// 何色の石が何個あるか数える
+	void BagNoSort(void);			// バッグの中のものを順番に番号を付ける
+
+	const char* ChangeName(ITEM_TYPE _itemtype, COLOR_TYPE _colortype);
 	std::array<int,6> rock;										// 石の種類とその数 //順番は 赤,緑,青,黄,マゼンタ,シアン
 
 	int color;
