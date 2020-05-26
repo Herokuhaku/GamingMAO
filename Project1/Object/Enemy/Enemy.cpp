@@ -178,6 +178,7 @@ void Enemy::Init(void)
 	_etype = ENEMY_TYPE::MAX;
 	_stage = 1;
 	_pPos = 1;
+	_time = TIME::FTR;
 }
 
 void Enemy::Draw(void)
@@ -228,7 +229,7 @@ Enemy::~Enemy()
 	if (_hp <= 0)
 	{
 		lpEnemyMng.addDeadCnt(_etype, _stage, _pPos);
-		lpTradeMng.SetItemList(_pos, ITEM_TYPE::STONE, COLOR_TYPE::GREEN, _stage);
+		lpTradeMng.SetItemList(_pos, ITEM_TYPE::BOOK, COLOR_TYPE::GREEN, _stage);
 	}
 }
 
