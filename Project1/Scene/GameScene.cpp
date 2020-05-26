@@ -117,8 +117,7 @@ std::unique_ptr<BaceScene> GameScene::Update(std::unique_ptr<BaceScene> own)
 
 	if (!lpMenuMng.GetMixFlag())
 	{
-		lpTradeMng.BagDraw({ 600,650 }, LAYER::CHAR, 200);
-
+		lpTradeMng.BagDraw({ 800,670 }, LAYER::CHAR, { 0,0 }, {1.0,1.0});	// ècÇÕScreenSize.y - (DrawBoxÇÃí∑Ç≥/2)
 	}
 
 	lpTimeMng.resetFlag();

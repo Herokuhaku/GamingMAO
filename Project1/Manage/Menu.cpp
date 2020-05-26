@@ -381,7 +381,7 @@ void Menu::ItemSelectD(int no)
 		_cpos.y, 1.0, 0.0, LAYER::EX, _zorder.arrow, DX_BLENDMODE_NOBLEND, 0 });
 
 	//ItemDraw(510, { _cpos.x - 200 ,_cpos.y }, { 200,150 }, {40,100}, LAYER::EX);
-	lpTradeMng.BagDraw({static_cast<double>(_cpos.x) - 200.0, static_cast<double>(_cpos.y)}, LAYER::EX, 200);
+	lpTradeMng.BagDraw({ static_cast<double>(_cpos.x) - 200.0, static_cast<double>(_cpos.y)-50.0 }, LAYER::EX, { 0,100 }, {0.75,0.75});
 
 	SelectCount(_select,XINPUT_THUMBL_X);
 	//// –îˆó‚ð‰E‚ÉˆÚ“®‚³‚¹‚é
@@ -411,4 +411,5 @@ void Menu::ItemSelectD(int no)
 		_select = no;
 		MixFlag = false;
 	}
+
 }
