@@ -14,6 +14,7 @@ enum class MOVE_SELECT
 enum class ENEMY_TYPE
 {
 	s_dragon,
+	demon,
 	MAX
 };
 

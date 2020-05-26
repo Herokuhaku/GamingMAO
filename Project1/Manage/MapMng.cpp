@@ -275,17 +275,31 @@ void MapMng::MapDraw(void)
 
 void MapMng::PTDraw(portal_t* test)
 {
-	//if (test->stageF)
-	//{
+//---------------------------------------------------------------------------------------------------
 	if (!tp[nowStage.first].stageF)
 	{
 		return;
 	}
 
-	bool flag =
-			std::pow(test->Spos.x - lpSceneMng.GetPlPos(lpTimeMng.getTime()).x, 2.0) +
+	bool flag = false;
+	//	std::pow(test->Spos.x - lpSceneMng.GetPlPos(lpTimeMng.getTime()).x, 2.0) +
+	//	std::pow(test->Spos.y + 50 - lpSceneMng.GetPlPos(lpTimeMng.getTime()).y, 2.0)
+	//	<= 40000.0 ? true : false;
+	Vector2 pos = { 0,0 };
+	if (std::pow(test->Epos.x - lpSceneMng.GetPlPos(lpTimeMng.getTime()).x, 2.0) +
+		std::pow(test->Epos.y + 50 - lpSceneMng.GetPlPos(lpTimeMng.getTime()).y, 2.0) <= 40000.0)
+	{
+		flag = true;
+		pos = test->Epos;
+	}
+
+	if(		std::pow(test->Spos.x - lpSceneMng.GetPlPos(lpTimeMng.getTime()).x, 2.0) +
 				std::pow(test->Spos.y + 50 - lpSceneMng.GetPlPos(lpTimeMng.getTime()).y, 2.0)
-				<= 40000.0 ? true : false;
+				<= 40000.0)
+	{
+		flag = true;
+		pos = test->Spos;
+	}
 
 
 		if (flag)
@@ -295,7 +309,7 @@ void MapMng::PTDraw(portal_t* test)
 
 		if (test->startF)
 		{
-			lpImageMng.AddDraw({ test->image[test->animKind][test->animFlame],test->Spos.x,test->Spos.y, 3.0, 0.0, LAYER::CHAR, 100, DX_BLENDMODE_NOBLEND, 0 });
+			lpImageMng.AddDraw({ test->image[test->animKind][test->animFlame],pos.x,pos.y, 3.0, 0.0, LAYER::CHAR, 100, DX_BLENDMODE_NOBLEND, 0 });
 
 			test->icnt++;
 			if (test->imagecnt[test->animKind][test->animFlame] < test->icnt)
@@ -335,22 +349,7 @@ void MapMng::PTDraw(portal_t* test)
 			test->animKind = 0;
 		}
 
-
-
-		//if (flag)
-		//{
-		//	if ((std::pow(test->Spos.x - lpSceneMng.GetPlPos(lpTimeMng.getTime()).x, 2.0) +
-		//		std::pow(test->Spos.y + 50 - lpSceneMng.GetPlPos(lpTimeMng.getTime()).y, 2.0)) <= 2000)
-		//	{
-
-		//	}
-		//}
-
-
-
-
-
-//	}
+//---------------------------------------------------------------------------------------------------
 }
 
 void MapMng::BlockDraw()

@@ -1,5 +1,6 @@
 #include "EnemyMng.h"
 #include "s_dragon.h"
+#include "demon.h"
 #include "../../Scene/SceneMng.h"
 
 EnemyMng *EnemyMng::sInstance = nullptr;
@@ -63,7 +64,17 @@ void EnemyMng::StageTPop(int nowStage, int nextStage)
 
 	for (int i = 0; i < _enemyPlace[nextStage].size(); i++)
 	{
-		_enemyList.emplace_back(new s_dragon(_enemyPlace[nextStage][i].second, nextStage,i, false));
+		switch (_enemyPlace[nextStage][i].first)
+		{
+			case ENEMY_TYPE::s_dragon:
+				_enemyList.emplace_back(new s_dragon(_enemyPlace[nextStage][i].second, nextStage, i, false));
+				break;
+			case ENEMY_TYPE::demon:
+				_enemyList.emplace_back(new demon(_enemyPlace[nextStage][i].second, nextStage, i, false));
+				break;
+			default:
+				break;
+		}
 	}
 }
 
@@ -89,7 +100,7 @@ void EnemyMng::Init(void)
 	{
 		// ‚Æ‚è‚ ‚¦‚¸Žè‘‚«
 		_enemyPlace[1] = { { ENEMY_TYPE::s_dragon, {  448,  464 } },{ ENEMY_TYPE::s_dragon, {  896,  624 } } };
-		_enemyPlace[2] = { { ENEMY_TYPE::s_dragon, {  800, 1280 } },{ ENEMY_TYPE::s_dragon, { 1264, 1280 } } };
+		_enemyPlace[2] = { { ENEMY_TYPE::demon,	   {  800, 1280 } },{ ENEMY_TYPE::s_dragon, { 1264, 1280 } } };
 		_enemyPlace[3] = { { ENEMY_TYPE::s_dragon, {  768, 1056 } },{ ENEMY_TYPE::s_dragon, { 1200,  200 } } };
 		_enemyPlace[4] = { { ENEMY_TYPE::s_dragon, {   48, 1040 } },{ ENEMY_TYPE::s_dragon, {  272,  128 } } };
 
