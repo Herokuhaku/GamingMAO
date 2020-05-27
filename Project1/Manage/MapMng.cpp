@@ -386,7 +386,7 @@ void MapMng::BlockLayer(void)
 			{
 				DrawRotaGraph(x*16+(CHIP_SIZE/2), y*16, 1.0, 0, lpImageMng.getImage("Block")[GameMap[y][x][_writNo]], true);
 			}
-		}
+	}
 	}
 }
 

@@ -102,10 +102,10 @@ int Enemy::Search(Vector2 pPos)
 					if ((pPos.x - _pos.x) * (static_cast<int>(_state_dir.second) - 1) <= _rangeA)
 					{
 						aState(static_cast<int>(MOVE_SELECT::ATTACK));
-						lpImageMng.AddDraw({ lpImageMng.getImage("excPoint")[0], _pos.x, _pos.y - 40, 1.0, 0.0, LAYER::EX, 10, DX_BLENDMODE_NOBLEND, 0 });
+						lpImageMng.AddDraw({ lpImageMng.getImage("excPoint")[0], _pos.x, _pos.y - _drawOffset_y, 1.0, 0.0, LAYER::EX, 10, DX_BLENDMODE_NOBLEND, 0 });
 						return _aState;
 					}
-					lpImageMng.AddDraw({ lpImageMng.getImage("queMark")[0], _pos.x, _pos.y - 40, 1.0, 0.0, LAYER::EX, 10, DX_BLENDMODE_NOBLEND, 0 });
+					lpImageMng.AddDraw({ lpImageMng.getImage("queMark")[0], _pos.x, _pos.y - _drawOffset_y, 1.0, 0.0, LAYER::EX, 10, DX_BLENDMODE_NOBLEND, 0 });
 					_encntF = true;
 					return static_cast<int>(MOVE_SELECT::MOVE);
 				}

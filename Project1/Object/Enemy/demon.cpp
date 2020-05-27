@@ -109,6 +109,6 @@ void demon::Init(void)
 	setAnm({ OBJ_STATE::DEAD,DIR::LEFT }, dataL);
 // 左右のアニメーションの登録-------------------------------------------
 
-	_etype = ENEMY_TYPE::s_dragon;
+	_etype = ENEMY_TYPE::demon;
 	_drawOffset_y = 64;
 }
