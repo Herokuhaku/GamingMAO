@@ -476,15 +476,15 @@ void Player::ControlAttack(void)
 
 	if (_attackFlag)
 	{
-		if (lpKeyMng.getBuf[KEY_INPUT_V] && (!lpKeyMng.getOldBuf[KEY_INPUT_V]))
-		{
+		//if (lpKeyMng.getBuf[KEY_INPUT_V] && (!lpKeyMng.getOldBuf[KEY_INPUT_V]))
+		//{
 
-		}
+		//}
 
 
 		ATK_COLOR color = ColorBlend();
 
-		if (!lpKeyMng.getBuf[KEY_INPUT_SPACE] && lpKeyMng.getOldBuf[KEY_INPUT_SPACE])
+		if (!lpKeyMng.getBuf()[KEY_INPUT_SPACE] && lpKeyMng.getOldBuf()[KEY_INPUT_SPACE])
 		{
 			_attack[static_cast<int>(color)][static_cast<int>(_magicSet[static_cast<int>(color)])]();
 

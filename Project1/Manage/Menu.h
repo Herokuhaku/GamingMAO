@@ -50,6 +50,8 @@ public:
 	bool Update(void);
 	bool GetMixFlag(void);
 	void ItemDraw(int tmp, Vector2 pos, Vector2 offset,Vector2 stroffset,LAYER lay);
+	COLOR_TYPE ColorPtr(int no);
+
 private:
 	Menu();
 	~Menu();
@@ -67,7 +69,7 @@ private:
 	bool Key(ItemSave & item1,ItemSave & item2);
 	bool Vine(ItemSave&item1,ItemSave&item2);
 
-	COLOR_TYPE ColorPtr(int no);
+
 	void Ins(int no,ITEM_TYPE itemtype, COLOR_TYPE colortype);
 	// ‰æ‘œ•`‰æ‚Ü‚Æ‚ß
 	void SelectDraw(void);						// Select‰æ–Ê‚Å‚Ì•\Ž¦•¨
