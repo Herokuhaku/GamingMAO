@@ -21,6 +21,7 @@ void Enemy::Update(void)
 	// ???
 	_work = (this->*autoM[_aState])(plPos);
 	_work =	Search(plPos);
+
 	aState(_work);
 }
 
@@ -78,12 +79,25 @@ int Enemy::Move(Vector2 pPos)
 					setState({ OBJ_STATE::WALK,DIR::RIGHT });
 				}
 			}
+			RandWait();
 			return _aState;
 		}
 		else
 		{
 			return 	AtkMove(pPos);
 		}
+	}
+}
+
+void Enemy::RandWait(void)
+{
+	if (std::rand() % 500 == 0)
+	{
+		setState({ OBJ_STATE::NORMAL, _state_dir.second });
+		_waitTime = 140;	// クールタイム
+		_waitF = false;
+		_waitCnt = 0;
+		_aState = static_cast<int>(MOVE_SELECT::WAIT);
 	}
 }
 
@@ -102,10 +116,10 @@ int Enemy::Search(Vector2 pPos)
 					if ((pPos.x - _pos.x) * (static_cast<int>(_state_dir.second) - 1) <= _rangeA)
 					{
 						aState(static_cast<int>(MOVE_SELECT::ATTACK));
-						lpImageMng.AddDraw({ lpImageMng.getImage("excPoint")[0], _pos.x, _pos.y - 40, 1.0, 0.0, LAYER::EX, 10, DX_BLENDMODE_NOBLEND, 0 });
+						lpImageMng.AddDraw({ lpImageMng.getImage("excPoint")[0], _pos.x, _pos.y - _drawOffset_y, 1.0, 0.0, LAYER::EX, 10, DX_BLENDMODE_NOBLEND, 0 });
 						return _aState;
 					}
-					lpImageMng.AddDraw({ lpImageMng.getImage("queMark")[0], _pos.x, _pos.y - 40, 1.0, 0.0, LAYER::EX, 10, DX_BLENDMODE_NOBLEND, 0 });
+					lpImageMng.AddDraw({ lpImageMng.getImage("queMark")[0], _pos.x, _pos.y - _drawOffset_y, 1.0, 0.0, LAYER::EX, 10, DX_BLENDMODE_NOBLEND, 0 });
 					_encntF = true;
 					return static_cast<int>(MOVE_SELECT::MOVE);
 				}
@@ -132,12 +146,10 @@ int Enemy::AtkMove(Vector2 pPos)
 {
 	if (_state_dir.second == DIR::RIGHT)
 	{
-		//_pos.x += lpSceneMng.GetFlame() % 2;
 		_pos.x += _speed + 1;
 	}
 	else
 	{
-		//_pos.x -= lpSceneMng.GetFlame() % 2;
 		_pos.x -= _speed + 1;
 	}
 	return _aState;

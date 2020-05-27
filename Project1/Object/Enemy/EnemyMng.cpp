@@ -1,6 +1,7 @@
 #include "EnemyMng.h"
 #include "s_dragon.h"
 #include "demon.h"
+#include "wizard.h"
 #include "../../Scene/SceneMng.h"
 
 EnemyMng *EnemyMng::sInstance = nullptr;
@@ -64,17 +65,7 @@ void EnemyMng::StageTPop(int nowStage, int nextStage)
 
 	for (int i = 0; i < _enemyPlace[nextStage].size(); i++)
 	{
-		switch (_enemyPlace[nextStage][i].first)
-		{
-			case ENEMY_TYPE::s_dragon:
-				_enemyList.emplace_back(new s_dragon(_enemyPlace[nextStage][i].second, nextStage, i, false));
-				break;
-			case ENEMY_TYPE::demon:
-				_enemyList.emplace_back(new demon(_enemyPlace[nextStage][i].second, nextStage, i, false));
-				break;
-			default:
-				break;
-		}
+		EnemyPop(_enemyPlace[nextStage][i].first, nextStage, i);
 	}
 }
 
@@ -100,11 +91,9 @@ void EnemyMng::Init(void)
 	{
 		// とりあえず手書き
 		_enemyPlace[1] = { { ENEMY_TYPE::s_dragon, {  448,  464 } },{ ENEMY_TYPE::s_dragon, {  896,  624 } } };
-		_enemyPlace[2] = { { ENEMY_TYPE::demon,	   {  800, 1280 } },{ ENEMY_TYPE::s_dragon, { 1264, 1280 } } };
+		_enemyPlace[2] = { { ENEMY_TYPE::demon,	   {  800, 1280 } },{ ENEMY_TYPE::wizard  , { 1264, 1280 } } };
 		_enemyPlace[3] = { { ENEMY_TYPE::s_dragon, {  768, 1056 } },{ ENEMY_TYPE::s_dragon, { 1200,  200 } } };
 		_enemyPlace[4] = { { ENEMY_TYPE::s_dragon, {   48, 1040 } },{ ENEMY_TYPE::s_dragon, {  272,  128 } } };
-
-
 
 		_epF = false;
 	}
@@ -115,7 +104,7 @@ void EnemyMng::Init(void)
 	}
 
 	_enemyList.clear();
-	_enemyList.emplace_back(new demon({ 848,646 },1,0, false));
+	_enemyList.emplace_back(new wizard({ 848,646 },1,0, false));
 
 	_plStage[0] = 1;
 	_plStage[1] = 1;
@@ -137,7 +126,7 @@ void EnemyMng::enemyPop(int stage)
 		{
 			if (data->second.first == stage)
 			{
-				_enemyList.emplace_back(new s_dragon(_enemyPlace[data->second.first][data->second.second].second, data->second.first, data->second.second, false));
+				EnemyPop(_enemyPlace[data->second.first][data->second.second].first, data->second.first, data->second.second);
 				data = _deadCnt.erase(data);
 				continue;
 				// dataが次のイテレータになったからインクリメントしない
@@ -147,6 +136,25 @@ void EnemyMng::enemyPop(int stage)
 		_deadStageCnt[stage] = 0;
 	}
 }
+
+void EnemyMng::EnemyPop(ENEMY_TYPE type, int nextStage, int i)
+{
+	switch (type)
+	{
+	case ENEMY_TYPE::s_dragon:
+		_enemyList.emplace_back(new s_dragon(_enemyPlace[nextStage][i].second, nextStage, i, false));
+		break;
+	case ENEMY_TYPE::demon:
+		_enemyList.emplace_back(new demon(_enemyPlace[nextStage][i].second, nextStage, i, false));
+		break;
+	case ENEMY_TYPE::wizard:
+		_enemyList.emplace_back(new wizard(_enemyPlace[nextStage][i].second, nextStage, i, false));
+		break;
+	default:
+		break;
+	}
+}
+
 
 EnemyMng::EnemyMng()
 {

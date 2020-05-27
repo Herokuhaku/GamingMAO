@@ -15,6 +15,7 @@ enum class ENEMY_TYPE
 {
 	s_dragon,
 	demon,
+	wizard,
 	MAX
 };
 
@@ -63,8 +64,8 @@ static const int e_fn_ptr_num = 5;
 	int _waitCnt;		// wait‚ÌƒJƒEƒ“ƒg
 	int _waitTime;		// wait‚ÌŠÔ
 	//---------------------------------------------------
-	int _rangeS;		// range of search
-	int _rangeA;		// rage of attack
+	int _rangeS;		// range of search	‰Šú200
+	int _rangeA;		// rage of attack	‰Šú80
 	DIR _plDir;		// 
 
 	bool _encntF;		// encoun
@@ -72,4 +73,6 @@ static const int e_fn_ptr_num = 5;
 	int _speed;		// speed
 
 	int _plStage;	
+
+	void RandWait(void);	//		
 };

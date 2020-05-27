@@ -85,9 +85,11 @@ void AttackMng::MakeThunder(Vector2 pos1, Vector2 pos2, int damage, TIME time, i
 	_attackObj.emplace_back(new Thunder(pos1, pos2, damage, time, stage, target));
 }
 
-void AttackMng::MakeHolyJudge(Vector2 pos, TIME time, int stage, OBJ_TYPE target)
+int AttackMng::MakeHolyJudge(Vector2 pos, TIME time, int stage, OBJ_TYPE target)
 {
 	_attackObj.emplace_back(new HolyJudge(pos, time, stage, target));
+
+	return _attackObj.back()->getAnmEfk();
 }
 
 AttackMng::AttackMng()
