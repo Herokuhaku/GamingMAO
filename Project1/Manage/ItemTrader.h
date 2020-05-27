@@ -41,9 +41,8 @@ public:
 	void AddBag(ItemSave &save);
 
 	int ReturnNo(ITEM_TYPE itemtype, COLOR_TYPE color);
+	bool ReBook(COLOR_TYPE color);
 
-
-	
 	std::pair<int, int> getcount(void);	// 本,石の数を返す
 	
 	std::array<int, 6> getrock(void);	// 何色の石が何個あるかを返す //順番は 赤,緑,青,黄,マゼンタ,シアン

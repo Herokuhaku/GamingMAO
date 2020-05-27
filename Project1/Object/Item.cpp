@@ -121,7 +121,6 @@ void Item::Init(void)
 	switch (_itemtype)
 	{
 	case ITEM_TYPE::BOOK:
-
 		switch (_colortype)
 		{
 		case COLOR_TYPE::BLUE:
@@ -141,7 +140,6 @@ void Item::Init(void)
 		}
 		break;
 	case ITEM_TYPE::STONE:
-
 		switch (_colortype)
 		{
 		case COLOR_TYPE::BLACK:
@@ -173,6 +171,9 @@ void Item::Init(void)
 		case COLOR_TYPE::WHITE:
 			break;
 		}
+		break;
+	case ITEM_TYPE::TOOL:
+
 		break;
 	}
 	if (data.size() == 0)

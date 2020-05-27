@@ -20,7 +20,7 @@ enum class ITEM_TYPE
 {
 	BOOK,
 	STONE,
-	ITEM,
+	TOOL,
 	NON,
 };
 
