@@ -49,27 +49,39 @@ void demon::Init(void)
 {
 	AnmVec dataR;
 	AnmVec dataL;
+	int animCnt = 15;
 // 左右のアニメーションの登録-------------------------------------------
 	for (int i = 0; i < 2; i++)
 	{
-		dataR.emplace_back(lpImageMng.getImage("demonR")[6 + i], 20 + i * 20);
-		dataL.emplace_back(lpImageMng.getImage("demonL")[6 + i], 20 + i * 20);
+		dataR.emplace_back(lpImageMng.getImage("demonR")[6 + i], animCnt + i * animCnt);
+		dataL.emplace_back(lpImageMng.getImage("demonL")[6 + i], animCnt + i * animCnt);
 	}
 	setAnm({ OBJ_STATE::NORMAL,DIR::RIGHT }, dataR);
 	setAnm({ OBJ_STATE::NORMAL,DIR::LEFT }, dataL);
 
+	animCnt = 10;
 	for (int i = 0; i < 6; i++)
 	{
-		dataR.emplace_back(lpImageMng.getImage("demonR")[i], 20 + i * 20);
-		dataL.emplace_back(lpImageMng.getImage("demonL")[i], 20 + i * 20);
+		dataR.emplace_back(lpImageMng.getImage("demonR")[i], animCnt + i * animCnt);
+		dataL.emplace_back(lpImageMng.getImage("demonL")[i], animCnt + i * animCnt);
 	}
 	setAnm({ OBJ_STATE::WALK,DIR::RIGHT }, dataR);
 	setAnm({ OBJ_STATE::WALK,DIR::LEFT }, dataL);
 
-	for (int i = 0; i < 4; i++)
+	//for (int i = 0; i < 4; i++)
 	{
-		dataR.emplace_back(lpImageMng.getImage("demonR")[24 + i], 20 + i * 20);
-		dataL.emplace_back(lpImageMng.getImage("demonL")[24 + i], 20 + i * 20);
+		int i = 0;
+		dataR.emplace_back(lpImageMng.getImage("demonR")[24 + i], 10);
+		dataL.emplace_back(lpImageMng.getImage("demonL")[24 + i], 10);
+		i++;
+		dataR.emplace_back(lpImageMng.getImage("demonR")[24 + i], 15);
+		dataL.emplace_back(lpImageMng.getImage("demonL")[24 + i], 15);
+		i++;
+		dataR.emplace_back(lpImageMng.getImage("demonR")[24 + i], 30);
+		dataL.emplace_back(lpImageMng.getImage("demonL")[24 + i], 30);
+		i++;
+		dataR.emplace_back(lpImageMng.getImage("demonR")[24 + i], 40);
+		dataL.emplace_back(lpImageMng.getImage("demonL")[24 + i], 40);
 	}
 	dataR.emplace_back(-1, 0);
 	dataL.emplace_back(-1, 0);
@@ -78,8 +90,8 @@ void demon::Init(void)
 
 	for (int i = 0; i < 2; i++)
 	{
-		dataR.emplace_back(lpImageMng.getImage("demonR")[12 + i], 20 + i * 20);
-		dataL.emplace_back(lpImageMng.getImage("demonL")[12 + i], 20 + i * 20);
+		dataR.emplace_back(lpImageMng.getImage("demonR")[12 + i], animCnt + i * animCnt);
+		dataL.emplace_back(lpImageMng.getImage("demonL")[12 + i], animCnt + i * animCnt);
 	}
 	dataR.emplace_back(-1,0);
 	dataL.emplace_back(-1,0);
@@ -88,8 +100,8 @@ void demon::Init(void)
 
 	for (int i = 0; i < 5; i++)
 	{
-		dataR.emplace_back(lpImageMng.getImage("demonR")[18 + i], 20 + i * 20);
-		dataL.emplace_back(lpImageMng.getImage("demonL")[18 + i], 20 + i * 20);
+		dataR.emplace_back(lpImageMng.getImage("demonR")[18 + i], animCnt + i * animCnt);
+		dataL.emplace_back(lpImageMng.getImage("demonL")[18 + i], animCnt + i * animCnt);
 	}
 	dataR.emplace_back(-1,2828);
 	dataL.emplace_back(-1, 2828);

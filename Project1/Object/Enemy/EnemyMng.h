@@ -58,6 +58,8 @@ private:
 	std::vector<std::pair<ENEMY_TYPE, std::pair<int, int>>> _deadCnt;		// <type, <stage, pPos>>
 	unsigned short _deadStageCnt[STAGE_MAX];					// アクセスしやすいように_deadCntと分けて配列を使う
 
+	void EnemyPop(ENEMY_TYPE type, int nextStage, int i);
+
 	std::map<int, std::vector<std::pair<ENEMY_TYPE, Vector2>>> _enemyPlace;
 	bool _epF;							// _enemyPlace を作るフラグ
 

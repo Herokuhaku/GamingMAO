@@ -64,17 +64,7 @@ void EnemyMng::StageTPop(int nowStage, int nextStage)
 
 	for (int i = 0; i < _enemyPlace[nextStage].size(); i++)
 	{
-		switch (_enemyPlace[nextStage][i].first)
-		{
-			case ENEMY_TYPE::s_dragon:
-				_enemyList.emplace_back(new s_dragon(_enemyPlace[nextStage][i].second, nextStage, i, false));
-				break;
-			case ENEMY_TYPE::demon:
-				_enemyList.emplace_back(new demon(_enemyPlace[nextStage][i].second, nextStage, i, false));
-				break;
-			default:
-				break;
-		}
+		EnemyPop(_enemyPlace[nextStage][i].first, nextStage, i);
 	}
 }
 
@@ -137,7 +127,8 @@ void EnemyMng::enemyPop(int stage)
 		{
 			if (data->second.first == stage)
 			{
-				_enemyList.emplace_back(new s_dragon(_enemyPlace[data->second.first][data->second.second].second, data->second.first, data->second.second, false));
+				EnemyPop(_enemyPlace[data->second.first][data->second.second].first, data->second.first, data->second.second);
+				//_enemyList.emplace_back(new s_dragon(_enemyPlace[data->second.first][data->second.second].second, data->second.first, data->second.second, false));
 				data = _deadCnt.erase(data);
 				continue;
 				// dataが次のイテレータになったからインクリメントしない
@@ -147,6 +138,22 @@ void EnemyMng::enemyPop(int stage)
 		_deadStageCnt[stage] = 0;
 	}
 }
+
+void EnemyMng::EnemyPop(ENEMY_TYPE type, int nextStage, int i)
+{
+	switch (type)
+	{
+	case ENEMY_TYPE::s_dragon:
+		_enemyList.emplace_back(new s_dragon(_enemyPlace[nextStage][i].second, nextStage, i, false));
+		break;
+	case ENEMY_TYPE::demon:
+		_enemyList.emplace_back(new demon(_enemyPlace[nextStage][i].second, nextStage, i, false));
+		break;
+	default:
+		break;
+	}
+}
+
 
 EnemyMng::EnemyMng()
 {
