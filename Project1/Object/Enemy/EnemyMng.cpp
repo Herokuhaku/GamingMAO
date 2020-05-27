@@ -2,6 +2,7 @@
 #include "s_dragon.h"
 #include "demon.h"
 #include "wizard.h"
+#include "scorcererViilain.h"
 #include "../../Scene/SceneMng.h"
 
 EnemyMng *EnemyMng::sInstance = nullptr;
@@ -90,9 +91,9 @@ void EnemyMng::Init(void)
 	if (_epF)
 	{
 		// Ç∆ÇËÇ†Ç¶Ç∏éËèëÇ´
-		_enemyPlace[1] = { { ENEMY_TYPE::s_dragon, {  448,  464 } },{ ENEMY_TYPE::s_dragon, {  896,  624 } } };
-		_enemyPlace[2] = { { ENEMY_TYPE::demon,	   {  800, 1280 } },{ ENEMY_TYPE::wizard  , { 1264, 1280 } } };
-		_enemyPlace[3] = { { ENEMY_TYPE::s_dragon, {  768, 1056 } },{ ENEMY_TYPE::s_dragon, { 1200,  200 } } };
+		_enemyPlace[1] = { { ENEMY_TYPE::demon, {  448,  464 } },{ ENEMY_TYPE::s_dragon, {  896,  624 } } };
+		_enemyPlace[2] = { { ENEMY_TYPE::sorcerer,	   {  800, 1280 }} };//}, { ENEMY_TYPE::wizard  , { 1264, 1280 } }
+		_enemyPlace[3] = { { ENEMY_TYPE::sorcerer, {  768, 1056 } },{ ENEMY_TYPE::s_dragon, { 1200,  200 } } };
 		_enemyPlace[4] = { { ENEMY_TYPE::s_dragon, {   48, 1040 } },{ ENEMY_TYPE::s_dragon, {  272,  128 } } };
 
 		_epF = false;
@@ -104,7 +105,7 @@ void EnemyMng::Init(void)
 	}
 
 	_enemyList.clear();
-	_enemyList.emplace_back(new wizard({ 848,646 },1,0, false));
+	_enemyList.emplace_back(new sorcerer({ 848,646 },1,0, false));
 
 	_plStage[0] = 1;
 	_plStage[1] = 1;
@@ -150,6 +151,9 @@ void EnemyMng::EnemyPop(ENEMY_TYPE type, int nextStage, int i)
 	case ENEMY_TYPE::wizard:
 		_enemyList.emplace_back(new wizard(_enemyPlace[nextStage][i].second, nextStage, i, false));
 		break;
+	case ENEMY_TYPE::sorcerer:
+
+		_enemyList.emplace_back(new sorcerer(_enemyPlace[nextStage][i].second, nextStage, i, false));
 	default:
 		break;
 	}

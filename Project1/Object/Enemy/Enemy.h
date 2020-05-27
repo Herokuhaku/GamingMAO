@@ -16,6 +16,7 @@ enum class ENEMY_TYPE
 	s_dragon,
 	demon,
 	wizard,
+	sorcerer,
 	MAX
 };
 

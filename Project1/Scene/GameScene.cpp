@@ -23,17 +23,20 @@ GameScene::GameScene()
 	lpImageMng.getImage("image/player_attack.png", "player_attack", 85, 90, 2, 12);
 	lpImageMng.getImage("image/player_damaged.png", "player_damaged", 85, 90, 2, 3);
 
-	lpImageMng.getImage("image/small_dragonR.png", "s_dragonR", 128, 128, 4, 5);
-	lpImageMng.getImage("image/small_dragonL.png", "s_dragonL", 128, 128, 4, 5);
+	lpImageMng.getImage("image/Enemy/small_dragonR.png", "s_dragonR", 128, 128, 4, 5);
+	lpImageMng.getImage("image/Enemy/small_dragonL.png", "s_dragonL", 128, 128, 4, 5);
 
-	lpImageMng.getImage("image/demonR.png", "demonR", 256, 256, 6, 5);
-	lpImageMng.getImage("image/demonL.png", "demonL", 256, 256, 6, 5);
+	lpImageMng.getImage("image/Enemy/demonR.png", "demonR", 256, 256, 6, 5);
+	lpImageMng.getImage("image/Enemy/demonL.png", "demonL", 256, 256, 6, 5);
 
-	lpImageMng.getImage("image/wizardRAttackC.png", "wizardR", 80, 80, 10, 5);
-	lpImageMng.getImage("image/wizardLAttackC.png", "wizardL", 80, 80, 10, 5);
+	lpImageMng.getImage("image/Enemy/wizardRAttackC.png", "wizardR", 80, 80, 10, 5);
+	lpImageMng.getImage("image/Enemy/wizardLAttackC.png", "wizardL", 80, 80, 10, 5);
 
-	lpImageMng.getImage("image/exclamationpoint.png", "excPoint", 80, 80, 1, 1);
-	lpImageMng.getImage("image/questionmark.png", "queMark", 80, 80, 1, 1);
+	lpImageMng.getImage("image/Enemy/sorcerervillainRC.png", "sorcViR", 100, 100, 17, 5);
+	lpImageMng.getImage("image/Enemy/sorcerervillainLC.png", "sorcViL", 100, 100, 17, 5);
+
+	lpImageMng.getImage("image/Enemy/exclamationpoint.png", "excPoint", 80, 80, 1, 1);
+	lpImageMng.getImage("image/Enemy/questionmark.png", "queMark", 80, 80, 1, 1);
 
 	// アイテム
 	// 本(通常)
