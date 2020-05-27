@@ -73,4 +73,6 @@ static const int e_fn_ptr_num = 5;
 	int _speed;		// speed
 
 	int _plStage;	
+
+	void RandWait(void);	//		
 };

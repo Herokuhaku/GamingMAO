@@ -21,6 +21,7 @@ void Enemy::Update(void)
 	// ???
 	_work = (this->*autoM[_aState])(plPos);
 	_work =	Search(plPos);
+
 	aState(_work);
 }
 
@@ -78,12 +79,25 @@ int Enemy::Move(Vector2 pPos)
 					setState({ OBJ_STATE::WALK,DIR::RIGHT });
 				}
 			}
+			RandWait();
 			return _aState;
 		}
 		else
 		{
 			return 	AtkMove(pPos);
 		}
+	}
+}
+
+void Enemy::RandWait(void)
+{
+	if (std::rand() % 500 == 0)
+	{
+		setState({ OBJ_STATE::NORMAL, _state_dir.second });
+		_waitTime = 140;	// クールタイム
+		_waitF = false;
+		_waitCnt = 0;
+		_aState = static_cast<int>(MOVE_SELECT::WAIT);
 	}
 }
 
@@ -132,12 +146,10 @@ int Enemy::AtkMove(Vector2 pPos)
 {
 	if (_state_dir.second == DIR::RIGHT)
 	{
-		//_pos.x += lpSceneMng.GetFlame() % 2;
 		_pos.x += _speed + 1;
 	}
 	else
 	{
-		//_pos.x -= lpSceneMng.GetFlame() % 2;
 		_pos.x -= _speed + 1;
 	}
 	return _aState;
