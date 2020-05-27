@@ -3,11 +3,6 @@
 
 #define lpAtkMng AttackMng::getInstance()
 
-enum class ATK_TYPE
-{
-	FIRE_BALL,
-	MAX
-};
 
 class AttackMng :
 	public Object
@@ -61,7 +56,7 @@ public:
 	void MakeThunder(Vector2 pos1, Vector2 pos2, int damage, TIME time, int stage, OBJ_TYPE target);
 
 	// ”’–‚–@
-	void MakeHolyJudge(Vector2 pos, TIME time, int stage, OBJ_TYPE target);
+	int MakeHolyJudge(Vector2 pos, TIME time, int stage, OBJ_TYPE target);
 
 private:
 	static AttackMng* sInstance;
