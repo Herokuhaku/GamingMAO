@@ -33,10 +33,14 @@ GameScene::GameScene()
 	lpImageMng.getImage("image/questionmark.png", "queMark", 80, 80, 1, 1);
 
 	// アイテム
-	// 本
+	// 本(通常)
 	lpImageMng.getImage("image/item/Blue_Book.png", "BlueBook");
 	lpImageMng.getImage("image/item/Green_Book.png", "GreenBook");
 	lpImageMng.getImage("image/item/Red_Book.png", "RedBook");
+	// 本(透過)
+	lpImageMng.getImage("image/item/TBlue_Book.png", "520");
+	lpImageMng.getImage("image/item/TGreen_Book.png", "521");
+	lpImageMng.getImage("image/item/TRed_Book.png", "522");
 	// 石(通常)
 	lpImageMng.getImage("image/item/Blue_Stone.png", "BlueStone");
 	lpImageMng.getImage("image/item/Cyan_Stone.png", "CyanStone");
@@ -44,14 +48,13 @@ GameScene::GameScene()
 	lpImageMng.getImage("image/item/Magenta_Stone.png", "MagentaStone");
 	lpImageMng.getImage("image/item/Red_Stone.png", "RedStone");
 	lpImageMng.getImage("image/item/Yellow_Stone.png", "YellowStone");
-	// 石(小)
+	// 石(小) 拡大率を変えれば必要なくなるので後程修正
 	lpImageMng.getImage("image/item/SRed_Stone.png", "500");
 	lpImageMng.getImage("image/item/SGreen_Stone.png", "501");
 	lpImageMng.getImage("image/item/SBlue_Stone.png", "502");
 	lpImageMng.getImage("image/item/SYellow_Stone.png", "503");
 	lpImageMng.getImage("image/item/SMagenta_Stone.png", "504");
 	lpImageMng.getImage("image/item/SCyan_Stone.png", "505");
-
 	// 石(透過)
 	lpImageMng.getImage("image/item/TRed_Stone.png", "510");
 	lpImageMng.getImage("image/item/TGreen_Stone.png", "511");
@@ -59,6 +62,9 @@ GameScene::GameScene()
 	lpImageMng.getImage("image/item/TYellow_Stone.png", "513");	
 	lpImageMng.getImage("image/item/TMagenta_Stone.png", "514");
 	lpImageMng.getImage("image/item/TCyan_Stone.png", "515");
+	// 鍵
+	lpImageMng.getImage("image/item/key.png", "530");
+	
 
 	// HPバー
 	lpImageMng.getImage("image/HPbar.png", "hp_bar", 6, 12, 3, 1);

@@ -300,6 +300,8 @@ void Menu::Ins(int no,ITEM_TYPE itemtype,COLOR_TYPE colortype)
 		// 選択した合成欄にアイテムを入れる
 		_sItem.at(no) = { lpTradeMng.ReturnBag(_no), no };
 		MixFlag = false;
+		_select = 0;
+		_count = { 2,1 };
 		_select2 = 0;
 		// arrayのサイズ分回す。
 		for (int i = 0;i < _asize;i++)
@@ -418,15 +420,13 @@ void Menu::Item(SELECT_ITEM item)
 		if (ColorPtr(_select) != COLOR_TYPE::BLACK)
 		{
 			Ins(no, static_cast<ITEM_TYPE>(_select2), ColorPtr(_select));
-			_count = {2,1};
 		}
 	}
 }
 
 void Menu::ItemSelectD(int no)
 {
-	Vector2 pos = { _cpos.x - 200, _cpos.y -50 + 100 };
-	int tmp = 510;
+
 	std::string image;
 
 	// 風呂敷と枠
@@ -440,17 +440,26 @@ void Menu::ItemSelectD(int no)
 	//ItemDraw(510, { _cpos.x - 200 ,_cpos.y }, { 200,150 }, {40,100}, LAYER::EX);
 	//lpTradeMng.BagDraw({ static_cast<double>(_cpos.x) - 200.0, static_cast<double>(_cpos.y)-50.0 }, LAYER::EX, { 0,100 }, {0.75,0.75});
 
-
+	// 石
+	Vector2 pos = { _cpos.x - 200, _cpos.y + 50 };
+	int tmp = 510;
 	for (int i = 0;i < 6;i++)
 	{
 		image = std::to_string(tmp);
 		std::string _no = std::to_string(lpTradeMng.getrock().at(i));
 		lpImageMng.AddBackDraw({ lpImageMng.getImage(image)[0], pos.x + (i * 75),pos.y, 0.75, 0.0, LAYER::EX,_zorder.item, DX_BLENDMODE_NOBLEND, 0 });
+		lpStrAdd.AddDraw(_no.c_str(), pos.x + (i * 75), pos.y,0x000000, DRAW_TO_CENTER);
 		tmp++;
 	}
-
-
-
+	// 本
+	pos.y = _cpos.y - 50;
+	tmp = 520;
+	for (int i = 0;i < 3;i++)
+	{
+		image = std::to_string(tmp);
+		lpImageMng.AddBackDraw({ lpImageMng.getImage(image)[0], pos.x + (i * 75),pos.y, 0.75, 0.0, LAYER::EX,_zorder.item, DX_BLENDMODE_NOBLEND, 0 });
+		tmp++;
+	}
 
 	SelectCount(_select,XINPUT_THUMBL_X,_count.x);
 	SelectCount(_select2, XINPUT_THUMBL_Y,_count.y);

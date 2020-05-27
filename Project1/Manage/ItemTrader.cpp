@@ -106,6 +106,7 @@ void ItemTrader::AddBag(void)
 	}
 	BagTypeSort();
 	BagTypeCount();
+	BagNoSort();
 }
 
 void ItemTrader::AddBag(ItemSave&save)
@@ -123,7 +124,6 @@ void ItemTrader::AddBag(ItemSave&save)
 int ItemTrader::ReturnNo(ITEM_TYPE itemtype, COLOR_TYPE color)
 {
 	int no = -1;
-
 	for (auto bag : _IBag)
 	{
 		if (bag.first.colortype == color && bag.first.itemtype == itemtype)
@@ -131,8 +131,21 @@ int ItemTrader::ReturnNo(ITEM_TYPE itemtype, COLOR_TYPE color)
 			no = bag.first.bagNo;
 		}
 	}
-		return no;
+	return no;
 }
+
+bool ItemTrader::ReBook(COLOR_TYPE color)
+{
+	for (auto bag : _IBag)
+	{
+		if (bag.first.itemtype == ITEM_TYPE::BOOK && bag.first.colortype == color)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
 
 
 bool ItemTrader::NoReturn(int no)
@@ -153,13 +166,11 @@ bool ItemTrader::NoReturn(int no)
 void ItemTrader::BagNoSort(void)
 {
 	int count = 0;
-	for (int i = 0;i < _IBag.size();i++)
+
+	for (auto& data : _IBag)
 	{
-		if (_IBag.at(i).second != count)
-		{
-			_IBag.at(i).second = count;
-			_IBag.at(i).first.bagNo = count;
-		}
+		data.second = count;
+		data.first.bagNo = count;
 		count++;
 	}
 }
