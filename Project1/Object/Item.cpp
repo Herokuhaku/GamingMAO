@@ -173,7 +173,29 @@ void Item::Init(void)
 		}
 		break;
 	case ITEM_TYPE::TOOL:
-
+		switch (_colortype)
+		{
+		case COLOR_TYPE::BLACK:
+			break;
+		case COLOR_TYPE::BLUE:
+			break;
+		case COLOR_TYPE::CYAN:
+			break;
+		case COLOR_TYPE::GREEN:
+			_image[0] = "531";
+			data.emplace_back(lpImageMng.getImage(_image[0])[0], 0);
+			break;
+		case COLOR_TYPE::MAGENTA:
+			break;
+		case COLOR_TYPE::RED:
+			break;
+		case COLOR_TYPE::YELLOW:
+			_image[0] = "530";
+			data.emplace_back(lpImageMng.getImage(_image[0])[0], 0);
+			break;
+		case COLOR_TYPE::WHITE:
+			break;
+		}
 		break;
 	}
 	if (data.size() == 0)

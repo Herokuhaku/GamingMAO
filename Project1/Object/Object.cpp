@@ -292,6 +292,11 @@ std::vector<atkData> Object::getAttackQue(void)
 	return rtnvec;
 }
 
+int Object::getAnmEfk(void)
+{
+	return _anmEfkHd;
+}
+
 void Object::stopAttack(void)
 {
 	_attackData.clear();

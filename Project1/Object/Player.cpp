@@ -29,6 +29,11 @@ Player::Player(Vector2Template<int> pos, int stage, TIME time)
 
 	setHP(HP_MAX);
 	_nextPos = { 0,0 };
+
+	_magicState = { std::make_pair(ATK_STATE::NON, MP_MAX) };
+	_magicSet = { ATK_TYPE::TYPE_1 };
+	_attackFlag = true;
+
 	Init();
 }
 
@@ -43,6 +48,7 @@ void Player::Update(void)
 	// ëÄçÏÇµÇƒÇ¢ÇÈÉvÉåÉCÉÑÅ[Ç∂Ç·Ç»Ç¢
 	if (_stage != lpMapMng.GetnowStage())
 	{
+		StopWalk();
 		return;
 	}
 	
@@ -281,6 +287,29 @@ void Player::Init(void)
 
 	_vel = 0.0;
 	_tmpPos.y = static_cast<double>(_pos.y);
+
+	// çUåÇÇÃä÷êîÇÇ‹Ç∆ÇﬂÇÈ
+	_attack[static_cast<int>(ATK_COLOR::RED)]	[static_cast<int>(ATK_TYPE::TYPE_1)] = std::bind(&Player::Red1    , this);
+	_attack[static_cast<int>(ATK_COLOR::RED)]	[static_cast<int>(ATK_TYPE::TYPE_2)] = std::bind(&Player::Red2    , this);
+	_attack[static_cast<int>(ATK_COLOR::RED)]	[static_cast<int>(ATK_TYPE::TYPE_3)] = std::bind(&Player::Red3    , this);
+	_attack[static_cast<int>(ATK_COLOR::GREEN)]	[static_cast<int>(ATK_TYPE::TYPE_1)] = std::bind(&Player::Green1  , this);
+	_attack[static_cast<int>(ATK_COLOR::GREEN)]	[static_cast<int>(ATK_TYPE::TYPE_2)] = std::bind(&Player::Green2  , this);
+	_attack[static_cast<int>(ATK_COLOR::GREEN)]	[static_cast<int>(ATK_TYPE::TYPE_3)] = std::bind(&Player::Green3  , this);
+	_attack[static_cast<int>(ATK_COLOR::BLUE)]	[static_cast<int>(ATK_TYPE::TYPE_1)] = std::bind(&Player::Blue1   , this);
+	_attack[static_cast<int>(ATK_COLOR::BLUE)]	[static_cast<int>(ATK_TYPE::TYPE_2)] = std::bind(&Player::Blue2   , this);
+	_attack[static_cast<int>(ATK_COLOR::BLUE)]	[static_cast<int>(ATK_TYPE::TYPE_3)] = std::bind(&Player::Blue3   , this);
+	_attack[static_cast<int>(ATK_COLOR::MGN)]	[static_cast<int>(ATK_TYPE::TYPE_1)] = std::bind(&Player::Magenta1, this);
+	_attack[static_cast<int>(ATK_COLOR::MGN)]	[static_cast<int>(ATK_TYPE::TYPE_2)] = std::bind(&Player::Magenta2, this);
+	_attack[static_cast<int>(ATK_COLOR::MGN)]	[static_cast<int>(ATK_TYPE::TYPE_3)] = std::bind(&Player::Magenta3, this);
+	_attack[static_cast<int>(ATK_COLOR::CYAN)]	[static_cast<int>(ATK_TYPE::TYPE_1)] = std::bind(&Player::Cyan1   , this);
+	_attack[static_cast<int>(ATK_COLOR::CYAN)]	[static_cast<int>(ATK_TYPE::TYPE_2)] = std::bind(&Player::Cyan2   , this);
+	_attack[static_cast<int>(ATK_COLOR::CYAN)]	[static_cast<int>(ATK_TYPE::TYPE_3)] = std::bind(&Player::Cyan3   , this);
+	_attack[static_cast<int>(ATK_COLOR::YELLOW)][static_cast<int>(ATK_TYPE::TYPE_1)] = std::bind(&Player::Yellow1 , this);
+	_attack[static_cast<int>(ATK_COLOR::YELLOW)][static_cast<int>(ATK_TYPE::TYPE_2)] = std::bind(&Player::Yellow1 , this);
+	_attack[static_cast<int>(ATK_COLOR::YELLOW)][static_cast<int>(ATK_TYPE::TYPE_3)] = std::bind(&Player::Yellow3 , this);
+	_attack[static_cast<int>(ATK_COLOR::WHITE)]	[static_cast<int>(ATK_TYPE::TYPE_1)] = std::bind(&Player::White1  , this);
+	_attack[static_cast<int>(ATK_COLOR::WHITE)]	[static_cast<int>(ATK_TYPE::TYPE_2)] = std::bind(&Player::White2  , this);
+	_attack[static_cast<int>(ATK_COLOR::WHITE)]	[static_cast<int>(ATK_TYPE::TYPE_3)] = std::bind(&Player::White3  , this);
 }
 
 void Player::ControlNormal(void)
@@ -351,14 +380,14 @@ void Player::ControlNormal(void)
 	}
 
 	if (((lpKeyMng.getBuf()[KEY_INPUT_SPACE] && !lpKeyMng.getOldBuf()[KEY_INPUT_SPACE] ) ||
-		lpButtonMng.Buttonf(0,XINPUT_BUTTON_B).first == 1 && lpButtonMng.Buttonf(0, XINPUT_BUTTON_B).second == 0) && _coolTime == 0)
+		lpButtonMng.Buttonf(0,XINPUT_BUTTON_B).first == 1 && lpButtonMng.Buttonf(0, XINPUT_BUTTON_B).second == 0) && _coolTime == 0 && _attackFlag)
 	{
-		_anmEfkHd = lpEffectMng.playEffect(lpEffectMng.getEffect("magic_fire"), DELAY_FIRE, &_pos.x, &_pos.y, PLAYER_SIZE_X / 2, -_drawOffset_y, &(_state_dir.second));
+		/*_anmEfkHd = lpEffectMng.playEffect(lpEffectMng.getEffect("magic_fire"), DELAY_FIRE, &_pos.x, &_pos.y, PLAYER_SIZE_X / 2, -_drawOffset_y, &(_state_dir.second));
 		_coolTime = DELAY_FIRE;
 		StateRotate();
 		_control = &Player::ControlAttack;
 		_rotateFlag = true;
-		AddAttack("magic_fire");
+		AddAttack("magic_fire");*/
 	}
 }
 
@@ -444,6 +473,25 @@ void Player::ControlAttack(void)
 		_vel = INI_VEL_NORMAL;
 		setState({ OBJ_STATE::A_JUMP, _state_dir.second });
 	}
+
+	if (_attackFlag)
+	{
+		//if (lpKeyMng.getBuf[KEY_INPUT_V] && (!lpKeyMng.getOldBuf[KEY_INPUT_V]))
+		//{
+
+		//}
+
+
+		ATK_COLOR color = ColorBlend();
+
+		if (!lpKeyMng.getBuf()[KEY_INPUT_SPACE] && lpKeyMng.getOldBuf()[KEY_INPUT_SPACE])
+		{
+			_attack[static_cast<int>(color)][static_cast<int>(_magicSet[static_cast<int>(color)])]();
+
+			_coolTime = 10;
+			_attackFlag = false;
+		}
+	}
 }
 
 void Player::StopWalk(void)
@@ -465,11 +513,15 @@ void Player::MagicUpdate(void)
 		_coolTime--;
 		if (_coolTime == 0)
 		{
-			_anmEfkHd = -1;
+			//_anmEfkHd = -1;
 			_control = &Player::ControlNormal;
+			_attackFlag = true;
 			StateRotate();
 		}
 	}
+
+	
+
 	if (_anmEfkHd != -1)
 	{
 		//SetPosPlayingEffekseer2DEffect(_anmEfkHd, static_cast<float>(_pos.x + PLAYER_SIZE_X / 2 * (static_cast<int>(_state_dir.second) - 1)), static_cast<float>(_pos.y), 0.0f);
@@ -479,6 +531,61 @@ void Player::MagicUpdate(void)
 			_rotateFlag = false;
 		}
 	}
+}
+
+void Player::MagicSelector(void)
+{
+	for (int i = 0; i < 3; i++)
+	{
+		// Ç±Ç±Ç…èàóù
+
+	}
+}
+
+ATK_COLOR Player::ColorBlend(void)
+{
+	ATK_COLOR rtnColor = ATK_COLOR::MAX;
+	int flag = 0;
+
+
+	for (int i = 0; i < 3; i++)
+	{
+		if (_magicState[i].first == ATK_STATE::RUN)
+		{
+			flag += std::pow(2, i);
+		}
+	}
+
+	switch (flag)
+	{
+	case 0:
+		break;
+	case 1:
+		rtnColor = ATK_COLOR::RED;
+		break;
+	case 2:
+		rtnColor = ATK_COLOR::GREEN;
+		break;
+	case 3:
+		rtnColor = ATK_COLOR::YELLOW;
+		break;
+	case 4:
+		rtnColor = ATK_COLOR::BLUE;
+		break;
+	case 5:
+		rtnColor = ATK_COLOR::MGN;
+		break;
+	case 6:
+		rtnColor = ATK_COLOR::CYAN;
+		break;
+	case 7:
+		rtnColor = ATK_COLOR::WHITE;
+		break;
+	default:
+		break;
+	}
+
+	return rtnColor;
 }
 
 void Player::StateRotate(void)
@@ -567,6 +674,7 @@ void Player::VelUpdate(void)
 	_type = OBJ_TYPE::PLAYER;
 
 	_pos.y = static_cast<int>(_tmpPos.y);
+
 }
 
 bool Player::MenuUpdate(void)
@@ -588,3 +696,88 @@ bool Player::MenuUpdate(void)
 	return false;
 }
 
+void Player::Red1(void)
+{
+	lpAtkMng.MakeFireBall({ _pos.x + (static_cast<int>(_state_dir.second) - 1) * PLAYER_SIZE_X / 2, _pos.y - _drawOffset_y }, _state_dir.second,
+		{ (static_cast<int>(_state_dir.second) - 1) * 10, 0 }, _time, _stage, OBJ_TYPE::ENEMY);
+}
+
+void Player::Red2(void)
+{
+}
+
+void Player::Red3(void)
+{
+}
+
+void Player::Green1(void)
+{
+}
+
+void Player::Green2(void)
+{
+}
+
+void Player::Green3(void)
+{
+}
+
+void Player::Blue1(void)
+{
+}
+
+void Player::Blue2(void)
+{
+}
+
+void Player::Blue3(void)
+{
+}
+
+void Player::Magenta1(void)
+{
+}
+
+void Player::Magenta2(void)
+{
+}
+
+void Player::Magenta3(void)
+{
+}
+
+void Player::Cyan1(void)
+{
+}
+
+void Player::Cyan2(void)
+{
+}
+
+void Player::Cyan3(void)
+{
+}
+
+void Player::Yellow1(void)
+{
+}
+
+void Player::Yellow2(void)
+{
+}
+
+void Player::Yellow3(void)
+{
+}
+
+void Player::White1(void)
+{
+}
+
+void Player::White2(void)
+{
+}
+
+void Player::White3(void)
+{
+}

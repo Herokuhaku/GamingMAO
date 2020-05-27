@@ -83,6 +83,7 @@ public:
 	void AddAttack(const std::string key);
 	void attackUpdate(void);
 	std::vector<atkData> getAttackQue(void);
+	int getAnmEfk(void);
 	void stopAttack(void);
 
 	void setTimeLine(TIME time);

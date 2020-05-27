@@ -14,7 +14,7 @@ FireBall::FireBall(Vector2 pos, DIR dir, Vector2 vec, TIME time, int stage, OBJ_
 	_stage = stage;
 	_target = target;
 
-	//_rad = atan2(vec.y, vec.x);
+	_rad = atan2(vec.y, vec.x);
 
 	Init();
 }

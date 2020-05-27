@@ -236,11 +236,20 @@ void Menu::ItemPup(void)
 
 bool Menu::Mix(ItemSave& item1, ItemSave& item2, ItemSave& item3)
 {
-	if (item1.itemtype == ITEM_TYPE::BOOK || item2.itemtype == ITEM_TYPE::BOOK)
+	if ((item1.itemtype == ITEM_TYPE::BOOK || item2.itemtype == ITEM_TYPE::BOOK)&& 
+		(item1.itemtype == ITEM_TYPE::STONE || item2.itemtype == ITEM_TYPE::STONE))
+	{
+		if (Key(item1, item2)){	return true;}
+		else if (Vine(item1, item2)){return false;}
+		else{return false;}
+	}
+	else if (item1.itemtype == ITEM_TYPE::BOOK || item2.itemtype == ITEM_TYPE::BOOK)
 	{
 		return false;
 	}
-	if (!lpTradeMng.TradeCheck(item1.colortype, item2.colortype))
+
+	// êŒÇÃêFçáê¨
+	if (!lpTradeMng.ColorTradeCheck(item1.colortype, item2.colortype))
 	{
 		return false;
 	}
@@ -254,6 +263,50 @@ bool Menu::Mix(ItemSave& item1, ItemSave& item2, ItemSave& item3)
 		_sItem.at(i).first.itemtype = ITEM_TYPE::NON;
 	}
 	return true;
+}
+
+bool Menu::Key(ItemSave& item1, ItemSave& item2)
+{
+	if ((item1.itemtype == ITEM_TYPE::STONE && item1.colortype == COLOR_TYPE::YELLOW) ||
+		item2.itemtype == ITEM_TYPE::STONE && item2.colortype == COLOR_TYPE::YELLOW)
+	{
+		if ((item1.itemtype == ITEM_TYPE::BOOK && item1.colortype == COLOR_TYPE::GREEN) ||
+			(item2.itemtype == ITEM_TYPE::BOOK && item2.colortype == COLOR_TYPE::GREEN))
+		{
+			item1.colortype = COLOR_TYPE::YELLOW;
+			item1.itemtype = ITEM_TYPE::TOOL;
+			lpTradeMng.AddBag(item1);
+			lpTradeMng.DeleteItem(item2);
+			for (int i = 0;i < _asize;i++)
+			{
+				_sItem.at(i).first.itemtype = ITEM_TYPE::NON;
+			}
+			return true;
+		}
+	}
+	return false;
+}
+
+bool Menu::Vine(ItemSave& item1, ItemSave& item2)
+{
+	if ((item1.itemtype == ITEM_TYPE::STONE && item1.colortype == COLOR_TYPE::GREEN) ||
+		item2.itemtype == ITEM_TYPE::STONE && item2.colortype == COLOR_TYPE::GREEN)
+	{
+		if ((item1.itemtype == ITEM_TYPE::BOOK && item1.colortype == COLOR_TYPE::GREEN) ||
+			(item2.itemtype == ITEM_TYPE::BOOK && item2.colortype == COLOR_TYPE::GREEN))
+		{
+			item1.colortype = COLOR_TYPE::GREEN;
+			item1.itemtype = ITEM_TYPE::TOOL;
+			lpTradeMng.AddBag(item1);
+			lpTradeMng.DeleteItem(item2);
+			for (int i = 0;i < _asize;i++)
+			{
+				_sItem.at(i).first.itemtype = ITEM_TYPE::NON;
+			}
+			return true;
+		}
+	}
+	return false;
 }
 
 COLOR_TYPE Menu::ColorPtr(int no)

@@ -50,6 +50,8 @@ public:
 	bool Update(void);
 	bool GetMixFlag(void);
 	void ItemDraw(int tmp, Vector2 pos, Vector2 offset,Vector2 stroffset,LAYER lay);
+	COLOR_TYPE ColorPtr(int no);
+
 private:
 	Menu();
 	~Menu();
@@ -63,8 +65,11 @@ private:
 	
 	void SelectCount(int& select,int thumb,int count);								// 矢印の操作
 	bool Mix(ItemSave& item1, ItemSave& item2, ItemSave& item3);			// 合成処理
+	// Mixで使うレシピ
+	bool Key(ItemSave & item1,ItemSave & item2);
+	bool Vine(ItemSave&item1,ItemSave&item2);
 
-	COLOR_TYPE ColorPtr(int no);
+
 	void Ins(int no,ITEM_TYPE itemtype, COLOR_TYPE colortype);
 	// 画像描画まとめ
 	void SelectDraw(void);						// Select画面での表示物
