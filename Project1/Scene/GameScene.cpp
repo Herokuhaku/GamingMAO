@@ -64,6 +64,8 @@ GameScene::GameScene()
 	lpImageMng.getImage("image/item/TCyan_Stone.png", "515");
 	// åÆ
 	lpImageMng.getImage("image/item/key.png", "530");
+	// ñ†
+	lpImageMng.getImage("image/item/vine.png", "531");
 	
 
 	// HPÉoÅ[

@@ -63,6 +63,9 @@ private:
 	
 	void SelectCount(int& select,int thumb,int count);								// –îˆó‚Ì‘€ì
 	bool Mix(ItemSave& item1, ItemSave& item2, ItemSave& item3);			// ‡¬ˆ—
+	// Mix‚Åg‚¤ƒŒƒVƒs
+	bool Key(ItemSave & item1,ItemSave & item2);
+	bool Vine(ItemSave&item1,ItemSave&item2);
 
 	COLOR_TYPE ColorPtr(int no);
 	void Ins(int no,ITEM_TYPE itemtype, COLOR_TYPE colortype);

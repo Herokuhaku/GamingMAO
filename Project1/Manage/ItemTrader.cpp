@@ -34,6 +34,12 @@ void ItemTrader::BagDraw(Vector2D pos,LAYER lay,Vector2 off , Vector2D rad)
 			data.first.pos = { _pos.x + (100 * data.first.stone),_pos.y + off.y};
 			lpImageMng.AddBackDraw({ lpImageMng.getImage(data.first.image[0])[0],data.first.pos.x,data.first.pos.y, rad.y, 0.0,LAYER::EX, 110, DX_BLENDMODE_NOBLEND, 0 });
 		}
+		else if (data.first.itemtype == ITEM_TYPE::TOOL)
+		{
+			data.first.pos = { _pos.x ,_pos.y + off.y };
+			lpImageMng.AddBackDraw({ lpImageMng.getImage(data.first.image[0])[0],data.first.pos.x,data.first.pos.y, rad.y, 0.0,LAYER::EX, 110, DX_BLENDMODE_NOBLEND, 0 });
+
+		}
 	}
 }
 
@@ -44,9 +50,9 @@ COLOR_TYPE ItemTrader::Trade(COLOR_TYPE color1, COLOR_TYPE color2)
 	return static_cast<COLOR_TYPE>(color);
 }
 
-bool ItemTrader::TradeCheck(COLOR_TYPE color1, COLOR_TYPE color2)
+bool ItemTrader::ColorTradeCheck(COLOR_TYPE color1, COLOR_TYPE color2)
 {
-	if (color1 == color2) { return false; }	// ìØÇ∂êFìØémÇÃë´ÇµéZÇÕÇµÇ»Ç¢
+	if (color1 == color2) { return false;}	// ìØÇ∂êFìØémÇÃë´ÇµéZÇÕÇµÇ»Ç¢
 
 	// RGBà»äOÇÃë´ÇµéZÇ‡ÇµÇ»Ç¢
 	if (color1 != COLOR_TYPE::RED && color1 != COLOR_TYPE::BLUE && color1 != COLOR_TYPE::GREEN)
@@ -317,6 +323,28 @@ const char* ItemTrader::ChangeName(ITEM_TYPE _itemtype,COLOR_TYPE _colortype)
 			break;
 		}
 		break;
+	case ITEM_TYPE::TOOL:
+		switch (_colortype)
+		{
+		case COLOR_TYPE::BLACK:
+			break;
+		case COLOR_TYPE::RED:
+			break;
+		case COLOR_TYPE::GREEN:
+			save.image[0] = "531";
+			break;
+		case COLOR_TYPE::BLUE:
+			break;
+		case COLOR_TYPE::YELLOW:
+			save.image[0] = "530";
+			break;
+		case COLOR_TYPE::CYAN:
+			break;
+		case COLOR_TYPE::MAGENTA:
+			break;
+		case COLOR_TYPE::WHITE:
+			break;
+		}
 	}
 	return save.image[0];
 }

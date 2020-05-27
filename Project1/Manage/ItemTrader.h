@@ -31,7 +31,7 @@ public:
 	void Draw(void);
 	void BagDraw(Vector2D pos,LAYER lay, Vector2 off , Vector2D rad);
 	COLOR_TYPE Trade(COLOR_TYPE color1, COLOR_TYPE color2);
-	bool TradeCheck(COLOR_TYPE color1, COLOR_TYPE color2);
+	bool ColorTradeCheck(COLOR_TYPE color1, COLOR_TYPE color2);
 	const void SetItemList(Vector2 pos, ITEM_TYPE itype,COLOR_TYPE ctype, int stage);
 	bool NoReturn(int no);
 	ItemSave& ReturnBag(int no);
