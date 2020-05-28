@@ -191,12 +191,17 @@ void Enemy::Init(void)
 	_stage = 1;
 	_pPos = 1;
 	_time = TIME::FTR;
+	_divNum = 70;
 }
 
 void Enemy::Draw(void)
 {
 	Object::Draw();
+	DrawHP();
+}
 
+void Enemy::DrawHP(void)
+{
 	int tmpNum;
 	for (int i = 0; i < 10; i++)
 	{

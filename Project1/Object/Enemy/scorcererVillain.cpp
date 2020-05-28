@@ -29,7 +29,8 @@ sorcerer::sorcerer(Vector2 pos, int stage, int pPos, bool flag)
 	_etype = ENEMY_TYPE::s_dragon;
 	_pPos = pPos;
 	_state_dir = { OBJ_STATE::NORMAL,DIR::RIGHT };
-	setHP(100);
+	_hp = 4000;
+	_maxHP = _hp;
 	setHitOffset({ 55, 55, 100, 0 });
 	_exRate = 3.0;
 

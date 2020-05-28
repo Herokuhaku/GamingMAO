@@ -34,6 +34,7 @@ public:
 	void damagingHP(int damage) override;
 
 	void Draw(void);
+	virtual void DrawHP(void);
 
 private:
 	void Init(void);
@@ -75,5 +76,8 @@ static const int e_fn_ptr_num = 5;
 
 	int _plStage;	
 
-	void RandWait(void);	//		
+	void RandWait(void);	//	
+
+	int _maxHP;
+	int _divNum;		// HP‚ğ•`‰æ‚·‚é‚Æ‚«‚Ì•ªŠ„”
 };

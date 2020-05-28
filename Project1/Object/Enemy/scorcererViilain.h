@@ -1,8 +1,8 @@
 #pragma once
-#include "Enemy.h"
+#include "Boss.h"
 
 class sorcerer :
-	public Enemy
+	public Boss
 {
 public:
 	void Update(void);
