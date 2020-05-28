@@ -163,6 +163,11 @@ void Enemy::damagingHP(int damage)
 	aState(static_cast<int>(MOVE_SELECT::WAIT));
 
 	int ddir = _plDir == DIR::LEFT ? 13 : -13;
+	//
+
+	// âÊñ äOÇ‚ï«Ç…ñÑÇ‹ÇÁÇ»Ç¢ÇÊÇ§Ç…èàóù
+
+	//
 	_pos.x += ddir;
 
 	Object::damagingHP(damage);
@@ -192,6 +197,7 @@ void Enemy::Init(void)
 	_pPos = 1;
 	_time = TIME::FTR;
 	_divNum = 70;
+	_maxHP = _hp;
 }
 
 void Enemy::Draw(void)

@@ -16,6 +16,7 @@ private:
 
 	int _startCnt;
 	int _saveDivNum;
+	int _tmpHP;
 	
 	void funcDrawHPStart(void);
 	void funcDrawHP(void);

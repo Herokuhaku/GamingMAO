@@ -15,6 +15,7 @@ Boss::Boss()
 	func = { &Boss::funcDrawHPStart };
 	_startCnt = 0;
 	_saveDivNum = _divNum;
+	_tmpHP = _maxHP / _saveDivNum;
 }
 
 Boss::~Boss()
@@ -38,7 +39,7 @@ void Boss::funcDrawHP(void)
 	int tmpNum;
 	for (int i = 0; i < _divNum; i++)
 	{
-		if (_hp >= i * 10 + 1)
+		if (_hp >= i * _tmpHP + 1)
 		{
 			tmpNum = 0;
 		}
