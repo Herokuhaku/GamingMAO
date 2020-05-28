@@ -78,7 +78,7 @@ public:
 
 	virtual void Draw(void);
 	bool anmUpdate(void);
-
+	
 	void setAttack(const std::string key, std::vector<atkData>& data);
 	void AddAttack(const std::string key);
 	void attackUpdate(void);
@@ -110,7 +110,7 @@ protected:
 	bool _alive;					// 生きてるか
 
 	int _zOrder;							// Zオーダー
-	int _exRate;							// 拡大率
+	double _exRate;							// 拡大率
 	OBJ_TYPE _type;							// オブジェクトの種類
 	std::pair<OBJ_STATE, DIR> _state_dir;	// オブジェクトの状態
 

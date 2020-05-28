@@ -63,25 +63,25 @@ void PoisonFog::Init(void)
 
 	data.reserve(6);
 
-	data.emplace_back(lpImageMng.getImage("poison_mist")[0], 3);
-	data.emplace_back(lpImageMng.getImage("poison_mist")[6], 6);
-	data.emplace_back(lpImageMng.getImage("poison_mist")[5], 9);
-	data.emplace_back(lpImageMng.getImage("poison_mist")[4], 12);
-	data.emplace_back(lpImageMng.getImage("poison_mist")[3], 15);
+	data.emplace_back(lpImageMng.getImage("poison_mist")[0], 5);
+	data.emplace_back(lpImageMng.getImage("poison_mist")[6], 10);
+	data.emplace_back(lpImageMng.getImage("poison_mist")[5], 15);
+	data.emplace_back(lpImageMng.getImage("poison_mist")[4], 20);
 	data.emplace_back(-1, 0);
 
 	setAnm({ OBJ_STATE::JUMP, _state_dir.second }, data);
 
-	data.emplace_back(lpImageMng.getImage("poison_mist")[2], 15);
-	data.emplace_back(lpImageMng.getImage("poison_mist")[1], 30);
+	data.emplace_back(lpImageMng.getImage("poison_mist")[3], 15);
+	data.emplace_back(lpImageMng.getImage("poison_mist")[2], 30);
+
 
 	setAnm({ OBJ_STATE::NORMAL, _state_dir.second }, data);
 	
-	data.emplace_back(lpImageMng.getImage("poison_mist")[3], 3);
-	data.emplace_back(lpImageMng.getImage("poison_mist")[4], 6);
-	data.emplace_back(lpImageMng.getImage("poison_mist")[5], 9);
-	data.emplace_back(lpImageMng.getImage("poison_mist")[6], 12);
-	data.emplace_back(lpImageMng.getImage("poison_mist")[7], 15);
+	data.emplace_back(lpImageMng.getImage("poison_mist")[3], 5);
+	data.emplace_back(lpImageMng.getImage("poison_mist")[4], 10);
+	data.emplace_back(lpImageMng.getImage("poison_mist")[5], 15);
+	data.emplace_back(lpImageMng.getImage("poison_mist")[6], 20);
+	data.emplace_back(lpImageMng.getImage("poison_mist")[7], 25);
 	data.emplace_back(-1, -1);
 
 	setAnm({ OBJ_STATE::FALL, _state_dir.second }, data);

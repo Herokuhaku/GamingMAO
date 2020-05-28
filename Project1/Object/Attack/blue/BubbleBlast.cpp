@@ -15,9 +15,9 @@ BubbleBlast::BubbleBlast(Vector2 pos, TIME time, int stage, OBJ_TYPE target)
 	setState({ OBJ_STATE::NORMAL, DIR::LEFT });
 
 	std::vector<atkData> attack;
-	attack.emplace_back(atkData(true, OBJ_TYPE::ATTACK, { 40,-40 }, { -40,40 }, 50, 30, target));
-	attack.emplace_back(atkData(true, OBJ_TYPE::ATTACK, { 40,-40 }, { -40,40 }, 50, -1, target));
-	setAttack("bubbleBlast", attack);
+	attack.emplace_back(atkData(true, OBJ_TYPE::ATTACK, { 60,-60 }, { -60,60 }, 50, 30, target));
+	attack.emplace_back(atkData(true, OBJ_TYPE::ATTACK, { 60,-60 }, { -60,60 }, 50, -1, target));
+	setAttack("bubbleblast", attack);
 
 	_type = OBJ_TYPE::ATTACK;
 
@@ -30,14 +30,7 @@ BubbleBlast::~BubbleBlast()
 
 void BubbleBlast::Update(void)
 {
-	if (_count >= LIFE_TIME)
-	{
-		stopAttack();
-		setState({ OBJ_STATE::DEAD, _state_dir.second });
-		return;
-	}
-
-	_count++;
+	setState({ OBJ_STATE::DEAD, DIR::LEFT });
 }
 
 void BubbleBlast::IfHitAttack(void)

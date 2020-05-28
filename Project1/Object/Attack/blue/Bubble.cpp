@@ -12,6 +12,8 @@ Bubble::Bubble(Vector2 pos, TIME time, int stage, OBJ_TYPE target)
 	_stage = stage;
 	_target = target;
 	_state_dir = { OBJ_STATE::NORMAL, DIR::LEFT };
+
+	Init();
 }
 
 Bubble::~Bubble()
@@ -27,7 +29,7 @@ void Bubble::Update(void)
 
 	}
 
-	_pos.y = _basePos_y + (_floatCount * acos(-1.0f) / 180.0);
+	_pos.y = _basePos_y + sin(_floatCount * acos(-1.0f) / 180.0) * 20;
 }
 
 void Bubble::IfHitAttack(void)

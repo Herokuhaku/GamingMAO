@@ -26,6 +26,7 @@ Player::Player(Vector2Template<int> pos, int stage, TIME time)
 
 	_anmEfkHd = -1;
 
+	_cursor = ATK_COLOR::MAX;
 
 	setHP(HP_MAX);
 	_nextPos = { 0,0 };
@@ -382,12 +383,51 @@ void Player::ControlNormal(void)
 	if (((lpKeyMng.getBuf()[KEY_INPUT_SPACE] && !lpKeyMng.getOldBuf()[KEY_INPUT_SPACE] ) ||
 		lpButtonMng.Buttonf(0,XINPUT_BUTTON_B).first == 1 && lpButtonMng.Buttonf(0, XINPUT_BUTTON_B).second == 0) && _coolTime == 0 && _attackFlag)
 	{
-		/*_anmEfkHd = lpEffectMng.playEffect(lpEffectMng.getEffect("magic_fire"), DELAY_FIRE, &_pos.x, &_pos.y, PLAYER_SIZE_X / 2, -_drawOffset_y, &(_state_dir.second));
-		_coolTime = DELAY_FIRE;
-		StateRotate();
+		// パターン１
+
+		//_anmEfkHd = lpEffectMng.playEffect(lpEffectMng.getEffect("magic_fire"), DELAY_FIRE, &_pos.x, &_pos.y, PLAYER_SIZE_X / 2, -_drawOffset_y, &(_state_dir.second));
+		//_coolTime = DELAY_FIRE;
+		//StateRotate();
+		//_control = &Player::ControlAttack;
+		//_rotateFlag = true;
+		//AddAttack("magic_fire");
+
+		// パターン２
+
 		_control = &Player::ControlAttack;
-		_rotateFlag = true;
-		AddAttack("magic_fire");*/
+		StateRotate();
+		_attackFlag = true;
+
+		// パターン３
+
+	}
+	else if (((lpKeyMng.getBuf()[KEY_INPUT_A] && !lpKeyMng.getOldBuf()[KEY_INPUT_A])))
+	{
+		_attack[static_cast<int>(ATK_COLOR::RED)][static_cast<int>(_magicSet[static_cast<int>(ATK_COLOR::RED)])]();
+		_control = &Player::ControlAttack;
+		_attackFlag = false;
+		_coolTime = 10;
+		StateRotate();
+	}
+	else if (((lpKeyMng.getBuf()[KEY_INPUT_W] && !lpKeyMng.getOldBuf()[KEY_INPUT_W])))
+	{
+		_attack[static_cast<int>(ATK_COLOR::GREEN)][static_cast<int>(_magicSet[static_cast<int>(ATK_COLOR::GREEN)])]();
+		_control = &Player::ControlAttack;
+		_attackFlag = false;
+		_coolTime = 10;
+		StateRotate();
+	}
+	else if (((lpKeyMng.getBuf()[KEY_INPUT_D] && !lpKeyMng.getOldBuf()[KEY_INPUT_D])))
+	{
+		_attack[static_cast<int>(ATK_COLOR::BLUE)][static_cast<int>(_magicSet[static_cast<int>(ATK_COLOR::BLUE)])]();
+		_control = &Player::ControlAttack;
+		_attackFlag = false;
+		_coolTime = 10;
+		StateRotate();
+	}
+	else
+	{
+
 	}
 }
 
@@ -468,7 +508,7 @@ void Player::ControlAttack(void)
 		}
 	}
 
-	if ((CheckHitKey(KEY_INPUT_UP) || lpButtonMng.Buttonf(0,XINPUT_BUTTON_A).first == 1)&& CheckHitStage()(CHECK_DIR::DOWN, { _pos.x, static_cast<int>(_tmpPos.y) + 1 }, getHitOffset(),_stage) != NOTHIT)
+ 	if ((CheckHitKey(KEY_INPUT_UP) || lpButtonMng.Buttonf(0,XINPUT_BUTTON_A).first == 1)&& CheckHitStage()(CHECK_DIR::DOWN, { _pos.x, static_cast<int>(_tmpPos.y) + 1 }, getHitOffset(),_stage) != NOTHIT)
 	{
 		_vel = INI_VEL_NORMAL;
 		setState({ OBJ_STATE::A_JUMP, _state_dir.second });
@@ -476,20 +516,31 @@ void Player::ControlAttack(void)
 
 	if (_attackFlag)
 	{
-		//if (lpKeyMng.getBuf[KEY_INPUT_V] && (!lpKeyMng.getOldBuf[KEY_INPUT_V]))
-		//{
+		// パターン２
 
-		//}
+		SetAttackState();
+
+		// パターン３
 
 
 		ATK_COLOR color = ColorBlend();
 
 		if (!lpKeyMng.getBuf()[KEY_INPUT_SPACE] && lpKeyMng.getOldBuf()[KEY_INPUT_SPACE])
 		{
-			_attack[static_cast<int>(color)][static_cast<int>(_magicSet[static_cast<int>(color)])]();
-
+			if (static_cast<int>(color) >= static_cast<int>(ATK_COLOR::RED) && static_cast<int>(color) < static_cast<int>(ATK_COLOR::MAX))
+			{
+				_attack[static_cast<int>(color)][static_cast<int>(_magicSet[static_cast<int>(color)])]();
+			}
 			_coolTime = 10;
 			_attackFlag = false;
+
+			for (int i = 0; i < 3; i++)
+			{
+				if (_magicState[i].first == ATK_STATE::RUN)
+				{
+					_magicState[i].first = ATK_STATE::WAIT;
+				}
+			}
 		}
 	}
 }
@@ -508,6 +559,8 @@ void Player::StopWalk(void)
 
 void Player::MagicUpdate(void)
 {
+	MagicSelector();
+	
 	if (_coolTime != 0)
 	{
 		_coolTime--;
@@ -537,8 +590,17 @@ void Player::MagicSelector(void)
 {
 	for (int i = 0; i < 3; i++)
 	{
-		// ここに処理
-
+		if (_magicState[i].first != ATK_STATE::RUN)
+		{
+			if (lpTradeMng.ReBook(lpMenuMng.ColorPtr(i)))
+			{
+				_magicState[i].first = ATK_STATE::WAIT;
+			}
+			else
+			{
+				_magicState[i].first = ATK_STATE::NON;
+			}
+		}
 	}
 }
 
@@ -586,6 +648,27 @@ ATK_COLOR Player::ColorBlend(void)
 	}
 
 	return rtnColor;
+}
+
+void Player::SetAttackState(void)
+{
+
+	if (((lpKeyMng.getBuf()[KEY_INPUT_A] && !lpKeyMng.getOldBuf()[KEY_INPUT_A])))
+	{
+		_magicState[static_cast<int>(ATK_COLOR::RED)].first = ATK_STATE::RUN;
+	}
+	else if (((lpKeyMng.getBuf()[KEY_INPUT_W] && !lpKeyMng.getOldBuf()[KEY_INPUT_W])))
+	{
+		_magicState[static_cast<int>(ATK_COLOR::GREEN)].first = ATK_STATE::RUN;
+	}
+	else if (((lpKeyMng.getBuf()[KEY_INPUT_D] && !lpKeyMng.getOldBuf()[KEY_INPUT_D])))
+	{
+		_magicState[static_cast<int>(ATK_COLOR::BLUE)].first = ATK_STATE::RUN;
+	}
+	else
+	{
+
+	}
 }
 
 void Player::StateRotate(void)
@@ -699,7 +782,7 @@ bool Player::MenuUpdate(void)
 void Player::Red1(void)
 {
 	lpAtkMng.MakeFireBall({ _pos.x + (static_cast<int>(_state_dir.second) - 1) * PLAYER_SIZE_X / 2, _pos.y - _drawOffset_y }, _state_dir.second,
-		{ (static_cast<int>(_state_dir.second) - 1) * 10, 0 }, _time, _stage, OBJ_TYPE::ENEMY);
+		{ (static_cast<int>(_state_dir.second) - 1) * 3, 0 }, _time, _stage, OBJ_TYPE::ENEMY);
 }
 
 void Player::Red2(void)
@@ -712,6 +795,7 @@ void Player::Red3(void)
 
 void Player::Green1(void)
 {
+	//lpAtkMng.MakeFruit({ _pos.x + (static_cast<int>(_state_dir.second) - 1) * PLAYER_SIZE_X / 2, _pos.y - _drawOffset_y }, )
 }
 
 void Player::Green2(void)
@@ -724,6 +808,7 @@ void Player::Green3(void)
 
 void Player::Blue1(void)
 {
+	lpAtkMng.MakeBubble(_pos, _time, _stage, OBJ_TYPE::ENEMY);
 }
 
 void Player::Blue2(void)
@@ -736,6 +821,7 @@ void Player::Blue3(void)
 
 void Player::Magenta1(void)
 {
+	lpAtkMng.MakePoisonFog({ _pos.x +(static_cast<int>(_state_dir.second) - 1) * 160, _pos.y - 60 }, 180, _time, _stage, OBJ_TYPE::ENEMY);
 }
 
 void Player::Magenta2(void)

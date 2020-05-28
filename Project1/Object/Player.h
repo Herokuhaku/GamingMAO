@@ -78,13 +78,13 @@ private:
 	void MagicSelector(void);
 
 	ATK_COLOR ColorBlend(void);
+	void SetAttackState(void);
 
 	void StateRotate(void);
 
 	bool _rotateFlag;
 
 	void VelUpdate(void);
-
 
 	double _vel;
 	//
@@ -97,6 +97,7 @@ private:
 	std::array<ATK_TYPE, static_cast<int>(ATK_COLOR::MAX)> _magicSet;	// F‚²‚Æ‚É‚Ç‚Ì‹Z‚Éİ’è‚µ‚Ä‚ ‚é‚©
 	std::array<std::array<std::function<void(void)>, static_cast<int>(ATK_TYPE::MAX)>, static_cast<int>(ATK_COLOR::MAX)> _attack;
 	bool _attackFlag; // UŒ‚‚Å‚«‚é‚©
+	ATK_COLOR _cursor;	// ‘I‘ğ’†‚ÌUŒ‚
 
 	void Red1(void);
 	void Red2(void);
