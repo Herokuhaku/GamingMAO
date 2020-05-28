@@ -207,6 +207,20 @@ void GameScene::getAttackQue(void)
 			_attackList.emplace_back(std::make_pair(que, data));
 		}
 	}
+
+	for (auto data : lpAtkMng.GetAttackObjList())
+	{
+		tmpData.clear();
+
+		// キューの取得
+		tmpData = data->getAttackQue();
+
+		// キューを保存
+		for (auto que : tmpData)
+		{
+			_attackList.emplace_back(std::make_pair(que, data));
+		}
+	}
 }
 
 void GameScene::ItemDraw(void)
