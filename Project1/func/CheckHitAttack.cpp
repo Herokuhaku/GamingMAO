@@ -40,11 +40,6 @@ void CheckHitAttack::operator()(const std::vector<std::shared_ptr<Object>>& objl
 			{
 				continue;
 			}
-
-			if (attack.second->getObjType() == OBJ_TYPE::ATTACK)
-			{
-				continue;
-			}
 			
 			switch (target)
 			{
