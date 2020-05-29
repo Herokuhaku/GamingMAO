@@ -7,18 +7,40 @@ Thunder::Thunder()
 
 Thunder::Thunder(Vector2 pos1, Vector2 pos2, int damage, TIME time, int stage, OBJ_TYPE target)
 {
-	_rad = atan2(pos2.y - pos1.y, pos2.x - pos1.x) - (acos(-1.0f) / 2);
+	if (pos2 == pos1)
+	{
+		setState({ OBJ_STATE::DEAD, DIR::LEFT });
+		return;
+	}
+
 	if (pos2.y == pos1.y)
 	{
 		_rType = RAD_TYPE::HRZ;
+		if (pos2.x > pos1.x)
+		{
+			_rad = 0.0;
+		}
+		else
+		{
+			_rad = acos(-1.0f);
+		}
 	}
 	else if (pos2.x == pos1.x)
 	{
 		_rType = RAD_TYPE::VRT;
+		if (pos2.y > pos1.y)
+		{
+			_rad = acos(-1.0f) / 2;
+		}
+		else
+		{
+			_rad = -(acos(-1.0f) / 2);
+		}
 	}
 	else
 	{
 		_rType = RAD_TYPE::EX;
+		_rad = atan2(pos2.y - pos1.y, pos2.x - pos1.x);
 	}
 
 	_pos = (pos2 - pos1) / 2;
@@ -35,6 +57,8 @@ Thunder::Thunder(Vector2 pos1, Vector2 pos2, int damage, TIME time, int stage, O
 	{
 		data.emplace_back(lpImageMng.getImage("lightning")[i], 2 * (i + 1));
 	}
+
+	setState({ OBJ_STATE::NORMAL, DIR::LEFT });
 
 	if (_rType != RAD_TYPE::EX || damage != 0)
 	{
@@ -83,4 +107,8 @@ void Thunder::Init(void)
 		setState({ OBJ_STATE::DEAD, _state_dir.second });
 		break;
 	}
+
+	setAttack("thunder", attack);
+
+	AddAttack("thunder");
 }
