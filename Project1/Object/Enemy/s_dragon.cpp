@@ -12,7 +12,7 @@ int s_dragon::Attack(Vector2 pos)
 	if (_state_dir.first != OBJ_STATE::ATTACK)
 	{
 		setState({ OBJ_STATE::ATTACK, _plDir });
-		lpAtkMng.MakeFireBall({ _pos.x,_pos.y - 50 }, _plDir, { 5, 0 }, _time, _stage, OBJ_TYPE::PLAYER);
+		lpAtkMng.MakeFireBall({ _pos.x,_pos.y - 20 }, _plDir, { 5, 0 }, _time, _stage, OBJ_TYPE::PLAYER	);
 		_waitTime = 140;	// クールタイム
 		_waitCnt = 0;
 		return static_cast<int>(MOVE_SELECT::WAIT);
@@ -131,4 +131,5 @@ void s_dragon::Init(void)
 	setAnm({ OBJ_STATE::DEAD,DIR::LEFT }, data);
 
 	_etype = ENEMY_TYPE::s_dragon;
+	_rangeA = 200;
 }
