@@ -77,10 +77,11 @@ GameScene::GameScene()
 	lpImageMng.getImage("image/item/bard.png", "532");
 	// 鍵(黄色)
 	lpImageMng.getImage("image/item/key.png", "533");
+	// 粉(紫色)
+	lpImageMng.getImage("image/item/powder.png", "534");
 	// ホース(水色)
 	lpImageMng.getImage("image/item/hose.png", "535");
 	
-
 	// HPバー
 	lpImageMng.getImage("image/HPbar.png", "hp_bar", 6, 12, 3, 1);
 

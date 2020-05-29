@@ -239,12 +239,13 @@ bool Menu::Mix(ItemSave& item1, ItemSave& item2, ItemSave& item3)
 	if ((item1.itemtype == ITEM_TYPE::BOOK || item2.itemtype == ITEM_TYPE::BOOK)&& 
 		(item1.itemtype == ITEM_TYPE::STONE || item2.itemtype == ITEM_TYPE::STONE))
 	{
-		if (Key(item1, item2)) { return true; }					// 鍵のレシピ
-		else if (Vine(item1, item2)) { return true; }			// 蔓のレシピ
-		else if (Dynamite(item1, item2)) { return true; }		// ダイナマイトのレシピ
-		else if (Hose(item1, item2)) { return true; }			// ホースのレシピ
-		else if (Bard(item1, item2)) { return true; }			// 鳥のレシピ
-		else{return false;}
+		if      (Dynamite(item1, item2))	{ return true; }	// ダイナマイトのレシピ
+		else if (Vine    (item1, item2))	{ return true; }	// 蔓のレシピ
+		else if (Bard    (item1, item2))	{ return true; }	// 鳥のレシピ
+		else if (Key     (item1, item2))	{ return true; }	// 鍵のレシピ
+		else if (Powder  (item1, item2))	{ return true; }	// 粉レシピ
+		else if (Hose    (item1, item2))	{ return true; }	// ホースのレシピ
+		else { return false;}
 	}
 	else if (item1.itemtype != ITEM_TYPE::STONE || item2.itemtype != ITEM_TYPE::STONE)
 	{
@@ -277,6 +278,28 @@ bool Menu::Key(ItemSave& item1, ItemSave& item2)
 			(item2.itemtype == ITEM_TYPE::BOOK && item2.colortype == COLOR_TYPE::GREEN))
 		{
 			item1.colortype = COLOR_TYPE::YELLOW;
+			item1.itemtype = ITEM_TYPE::TOOL;
+			lpTradeMng.AddBag(item1);
+			lpTradeMng.DeleteItem(item2);
+			for (int i = 0;i < _asize;i++)
+			{
+				_sItem.at(i).first.itemtype = ITEM_TYPE::NON;
+			}
+			return true;
+		}
+	}
+	return false;
+}
+
+bool Menu::Powder(ItemSave& item1, ItemSave& item2)
+{
+	if ((item1.itemtype == ITEM_TYPE::STONE && item1.colortype == COLOR_TYPE::MAGENTA) ||
+		item2.itemtype == ITEM_TYPE::STONE && item2.colortype == COLOR_TYPE::MAGENTA)
+	{
+		if ((item1.itemtype == ITEM_TYPE::BOOK && item1.colortype == COLOR_TYPE::RED) ||
+			(item2.itemtype == ITEM_TYPE::BOOK && item2.colortype == COLOR_TYPE::RED))
+		{
+			item1.colortype = COLOR_TYPE::MAGENTA;
 			item1.itemtype = ITEM_TYPE::TOOL;
 			lpTradeMng.AddBag(item1);
 			lpTradeMng.DeleteItem(item2);
@@ -562,9 +585,18 @@ void Menu::ItemSelectD(int no)
 	//ItemDraw(510, { _cpos.x - 200 ,_cpos.y }, { 200,150 }, {40,100}, LAYER::EX);
 	//lpTradeMng.BagDraw({ static_cast<double>(_cpos.x) - 200.0, static_cast<double>(_cpos.y)-50.0 }, LAYER::EX, { 0,100 }, {0.75,0.75});
 
+	// 本
+	Vector2 pos = { _cpos.x-200,_cpos.y - 50 };
+	int tmp = 520;
+	for (int i = 0;i < 3;i++)
+	{
+		image = std::to_string(tmp);
+		lpImageMng.AddBackDraw({ lpImageMng.getImage(image)[0], pos.x + (i * 75),pos.y, 0.75, 0.0, LAYER::EX,_zorder.item, DX_BLENDMODE_NOBLEND, 0 });
+		tmp++;
+	}
 	// 石
-	Vector2 pos = { _cpos.x - 200, _cpos.y + 50 };
-	int tmp = 510;
+	pos.y = _cpos.y + 50 ;
+	tmp = 510;
 	for (int i = 0;i < 6;i++)
 	{
 		image = std::to_string(tmp);
@@ -573,10 +605,11 @@ void Menu::ItemSelectD(int no)
 		lpStrAdd.AddDraw(_no.c_str(), pos.x + (i * 75), pos.y,0x000000, DRAW_TO_CENTER);
 		tmp++;
 	}
-	// 本
-	pos.y = _cpos.y - 50;
-	tmp = 520;
-	for (int i = 0;i < 3;i++)
+
+	// アイテム
+	pos.y = _cpos.y + 150 ;
+	tmp = 530;
+	for (int i = 0;i < 6;i++)
 	{
 		image = std::to_string(tmp);
 		lpImageMng.AddBackDraw({ lpImageMng.getImage(image)[0], pos.x + (i * 75),pos.y, 0.75, 0.0, LAYER::EX,_zorder.item, DX_BLENDMODE_NOBLEND, 0 });

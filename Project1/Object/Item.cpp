@@ -207,6 +207,8 @@ void Item::Init(void)
 			data.emplace_back(lpImageMng.getImage(_image[0])[0], 0);
 			break;
 		case COLOR_TYPE::MAGENTA:
+			_image[0] = "534";
+			data.emplace_back(lpImageMng.getImage(_image[0])[0], 0);
 			break;
 		case COLOR_TYPE::CYAN:
 			_image[0] = "535";
