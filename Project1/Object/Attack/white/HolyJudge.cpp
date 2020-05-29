@@ -8,6 +8,7 @@ HolyJudge::HolyJudge()
 HolyJudge::HolyJudge(Vector2 pos, TIME time, int stage, OBJ_TYPE target)
 {
 	_pos.x = pos.x;
+	_pos.y = FindSF(pos.y)/* - 540*/;
 	_time = time;
 	_stage = stage;
 	_target = target;
@@ -69,4 +70,22 @@ void HolyJudge::Init(void)
 	AddAttack("HolyJudgement");
 
 	_anmEfkHd = lpEffectMng.playEffect(lpEffectMng.getEffect("holy"), LIFE_TIME, &_pos.x, &_pos.y, 0, 0, &(_state_dir.second));
+}
+
+int HolyJudge::FindSF(int pos)
+{
+	int tmp = pos;
+
+	while (!lpMapMng.getHitMap({ _pos.x, tmp }, _stage))
+	{
+		if (tmp > 3000)
+		{
+			return -1;
+		}
+		tmp += 16;
+	}
+
+	tmp = tmp - tmp % 16;
+
+	return tmp;
 }

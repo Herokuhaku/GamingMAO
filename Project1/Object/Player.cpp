@@ -847,7 +847,7 @@ void Player::Cyan3(void)
 
 void Player::Yellow1(void)
 {
-	lpAtkMng.MakeThunderCloud({ _pos.x + (static_cast<int>(_state_dir.second) - 1) * 30, _pos.y - 150 }, _state_dir.second, 3, 3, 60, _time, _stage, OBJ_TYPE::ENEMY);
+	lpAtkMng.MakeThunderCloud({ _pos.x + (static_cast<int>(_state_dir.second) - 1) * 30, _pos.y - 300 }, _state_dir.second, 3, 3, 60, _time, _stage, OBJ_TYPE::ENEMY);
 }
 
 void Player::Yellow2(void)
@@ -860,6 +860,7 @@ void Player::Yellow3(void)
 
 void Player::White1(void)
 {
+	lpAtkMng.MakeHolyJudge({ _pos.x + (static_cast<int>(_state_dir.second) - 1) * 250, _pos.y }, _time, _stage, OBJ_TYPE::ENEMY);
 }
 
 void Player::White2(void)

@@ -147,15 +147,15 @@ void AttackMng::MakeThunderCloud(Vector2 pos, DIR dir, int speed, int count, int
 	}
 }
 
-void AttackMng::MakeThunder(Vector2 pos1, Vector2 pos2, int damage, TIME time, int stage, OBJ_TYPE target)
+void AttackMng::MakeThunder(Vector2 pos1, Vector2 pos2, bool useRef, Vector2* refPos, int damage, TIME time, int stage, OBJ_TYPE target)
 {
 	if (_canAddObj)
 	{
-		_attackObj.emplace_back(new Thunder(pos1, pos2, damage, time, stage, target));
+		_attackObj.emplace_back(new Thunder(pos1, pos2, useRef, refPos, damage, time, stage, target));
 	}
 	else
 	{
-		_tmpObj.emplace_back(new Thunder(pos1, pos2, damage, time, stage, target));
+		_tmpObj.emplace_back(new Thunder(pos1, pos2, useRef, refPos, damage, time, stage, target));
 	}
 }
 

@@ -1,12 +1,16 @@
 #include "Thunder.h"
 
-Thunder::Thunder()
+Thunder::Thunder() : _refPos(&_pos)
 {
+	_pos = { 0,0 };
 	Init();
 }
 
-Thunder::Thunder(Vector2 pos1, Vector2 pos2, int damage, TIME time, int stage, OBJ_TYPE target)
+Thunder::Thunder(Vector2 pos1, Vector2 pos2, bool useRef, Vector2* refPos, int damage, TIME time, int stage, OBJ_TYPE target)
 {
+	_exRate = sqrt(pow(pos2.y + 40 - pos1.y, 2) + pow(pos2.x - pos1.x, 2)) / 240;
+	pos2.y += 40;
+
 	if (pos2 == pos1)
 	{
 		setState({ OBJ_STATE::DEAD, DIR::LEFT });
@@ -18,11 +22,11 @@ Thunder::Thunder(Vector2 pos1, Vector2 pos2, int damage, TIME time, int stage, O
 		_rType = RAD_TYPE::HRZ;
 		if (pos2.x > pos1.x)
 		{
-			_rad = 0.0;
+			_rad = -acos(1.0f) / 2.0;
 		}
 		else
 		{
-			_rad = acos(-1.0f);
+			_rad = acos(-1.0f) / 2.0;
 		}
 	}
 	else if (pos2.x == pos1.x)
@@ -30,11 +34,11 @@ Thunder::Thunder(Vector2 pos1, Vector2 pos2, int damage, TIME time, int stage, O
 		_rType = RAD_TYPE::VRT;
 		if (pos2.y > pos1.y)
 		{
-			_rad = acos(-1.0f) / 2;
+			_rad = 0.0;
 		}
 		else
 		{
-			_rad = -(acos(-1.0f) / 2);
+			_rad = acos(-1.0f);
 		}
 	}
 	else
@@ -43,20 +47,32 @@ Thunder::Thunder(Vector2 pos1, Vector2 pos2, int damage, TIME time, int stage, O
 		_rad = atan2(pos2.y - pos1.y, pos2.x - pos1.x);
 	}
 
-	_pos = (pos2 - pos1) / 2;
+	_pos = pos1 + (pos2 - pos1) / 2;
+
+	if (useRef)
+	{
+		_refPos = refPos;
+		_offset = _pos - (*refPos);
+	}
+	else
+	{
+		_refPos = &_pos;
+		_offset = { 0,0 };
+	}
 
 	_stage = stage;
 
-	_exRate = sqrt(pow(pos2.y - pos1.y, 2) + pow(pos2.x - pos1.x, 2)) / 256;
-
 	AnmVec data;
 
-	data.reserve(11);
+	data.reserve(9);
 
-	for (int i = 0; i < 11; i++)
+	for (int i = 0; i < 8; i++)
 	{
 		data.emplace_back(lpImageMng.getImage("lightning")[i], 2 * (i + 1));
 	}
+	data.emplace_back(-1, -1);
+
+	setAnm({ OBJ_STATE::NORMAL, DIR::LEFT }, data);
 
 	setState({ OBJ_STATE::NORMAL, DIR::LEFT });
 
@@ -74,6 +90,11 @@ Thunder::~Thunder()
 {
 }
 
+void Thunder::Update(void)
+{
+	_pos = (*_refPos) + _offset;
+}
+
 void Thunder::Draw(void)
 {
 	if (!anmUpdate())
@@ -81,7 +102,7 @@ void Thunder::Draw(void)
 		return;
 	}
 
-	lpImageMng.AddDraw({ _anmMap[_state_dir][_anmFlame].first, _pos.x, _pos.y - _drawOffset_y, _exRate, _rad, LAYER::CHAR, _zOrder, DX_BLENDMODE_ALPHA, 120 });
+	lpImageMng.AddDraw({ _anmMap[_state_dir][_anmFlame].first, _pos.x, _pos.y - _drawOffset_y, _exRate, _rad, LAYER::CHAR, _zOrder, DX_BLENDMODE_NOBLEND, 0 });
 }
 
 void Thunder::Init(void)
@@ -89,18 +110,20 @@ void Thunder::Init(void)
 	std::vector<atkData> attack;
 	attack.reserve(22);
 
+	Vector2 attackSize = { static_cast<int>(18.0 * _exRate), static_cast<int>(64.0 * _exRate) };
+
 	switch (_rType)
 	{
 	case RAD_TYPE::VRT:
 		for (int i = 0; i < 22; i++)
 		{
-			attack.emplace_back(atkData(true, OBJ_TYPE::ATTACK, { -18, -64 }, { 18, 64 }, 0, 0, _target));
+			attack.emplace_back(atkData(true, OBJ_TYPE::ATTACK, { -attackSize.x, -attackSize.y }, { attackSize.x, attackSize.y }, 40, 22, _target));
 		}
 		break;
 	case RAD_TYPE::HRZ:
 		for (int i = 0; i < 22; i++)
 		{
-			attack.emplace_back(atkData(true, OBJ_TYPE::ATTACK, { -64, -18 }, { 64, 18 }, 0, 0, _target));
+			attack.emplace_back(atkData(true, OBJ_TYPE::ATTACK, { -attackSize.y, -attackSize.x }, { attackSize.y, attackSize.x }, 40, 2, _target));
 		}
 		break;
 	default:

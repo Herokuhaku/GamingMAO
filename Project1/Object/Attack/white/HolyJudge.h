@@ -15,6 +15,8 @@ public:
 private:
 	void Init(void);
 
+	int FindSF(int);
+
 	int _count;
 
 	OBJ_TYPE _target;

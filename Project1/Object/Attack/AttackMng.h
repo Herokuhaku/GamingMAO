@@ -53,7 +53,7 @@ public:
 
 	// â©êFñÇñ@
 	void MakeThunderCloud(Vector2 pos, DIR dir, int speed, int count, int dur, TIME time, int stage, OBJ_TYPE target);
-	void MakeThunder(Vector2 pos1, Vector2 pos2, int damage, TIME time, int stage, OBJ_TYPE target);
+	void MakeThunder(Vector2 pos1, Vector2 pos2, bool useRef, Vector2* refPos, int damage, TIME time, int stage, OBJ_TYPE target);
 
 	// îíñÇñ@
 	int MakeHolyJudge(Vector2 pos, TIME time, int stage, OBJ_TYPE target);

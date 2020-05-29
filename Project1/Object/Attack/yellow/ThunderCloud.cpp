@@ -17,6 +17,7 @@ ThunderCloud::ThunderCloud(Vector2 pos, DIR dir, int speed, int count, int dur, 
 	_time = time;
 	_stage = stage;
 	_target = target;
+	_zOrder = 1;
 
 	_tmpPos.x = static_cast<double>(_pos.x);
 
@@ -31,20 +32,22 @@ void ThunderCloud::Update(void)
 {
 	_timer++;
 
+	_pos.x += _speed;
+
 	if (_timer >= _attackDur)
 	{
 		_timer = 0;
+		_attackCount++;
+		if (_attackCount > _countMax)
+		{
+			setState({ OBJ_STATE::DEAD, _state_dir.second });
+			return;
+		}
 
 		int sPos = FindSF();
 		if (sPos != -1)
 		{
-			lpAtkMng.MakeThunder(_pos, { _pos.x, sPos }, 40, _time, _stage, _target);
-		}
-
-		_attackCount++;
-		if (_attackCount >= _countMax)
-		{
-			setState({ OBJ_STATE::DEAD, _state_dir.second });
+			lpAtkMng.MakeThunder(_pos, { _pos.x, sPos }, true, &_pos, 40, _time, _stage, _target);
 		}
 	}
 }
