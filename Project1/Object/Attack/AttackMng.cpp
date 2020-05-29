@@ -26,6 +26,12 @@ void AttackMng::Update(void)
 
 	_canAddObj = true;
 
+	for (auto data : _tmpObj)
+	{
+		_attackObj.emplace_back(data);
+	}
+
+	_tmpObj.clear();
 }
 
 void AttackMng::Draw(void)

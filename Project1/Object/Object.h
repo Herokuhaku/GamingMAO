@@ -122,7 +122,7 @@ protected:
 
 	Vector2Template<double> _tmpPos;
 
-	static std::map<std::string, std::vector<atkData>> _attackMap;	// UŒ‚‚Ìî•ñ
+	std::map<std::string, std::vector<atkData>> _attackMap;	// UŒ‚‚Ìî•ñ
 	std::vector<std::pair<std::string, unsigned int>> _attackData;	// UŒ‚’†‚ÌUŒ‚
 protected:
 	// ƒXƒe[ƒWˆÚ“®

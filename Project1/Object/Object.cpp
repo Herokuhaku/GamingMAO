@@ -1,7 +1,5 @@
 #include "Object.h"
 
-std::map<std::string, std::vector<atkData>> Object::_attackMap;
-
 Object::Object()
 {
 	_pos = { 0,0 };
