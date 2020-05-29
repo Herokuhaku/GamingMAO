@@ -446,11 +446,6 @@ void MapMng::SetBgLayer(int bgNo)
 MapMng::MapMng():
 	GameMapSize{2560,1440}
 {
-
-
-
-
-
 	lpImageMng.getImage("image/Purple Portal Sprite Sheet.png", "potal",64,64,8,3);
 
 	for (int j = 0; j < 3; j++)

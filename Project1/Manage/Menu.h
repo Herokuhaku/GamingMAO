@@ -68,6 +68,9 @@ private:
 	// Mix‚ÅŽg‚¤ƒŒƒVƒs
 	bool Key(ItemSave & item1,ItemSave & item2);
 	bool Vine(ItemSave&item1,ItemSave&item2);
+	bool Dynamite(ItemSave& item1, ItemSave& item2);
+	bool Hose(ItemSave& item1, ItemSave& item2);
+	bool Bard(ItemSave& item1, ItemSave& item2);
 
 
 	void Ins(int no,ITEM_TYPE itemtype, COLOR_TYPE colortype);
