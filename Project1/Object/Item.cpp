@@ -10,6 +10,8 @@ Item::Item()
 	_stone = -1;
 	_itemtype = ITEM_TYPE::BOOK;
 	_colortype = COLOR_TYPE::BLACK;
+	_image[0] = "error";
+	_image[1] = "error";
 }
 
 Item::Item(Vector2 pos, ITEM_TYPE itemtype,COLOR_TYPE colortype,int no,int stage)
@@ -24,7 +26,18 @@ Item::Item(Vector2 pos, ITEM_TYPE itemtype,COLOR_TYPE colortype,int no,int stage
 	_bagNo = no;
 	_stage = stage;
 
+	save.bagNo = _bagNo;
+	save.book = _book;
+	save.colortype = colortype;
+	save.itemtype = itemtype;
+	save.hp = -1;
+	save.image[0] = "error";
+	save.image[1] = "error";
+	save.pos = _pos;
+	save.stone = _stone;
+
 	Init();
+	
 }
 
 Item::~Item()
@@ -177,20 +190,26 @@ void Item::Init(void)
 		{
 		case COLOR_TYPE::BLACK:
 			break;
-		case COLOR_TYPE::BLUE:
-			break;
-		case COLOR_TYPE::CYAN:
+		case COLOR_TYPE::RED:
+			_image[0] = "530";
+			data.emplace_back(lpImageMng.getImage(_image[0])[0], 0);
 			break;
 		case COLOR_TYPE::GREEN:
 			_image[0] = "531";
 			data.emplace_back(lpImageMng.getImage(_image[0])[0], 0);
 			break;
-		case COLOR_TYPE::MAGENTA:
-			break;
-		case COLOR_TYPE::RED:
+		case COLOR_TYPE::BLUE:
+			_image[0] = "532";
+			data.emplace_back(lpImageMng.getImage(_image[0])[0], 0);
 			break;
 		case COLOR_TYPE::YELLOW:
-			_image[0] = "530";
+			_image[0] = "533";
+			data.emplace_back(lpImageMng.getImage(_image[0])[0], 0);
+			break;
+		case COLOR_TYPE::MAGENTA:
+			break;
+		case COLOR_TYPE::CYAN:
+			_image[0] = "535";
 			data.emplace_back(lpImageMng.getImage(_image[0])[0], 0);
 			break;
 		case COLOR_TYPE::WHITE:

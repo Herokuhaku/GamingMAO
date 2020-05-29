@@ -44,9 +44,9 @@ GameScene::GameScene()
 	lpImageMng.getImage("image/item/Green_Book.png", "GreenBook");
 	lpImageMng.getImage("image/item/Red_Book.png", "RedBook");
 	// 本(透過)
-	lpImageMng.getImage("image/item/TBlue_Book.png", "520");
+	lpImageMng.getImage("image/item/TRed_Book.png", "520");
 	lpImageMng.getImage("image/item/TGreen_Book.png", "521");
-	lpImageMng.getImage("image/item/TRed_Book.png", "522");
+	lpImageMng.getImage("image/item/TBlue_Book.png", "522");
 	// 石(通常)
 	lpImageMng.getImage("image/item/Blue_Stone.png", "BlueStone");
 	lpImageMng.getImage("image/item/Cyan_Stone.png", "CyanStone");
@@ -65,13 +65,20 @@ GameScene::GameScene()
 	lpImageMng.getImage("image/item/TRed_Stone.png", "510");
 	lpImageMng.getImage("image/item/TGreen_Stone.png", "511");
 	lpImageMng.getImage("image/item/TBlue_Stone.png", "512");
-	lpImageMng.getImage("image/item/TYellow_Stone.png", "513");	
+	lpImageMng.getImage("image/item/TYellow_Stone.png", "513");
 	lpImageMng.getImage("image/item/TMagenta_Stone.png", "514");
 	lpImageMng.getImage("image/item/TCyan_Stone.png", "515");
-	// 鍵
-	lpImageMng.getImage("image/item/key.png", "530");
-	// 蔓
+
+	// ダイナマイト(赤色)
+	lpImageMng.getImage("image/item/dynamite.png", "530");
+	// 蔓(緑色)
 	lpImageMng.getImage("image/item/vine.png", "531");
+	// 鳥(青色)
+	lpImageMng.getImage("image/item/bard.png", "532");
+	// 鍵(黄色)
+	lpImageMng.getImage("image/item/key.png", "533");
+	// ホース(水色)
+	lpImageMng.getImage("image/item/hose.png", "535");
 	
 
 	// HPバー
@@ -166,8 +173,11 @@ bool GameScene::Init(void)
 	lpEnemyMng.Init();
 
 	lpTradeMng.SetItemList({ 400,1300 }, ITEM_TYPE::STONE, COLOR_TYPE::BLUE,1);
-	lpTradeMng.SetItemList({ 400,1500 }, ITEM_TYPE::STONE, COLOR_TYPE::RED,1);
-	lpTradeMng.SetItemList({ 400,1700 }, ITEM_TYPE::STONE, COLOR_TYPE::GREEN,1);
+	lpTradeMng.SetItemList({ 500,1300 }, ITEM_TYPE::STONE, COLOR_TYPE::RED,1);
+	lpTradeMng.SetItemList({ 600,1300 }, ITEM_TYPE::STONE, COLOR_TYPE::GREEN,1);
+	lpTradeMng.SetItemList({ 700,1300 }, ITEM_TYPE::BOOK, COLOR_TYPE::BLUE, 1);
+	lpTradeMng.SetItemList({ 800,1300 }, ITEM_TYPE::BOOK, COLOR_TYPE::RED, 1);
+	lpTradeMng.SetItemList({ 900,1300 }, ITEM_TYPE::BOOK, COLOR_TYPE::GREEN, 1);
 	
 	lpTimeMng.TimeInit();
 

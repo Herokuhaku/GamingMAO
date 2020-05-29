@@ -782,7 +782,7 @@ bool Player::MenuUpdate(void)
 void Player::Red1(void)
 {
 	lpAtkMng.MakeFireBall({ _pos.x + (static_cast<int>(_state_dir.second) - 1) * PLAYER_SIZE_X / 2, _pos.y - _drawOffset_y }, _state_dir.second,
-		{ (static_cast<int>(_state_dir.second) - 1) * 3, 0 }, _time, _stage, OBJ_TYPE::ENEMY);
+		{ 3, 0 }, _time, _stage, OBJ_TYPE::ENEMY);
 }
 
 void Player::Red2(void)

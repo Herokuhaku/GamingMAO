@@ -45,12 +45,12 @@ void ButtonMng::ThumbLFlag(void)
 	for (int no = 0;no < 2;no++)
 	{
 		// 左スティックのX軸
-		if (input[no].ThumbLX > 25000)
+		if (input[no].ThumbLX > 30000)
 		{
 			ThumbState[no][XINPUT_THUMBL_X].second = ThumbState[no][XINPUT_THUMBL_X].first;
 			ThumbState[no][XINPUT_THUMBL_X].first = 1;
 		}
-		else if (input[no].ThumbLX < -25000)
+		else if (input[no].ThumbLX < -30000)
 		{
 			ThumbState[no][XINPUT_THUMBL_X].second = ThumbState[no][XINPUT_THUMBL_X].first;
 			ThumbState[no][XINPUT_THUMBL_X].first = 2;
@@ -61,12 +61,12 @@ void ButtonMng::ThumbLFlag(void)
 			ThumbState[no][XINPUT_THUMBL_X].first = 0;
 		}
 		// 左スティックのY軸
-		if (input[no].ThumbLY > 25000)
+		if (input[no].ThumbLY > 30000)
 		{
 			ThumbState[no][XINPUT_THUMBL_Y].second = ThumbState[no][XINPUT_THUMBL_Y].first;
 			ThumbState[no][XINPUT_THUMBL_Y].first = 2;
 		}
-		else if (input[no].ThumbLY < -25000)
+		else if (input[no].ThumbLY < -30000)
 		{
 			ThumbState[no][XINPUT_THUMBL_Y].second = ThumbState[no][XINPUT_THUMBL_Y].first;
 			ThumbState[no][XINPUT_THUMBL_Y].first = 1;

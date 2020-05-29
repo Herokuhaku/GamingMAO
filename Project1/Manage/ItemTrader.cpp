@@ -5,8 +5,6 @@ ItemTrader* ItemTrader::sInstance = nullptr;
 
 Vector2 _offpush = {200, 150 };
 
-
-
 void ItemTrader::Draw(void)
 {
 	for (auto data : _ItemList)
@@ -29,17 +27,16 @@ void ItemTrader::BagDraw(Vector2D pos,LAYER lay,Vector2 off , Vector2D rad)
 			data.first.pos = { _pos.x + (100 * data.first.book),_pos.y + off.x};
 			lpImageMng.AddBackDraw({ lpImageMng.getImage(data.first.image[0])[0],data.first.pos.x,data.first.pos.y, rad.x, 0.0,LAYER::EX, 110, DX_BLENDMODE_NOBLEND, 0 });
 		}
-		else if (data.first.itemtype == ITEM_TYPE::STONE)
-		{
-			data.first.pos = { _pos.x + (100 * data.first.stone),_pos.y + off.y};
-			lpImageMng.AddBackDraw({ lpImageMng.getImage(data.first.image[0])[0],data.first.pos.x,data.first.pos.y, rad.y, 0.0,LAYER::EX, 110, DX_BLENDMODE_NOBLEND, 0 });
-		}
-		else if (data.first.itemtype == ITEM_TYPE::TOOL)
-		{
-			data.first.pos = { _pos.x ,_pos.y + off.y };
-			lpImageMng.AddBackDraw({ lpImageMng.getImage(data.first.image[0])[0],data.first.pos.x,data.first.pos.y, rad.y, 0.0,LAYER::EX, 110, DX_BLENDMODE_NOBLEND, 0 });
-
-		}
+		//else if (data.first.itemtype == ITEM_TYPE::STONE)
+		//{
+		//	data.first.pos = { _pos.x + (100 * data.first.stone),_pos.y + off.y};
+		//	lpImageMng.AddBackDraw({ lpImageMng.getImage(data.first.image[0])[0],data.first.pos.x,data.first.pos.y, rad.y, 0.0,LAYER::EX, 110, DX_BLENDMODE_NOBLEND, 0 });
+		//}
+		//else if (data.first.itemtype == ITEM_TYPE::TOOL)
+		//{
+		//	data.first.pos = { _pos.x ,_pos.y + off.y };
+		//	lpImageMng.AddBackDraw({ lpImageMng.getImage(data.first.image[0])[0],data.first.pos.x,data.first.pos.y, rad.y, 0.0,LAYER::EX, 110, DX_BLENDMODE_NOBLEND, 0 });
+		//}
 	}
 }
 
@@ -329,18 +326,21 @@ const char* ItemTrader::ChangeName(ITEM_TYPE _itemtype,COLOR_TYPE _colortype)
 		case COLOR_TYPE::BLACK:
 			break;
 		case COLOR_TYPE::RED:
+			save.image[0] = "530";
 			break;
 		case COLOR_TYPE::GREEN:
 			save.image[0] = "531";
 			break;
 		case COLOR_TYPE::BLUE:
+			save.image[0] = "532";
 			break;
 		case COLOR_TYPE::YELLOW:
-			save.image[0] = "530";
-			break;
-		case COLOR_TYPE::CYAN:
+			save.image[0] = "533";
 			break;
 		case COLOR_TYPE::MAGENTA:
+			break;
+		case COLOR_TYPE::CYAN:
+			save.image[0] = "535";
 			break;
 		case COLOR_TYPE::WHITE:
 			break;
