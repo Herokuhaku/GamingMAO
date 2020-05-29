@@ -62,6 +62,9 @@ private:
 	static AttackMng* sInstance;
 
 	std::vector<std::shared_ptr<Object>> _attackObj;
+	std::vector<std::shared_ptr<Object>> _tmpObj;		// イテレート中の要素追加先	
+
+	bool _canAddObj;
 
 	AttackMng();
 	~AttackMng();

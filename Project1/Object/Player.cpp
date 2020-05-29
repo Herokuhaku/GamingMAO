@@ -795,7 +795,7 @@ void Player::Red3(void)
 
 void Player::Green1(void)
 {
-	//lpAtkMng.MakeFruit({ _pos.x + (static_cast<int>(_state_dir.second) - 1) * PLAYER_SIZE_X / 2, _pos.y - _drawOffset_y }, )
+	lpAtkMng.MakeFruit({ _pos.x + (static_cast<int>(_state_dir.second) - 1) * PLAYER_SIZE_X / 2, _pos.y - _drawOffset_y }, _state_dir.second, 4, _time, _stage, OBJ_TYPE::ENEMY);
 }
 
 void Player::Green2(void)
@@ -834,6 +834,7 @@ void Player::Magenta3(void)
 
 void Player::Cyan1(void)
 {
+	lpAtkMng.MakeIceWall({ _pos.x, _pos.y - 40 }, _time, _stage, OBJ_TYPE::ENEMY);
 }
 
 void Player::Cyan2(void)
@@ -846,6 +847,7 @@ void Player::Cyan3(void)
 
 void Player::Yellow1(void)
 {
+	lpAtkMng.MakeThunderCloud({ _pos.x + (static_cast<int>(_state_dir.second) - 1) * 30, _pos.y - 150 }, _state_dir.second, 3, 3, 60, _time, _stage, OBJ_TYPE::ENEMY);
 }
 
 void Player::Yellow2(void)
