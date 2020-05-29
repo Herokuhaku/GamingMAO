@@ -16,7 +16,7 @@ void ItemTrader::Draw(void)
 	}
 }
 
-void ItemTrader::BagDraw(Vector2D pos,LAYER lay,Vector2 off , Vector2D rad)
+void ItemTrader::BagDraw(Vector2D pos, LAYER lay, Vector2 off, Vector2D rad)
 {
 	_pos.x = pos.x;
 	_pos.y = pos.y;
@@ -24,19 +24,9 @@ void ItemTrader::BagDraw(Vector2D pos,LAYER lay,Vector2 off , Vector2D rad)
 	{
 		if (data.first.itemtype == ITEM_TYPE::BOOK)
 		{
-			data.first.pos = { _pos.x + (100 * data.first.book),_pos.y + off.x};
+			data.first.pos = { _pos.x + (100 * data.first.book),_pos.y + off.x };
 			lpImageMng.AddBackDraw({ lpImageMng.getImage(data.first.image[0])[0],data.first.pos.x,data.first.pos.y, rad.x, 0.0,LAYER::EX, 110, DX_BLENDMODE_NOBLEND, 0 });
 		}
-		//else if (data.first.itemtype == ITEM_TYPE::STONE)
-		//{
-		//	data.first.pos = { _pos.x + (100 * data.first.stone),_pos.y + off.y};
-		//	lpImageMng.AddBackDraw({ lpImageMng.getImage(data.first.image[0])[0],data.first.pos.x,data.first.pos.y, rad.y, 0.0,LAYER::EX, 110, DX_BLENDMODE_NOBLEND, 0 });
-		//}
-		//else if (data.first.itemtype == ITEM_TYPE::TOOL)
-		//{
-		//	data.first.pos = { _pos.x ,_pos.y + off.y };
-		//	lpImageMng.AddBackDraw({ lpImageMng.getImage(data.first.image[0])[0],data.first.pos.x,data.first.pos.y, rad.y, 0.0,LAYER::EX, 110, DX_BLENDMODE_NOBLEND, 0 });
-		//}
 	}
 }
 
@@ -338,6 +328,7 @@ const char* ItemTrader::ChangeName(ITEM_TYPE _itemtype,COLOR_TYPE _colortype)
 			save.image[0] = "533";
 			break;
 		case COLOR_TYPE::MAGENTA:
+			save.image[0] = "534";
 			break;
 		case COLOR_TYPE::CYAN:
 			save.image[0] = "535";

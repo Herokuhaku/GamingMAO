@@ -66,12 +66,13 @@ private:
 	void SelectCount(int& select,int thumb,int count);								// 矢印の操作
 	bool Mix(ItemSave& item1, ItemSave& item2, ItemSave& item3);			// 合成処理
 	// Mixで使うレシピ
-	bool Key(ItemSave & item1,ItemSave & item2);
-	bool Vine(ItemSave&item1,ItemSave&item2);
-	bool Dynamite(ItemSave& item1, ItemSave& item2);
-	bool Hose(ItemSave& item1, ItemSave& item2);
-	bool Bard(ItemSave& item1, ItemSave& item2);
 
+	bool Dynamite(ItemSave& item1, ItemSave& item2);	// ダイナマイト	(赤色)	レッド
+	bool Vine(ItemSave&item1,ItemSave&item2);			// 蔓			(緑色)	グリーン
+	bool Bard(ItemSave& item1, ItemSave& item2);		// 鳥			(青色)	ブルー
+	bool Key(ItemSave & item1,ItemSave & item2);		// 鍵			(黄色)	イエロー
+	bool Powder(ItemSave& item1, ItemSave& item2);		// 粉			(紫色)	マゼンタ
+	bool Hose(ItemSave& item1, ItemSave& item2);		// ホース		(水色)	シアン
 
 	void Ins(int no,ITEM_TYPE itemtype, COLOR_TYPE colortype);
 	// 画像描画まとめ

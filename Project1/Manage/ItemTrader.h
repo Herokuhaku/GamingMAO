@@ -68,6 +68,7 @@ private:
 	int _stone;
 	int _book;
 	std::vector<std::pair<ItemSave, int>> _IBag;
+	std::vector<std::pair<ItemSave, int>> _ItemBag;
 	ItemSave save;
 };
 
