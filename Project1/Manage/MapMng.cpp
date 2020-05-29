@@ -443,6 +443,55 @@ void MapMng::SetBgLayer(int bgNo)
 	}
 }
 
+bool MapMng::Init(void)
+{
+	InitPt();
+	InitMap();
+	InitEnd();
+	return true;
+}
+
+void MapMng::InitPt(void)
+{
+	test.stageF = false;
+	test.Spos = { 0,0 };
+	test.Epos = { 0,0 };
+	test.animFlame = 0;
+	test.icnt = 0;
+	test.animKind = 0;
+	test.startF = false;
+
+	for (int i = 0; i < STAGE_MAX; i++)
+	{
+		tp[i] = test;
+	}
+}
+
+void MapMng::InitMap(void)
+{
+	for (int wNo = 0; wNo < ACTIVEMAP; wNo++)
+	{
+		for (int y = 0; y < MapChipY; y++)
+		{
+			for (int x = 0; x < MapChipX; x++)
+			{
+				GameMap[y][x][wNo] = 0;
+				HitMap[y][x][wNo] = 0;
+			}
+		}
+		_activeMap[wNo] = { true,0 };
+	}
+}
+
+void MapMng::InitEnd(void)
+{
+	SetDrawBright(255,255,255);
+	_mapdata = GetMapIndex(1);
+	MapID = std::get<static_cast<int>(MAP_DATA::MAPLINK)>(_mapdata);
+	MapUpdate();
+	SetDrawBright(0,0,0);
+}
+
 MapMng::MapMng():
 	GameMapSize{2560,1440}
 {
@@ -466,32 +515,6 @@ MapMng::MapMng():
 		test.imagecnt[1][i] = 5;
 	}
 
-	test.stageF = false;
-	test.Spos = { 0,0 };
-	test.Epos = { 0,0 };
-	test.animFlame = 0;
-	test.icnt = 0;
-	test.animKind = 0;
-	test.startF = false;
-
-	for (int i = 0; i < STAGE_MAX; i++)
-	{
-		tp[i] = test;
-	}
-
-	SetDrawBright(255,255,255);
-	for(int wNo = 0; wNo < ACTIVEMAP; wNo++)
-	{
-			for (int y = 0;y < MapChipY;y++)
-			{
-					for (int x = 0;x < MapChipX;x++)
-					{
-							GameMap[y][x][wNo] = 0;
-							HitMap[y][x][wNo] = 0;
-					}
-			}
-			_activeMap[wNo] = { true,0 };
-	}
 
 	lpImageMng.getImage("image/background/main_back.png", "ƒƒCƒ“”wŒi");
 
@@ -509,6 +532,7 @@ MapMng::MapMng():
 	lpImageMng.getImage("image/back/block/For/Tileset.png", "Block",16,16,10,6);
 
 	nowStage = { 0,0 };
+	_oldLayerNo = 0;
 
 	for (int i = 0; i < ACTIVEMAP; i++)
 	{
@@ -519,23 +543,13 @@ MapMng::MapMng():
 	_layer1 = MakeScreen(GameMapSize.x, GameMapSize.y, true);
 	_layer2 = MakeScreen(GameMapSize.x, GameMapSize.y, true);
 
-	_oldLayerNo = 0;
-
 	fopen_s(&indexFp,"mapdata/index.txt","r");
 	if(indexFp == nullptr)
 	{
 		return;
 	}
 
-	_mapdata = GetMapIndex(1);
-	MapID = std::get<static_cast<int>(MAP_DATA::MAPLINK)>(_mapdata);
-	MapUpdate();
-
-
-
-
-
-	SetDrawBright(0,0,0);
+	Init();
 }
 
 MapMng::~MapMng()
@@ -559,6 +573,7 @@ bool MapMng::getHitMap(const Vector2& pos, int stage)
 		}
 	}
 
+	return -1;
 	exit(1);
 	return (HitMap[chip.y][chip.x][stage] == 1);
 }

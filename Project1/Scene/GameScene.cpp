@@ -163,12 +163,16 @@ std::unique_ptr<BaceScene> GameScene::Update(std::unique_ptr<BaceScene> own)
 
 bool GameScene::Init(void)
 {
+	lpTimeMng.TimeInit();
+
 	_objList.clear();
 	_objList.emplace_back(new Player({ 2080,1311 }, 1, TIME::NOW));
 	lpSceneMng.SetPlObj(_objList[0], TIME::NOW);
 	_objList.emplace_back(new Player({ 400,900 }, 1, TIME::FTR));
 	lpSceneMng.SetPlObj(_objList[1], TIME::FTR);
 	_objList.emplace_back(new camera());
+
+	lpMapMng.Init();
 
 	lpEnemyMng.Init();
 
@@ -179,7 +183,7 @@ bool GameScene::Init(void)
 	lpTradeMng.SetItemList({ 800,1300 }, ITEM_TYPE::BOOK, COLOR_TYPE::RED, 1);
 	lpTradeMng.SetItemList({ 900,1300 }, ITEM_TYPE::BOOK, COLOR_TYPE::GREEN, 1);
 	
-	lpTimeMng.TimeInit();
+
 
 	return false;
 }

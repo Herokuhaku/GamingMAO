@@ -106,6 +106,10 @@ public:
 	const portal_t *GetPortal(void) const;
 	const portal_t *GetPortal2(void) const;
 	void setstageF(bool flag) {	test.stageF = flag;	};
+	bool Init(void);
+	void InitPt(void);
+	void InitMap(void);
+	void InitEnd(void);		// ÅŒã‚ÉÀs‚µ‚½‚¢‰Šú‰»
 
 #define ACTIVEMAP 4
 private:
