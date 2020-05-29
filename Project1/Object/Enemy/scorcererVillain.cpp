@@ -14,6 +14,7 @@ sorcerer::sorcerer(Vector2 pos, int stage)
 	_state_dir = { OBJ_STATE::NORMAL,DIR::RIGHT };
 	setHP(100);
 	setHitOffset({ 55, 55, 100, 0 });
+	_tmpHP = _maxHP / _saveDivNum;
 	
 	while (!lpMapMng.getHitMap(_pos, _stage))
 	{
@@ -32,6 +33,7 @@ sorcerer::sorcerer(Vector2 pos, int stage, int pPos, bool flag)
 	_hp = 4000;
 	_maxHP = _hp;
 	setHitOffset({ 55, 55, 100, 0 });
+	_tmpHP = _maxHP / _saveDivNum;
 	_exRate = 3.0;
 
 	_rangeS = 300;

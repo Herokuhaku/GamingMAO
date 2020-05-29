@@ -14,6 +14,7 @@ public:
 private:
 	void (Boss::*func)(void);
 
+protected:
 	int _startCnt;
 	int _saveDivNum;
 	int _tmpHP;

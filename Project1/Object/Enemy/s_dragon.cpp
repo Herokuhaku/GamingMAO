@@ -6,6 +6,18 @@ void s_dragon::Update(void)
 	Enemy::Update();
 }
 
+int s_dragon::Attack(Vector2 pos)
+{
+	if (_state_dir.first != OBJ_STATE::ATTACK)
+	{
+		setState({ OBJ_STATE::ATTACK, _plDir });
+		_waitTime = 140;	// クールタイム
+		_waitCnt = 0;
+		return static_cast<int>(MOVE_SELECT::WAIT);
+	}
+	return static_cast<int>(MOVE_SELECT::WAIT);
+}
+
 //s_dragon::s_dragon(Vector2Template<int> pos, double rad, TIME time, int stage, OBJ_TYPE type, std::pair<OBJ_STATE, DIR> state_dir)
 s_dragon::s_dragon(Vector2 pos, int stage)
 	{

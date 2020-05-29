@@ -163,12 +163,15 @@ void Enemy::damagingHP(int damage)
 	aState(static_cast<int>(MOVE_SELECT::WAIT));
 
 	int ddir = _plDir == DIR::LEFT ? 13 : -13;
-	//
-
+	
 	// ‰æ–ÊŠO‚â•Ç‚É–„‚Ü‚ç‚È‚¢‚æ‚¤‚Éˆ—
-
-	//
-	_pos.x += ddir;
+	if (lpMapMng.getHitMap(_pos, _stage))
+	{
+	}
+	else
+	{
+		_pos.x += ddir;
+	}
 
 	Object::damagingHP(damage);
 }
