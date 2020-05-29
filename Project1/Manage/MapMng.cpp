@@ -384,7 +384,8 @@ void MapMng::BlockLayer(void)
 		{
 			if (GameMap[y][x][_writNo] != -1)
 			{
-				DrawRotaGraph(x*16+(CHIP_SIZE/2), y*16, 1.0, 0, lpImageMng.getImage("Block")[GameMap[y][x][_writNo]], true);
+				int a = static_cast<int>(GameMap[y][x][_writNo]);
+				DrawRotaGraph(x*16+(CHIP_SIZE/2), y*16, 1.0, 0, lpImageMng.getImage("Block")[static_cast<int>(GameMap[y][x][_writNo])], true);
 			}
 	}
 	}
@@ -445,6 +446,9 @@ void MapMng::SetBgLayer(int bgNo)
 
 bool MapMng::Init(void)
 {
+	nowStage = { 0,0 };
+	_oldLayerNo = 0;
+
 	InitPt();
 	InitMap();
 	InitEnd();
@@ -531,9 +535,7 @@ MapMng::MapMng():
 
 	lpImageMng.getImage("image/back/block/For/Tileset.png", "Block",16,16,10,6);
 
-	nowStage = { 0,0 };
-	_oldLayerNo = 0;
-
+	
 	for (int i = 0; i < ACTIVEMAP; i++)
 	{
 		_layer[i] = MakeScreen(GameMapSize.x, GameMapSize.y, true);
