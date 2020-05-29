@@ -489,7 +489,7 @@ void MapMng::InitEnd(void)
 	_mapdata = GetMapIndex(1);
 	MapID = std::get<static_cast<int>(MAP_DATA::MAPLINK)>(_mapdata);
 	MapUpdate();
-	SetDrawBright(0,0,0);
+	//SetDrawBright(0,0,0);
 }
 
 MapMng::MapMng():

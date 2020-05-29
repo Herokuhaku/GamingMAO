@@ -172,6 +172,7 @@ bool GameScene::Init(void)
 	lpSceneMng.SetPlObj(_objList[1], TIME::FTR);
 	_objList.emplace_back(new camera());
 
+	MapMng::Create();
 	lpMapMng.Init();
 
 	lpEnemyMng.Init();
