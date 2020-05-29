@@ -71,6 +71,7 @@ int ThunderCloud::FindSF(void)
 		{
 			return -1;
 		}
+		tmp += 16;
 	}
 
 	tmp = tmp - tmp % 16;

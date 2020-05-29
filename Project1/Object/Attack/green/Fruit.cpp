@@ -95,7 +95,7 @@ void Fruit::Init(void)
 
 	AddAttack("bubble");
 
-	_radSpeed = (static_cast<int>(_state_dir.second) - 1) * (_speed / (size * 2 * acos(-1.0f)) * (acos(-1.0f) * 2));
+	_radSpeed = ((_speed / (size * 2 * acos(-1.0f)) * (acos(-1.0f) * 2)));
 
 	_tmpPos.y = _pos.y;
 }
