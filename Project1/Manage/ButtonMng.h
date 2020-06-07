@@ -10,6 +10,10 @@
 #define XINPUT_THUMBR_X 2		// Rスティックの横
 #define XINPUT_THUMBR_Y 3		// Rスティックの縦
 
+// スティック取得用
+#define THUMB_LEFT  0
+#define THUMB_RIGHT 1
+
 class ButtonMng
 {
 public:
@@ -41,6 +45,11 @@ public:
 
 	const void Buttonf(int no, int type,int First ,int Second);			// ボタンの情報を上書きする
 	const void Thumbf(int no, int type, int First, int Second);
+
+	// スティックの情報をそのまま取得する
+	// thumbType どちらのスティックを取得するか THUMB_LEFTかRIGHTで指定
+	// x,yに格納して返す
+	void GetThumb(int thumbType, short& x, short& y);	
 
 	void ThumbLFlag(void);
 private:

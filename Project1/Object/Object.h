@@ -6,7 +6,7 @@
 #include "DIR.h"
 #include "../Manage/TimeMng.h"
 
-enum class OBJ_TYPE
+enum class OBJ_TYPE : int
 {
 	PLAYER,
 	ENEMY,
@@ -16,7 +16,7 @@ enum class OBJ_TYPE
 	MAX
 };
 
-enum class OBJ_STATE
+enum class OBJ_STATE : int
 {
 	NORMAL,
 	WALK,
@@ -32,7 +32,7 @@ enum class OBJ_STATE
 	DEAD
 };
 
-enum class CHECK_DIR
+enum class CHECK_DIR : int
 {
 	LEFT,
 	RIGHT,

@@ -40,6 +40,25 @@ const void ButtonMng::Thumbf(int no, int type, int First, int Second)
 	ButtonState[no][type] = {First,Second};
 }
 
+void ButtonMng::GetThumb(int thumbType, short& x, short& y)
+{
+	if (thumbType == THUMB_LEFT)
+	{
+		x = input[0].ThumbLX;
+		y = input[0].ThumbLY;
+	}
+	else if (thumbType == THUMB_RIGHT)
+	{
+		x = input[0].ThumbRX;
+		y = input[0].ThumbRY;
+	}
+	else
+	{
+		x = 0;
+		y = 0;
+	}
+}
+
 void ButtonMng::ThumbLFlag(void)
 {
 	for (int no = 0;no < 2;no++)
