@@ -8,6 +8,7 @@
 #include "../Manage/Menu.h"
 #include "../Object/Enemy/EnemyMng.h"
 #include "../Object/Attack/AttackMng.h"
+#include "../Manage/AttackUI.h"
 
 GameScene::GameScene()
 {
@@ -84,13 +85,14 @@ GameScene::GameScene()
 	// HPバー
 	lpImageMng.getImage("image/HPbar.png", "hp_bar", 6, 12, 3, 1);
 
+
 	// 攻撃
 	lpImageMng.getImage("image/Attack/fireball.png", "fireball", 100, 100, 5, 6);
 	lpImageMng.getImage("image/Attack/bubble.png", "bubble");
 	lpImageMng.getImage("image/Attack/fruit.png", "fruit", 64, 64, 4, 1);
 	lpImageMng.getImage("image/Attack/poison_mist.png", "poison_mist", 320, 120, 1, 8);
 	lpImageMng.getImage("image/Attack/ice_wall.png", "ice_wall", 320, 120, 1, 8);
-	lpImageMng.getImage("image/Attack/magic_ring.png", "magic_ring", 400, 600, 2, 8);
+	lpImageMng.getImage("image/Attack/magic_ring.png", "magic_ring", 200, 150, 2, 8);
 	lpImageMng.getImage("image/Attack/bomb.png", "bomb", 64, 64, 2, 1);
 	lpImageMng.getImage("image/Attack/cloud.png", "cloud");
 	lpImageMng.getImage("image/Attack/Lightning.png", "lightning", 240, 240, 8, 1);
@@ -109,6 +111,8 @@ GameScene::~GameScene()
 
 std::unique_ptr<BaceScene> GameScene::Update(std::unique_ptr<BaceScene> own)
 {
+	lpAttackUI.Update();
+
 	for (auto data : _objList)
 	{
 		(*data).Update();
@@ -140,6 +144,8 @@ std::unique_ptr<BaceScene> GameScene::Update(std::unique_ptr<BaceScene> own)
 	ItemDraw();
 
 	lpMapMng.MapDraw();
+
+	lpAttackUI.Draw();
 
 	// 死んでいるプレイヤーを探す
 	auto plDead = std::find_if(_objList.begin(), _objList.end(), [](std::shared_ptr<Object> obj) { return (obj->getObjType() == OBJ_TYPE::PLAYER && obj->getState().first == OBJ_STATE::DEAD); });

@@ -26,6 +26,7 @@ HolyJudge::~HolyJudge()
 
 void HolyJudge::Update(void)
 {
+	_count++;
 	if (_count >= LIFE_TIME)
 	{
 		setState({ OBJ_STATE::DEAD, _state_dir.second });
@@ -38,16 +39,15 @@ void HolyJudge::IfHitAttack(void)
 
 void HolyJudge::Init(void)
 {
-	AnmVec data;
+	//AnmVec data;
 
-	data.reserve(15);
+	//data.reserve(15);
 
-	for (int i = 0; i < 15; i++)
-	{
-		data.emplace_back(lpImageMng.getImage("magic_ring")[i], 3 * (i + 1));
-	}
-
-	setAnm({ OBJ_STATE::NORMAL, DIR::LEFT }, data);
+	//for (int i = 0; i < 15; i++)
+	//{
+	//	data.emplace_back(lpImageMng.getImage("magic_ring")[i], 3 * (i + 1));
+	//}
+	//setAnm({ OBJ_STATE::NORMAL, DIR::LEFT }, data);
 
 	std::vector<atkData> attack;
 
