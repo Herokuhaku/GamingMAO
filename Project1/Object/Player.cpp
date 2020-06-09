@@ -296,6 +296,9 @@ void Player::Init(void)
 	_attack[static_cast<int>(ATK_COLOR::GREEN)]	[static_cast<int>(ATK_TYPE::TYPE_1)] = std::bind(&Player::Green1  , this);
 	_attack[static_cast<int>(ATK_COLOR::GREEN)]	[static_cast<int>(ATK_TYPE::TYPE_2)] = std::bind(&Player::Green2  , this);
 	_attack[static_cast<int>(ATK_COLOR::GREEN)]	[static_cast<int>(ATK_TYPE::TYPE_3)] = std::bind(&Player::Green3  , this);
+	_attack[static_cast<int>(ATK_COLOR::YELLOW)][static_cast<int>(ATK_TYPE::TYPE_1)] = std::bind(&Player::Yellow1, this);
+	_attack[static_cast<int>(ATK_COLOR::YELLOW)][static_cast<int>(ATK_TYPE::TYPE_2)] = std::bind(&Player::Yellow1, this);
+	_attack[static_cast<int>(ATK_COLOR::YELLOW)][static_cast<int>(ATK_TYPE::TYPE_3)] = std::bind(&Player::Yellow3, this);
 	_attack[static_cast<int>(ATK_COLOR::BLUE)]	[static_cast<int>(ATK_TYPE::TYPE_1)] = std::bind(&Player::Blue1   , this);
 	_attack[static_cast<int>(ATK_COLOR::BLUE)]	[static_cast<int>(ATK_TYPE::TYPE_2)] = std::bind(&Player::Blue2   , this);
 	_attack[static_cast<int>(ATK_COLOR::BLUE)]	[static_cast<int>(ATK_TYPE::TYPE_3)] = std::bind(&Player::Blue3   , this);
@@ -305,9 +308,6 @@ void Player::Init(void)
 	_attack[static_cast<int>(ATK_COLOR::CYAN)]	[static_cast<int>(ATK_TYPE::TYPE_1)] = std::bind(&Player::Cyan1   , this);
 	_attack[static_cast<int>(ATK_COLOR::CYAN)]	[static_cast<int>(ATK_TYPE::TYPE_2)] = std::bind(&Player::Cyan2   , this);
 	_attack[static_cast<int>(ATK_COLOR::CYAN)]	[static_cast<int>(ATK_TYPE::TYPE_3)] = std::bind(&Player::Cyan3   , this);
-	_attack[static_cast<int>(ATK_COLOR::YELLOW)][static_cast<int>(ATK_TYPE::TYPE_1)] = std::bind(&Player::Yellow1 , this);
-	_attack[static_cast<int>(ATK_COLOR::YELLOW)][static_cast<int>(ATK_TYPE::TYPE_2)] = std::bind(&Player::Yellow1 , this);
-	_attack[static_cast<int>(ATK_COLOR::YELLOW)][static_cast<int>(ATK_TYPE::TYPE_3)] = std::bind(&Player::Yellow3 , this);
 	_attack[static_cast<int>(ATK_COLOR::WHITE)]	[static_cast<int>(ATK_TYPE::TYPE_1)] = std::bind(&Player::White1  , this);
 	_attack[static_cast<int>(ATK_COLOR::WHITE)]	[static_cast<int>(ATK_TYPE::TYPE_2)] = std::bind(&Player::White2  , this);
 	_attack[static_cast<int>(ATK_COLOR::WHITE)]	[static_cast<int>(ATK_TYPE::TYPE_3)] = std::bind(&Player::White3  , this);
@@ -806,6 +806,19 @@ void Player::Green3(void)
 {
 }
 
+void Player::Yellow1(void)
+{
+	lpAtkMng.MakeThunderCloud({ _pos.x + (static_cast<int>(_state_dir.second) - 1) * 30, _pos.y - 300 }, _state_dir.second, 3, 3, 60, _time, _stage, OBJ_TYPE::ENEMY);
+}
+
+void Player::Yellow2(void)
+{
+}
+
+void Player::Yellow3(void)
+{
+}
+
 void Player::Blue1(void)
 {
 	lpAtkMng.MakeBubble(_pos, _time, _stage, OBJ_TYPE::ENEMY);
@@ -842,19 +855,6 @@ void Player::Cyan2(void)
 }
 
 void Player::Cyan3(void)
-{
-}
-
-void Player::Yellow1(void)
-{
-	lpAtkMng.MakeThunderCloud({ _pos.x + (static_cast<int>(_state_dir.second) - 1) * 30, _pos.y - 300 }, _state_dir.second, 3, 3, 60, _time, _stage, OBJ_TYPE::ENEMY);
-}
-
-void Player::Yellow2(void)
-{
-}
-
-void Player::Yellow3(void)
 {
 }
 

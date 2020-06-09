@@ -21,10 +21,10 @@ enum class ATK_COLOR : int
 {
 	RED,
 	GREEN,
+	YELLOW,
 	BLUE,
 	MGN,
 	CYAN,
-	YELLOW,
 	WHITE,
 	MAX
 };
@@ -105,6 +105,9 @@ private:
 	void Green1(void);
 	void Green2(void);
 	void Green3(void);
+	void Yellow1(void);
+	void Yellow2(void);
+	void Yellow3(void);
 	void Blue1(void);
 	void Blue2(void);
 	void Blue3(void);
@@ -114,9 +117,6 @@ private:
 	void Cyan1(void);
 	void Cyan2(void);
 	void Cyan3(void);
-	void Yellow1(void);
-	void Yellow2(void);
-	void Yellow3(void);
 	void White1(void);
 	void White2(void);
 	void White3(void);
