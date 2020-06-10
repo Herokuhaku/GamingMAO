@@ -1,6 +1,8 @@
 #include "AttackUI.h"
 #include "ButtonMng.h"
 #include "../Graphic/ImageMng.h"
+#include "ItemTrader.h"
+#include "Menu.h"
 
 AttackUI* AttackUI::sInstance = nullptr;
 
@@ -10,6 +12,16 @@ void AttackUI::Update(void)
 	lpButtonMng.GetThumb(THUMB_RIGHT, _stickX, _stickY);
 
 	StickTrans();
+
+	if (_coolTime != 0)
+	{
+		_coolTime--;
+	}
+	if (_coolTime == 0)
+	{
+		StateUpdate();
+		ColorUpdate();
+	}
 }
 
 void AttackUI::Draw(void)
@@ -22,7 +34,7 @@ void AttackUI::Draw(void)
 	ClsDrawScreen();
 
 	DrawGraph((UI_SIZE - RING_SIZE) / 2, (UI_SIZE - RING_SIZE) / 2, lpImageMng.getImage("base_ring")[0], true);
-	DrawRotaGraph(UI_SIZE / 2 + STICK_TO_POS(_stickX), UI_SIZE / 2 - STICK_TO_POS(_stickY), 1.0, 0.0, lpImageMng.getImage("stick_obj")[0], true);
+	DrawRotaGraph(UI_SIZE / 2 + STICK_TO_POS(_stickX), UI_SIZE / 2 - STICK_TO_POS(_stickY), 1.0, 0.0, lpImageMng.getImage("stick_obj")[_AttackColor], true);
 	
 	// ï`âÊêÊÇñﬂÇ∑
 	SetDrawScreen(tmpScreen);
@@ -33,29 +45,60 @@ void AttackUI::Draw(void)
 
 bool AttackUI::CheckAttackActivate(void)
 {
-	return (ACTIVE_RADIUS <= (_stickX * _stickX + _stickY * _stickY));
+	return ((ACTIVE_RADIUS <= (static_cast<double>(_stickX) * static_cast<double>(_stickX) + static_cast<double>(_stickY) * static_cast<double>(_stickY))) && _coolTime == 0);
 }
 
-int AttackUI::GetColor(void)
+ATK_COLOR AttackUI::RunAttack(int coolTime)
 {
-	return 0;
+	ATK_COLOR rtnColor = static_cast<ATK_COLOR>(_AttackColor);
+
+	for (auto data : _magicState)
+	{
+		if (data.first == ATK_STATE::RUN)
+		{
+			data.first = ATK_STATE::WAIT;
+		}
+	}
+
+	_AttackColor = 0;
+
+	_coolTime = coolTime;
+
+	return rtnColor;
 }
+
 
 void AttackUI::ColorUpdate(void)
 {
+	if (!CheckAttackActivate())
+	{
+		return;
+	}
 	double&& stickRad = atan2(_stickY, _stickX);
 
-	if (stickRad >= RAD(-30) && stickRad <= RAD(90))
+	if (stickRad <= RAD(30) && stickRad >= RAD(-90))
 	{
 		_AttackColor = _AttackColor | GREEN_BYTE;
+		if (_magicState[static_cast<int>(ATK_COLOR::GREEN) - 1].first == ATK_STATE::WAIT)
+		{
+			_magicState[static_cast<int>(ATK_COLOR::GREEN) - 1].first = ATK_STATE::RUN;
+		}
 	}
-	else if (stickRad >= RAD(-150) && stickRad < RAD(-30))
+	else if (stickRad <= RAD(150) && stickRad > RAD(30))
 	{
 		_AttackColor = _AttackColor | BLUE_BYTE;
+		if (_magicState[static_cast<int>(ATK_COLOR::BLUE) - 2].first == ATK_STATE::WAIT)
+		{
+			_magicState[static_cast<int>(ATK_COLOR::BLUE) - 2].first = ATK_STATE::RUN;
+		}
 	}
 	else
 	{
 		_AttackColor = _AttackColor | RED_BYTE;
+		if (_magicState[static_cast<int>(ATK_COLOR::RED) - 1].first == ATK_STATE::WAIT)
+		{
+			_magicState[static_cast<int>(ATK_COLOR::RED) - 1].first = ATK_STATE::RUN;
+		}
 	}
 }
 
@@ -89,6 +132,24 @@ void AttackUI::StickTrans(void)
 	
 }
 
+void AttackUI::StateUpdate(void)
+{
+	for (int i = 0; i < 3; i++)
+	{
+		if (_magicState[i].first != ATK_STATE::RUN)
+		{
+			if (lpTradeMng.ReBook(lpMenuMng.ColorPtr(i)))
+			{
+				_magicState[i].first = ATK_STATE::WAIT;
+			}
+			else
+			{
+				_magicState[i].first = ATK_STATE::NON;
+			}
+		}
+	}
+}
+
 AttackUI::AttackUI()
 {
 	// ÉXÉNÉäÅ[ÉìÇÃçÏê¨
@@ -102,6 +163,8 @@ AttackUI::AttackUI()
 	_stickX = 0;
 	_stickY = 0;
 	_AttackColor = 0;
+	_magicState = { std::make_pair(ATK_STATE::NON, MP_MAX) };
+	_coolTime = 0;
 }
 
 AttackUI::~AttackUI()

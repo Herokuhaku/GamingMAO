@@ -10,11 +10,12 @@ int EffekseerMng::getEffect(const std::string & key)
 	return getEffect(key,key,1.0f);
 }
 
-int EffekseerMng::getEffect(const std::string & filename, const std::string & key, const float& exLate)
+int EffekseerMng::getEffect(const std::string & filename, const std::string & key, const float& exRate)
 {
 	if (_effectMap.find(key) == _effectMap.end())
 	{
-		_effectMap[key] = LoadEffekseerEffect(filename.c_str(), exLate);
+		//_effectMap[key] = LoadEffekseerEffect(filename.c_str(), exRate);
+		_effectMap.emplace(key, LoadEffekseerEffect(filename.c_str(), exRate));
 	}
 	return _effectMap[key];
 }

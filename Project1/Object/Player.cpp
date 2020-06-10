@@ -3,6 +3,9 @@
 #include "../Manage/ItemTrader.h"
 #include "../Manage/ButtonMng.h"
 #include "../Scene/SceneMng.h"
+#include "../Manage/KeyMng.h"
+#include "../func/CheckHitStage.h"
+#include "Attack/AttackMng.h"
 
 Player::Player()
 {
@@ -26,14 +29,10 @@ Player::Player(Vector2Template<int> pos, int stage, TIME time)
 
 	_anmEfkHd = -1;
 
-	_cursor = ATK_COLOR::MAX;
-
 	setHP(HP_MAX);
 	_nextPos = { 0,0 };
 
-	_magicState = { std::make_pair(ATK_STATE::NON, MP_MAX) };
 	_magicSet = { ATK_TYPE::TYPE_1 };
-	_attackFlag = true;
 
 	Init();
 }
@@ -380,54 +379,10 @@ void Player::ControlNormal(void)
 		setState({ OBJ_STATE::JUMP, _state_dir.second });
 	}
 
-	if (((lpKeyMng.getBuf()[KEY_INPUT_SPACE] && !lpKeyMng.getOldBuf()[KEY_INPUT_SPACE] ) ||
-		lpButtonMng.Buttonf(0,XINPUT_BUTTON_B).first == 1 && lpButtonMng.Buttonf(0, XINPUT_BUTTON_B).second == 0) && _coolTime == 0 && _attackFlag)
+	if (lpAttackUI.CheckAttackActivate())
 	{
-		// パターン１
-
-		//_anmEfkHd = lpEffectMng.playEffect(lpEffectMng.getEffect("magic_fire"), DELAY_FIRE, &_pos.x, &_pos.y, PLAYER_SIZE_X / 2, -_drawOffset_y, &(_state_dir.second));
-		//_coolTime = DELAY_FIRE;
-		//StateRotate();
-		//_control = &Player::ControlAttack;
-		//_rotateFlag = true;
-		//AddAttack("magic_fire");
-
-		// パターン２
-
 		_control = &Player::ControlAttack;
 		StateRotate();
-		_attackFlag = true;
-
-		// パターン３
-
-	}
-	else if (((lpKeyMng.getBuf()[KEY_INPUT_A] && !lpKeyMng.getOldBuf()[KEY_INPUT_A])))
-	{
-		_attack[static_cast<int>(ATK_COLOR::RED)][static_cast<int>(_magicSet[static_cast<int>(ATK_COLOR::RED)])]();
-		_control = &Player::ControlAttack;
-		_attackFlag = false;
-		_coolTime = 10;
-		StateRotate();
-	}
-	else if (((lpKeyMng.getBuf()[KEY_INPUT_W] && !lpKeyMng.getOldBuf()[KEY_INPUT_W])))
-	{
-		_attack[static_cast<int>(ATK_COLOR::GREEN)][static_cast<int>(_magicSet[static_cast<int>(ATK_COLOR::GREEN)])]();
-		_control = &Player::ControlAttack;
-		_attackFlag = false;
-		_coolTime = 10;
-		StateRotate();
-	}
-	else if (((lpKeyMng.getBuf()[KEY_INPUT_D] && !lpKeyMng.getOldBuf()[KEY_INPUT_D])))
-	{
-		_attack[static_cast<int>(ATK_COLOR::BLUE)][static_cast<int>(_magicSet[static_cast<int>(ATK_COLOR::BLUE)])]();
-		_control = &Player::ControlAttack;
-		_attackFlag = false;
-		_coolTime = 10;
-		StateRotate();
-	}
-	else
-	{
-
 	}
 }
 
@@ -514,33 +469,16 @@ void Player::ControlAttack(void)
 		setState({ OBJ_STATE::A_JUMP, _state_dir.second });
 	}
 
-	if (_attackFlag)
+	if (_coolTime == 0)
 	{
-		// パターン２
-
-		SetAttackState();
-
-		// パターン３
-
-
-		ATK_COLOR color = ColorBlend();
-
-		if (!lpKeyMng.getBuf()[KEY_INPUT_SPACE] && lpKeyMng.getOldBuf()[KEY_INPUT_SPACE])
+		if (!lpAttackUI.CheckAttackActivate())
 		{
+			ATK_COLOR&& color = lpAttackUI.RunAttack(10);
 			if (static_cast<int>(color) >= static_cast<int>(ATK_COLOR::RED) && static_cast<int>(color) < static_cast<int>(ATK_COLOR::MAX))
 			{
 				_attack[static_cast<int>(color)][static_cast<int>(_magicSet[static_cast<int>(color)])]();
 			}
 			_coolTime = 10;
-			_attackFlag = false;
-
-			for (int i = 0; i < 3; i++)
-			{
-				if (_magicState[i].first == ATK_STATE::RUN)
-				{
-					_magicState[i].first = ATK_STATE::WAIT;
-				}
-			}
 		}
 	}
 }
@@ -558,9 +496,7 @@ void Player::StopWalk(void)
 }
 
 void Player::MagicUpdate(void)
-{
-	MagicSelector();
-	
+{	
 	if (_coolTime != 0)
 	{
 		_coolTime--;
@@ -568,7 +504,6 @@ void Player::MagicUpdate(void)
 		{
 			//_anmEfkHd = -1;
 			_control = &Player::ControlNormal;
-			_attackFlag = true;
 			StateRotate();
 		}
 	}
@@ -583,91 +518,6 @@ void Player::MagicUpdate(void)
 			SetRotationPlayingEffekseer2DEffect(_anmEfkHd, 0.0f, (1 - static_cast<int>(_state_dir.second) / 2) * acos(-1.0f), 0.0f);
 			_rotateFlag = false;
 		}
-	}
-}
-
-void Player::MagicSelector(void)
-{
-	for (int i = 0; i < 3; i++)
-	{
-		if (_magicState[i].first != ATK_STATE::RUN)
-		{
-			if (lpTradeMng.ReBook(lpMenuMng.ColorPtr(i)))
-			{
-				_magicState[i].first = ATK_STATE::WAIT;
-			}
-			else
-			{
-				_magicState[i].first = ATK_STATE::NON;
-			}
-		}
-	}
-}
-
-ATK_COLOR Player::ColorBlend(void)
-{
-	ATK_COLOR rtnColor = ATK_COLOR::MAX;
-	int flag = 0;
-
-
-	for (int i = 0; i < 3; i++)
-	{
-		if (_magicState[i].first == ATK_STATE::RUN)
-		{
-			flag += std::pow(2, i);
-		}
-	}
-
-	switch (flag)
-	{
-	case 0:
-		break;
-	case 1:
-		rtnColor = ATK_COLOR::RED;
-		break;
-	case 2:
-		rtnColor = ATK_COLOR::GREEN;
-		break;
-	case 3:
-		rtnColor = ATK_COLOR::YELLOW;
-		break;
-	case 4:
-		rtnColor = ATK_COLOR::BLUE;
-		break;
-	case 5:
-		rtnColor = ATK_COLOR::MGN;
-		break;
-	case 6:
-		rtnColor = ATK_COLOR::CYAN;
-		break;
-	case 7:
-		rtnColor = ATK_COLOR::WHITE;
-		break;
-	default:
-		break;
-	}
-
-	return rtnColor;
-}
-
-void Player::SetAttackState(void)
-{
-
-	if (((lpKeyMng.getBuf()[KEY_INPUT_A] && !lpKeyMng.getOldBuf()[KEY_INPUT_A])))
-	{
-		_magicState[static_cast<int>(ATK_COLOR::RED)].first = ATK_STATE::RUN;
-	}
-	else if (((lpKeyMng.getBuf()[KEY_INPUT_W] && !lpKeyMng.getOldBuf()[KEY_INPUT_W])))
-	{
-		_magicState[static_cast<int>(ATK_COLOR::GREEN)].first = ATK_STATE::RUN;
-	}
-	else if (((lpKeyMng.getBuf()[KEY_INPUT_D] && !lpKeyMng.getOldBuf()[KEY_INPUT_D])))
-	{
-		_magicState[static_cast<int>(ATK_COLOR::BLUE)].first = ATK_STATE::RUN;
-	}
-	else
-	{
-
 	}
 }
 
@@ -777,6 +627,11 @@ bool Player::MenuUpdate(void)
 		return MenuFlag;
 	}
 	return false;
+}
+
+void Player::Attack(void)
+{
+
 }
 
 void Player::Red1(void)

@@ -3,11 +3,7 @@
 #include <cmath>
 #include <functional>
 #include "Object.h"
-#include "../Manage/KeyMng.h"
-#include "../func/CheckHitStage.h"
-#include "Attack/AttackMng.h"
-
-
+#include "../Manage/AttackUI.h"
 
 #define PLAYER_SIZE_X	85
 #define PLAYER_SIZE_Y	90
@@ -16,18 +12,6 @@
 
 #define HP_MAX			100
 
-// UŒ‚‚Ìí—Ş
-enum class ATK_COLOR : int
-{
-	RED,
-	GREEN,
-	YELLOW,
-	BLUE,
-	MGN,
-	CYAN,
-	WHITE,
-	MAX
-};
 
 enum class ATK_TYPE : int
 {
@@ -35,13 +19,6 @@ enum class ATK_TYPE : int
 	TYPE_2,
 	TYPE_3,
 	MAX
-};
-
-enum class ATK_STATE
-{
-	NON,
-	WAIT,
-	RUN
 };
 
 
@@ -75,11 +52,6 @@ private:
 	void MagicUpdate(void);
 	int _coolTime;
 
-	void MagicSelector(void);
-
-	ATK_COLOR ColorBlend(void);
-	void SetAttackState(void);
-
 	void StateRotate(void);
 
 	bool _rotateFlag;
@@ -87,17 +59,16 @@ private:
 	void VelUpdate(void);
 
 	double _vel;
-	//
+
 	bool MenuUpdate(void);
+
+	void Attack(void);
 
 	bool MenuFlag;
 
 	// UŒ‚ŠÖŒW
-	std::array<std::pair<ATK_STATE, unsigned int>, 3> _magicState;		// –‚–@‚Ìó‘Ô‚Æc‚èMP
 	std::array<ATK_TYPE, static_cast<int>(ATK_COLOR::MAX)> _magicSet;	// F‚²‚Æ‚É‚Ç‚Ì‹Z‚Éİ’è‚µ‚Ä‚ ‚é‚©
 	std::array<std::array<std::function<void(void)>, static_cast<int>(ATK_TYPE::MAX)>, static_cast<int>(ATK_COLOR::MAX)> _attack;
-	bool _attackFlag; // UŒ‚‚Å‚«‚é‚©
-	ATK_COLOR _cursor;	// ‘I‘ğ’†‚ÌUŒ‚
 
 	void Red1(void);
 	void Red2(void);

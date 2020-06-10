@@ -41,7 +41,7 @@ public:
 	}
 
 	int getEffect(const std::string& key);														// キーを渡すとエフェクトのハンドルを返す
-	int getEffect(const std::string& filename, const std::string& key, const float& exLate);	// ファイル名で読み込み、キーに入れる
+	int getEffect(const std::string& filename, const std::string& key, const float& exRate);	// ファイル名で読み込み、キーに入れる
 
 	// efcHd:ハンドル time:時間 pos_x,pos_y:座標 offset_x,pffset_y:オフセット dir:向き 
 	int playEffect(const int efcHd, const int time, int* pos_x, int* pos_y, int offset_x, int offset_y, DIR* dir);			

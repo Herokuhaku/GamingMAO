@@ -29,7 +29,7 @@ void Bubble::Update(void)
 
 	}
 
-	_pos.y = _basePos_y + sin(_floatCount * acos(-1.0f) / 180.0) * 20;
+	_pos.y = static_cast<int>(_basePos_y + sin(_floatCount * acos(-1.0f) / 180.0) * 20);
 }
 
 void Bubble::IfHitAttack(void)
