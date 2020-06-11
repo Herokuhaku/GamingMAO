@@ -10,7 +10,7 @@
 #include <string>
 
 
-#define lpMapMng MapMng::GetInstans()
+#define lpMapMng MapMng::GetInstance()
 
 #define MapChipY 90
 #define MapChipX 160+2
@@ -53,7 +53,7 @@
 class MapMng
 {
 public:
-	static MapMng& GetInstans()
+	static MapMng& GetInstance()
 	{
 		Create();
 		

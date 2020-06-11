@@ -368,13 +368,14 @@ void MapMng::BackGround(void)
 	int layerPosX2 = lpSceneMng.GetcPos().x + ((500 - lpSceneMng.GetcPos().x) / 4);
 	int layerPosY2 = GameMapSize.y / 2 - ((1171 - lpSceneMng.GetcPos().y) / 4);
 
-	lpImageMng.AddDraw({ _layer0, GameMapSize.x / 2, GameMapSize.y / 2, 1.0, 0.0, LAYER::BG, 3, DX_BLENDMODE_NOBLEND, 0 });
-	lpImageMng.AddDraw({ _layer1, layerPosX		   , layerPosY		  , 1.0, 0.0, LAYER::BG, 2, DX_BLENDMODE_NOBLEND, 0 });
+	lpImageMng.AddDraw({ _layer0, GameMapSize.x / 2, GameMapSize.y / 2, 1.0, 0.0, LAYER::BG, 3, DX_BLENDMODE_NOBLEND, 2 });
+	lpImageMng.AddDraw({ _layer1, layerPosX		   , layerPosY		  , 1.0, 0.0, LAYER::BG, 2, DX_BLENDMODE_NOBLEND, 1 });
 	lpImageMng.AddDraw({ _layer2, layerPosX2	   , layerPosY2		  , 1.0, 0.0, LAYER::BG, 1, DX_BLENDMODE_NOBLEND, 0 });
 }
 
 void MapMng::BlockLayer(void)
 {
+	int tmpScreen = GetDrawScreen();
 	SetDrawScreen(_layer[_writNo]);
 	ClsDrawScreen();
 
@@ -387,8 +388,10 @@ void MapMng::BlockLayer(void)
 				int a = static_cast<int>(GameMap[y][x][_writNo]);
 				DrawRotaGraph(x*16+(CHIP_SIZE/2), y*16, 1.0, 0, lpImageMng.getImage("Block")[static_cast<int>(GameMap[y][x][_writNo])], true);
 			}
+		}
 	}
-	}
+
+	SetDrawScreen(tmpScreen);
 }
 
 void MapMng::SetBgLayer(int bgNo)
@@ -403,6 +406,8 @@ void MapMng::SetBgLayer(int bgNo)
 	int bgY = 777;
 	
 	std::string no;
+
+	int tmpScreen = GetDrawScreen();
 
 	SetDrawScreen(_layer2);
 	ClsDrawScreen();
@@ -442,6 +447,8 @@ void MapMng::SetBgLayer(int bgNo)
 		default:
 			break;
 	}
+
+	SetDrawScreen(tmpScreen);
 }
 
 bool MapMng::Init(void)
