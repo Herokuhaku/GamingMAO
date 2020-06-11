@@ -67,8 +67,8 @@ private:
 	bool MenuFlag;
 
 	// UŒ‚ŠÖŒW
-	std::array<ATK_TYPE, static_cast<int>(ATK_COLOR::MAX)> _magicSet;	// F‚²‚Æ‚É‚Ç‚Ì‹Z‚Éİ’è‚µ‚Ä‚ ‚é‚©
-	std::array<std::array<std::function<void(void)>, static_cast<int>(ATK_TYPE::MAX)>, static_cast<int>(ATK_COLOR::MAX)> _attack;
+	std::array<ATK_TYPE, static_cast<int>(COLOR::MAX)> _magicSet;	// F‚²‚Æ‚É‚Ç‚Ì‹Z‚Éİ’è‚µ‚Ä‚ ‚é‚©
+	std::array<std::array<std::function<void(void)>, static_cast<int>(ATK_TYPE::MAX)>, static_cast<int>(COLOR::MAX)> _attack;
 
 	void Red1(void);
 	void Red2(void);

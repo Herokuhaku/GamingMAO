@@ -255,7 +255,7 @@ Enemy::~Enemy()
 	if (_hp <= 0)
 	{
 		lpEnemyMng.addDeadCnt(_etype, _stage, _pPos);
-		lpTradeMng.SetItemList(_pos, ITEM_TYPE::BOOK, COLOR_TYPE::GREEN, _stage);
+		lpTradeMng.SetItemList(_pos, ITEM_TYPE::BOOK, COLOR::GREEN, _stage);
 	}
 }
 

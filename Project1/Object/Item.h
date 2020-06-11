@@ -1,19 +1,7 @@
 #pragma once
 #include "Object.h"
 #include "../common/Vector2.h"
-
-enum class COLOR_TYPE :int
-{
-	BLACK = 0x000000,
-	RED = 0xff0000,				// 赤
-	GREEN = 0x00ff00,			// 緑
-	BLUE = 0x0000ff,			// 青
-	YELLOW = 0xffff00,			// イエロー
-	MAGENTA = 0xff00ff,			// マゼンタ
-	CYAN = 0x00ffff,			// シアン
-	WHITE = 0xffffff,
-	MAX = 0xffffff+1			// 最高値
-};
+#include "../Manage/COLOR.h"
 
 
 enum class ITEM_TYPE
@@ -27,7 +15,7 @@ enum class ITEM_TYPE
 struct ItemSave
 {
 	ITEM_TYPE itemtype;
-	COLOR_TYPE colortype;
+	COLOR colortype;
 	Vector2 pos;			// 座標(x:中心　y:下辺)
 	int bagNo;				// バッグの中で何番目か
 	int book;				// 本の番号　本でなければ-1
@@ -41,7 +29,7 @@ class Item :
 {
 public:
 	Item();
-	Item(Vector2 pos,ITEM_TYPE itemtype,COLOR_TYPE colortype,int no,int stage);	// pos,itemtype,colortype,生成番号
+	Item(Vector2 pos,ITEM_TYPE itemtype,COLOR colortype,int no,int stage);	// pos,itemtype,colortype,生成番号
 	~Item();
 
 	void Update(void);
@@ -53,8 +41,8 @@ public:
 	const void setItemTypeNo(int book,int stone);
 	const std::pair<int, int> getItemTypeNo(void);
 
-	std::pair<ITEM_TYPE, COLOR_TYPE> getItemType(void);
-	void ChangeType(ITEM_TYPE item, COLOR_TYPE color);
+	std::pair<ITEM_TYPE, COLOR> getItemType(void);
+	void ChangeType(ITEM_TYPE item, COLOR color);
 	void ChangeDir(DIR dir);
 
 	ItemSave &ReturnSave(void);
@@ -62,7 +50,7 @@ public:
 private:
 	void Init(void);
 	ITEM_TYPE _itemtype;
-	COLOR_TYPE _colortype;
+	COLOR _colortype;
 	int _bagNo;
 
 	int _book;				// 本の番号　本でなければ-1

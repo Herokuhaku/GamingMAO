@@ -271,13 +271,13 @@ bool Menu::Mix(ItemSave& item1, ItemSave& item2, ItemSave& item3)
 
 bool Menu::Key(ItemSave& item1, ItemSave& item2)
 {
-	if ((item1.itemtype == ITEM_TYPE::STONE && item1.colortype == COLOR_TYPE::YELLOW) ||
-		item2.itemtype == ITEM_TYPE::STONE && item2.colortype == COLOR_TYPE::YELLOW)
+	if ((item1.itemtype == ITEM_TYPE::STONE && item1.colortype == COLOR::YELLOW) ||
+		item2.itemtype == ITEM_TYPE::STONE && item2.colortype == COLOR::YELLOW)
 	{
-		if ((item1.itemtype == ITEM_TYPE::BOOK && item1.colortype == COLOR_TYPE::GREEN) ||
-			(item2.itemtype == ITEM_TYPE::BOOK && item2.colortype == COLOR_TYPE::GREEN))
+		if ((item1.itemtype == ITEM_TYPE::BOOK && item1.colortype == COLOR::GREEN) ||
+			(item2.itemtype == ITEM_TYPE::BOOK && item2.colortype == COLOR::GREEN))
 		{
-			item1.colortype = COLOR_TYPE::YELLOW;
+			item1.colortype = COLOR::YELLOW;
 			item1.itemtype = ITEM_TYPE::TOOL;
 			lpTradeMng.AddBag(item1);
 			lpTradeMng.DeleteItem(item2);
@@ -293,13 +293,13 @@ bool Menu::Key(ItemSave& item1, ItemSave& item2)
 
 bool Menu::Powder(ItemSave& item1, ItemSave& item2)
 {
-	if ((item1.itemtype == ITEM_TYPE::STONE && item1.colortype == COLOR_TYPE::MAGENTA) ||
-		item2.itemtype == ITEM_TYPE::STONE && item2.colortype == COLOR_TYPE::MAGENTA)
+	if ((item1.itemtype == ITEM_TYPE::STONE && item1.colortype == COLOR::MAGENTA) ||
+		item2.itemtype == ITEM_TYPE::STONE && item2.colortype == COLOR::MAGENTA)
 	{
-		if ((item1.itemtype == ITEM_TYPE::BOOK && item1.colortype == COLOR_TYPE::RED) ||
-			(item2.itemtype == ITEM_TYPE::BOOK && item2.colortype == COLOR_TYPE::RED))
+		if ((item1.itemtype == ITEM_TYPE::BOOK && item1.colortype == COLOR::RED) ||
+			(item2.itemtype == ITEM_TYPE::BOOK && item2.colortype == COLOR::RED))
 		{
-			item1.colortype = COLOR_TYPE::MAGENTA;
+			item1.colortype = COLOR::MAGENTA;
 			item1.itemtype = ITEM_TYPE::TOOL;
 			lpTradeMng.AddBag(item1);
 			lpTradeMng.DeleteItem(item2);
@@ -315,13 +315,13 @@ bool Menu::Powder(ItemSave& item1, ItemSave& item2)
 
 bool Menu::Vine(ItemSave& item1, ItemSave& item2)
 {
-	if ((item1.itemtype == ITEM_TYPE::STONE && item1.colortype == COLOR_TYPE::GREEN) ||
-		item2.itemtype == ITEM_TYPE::STONE && item2.colortype == COLOR_TYPE::GREEN)
+	if ((item1.itemtype == ITEM_TYPE::STONE && item1.colortype == COLOR::GREEN) ||
+		item2.itemtype == ITEM_TYPE::STONE && item2.colortype == COLOR::GREEN)
 	{
-		if ((item1.itemtype == ITEM_TYPE::BOOK && item1.colortype == COLOR_TYPE::GREEN) ||
-			(item2.itemtype == ITEM_TYPE::BOOK && item2.colortype == COLOR_TYPE::GREEN))
+		if ((item1.itemtype == ITEM_TYPE::BOOK && item1.colortype == COLOR::GREEN) ||
+			(item2.itemtype == ITEM_TYPE::BOOK && item2.colortype == COLOR::GREEN))
 		{
-			item1.colortype = COLOR_TYPE::GREEN;
+			item1.colortype = COLOR::GREEN;
 			item1.itemtype = ITEM_TYPE::TOOL;
 			lpTradeMng.AddBag(item1);
 			lpTradeMng.DeleteItem(item2);
@@ -337,13 +337,13 @@ bool Menu::Vine(ItemSave& item1, ItemSave& item2)
 
 bool Menu::Dynamite(ItemSave& item1, ItemSave& item2)
 {
-	if ((item1.itemtype == ITEM_TYPE::STONE && item1.colortype == COLOR_TYPE::RED) ||
-		item2.itemtype == ITEM_TYPE::STONE && item2.colortype == COLOR_TYPE::RED)
+	if ((item1.itemtype == ITEM_TYPE::STONE && item1.colortype == COLOR::RED) ||
+		item2.itemtype == ITEM_TYPE::STONE && item2.colortype == COLOR::RED)
 	{
-		if ((item1.itemtype == ITEM_TYPE::BOOK && item1.colortype == COLOR_TYPE::RED) ||
-			(item2.itemtype == ITEM_TYPE::BOOK && item2.colortype == COLOR_TYPE::RED))
+		if ((item1.itemtype == ITEM_TYPE::BOOK && item1.colortype == COLOR::RED) ||
+			(item2.itemtype == ITEM_TYPE::BOOK && item2.colortype == COLOR::RED))
 		{
-			item1.colortype = COLOR_TYPE::RED;
+			item1.colortype = COLOR::RED;
 			item1.itemtype = ITEM_TYPE::TOOL;
 			lpTradeMng.AddBag(item1);
 			lpTradeMng.DeleteItem(item2);
@@ -359,13 +359,13 @@ bool Menu::Dynamite(ItemSave& item1, ItemSave& item2)
 
 bool Menu::Hose(ItemSave& item1, ItemSave& item2)
 {
-	if ((item1.itemtype == ITEM_TYPE::STONE && item1.colortype == COLOR_TYPE::CYAN) ||
-		item2.itemtype == ITEM_TYPE::STONE && item2.colortype == COLOR_TYPE::CYAN)
+	if ((item1.itemtype == ITEM_TYPE::STONE && item1.colortype == COLOR::CYAN) ||
+		item2.itemtype == ITEM_TYPE::STONE && item2.colortype == COLOR::CYAN)
 	{
-		if ((item1.itemtype == ITEM_TYPE::BOOK && item1.colortype == COLOR_TYPE::BLUE) ||
-			(item2.itemtype == ITEM_TYPE::BOOK && item2.colortype == COLOR_TYPE::BLUE))
+		if ((item1.itemtype == ITEM_TYPE::BOOK && item1.colortype == COLOR::BLUE) ||
+			(item2.itemtype == ITEM_TYPE::BOOK && item2.colortype == COLOR::BLUE))
 		{
-			item1.colortype = COLOR_TYPE::CYAN;
+			item1.colortype = COLOR::CYAN;
 			item1.itemtype = ITEM_TYPE::TOOL;
 			lpTradeMng.AddBag(item1);
 			lpTradeMng.DeleteItem(item2);
@@ -381,13 +381,13 @@ bool Menu::Hose(ItemSave& item1, ItemSave& item2)
 
 bool Menu::Bard(ItemSave& item1, ItemSave& item2)
 {
-	if ((item1.itemtype == ITEM_TYPE::STONE && item1.colortype == COLOR_TYPE::BLUE) ||
-		item2.itemtype == ITEM_TYPE::STONE && item2.colortype == COLOR_TYPE::BLUE)
+	if ((item1.itemtype == ITEM_TYPE::STONE && item1.colortype == COLOR::BLUE) ||
+		item2.itemtype == ITEM_TYPE::STONE && item2.colortype == COLOR::BLUE)
 	{
-		if ((item1.itemtype == ITEM_TYPE::BOOK && item1.colortype == COLOR_TYPE::BLUE) ||
-			(item2.itemtype == ITEM_TYPE::BOOK && item2.colortype == COLOR_TYPE::BLUE))
+		if ((item1.itemtype == ITEM_TYPE::BOOK && item1.colortype == COLOR::BLUE) ||
+			(item2.itemtype == ITEM_TYPE::BOOK && item2.colortype == COLOR::BLUE))
 		{
-			item1.colortype = COLOR_TYPE::BLUE;
+			item1.colortype = COLOR::BLUE;
 			item1.itemtype = ITEM_TYPE::TOOL;
 			lpTradeMng.AddBag(item1);
 			lpTradeMng.DeleteItem(item2);
@@ -401,37 +401,37 @@ bool Menu::Bard(ItemSave& item1, ItemSave& item2)
 	return false;
 }
 
-COLOR_TYPE Menu::ColorPtr(int no)
+COLOR Menu::ColorPtr(int no)
 {
-	COLOR_TYPE type;
+	COLOR type;
 	switch (no)
 	{
 	case 0:
-		type = COLOR_TYPE::RED;
+		type = COLOR::RED;
 		break;
 	case 1:
-		type = COLOR_TYPE::GREEN;
+		type = COLOR::GREEN;
 		break;
 	case 2:
-		type = COLOR_TYPE::BLUE;
+		type = COLOR::BLUE;
 		break;	
 	case 3:
-		type = COLOR_TYPE::YELLOW;
+		type = COLOR::YELLOW;
 		break;
 	case 4:
-		type = COLOR_TYPE::MAGENTA;
+		type = COLOR::MAGENTA;
 		break;
 	case 5:
-		type = COLOR_TYPE::CYAN;
+		type = COLOR::CYAN;
 		break;
 	default:
-		type = COLOR_TYPE::BLACK;
+		type = COLOR::BLACK;
 		break;
 	}
 	return type;
 }
 
-void Menu::Ins(int no,ITEM_TYPE itemtype,COLOR_TYPE colortype)
+void Menu::Ins(int no,ITEM_TYPE itemtype,COLOR colortype)
 {
 	int _no = lpTradeMng.ReturnNo(itemtype, colortype);
 
@@ -562,7 +562,7 @@ void Menu::Item(SELECT_ITEM item)
 	if (lpButtonMng.Buttonf(0, XINPUT_BUTTON_B).first == 1 &&
 		lpButtonMng.Buttonf(0, XINPUT_BUTTON_B).second == 0)
 	{
-		if (ColorPtr(_select) != COLOR_TYPE::BLACK)
+		if (ColorPtr(_select) != COLOR::BLACK)
 		{
 			Ins(no, static_cast<ITEM_TYPE>(_select2), ColorPtr(_select));
 		}

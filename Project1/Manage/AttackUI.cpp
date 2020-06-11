@@ -34,7 +34,7 @@ void AttackUI::Draw(void)
 	ClsDrawScreen();
 
 	DrawGraph((UI_SIZE - RING_SIZE) / 2, (UI_SIZE - RING_SIZE) / 2, lpImageMng.getImage("base_ring")[0], true);
-	DrawRotaGraph(UI_SIZE / 2 + STICK_TO_POS(_stickX), UI_SIZE / 2 - STICK_TO_POS(_stickY), 1.0, 0.0, lpImageMng.getImage("stick_obj")[_AttackColor], true);
+	DrawRotaGraph(UI_SIZE / 2 + STICK_TO_POS(_stickX), UI_SIZE / 2 - STICK_TO_POS(_stickY), 1.0, 0.0, lpImageMng.getImage("stick_obj")[std::underlying_type<COLOR>::type(_AttackColor)], true);
 	
 	// ï`âÊêÊÇñﬂÇ∑
 	SetDrawScreen(tmpScreen);
@@ -48,11 +48,11 @@ bool AttackUI::CheckAttackActivate(void)
 	return ((ACTIVE_RADIUS <= (static_cast<double>(_stickX) * static_cast<double>(_stickX) + static_cast<double>(_stickY) * static_cast<double>(_stickY))) && _coolTime == 0);
 }
 
-ATK_COLOR AttackUI::RunAttack(int coolTime)
+COLOR AttackUI::RunAttack(int coolTime)
 {
-	ATK_COLOR rtnColor = static_cast<ATK_COLOR>(_AttackColor);
+	COLOR rtnColor = static_cast<COLOR>(_AttackColor);
 
-	for (auto data : _magicState)
+	for (auto& data : _magicState)
 	{
 		if (data.first == ATK_STATE::RUN)
 		{
@@ -60,7 +60,7 @@ ATK_COLOR AttackUI::RunAttack(int coolTime)
 		}
 	}
 
-	_AttackColor = 0;
+	_AttackColor = COLOR::BLACK;
 
 	_coolTime = coolTime;
 
@@ -78,26 +78,26 @@ void AttackUI::ColorUpdate(void)
 
 	if (stickRad <= RAD(30) && stickRad >= RAD(-90))
 	{
-		_AttackColor = _AttackColor | GREEN_BYTE;
-		if (_magicState[static_cast<int>(ATK_COLOR::GREEN) - 1].first == ATK_STATE::WAIT)
+		if (_magicState[COLOR::GREEN - 1].first == ATK_STATE::WAIT)
 		{
-			_magicState[static_cast<int>(ATK_COLOR::GREEN) - 1].first = ATK_STATE::RUN;
+			_magicState[COLOR::GREEN - 1].first = ATK_STATE::RUN;
+			_AttackColor = _AttackColor | COLOR::GREEN;
 		}
 	}
 	else if (stickRad <= RAD(150) && stickRad > RAD(30))
 	{
-		_AttackColor = _AttackColor | BLUE_BYTE;
-		if (_magicState[static_cast<int>(ATK_COLOR::BLUE) - 2].first == ATK_STATE::WAIT)
+		if (_magicState[COLOR::BLUE - 2].first == ATK_STATE::WAIT)
 		{
-			_magicState[static_cast<int>(ATK_COLOR::BLUE) - 2].first = ATK_STATE::RUN;
+			_magicState[COLOR::BLUE - 2].first = ATK_STATE::RUN;
+			_AttackColor = _AttackColor | COLOR::BLUE;
 		}
 	}
 	else
 	{
-		_AttackColor = _AttackColor | RED_BYTE;
-		if (_magicState[static_cast<int>(ATK_COLOR::RED) - 1].first == ATK_STATE::WAIT)
+		if (_magicState[COLOR::RED - 1].first == ATK_STATE::WAIT)
 		{
-			_magicState[static_cast<int>(ATK_COLOR::RED) - 1].first = ATK_STATE::RUN;
+			_magicState[COLOR::RED - 1].first = ATK_STATE::RUN;
+			_AttackColor = _AttackColor | COLOR::RED;
 		}
 	}
 }
@@ -162,7 +162,7 @@ AttackUI::AttackUI()
 	// èâä˙âª
 	_stickX = 0;
 	_stickY = 0;
-	_AttackColor = 0;
+	_AttackColor = COLOR::BLACK;
 	_magicState = { std::make_pair(ATK_STATE::NON, MP_MAX) };
 	_coolTime = 0;
 }

@@ -30,9 +30,9 @@ public:
 	
 	void Draw(void);
 	void BagDraw(Vector2D pos,LAYER lay, Vector2 off , Vector2D rad);
-	COLOR_TYPE Trade(COLOR_TYPE color1, COLOR_TYPE color2);
-	bool ColorTradeCheck(COLOR_TYPE color1, COLOR_TYPE color2);
-	const void SetItemList(Vector2 pos, ITEM_TYPE itype,COLOR_TYPE ctype, int stage);
+	COLOR Trade(COLOR color1, COLOR color2);
+	bool ColorTradeCheck(COLOR color1, COLOR color2);
+	const void SetItemList(Vector2 pos, ITEM_TYPE itype,COLOR ctype, int stage);
 	bool NoReturn(int no);
 	ItemSave& ReturnBag(int no);
 
@@ -40,8 +40,8 @@ public:
 	void AddBag(void);
 	void AddBag(ItemSave &save);
 
-	int ReturnNo(ITEM_TYPE itemtype, COLOR_TYPE color);
-	bool ReBook(COLOR_TYPE color);
+	int ReturnNo(ITEM_TYPE itemtype, COLOR color);
+	bool ReBook(COLOR color);
 
 	std::pair<int, int> getcount(void);	// 本,石の数を返す
 	
@@ -60,7 +60,7 @@ private:
 	void BagTypeCount(void);		// 何色の石が何個あるか数える
 	void BagNoSort(void);			// バッグの中のものを順番に番号を付ける
 
-	const char* ChangeName(ITEM_TYPE _itemtype, COLOR_TYPE _colortype);
+	const char* ChangeName(ITEM_TYPE _itemtype, COLOR _colortype);
 	std::array<int,6> rock;										// 石の種類とその数 //順番は 赤,緑,青,黄,マゼンタ,シアン
 
 	int color;

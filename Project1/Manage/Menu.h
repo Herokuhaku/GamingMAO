@@ -50,7 +50,7 @@ public:
 	bool Update(void);
 	bool GetMixFlag(void);
 	void ItemDraw(int tmp, Vector2 pos, Vector2 offset,Vector2 stroffset,LAYER lay);
-	COLOR_TYPE ColorPtr(int no);
+	COLOR ColorPtr(int no);
 
 private:
 	Menu();
@@ -74,7 +74,7 @@ private:
 	bool Powder(ItemSave& item1, ItemSave& item2);		// 粉			(紫色)	マゼンタ
 	bool Hose(ItemSave& item1, ItemSave& item2);		// ホース		(水色)	シアン
 
-	void Ins(int no,ITEM_TYPE itemtype, COLOR_TYPE colortype);
+	void Ins(int no,ITEM_TYPE itemtype, COLOR colortype);
 	// 画像描画まとめ
 	void SelectDraw(void);						// Select画面での表示物
 	void MixDraw(void);							// Mix画面での表示物

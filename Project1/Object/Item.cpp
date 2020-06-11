@@ -9,12 +9,12 @@ Item::Item()
 	_book = -1;
 	_stone = -1;
 	_itemtype = ITEM_TYPE::BOOK;
-	_colortype = COLOR_TYPE::BLACK;
+	_colortype = COLOR::BLACK;
 	_image[0] = "error";
 	_image[1] = "error";
 }
 
-Item::Item(Vector2 pos, ITEM_TYPE itemtype,COLOR_TYPE colortype,int no,int stage)
+Item::Item(Vector2 pos, ITEM_TYPE itemtype,COLOR colortype,int no,int stage)
 {
 	_book = 0;
 	_stone = 0;
@@ -87,12 +87,12 @@ const std::pair<int, int> Item::getItemTypeNo(void)
 	return {_book, _stone};
 }
 
-std::pair<ITEM_TYPE, COLOR_TYPE> Item::getItemType(void)
+std::pair<ITEM_TYPE, COLOR> Item::getItemType(void)
 {
 	return {_itemtype, _colortype};
 }
 
-void Item::ChangeType(ITEM_TYPE item,COLOR_TYPE color)
+void Item::ChangeType(ITEM_TYPE item,COLOR color)
 {
 	_itemtype = item;
 	_colortype = color;
@@ -136,15 +136,15 @@ void Item::Init(void)
 	case ITEM_TYPE::BOOK:
 		switch (_colortype)
 		{
-		case COLOR_TYPE::BLUE:
+		case COLOR::BLUE:
 			_image[0] = "BlueBook";
 			data.emplace_back(lpImageMng.getImage(_image[0])[0],0);
 			break;
-		case COLOR_TYPE::GREEN:
+		case COLOR::GREEN:
 			_image[0] = "GreenBook";
 			data.emplace_back(lpImageMng.getImage(_image[0])[0], 0);
 			break;
-		case COLOR_TYPE::RED:
+		case COLOR::RED:
 			_image[0] = "RedBook";
 			data.emplace_back(lpImageMng.getImage(_image[0])[0], 0);
 			break;
@@ -155,66 +155,66 @@ void Item::Init(void)
 	case ITEM_TYPE::STONE:
 		switch (_colortype)
 		{
-		case COLOR_TYPE::BLACK:
+		case COLOR::BLACK:
 			break;
-		case COLOR_TYPE::BLUE:
+		case COLOR::BLUE:
 			_image[0] = "BlueStone";
 			data.emplace_back(lpImageMng.getImage(_image[0])[0], 0);
 			break;
-		case COLOR_TYPE::CYAN:
+		case COLOR::CYAN:
 			_image[0] = "CyanStone";
 			data.emplace_back(lpImageMng.getImage(_image[0])[0], 0);
 			break;
-		case COLOR_TYPE::GREEN:
+		case COLOR::GREEN:
 			_image[0] = "GreenStone";
 			data.emplace_back(lpImageMng.getImage(_image[0])[0], 0);
 			break;
-		case COLOR_TYPE::MAGENTA:
+		case COLOR::MAGENTA:
 			_image[0] = "MagentaStone";
 			data.emplace_back(lpImageMng.getImage(_image[0])[0], 0);
 			break;
-		case COLOR_TYPE::RED:
+		case COLOR::RED:
 			_image[0] = "RedStone";
 			data.emplace_back(lpImageMng.getImage(_image[0])[0], 0);
 			break;
-		case COLOR_TYPE::YELLOW:
+		case COLOR::YELLOW:
 			_image[0] = "YellowStone";
 			data.emplace_back(lpImageMng.getImage(_image[0])[0], 0);
 			break;
-		case COLOR_TYPE::WHITE:
+		case COLOR::WHITE:
 			break;
 		}
 		break;
 	case ITEM_TYPE::TOOL:
 		switch (_colortype)
 		{
-		case COLOR_TYPE::BLACK:
+		case COLOR::BLACK:
 			break;
-		case COLOR_TYPE::RED:
+		case COLOR::RED:
 			_image[0] = "530";
 			data.emplace_back(lpImageMng.getImage(_image[0])[0], 0);
 			break;
-		case COLOR_TYPE::GREEN:
+		case COLOR::GREEN:
 			_image[0] = "531";
 			data.emplace_back(lpImageMng.getImage(_image[0])[0], 0);
 			break;
-		case COLOR_TYPE::BLUE:
+		case COLOR::BLUE:
 			_image[0] = "532";
 			data.emplace_back(lpImageMng.getImage(_image[0])[0], 0);
 			break;
-		case COLOR_TYPE::YELLOW:
+		case COLOR::YELLOW:
 			_image[0] = "533";
 			data.emplace_back(lpImageMng.getImage(_image[0])[0], 0);
 			break;
-		case COLOR_TYPE::MAGENTA:
+		case COLOR::MAGENTA:
 			_image[0] = "534";
 			data.emplace_back(lpImageMng.getImage(_image[0])[0], 0);
 			break;
-		case COLOR_TYPE::CYAN:
+		case COLOR::CYAN:
 			_image[0] = "535";
 			data.emplace_back(lpImageMng.getImage(_image[0])[0], 0);
 			break;
-		case COLOR_TYPE::WHITE:
+		case COLOR::WHITE:
 			break;
 		}
 		break;
@@ -234,33 +234,33 @@ void Item::Init(void)
 
 		switch (_colortype)
 		{
-		case COLOR_TYPE::BLACK:
+		case COLOR::BLACK:
 			break;
-		case COLOR_TYPE::BLUE:
+		case COLOR::BLUE:
 			_image[1] = "SBlueStone";
 			data.emplace_back(lpImageMng.getImage(_image[1])[0], 0);
 			break;
-		case COLOR_TYPE::CYAN:
+		case COLOR::CYAN:
 			_image[1] = "SCyanStone";
 			data.emplace_back(lpImageMng.getImage(_image[1])[0], 0);
 			break;
-		case COLOR_TYPE::GREEN:
+		case COLOR::GREEN:
 			_image[1] = "SGreenStone";
 			data.emplace_back(lpImageMng.getImage(_image[1])[0], 0);
 			break;
-		case COLOR_TYPE::MAGENTA:
+		case COLOR::MAGENTA:
 			_image[1] = "SMagentaStone";
 			data.emplace_back(lpImageMng.getImage(_image[1])[0], 0);
 			break;
-		case COLOR_TYPE::RED:
+		case COLOR::RED:
 			_image[1] = "SRedStone";
 			data.emplace_back(lpImageMng.getImage(_image[1])[0], 0);
 			break;
-		case COLOR_TYPE::YELLOW:
+		case COLOR::YELLOW:
 			_image[1] = "SYellowStone";
 			data.emplace_back(lpImageMng.getImage(_image[1])[0], 0);
 			break;
-		case COLOR_TYPE::WHITE:
+		case COLOR::WHITE:
 			break;
 		}
 		break;

@@ -30,30 +30,30 @@ void ItemTrader::BagDraw(Vector2D pos, LAYER lay, Vector2 off, Vector2D rad)
 	}
 }
 
-COLOR_TYPE ItemTrader::Trade(COLOR_TYPE color1, COLOR_TYPE color2)
+COLOR ItemTrader::Trade(COLOR color1, COLOR color2)
 {
 	color = static_cast<int>(color1) + static_cast<int>(color2);
 
-	return static_cast<COLOR_TYPE>(color);
+	return static_cast<COLOR>(color);
 }
 
-bool ItemTrader::ColorTradeCheck(COLOR_TYPE color1, COLOR_TYPE color2)
+bool ItemTrader::ColorTradeCheck(COLOR color1, COLOR color2)
 {
 	if (color1 == color2) { return false;}	// 同じ色同士の足し算はしない
 
 	// RGB以外の足し算もしない
-	if (color1 != COLOR_TYPE::RED && color1 != COLOR_TYPE::BLUE && color1 != COLOR_TYPE::GREEN)
+	if (color1 != COLOR::RED && color1 != COLOR::BLUE && color1 != COLOR::GREEN)
 	{
 		return false;
 	}
-	else if (color2 != COLOR_TYPE::RED && color2 != COLOR_TYPE::BLUE && color2 != COLOR_TYPE::GREEN)
+	else if (color2 != COLOR::RED && color2 != COLOR::BLUE && color2 != COLOR::GREEN)
 	{
 		return false;
 	}
 	return true;
 }
 
-const void ItemTrader::SetItemList(Vector2 pos, ITEM_TYPE itype, COLOR_TYPE ctype,int stage)
+const void ItemTrader::SetItemList(Vector2 pos, ITEM_TYPE itype, COLOR ctype,int stage)
 {
 	_ItemList.emplace_back(new Item(pos, itype, ctype, _ItemList.size(),stage));	// サイズ番号を入れる。
 	return;
@@ -114,7 +114,7 @@ void ItemTrader::AddBag(ItemSave&save)
 	}
 }
 
-int ItemTrader::ReturnNo(ITEM_TYPE itemtype, COLOR_TYPE color)
+int ItemTrader::ReturnNo(ITEM_TYPE itemtype, COLOR color)
 {
 	int no = -1;
 	for (auto bag : _IBag)
@@ -127,7 +127,7 @@ int ItemTrader::ReturnNo(ITEM_TYPE itemtype, COLOR_TYPE color)
 	return no;
 }
 
-bool ItemTrader::ReBook(COLOR_TYPE color)
+bool ItemTrader::ReBook(COLOR color)
 {
 	for (auto bag : _IBag)
 	{
@@ -204,24 +204,24 @@ void ItemTrader::BagTypeCount(void)
 		{
 			switch(item.first.colortype)
 			{
-			case COLOR_TYPE::BLACK:
+			case COLOR::BLACK:
 				break;
-			case COLOR_TYPE::RED:
+			case COLOR::RED:
 				rock.at(0)++;
 				break;
-			case COLOR_TYPE::GREEN:
+			case COLOR::GREEN:
 				rock.at(1)++;
 				break;
-			case COLOR_TYPE::BLUE:
+			case COLOR::BLUE:
 				rock.at(2)++;
 				break;
-			case COLOR_TYPE::YELLOW:
+			case COLOR::YELLOW:
 				rock.at(3)++;
 				break;
-			case COLOR_TYPE::MAGENTA:
+			case COLOR::MAGENTA:
 				rock.at(4)++;
 				break;		
-			case COLOR_TYPE::CYAN:
+			case COLOR::CYAN:
 				rock.at(5)++;
 				break;
 			default:
@@ -257,7 +257,7 @@ ItemTrader::~ItemTrader()
 {
 }
 
-const char* ItemTrader::ChangeName(ITEM_TYPE _itemtype,COLOR_TYPE _colortype)
+const char* ItemTrader::ChangeName(ITEM_TYPE _itemtype,COLOR _colortype)
 {
 	AnmVec data;
 	data.clear();
@@ -269,13 +269,13 @@ const char* ItemTrader::ChangeName(ITEM_TYPE _itemtype,COLOR_TYPE _colortype)
 
 		switch (_colortype)
 		{
-		case COLOR_TYPE::BLUE:
+		case COLOR::BLUE:
 			save.image[0] = "BlueBook";
 			break;
-		case COLOR_TYPE::GREEN:
+		case COLOR::GREEN:
 			save.image[0] = "GreenBook";
 			break;
-		case COLOR_TYPE::RED:
+		case COLOR::RED:
 			save.image[0] = "RedBook";
 			break;
 		default:
@@ -286,54 +286,54 @@ const char* ItemTrader::ChangeName(ITEM_TYPE _itemtype,COLOR_TYPE _colortype)
 
 		switch (_colortype)
 		{
-		case COLOR_TYPE::BLACK:
+		case COLOR::BLACK:
 			break;
-		case COLOR_TYPE::BLUE:
+		case COLOR::BLUE:
 			save.image[0] = "BlueStone";
 			break;
-		case COLOR_TYPE::CYAN:
+		case COLOR::CYAN:
 			save.image[0] = "CyanStone";
 			break;
-		case COLOR_TYPE::GREEN:
+		case COLOR::GREEN:
 			save.image[0] = "GreenStone";
 			break;
-		case COLOR_TYPE::MAGENTA:
+		case COLOR::MAGENTA:
 			save.image[0] = "MagentaStone";
 			break;
-		case COLOR_TYPE::RED:
+		case COLOR::RED:
 			save.image[0] = "RedStone";
 			break;
-		case COLOR_TYPE::YELLOW:
+		case COLOR::YELLOW:
 			save.image[0] = "YellowStone";
 			break;
-		case COLOR_TYPE::WHITE:
+		case COLOR::WHITE:
 			break;
 		}
 		break;
 	case ITEM_TYPE::TOOL:
 		switch (_colortype)
 		{
-		case COLOR_TYPE::BLACK:
+		case COLOR::BLACK:
 			break;
-		case COLOR_TYPE::RED:
+		case COLOR::RED:
 			save.image[0] = "530";
 			break;
-		case COLOR_TYPE::GREEN:
+		case COLOR::GREEN:
 			save.image[0] = "531";
 			break;
-		case COLOR_TYPE::BLUE:
+		case COLOR::BLUE:
 			save.image[0] = "532";
 			break;
-		case COLOR_TYPE::YELLOW:
+		case COLOR::YELLOW:
 			save.image[0] = "533";
 			break;
-		case COLOR_TYPE::MAGENTA:
+		case COLOR::MAGENTA:
 			save.image[0] = "534";
 			break;
-		case COLOR_TYPE::CYAN:
+		case COLOR::CYAN:
 			save.image[0] = "535";
 			break;
-		case COLOR_TYPE::WHITE:
+		case COLOR::WHITE:
 			break;
 		}
 	}

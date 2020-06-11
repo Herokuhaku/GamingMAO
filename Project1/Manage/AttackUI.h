@@ -1,23 +1,10 @@
 #pragma once
 #include <array>
+#include "COLOR.h"
 
 #define lpAttackUI AttackUI::GetInstance()
 #define STICK_TO_POS(val) (val / (0x7fff / (RING_RADIUS - STICK_OBJ_SIZE / 2)))
 #define RAD(val) (val / 180.0 * acos(-1.0f))
-
-// 攻撃の種類
-enum class ATK_COLOR : int
-{
-	EX,
-	RED,
-	GREEN,
-	YELLOW,
-	BLUE,
-	MGN,
-	CYAN,
-	WHITE,
-	MAX
-};
 
 enum class ATK_STATE
 {
@@ -51,7 +38,7 @@ public:
 	void Draw(void);	// 描画
 
 	bool CheckAttackActivate(void);			// 右スティックが一定以上傾いているか
-	ATK_COLOR RunAttack(int coolTime);		// 攻撃を発動させる
+	COLOR RunAttack(int coolTime);		// 攻撃を発動させる
 
 
 private:
@@ -69,10 +56,6 @@ private:
 	static constexpr int ACTIVE_RADIUS = 70000000;
 	static constexpr double STICK_RADIUS = 0x8000;
 
-	static constexpr int RED_BYTE	= 0b001;
-	static constexpr int GREEN_BYTE = 0b010;
-	static constexpr int BLUE_BYTE	= 0b100;
-
 	static constexpr int MP_MAX = 100;
 
 	// UI用のスクリーンハンドル
@@ -83,7 +66,7 @@ private:
 	short _stickY;
 
 	// 現在の攻撃色の情報
-	int _AttackColor;
+	COLOR _AttackColor;
 
 	// 攻撃のクールタイム
 	int _coolTime;
