@@ -38,6 +38,7 @@ int StringAddDraw::AddDraw(const TCHAR * string, int pos_x, int pos_y, int color
 		break;
 	}
 
+	SetDrawScreen(tmpScreen);
 	return width;
 }
 
