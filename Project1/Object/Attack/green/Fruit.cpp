@@ -47,7 +47,9 @@ void Fruit::IfHitAttack(void)
 
 void Fruit::Init(void)
 {
-	_frType = static_cast<FRUIT_TYPE>(lpSceneMng.GetRand(static_cast<int>(FRUIT_TYPE::MAX)));
+	std::uniform_int_distribution<unsigned int> _randDist(static_cast<int>(FRUIT_TYPE::WATERMELON),static_cast<int>(FRUIT_TYPE::MAX) - 1);
+
+	_frType = static_cast<FRUIT_TYPE>(_randDist(lpSceneMng._rnd));
 
 
 	AnmVec data;

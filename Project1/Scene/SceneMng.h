@@ -50,7 +50,7 @@ public:
 	void SetNum(int num);			// _workのset
 	int GetNum(void);				// _workのget
 
-	int GetRand(int num);			// ランダムな値を返す
+	std::mt19937 _rnd;
 
 	const Vector2 ScreenSize = { 1280,720 };
 private:
@@ -62,8 +62,6 @@ private:
 	unsigned int _flame;
 
 	int _work;				// gameover用スクリーン
-
-	std::mt19937 _rnd;
 
 	bool SysInit(void);
 	SceneMng();

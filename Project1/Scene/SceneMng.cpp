@@ -90,15 +90,6 @@ int SceneMng::GetNum(void)
 	return _work;
 }
 
-int SceneMng::GetRand(int num)
-{
-	if (num <= 0)
-	{
-		return 0;
-	}
-	return (_rnd() % num);
-}
-
 bool SceneMng::SysInit(void)
 {
 	bool rtnFlag = true;

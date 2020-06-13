@@ -1,4 +1,5 @@
 #pragma once
+#include <random>
 #include "../../Object.h"
 
 enum class FRUIT_TYPE
