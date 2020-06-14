@@ -15,6 +15,8 @@ enum class COLOR : int
 	MAX		= 8
 };
 
+
+
 inline COLOR operator+(const COLOR& lval, const COLOR& rval)
 {
 	return static_cast<COLOR>(std::underlying_type<COLOR>::type(lval) + std::underlying_type<COLOR>::type(rval));
@@ -28,4 +30,9 @@ inline int operator-(const COLOR& lval, const int& rval)
 inline COLOR operator|(const COLOR& lval, const COLOR& rval)
 {
 	return static_cast<COLOR>(std::underlying_type<COLOR>::type(lval) | std::underlying_type<COLOR>::type(rval));
+}
+
+inline COLOR operator++(const COLOR& val)
+{
+	return static_cast<COLOR>(std::underlying_type<COLOR>::type(val) + 1);
 }

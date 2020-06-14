@@ -10,17 +10,18 @@
 
 ImageMng* ImageMng::sInstance = nullptr;
 
-void ImageMng::setEffect(EFFECT effect, Vector2Template<int> pos, double ex_rate, int zOrder, int blend_mode, int blend_prm)
+
+void ImageMng::setEffect(const std::string & key, EffectData& data)
 {
-	_effectList.emplace_back(std::make_tuple(effect, pos, ex_rate, zOrder, blend_mode, blend_prm, 0, 0));
+	_effectMap.try_emplace(key, std::move(data));
 }
 
-std::vector<int> ImageMng::getImage(const std::string& key)
+const std::vector<int>& ImageMng::getImage(const std::string& key)
 {
 	return getImage(key,key);
 }
 
-std::vector<int> ImageMng::getImage(const std::string& filename, const std::string& key)
+const std::vector<int>& ImageMng::getImage(const std::string& filename, const std::string& key)
 {
 	if (_imageMap.find(key) == _imageMap.end())
 	{
@@ -31,7 +32,7 @@ std::vector<int> ImageMng::getImage(const std::string& filename, const std::stri
 	return _imageMap[key];
 }
 
-std::vector<int> ImageMng::getImage(const std::string& filename, const std::string& key, int size_x, int size_y, int cnt_x, int cnt_y)
+const std::vector<int>& ImageMng::getImage(const std::string& filename, const std::string& key, int size_x, int size_y, int cnt_x, int cnt_y)
 {
 	if (_imageMap.find(key) == _imageMap.end())
 	{
@@ -61,10 +62,10 @@ void ImageMng::Draw(void)
 	for (auto data : _drawList[0])
 	{
 		int id, x, y, blend, prm;
-		double ex_rate, rad;
+		double exRate, rad;
 		LAYER layer;
 
-		std::tie(id, x, y, ex_rate, rad, layer, std::ignore, blend, prm) = data;
+		std::tie(id, x, y, exRate, rad, layer, std::ignore, blend, prm) = data;
 
 		if (blend != _oldBlend.first || prm != _oldBlend.second)
 		{
@@ -72,7 +73,7 @@ void ImageMng::Draw(void)
 			_oldBlend = { blend, prm };
 		}
 
-		DrawRotaGraph(x, y, ex_rate, rad, id, true);
+		DrawRotaGraph(x, y, exRate, rad, id, true);
 	}
 
 	
@@ -208,25 +209,56 @@ void ImageMng::Draw(int screen, bool deleteFlag)
 	}
 }
 
+void ImageMng::playEffect(std::string key, const int* posX, const int* posY, double exRate, LAYER layer, int zOrder, int blend_mode, int blend_prm, EffectDrawType draw = EffectDrawType::DRAW_TO_RELATIVE)
+{
+	if (_effectMap.find(key) == _effectMap.end())
+	{
+		return;
+	}
+	_effectList.emplace_back(std::make_tuple(key, posX, posY, exRate, layer, zOrder, blend_mode, blend_prm, 0, 0, draw));
+}
+
+void ImageMng::stopEffect(void)
+{
+	_effectList.clear();
+}
+
 void ImageMng::UpdateEffect(void)
 {
 	for (auto data = _effectList.begin(); data != _effectList.end();)
 	{
-		EFFECT effect;
-		Vector2Template<int> pos;
-		int count, flame, blend, zOrder, prm;
+		std::string key;
+		LAYER layer;
+		int posX, posY, count, flame, blend, zOrder, prm;
 		double ex_rate;
+		EffectDrawType drawType;
 
-		std::tie(effect, pos, ex_rate, zOrder, blend, prm, count, flame) = (*data);
+		std::tie(key, std::ignore, std::ignore, ex_rate, layer, zOrder, blend, prm, count, flame, drawType) = (*data);
 
-		AddDraw({ _effectMap[effect][count].first , pos.x, pos.y, ex_rate, 0.0, LAYER::UI, 1000, blend, prm });
+		posX = *(std::get<static_cast<int>(EffectElm::X)>(*data));
+		posY = *(std::get<static_cast<int>(EffectElm::Y)>(*data));
+
+		if (drawType == EffectDrawType::DRAW_TO_RELATIVE)
+		{
+			AddDraw({ _effectMap[key][count].first , posX, posY, ex_rate, 0.0, layer, zOrder, blend, prm });
+		}
+		else if (drawType == EffectDrawType::DRAW_TO_ABSOLUTE)
+		{
+			AddBackDraw({ _effectMap[key][count].first , posX, posY, ex_rate, 0.0, layer, zOrder, blend, prm });
+		}
+		else
+		{
+			// ‚È‚É‚à‚È‚µ
+		}
 
 		flame++;
+		std::get<static_cast<int>(EffectElm::FLAME)>(*data)++;
 
-		if (flame >= _effectMap[effect][count].second)
+		if (flame >= _effectMap[key][count].second)
 		{
+			std::get<static_cast<int>(EffectElm::COUNT)>(*data)++;
 			count++;
-			if (_effectMap[effect][count].second == -1)
+			if (_effectMap[key][count].second == -1)
 			{
 				data = _effectList.erase(data);
 			}

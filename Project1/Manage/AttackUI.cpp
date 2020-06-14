@@ -8,6 +8,9 @@ AttackUI* AttackUI::sInstance = nullptr;
 
 void AttackUI::Update(void)
 {
+	// 現在の色を保存
+	_OldAttackColor = _AttackColor;
+
 	// 現在の右スティックの情報の取得
 	lpButtonMng.GetThumb(THUMB_RIGHT, _stickX, _stickY);
 
@@ -35,6 +38,11 @@ void AttackUI::Draw(void)
 
 	DrawGraph((UI_SIZE - RING_SIZE) / 2, (UI_SIZE - RING_SIZE) / 2, lpImageMng.getImage("base_ring")[0], true);
 	DrawRotaGraph(UI_SIZE / 2 + STICK_TO_POS(_stickX), UI_SIZE / 2 - STICK_TO_POS(_stickY), 1.0, 0.0, lpImageMng.getImage("stick_obj")[std::underlying_type<COLOR>::type(_AttackColor)], true);
+
+	if (_OldAttackColor != _AttackColor && _AttackColor != COLOR::BLACK)
+	{
+		lpImageMng.playEffect("stick_effect_" + std::to_string(static_cast<int>(_AttackColor)), &_absStickX, &_absStickY, EFFECT_EX_RATE, LAYER::EX, 501, DX_BLENDMODE_NOBLEND, 0, EffectDrawType::DRAW_TO_ABSOLUTE);
+	}
 	
 	// 描画先を戻す
 	SetDrawScreen(tmpScreen);
@@ -128,8 +136,8 @@ void AttackUI::StickTrans(void)
 
 	_stickX = static_cast<short>(length * cos(stickRad));
 	_stickY = static_cast<short>(length * sin(stickRad));
-
-	
+	_absStickX = static_cast<int>(STICK_TO_POS(_stickX) + DRAW_OFFSET_X);
+	_absStickY = static_cast<int>(STICK_TO_POS(-_stickY) + DRAW_OFFSET_Y);
 }
 
 void AttackUI::StateUpdate(void)
@@ -138,7 +146,7 @@ void AttackUI::StateUpdate(void)
 	{
 		if (_magicState[i].first != ATK_STATE::RUN)
 		{
-			if (lpTradeMng.ReBook(lpMenuMng.ColorPtr(i)))
+			if (lpTradeMng.ReBook(static_cast<COLOR>(static_cast<int>(exp2(i)))))
 			{
 				_magicState[i].first = ATK_STATE::WAIT;
 			}
@@ -156,12 +164,32 @@ AttackUI::AttackUI()
 	_uiScreen = MakeScreen(UI_SIZE, UI_SIZE, true);
 
 	// 素材読み込み
+	char filename[32];
+	std::string key;
+	EffectData effect;
+	effect.reserve(EFFECT_ANM_COUNT + 1);
+
+	for (int i = 0; i < static_cast<int>(COLOR::MAX); i++)
+	{
+		key = "stick_effect_" + std::to_string(i);
+		sprintf_s(filename, "image/UI/StickObjEffect%d.png", i);
+		lpImageMng.getImage(filename, key, 120, 120, 10, 1);
+		for (int j = 0; j < EFFECT_ANM_COUNT; j++)
+		{
+			effect.emplace_back(lpImageMng.getImage(key)[EFFECT_ANM_COUNT - j - 1], EFFECT_ANM_INTERVAL * (j + 1));
+		}
+		effect.emplace_back(0, -1);
+		lpImageMng.setEffect(key, effect);
+	}
 	lpImageMng.getImage("image/UI/AttackUIRing.png", "base_ring");
 	lpImageMng.getImage("image/UI/StickObj.png", "stick_obj", 60, 60, 8, 1);
 
 	// 初期化
 	_stickX = 0;
 	_stickY = 0;
+	_absStickX = 0;
+	_absStickY = 0;
+	_OldAttackColor = COLOR::BLACK;
 	_AttackColor = COLOR::BLACK;
 	_magicState = { std::make_pair(ATK_STATE::NON, MP_MAX) };
 	_coolTime = 0;

@@ -11,7 +11,7 @@
 #include "../Manage/MapMng.h"
 
 // 描画データの要素
-enum class DrawElm
+enum class DrawElm : int
 {
 	ID,
 	X,
@@ -23,11 +23,19 @@ enum class DrawElm
 	BLEND
 };
 
-// エフェクトの種類
-enum class EFFECT
+// エフェクトの要素
+enum class EffectElm : int
 {
-	SMOKE,
-	GRIP
+	KEY,
+	X,
+	Y,
+	EX_RATE,
+	LAYER,
+	ZORDER,
+	BLEND,
+	BLEND_PARAM,
+	COUNT,
+	FLAME
 };
 
 // 画面効果
@@ -40,9 +48,17 @@ enum class ScrEff
 	MAX
 };
 
+// エフェクトのオプション
+enum class EffectDrawType
+{
+	DRAW_TO_RELATIVE,
+	DRAW_TO_ABSOLUTE
+};
+
 #define lpImageMng ImageMng::getInstance()
 
 using DrawData = std::tuple<int, int, int, double, double,  LAYER, int, int, int>;	// 描画用データ　画像ID, 座標x, y, 拡大率、角度, レイヤー, zオーダー、ブレンド、パラメータ
+using EffectData = std::vector<std::pair<int, int>>;
 
 class ImageMng
 {
@@ -67,14 +83,18 @@ public:
 		sInstance = nullptr;
 	}
 
-	void setEffect(EFFECT effect, Vector2Template<int> pos, double ex_rate, int zOrder, int blend_mode, int blend_prm);
+	void setEffect(const std::string& key, EffectData& data);
 
-	std::vector<int> getImage(const std::string& key);
-	std::vector<int> getImage(const std::string& filename, const std::string& key);
-	std::vector<int> getImage(const std::string& filename, const std::string& key, int size_x, int size_y, int cnt_x, int cnt_y);
+	const std::vector<int>& getImage(const std::string& key);
+	const std::vector<int>& getImage(const std::string& filename, const std::string& key);
+	const std::vector<int>& getImage(const std::string& filename, const std::string& key, int size_x, int size_y, int cnt_x, int cnt_y);
 
 	void Draw(void);				// 描画
 	void Draw(int screen, bool deleteFlag);
+
+
+	void playEffect(std::string key, const int* posX, const int* posY, double exRate, LAYER layer, int zOrder, int blend_mode, int blend_prm, EffectDrawType draw);	// エフェクトの再生
+	void stopEffect(void);
 	void UpdateEffect(void);		// エフェクトの描画と更新
 
 	void AddDraw(DrawData data);	// 描画情報の追加 _workLayer
@@ -86,10 +106,10 @@ private:
 	int _workLayer;
 
 	std::map<std::string, std::vector<int>> _imageMap;					// 画像ID保存用
-	std::map<EFFECT, std::vector<std::pair<int, int>>>	_effectMap;		// エフェクト保存用
+	std::map<std::string, EffectData>		_effectMap;		// エフェクト保存用
 
 	std::vector<DrawData> _drawList[2];							// 描画情報保存用
-	std::vector<std::tuple<EFFECT, Vector2Template<int>, double, int, int, int, int, int>> _effectList;		// 進行中のエフェクト
+	std::vector<std::tuple<std::string, const int*, const int*, double, LAYER, int, int, int, int, int, EffectDrawType>> _effectList;		// 進行中のエフェクト
 
 	//---------------------------------------------------------
 	void ScreenEffect(void);		// 画面エフェクトの分岐

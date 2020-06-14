@@ -49,6 +49,9 @@ private:
 	static constexpr int RING_SIZE = 204;
 	static constexpr int RING_RADIUS = 100;
 	static constexpr int STICK_OBJ_SIZE = 60;
+	static constexpr int EFFECT_ANM_COUNT = 10;
+	static constexpr int EFFECT_ANM_INTERVAL = 3;
+	static constexpr double EFFECT_EX_RATE = 1.0;
 
 	static constexpr int DRAW_OFFSET_X = 1150;
 	static constexpr int DRAW_OFFSET_Y = 600;
@@ -64,8 +67,12 @@ private:
 	// スティックの情報
 	short _stickX;
 	short _stickY;
+	// スティックの絶対座標
+	int _absStickX;
+	int _absStickY;
 
-	// 現在の攻撃色の情報
+	// 攻撃色の情報
+	COLOR _OldAttackColor;
 	COLOR _AttackColor;
 
 	// 攻撃のクールタイム
