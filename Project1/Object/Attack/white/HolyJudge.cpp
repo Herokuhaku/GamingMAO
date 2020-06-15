@@ -72,13 +72,27 @@ int HolyJudge::FindSF(int pos)
 {
 	int tmp = pos;
 
-	while (!lpMapMng.getHitMap({ _pos.x, tmp }, _stage))
+	if (lpMapMng.getHitMap({ _pos.x, tmp }, _stage))
 	{
-		if (tmp > 3000)
+		while (lpMapMng.getHitMap({ _pos.x, tmp }, _stage))
 		{
-			return -1;
+			if (tmp < 0)
+			{
+				return -1;
+			}
+			tmp -= CHIP_SIZE;
 		}
-		tmp += 16;
+	}
+	else
+	{
+		while (!lpMapMng.getHitMap({ _pos.x, tmp }, _stage))
+		{
+			if (tmp > SURFACE_LIMIT)
+			{
+				return -1;
+			}
+			tmp += CHIP_SIZE;
+		}
 	}
 
 	tmp = tmp - tmp % 16;

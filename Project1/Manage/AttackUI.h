@@ -56,7 +56,7 @@ private:
 	static constexpr int DRAW_OFFSET_X = 1150;
 	static constexpr int DRAW_OFFSET_Y = 600;
 
-	static constexpr int ACTIVE_RADIUS = 70000000;
+	static constexpr int ACTIVE_RADIUS = 400000000;
 	static constexpr double STICK_RADIUS = 0x8000;
 
 	static constexpr int MP_MAX = 100;

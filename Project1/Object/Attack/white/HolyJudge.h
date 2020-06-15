@@ -24,5 +24,6 @@ private:
 	OBJ_TYPE _target;
 
 	static constexpr int LIFE_TIME = 220;
+	static constexpr int SURFACE_LIMIT = 3000;
 };
 
