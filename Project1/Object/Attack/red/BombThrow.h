@@ -5,7 +5,12 @@ class BombThrow :
 	public Object
 {
 public:
-	BombThrow();
+	BombThrow() = delete;
+	// pos:座標			dir:方向
+	// speed:速度( speed > 0 でdir方向に、speed < 0 で反対側に)
+	// vel:初速のY成分(負で上方向、正で下方向)
+	// time:時間軸		stage:ステージ
+	// target:目標
 	BombThrow(Vector2 pos, DIR dir, int speed, double vel, TIME time, int stage, OBJ_TYPE target);
 	~BombThrow();
 

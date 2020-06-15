@@ -6,7 +6,10 @@ class PoisonFog :
 	public Object
 {
 public:
-	PoisonFog();
+	PoisonFog() = delete;
+	// pos:座標			count:生存時間
+	// time:時間軸		stage:ステージ
+	// target:目標
 	PoisonFog(Vector2 pos, int count, TIME time, int stage, OBJ_TYPE target);
 	~PoisonFog();
 

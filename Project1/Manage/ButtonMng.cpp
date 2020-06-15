@@ -10,7 +10,6 @@ ButtonMng::ButtonMng()
 
 ButtonMng::~ButtonMng()
 {
-
 }
 
 void ButtonMng::Run(void)

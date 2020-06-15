@@ -12,7 +12,12 @@ class Thunder :
 	public Object
 {
 public:
-	Thunder();
+	Thunder() = delete;
+	// pos1:始点座標		pos2:終点座標
+	// useRef:refPosを参照するか(refPosの移動に合わせて動くようになる)
+	// refPos:参照に使う座標
+	// damage:ダメージ		time:時間軸
+	// stage:ステージ		target:目標
 	Thunder(Vector2 pos1, Vector2 pos2, bool useRef, Vector2* refPos, int damage, TIME time, int stage, OBJ_TYPE target);
 	~Thunder();
 

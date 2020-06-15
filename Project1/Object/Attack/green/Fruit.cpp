@@ -2,9 +2,6 @@
 #include "../../../Scene/SceneMng.h"
 #include "../../../func/CheckHitStage.h"
 
-Fruit::Fruit()
-{
-}
 
 Fruit::Fruit(Vector2 pos, DIR dir, int speed, TIME time, int stage, OBJ_TYPE target)
 {

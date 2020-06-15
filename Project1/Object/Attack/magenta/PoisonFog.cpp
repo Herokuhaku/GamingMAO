@@ -1,8 +1,5 @@
 #include "PoisonFog.h"
 
-PoisonFog::PoisonFog()
-{
-}
 
 PoisonFog::PoisonFog(Vector2 pos, int count, TIME time, int stage, OBJ_TYPE target)
 {

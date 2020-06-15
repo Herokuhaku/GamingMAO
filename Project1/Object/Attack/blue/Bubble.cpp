@@ -1,8 +1,5 @@
 #include "Bubble.h"
 
-Bubble::Bubble()
-{
-}
 
 Bubble::Bubble(Vector2 pos, TIME time, int stage, OBJ_TYPE target)
 {

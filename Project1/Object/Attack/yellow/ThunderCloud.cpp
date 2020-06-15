@@ -1,9 +1,6 @@
 #include "ThunderCloud.h"
 #include "../AttackMng.h"
 
-ThunderCloud::ThunderCloud()
-{
-}
 
 ThunderCloud::ThunderCloud(Vector2 pos, DIR dir, int speed, int count, int dur, TIME time, int stage, OBJ_TYPE target)
 {

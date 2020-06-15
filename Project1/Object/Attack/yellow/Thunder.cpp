@@ -1,10 +1,5 @@
 #include "Thunder.h"
 
-Thunder::Thunder() : _refPos(&_pos)
-{
-	_pos = { 0,0 };
-	Init();
-}
 
 Thunder::Thunder(Vector2 pos1, Vector2 pos2, bool useRef, Vector2* refPos, int damage, TIME time, int stage, OBJ_TYPE target)
 {

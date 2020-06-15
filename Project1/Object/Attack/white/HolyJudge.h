@@ -5,7 +5,9 @@ class HolyJudge :
 	public Object
 {
 public:
-	HolyJudge();
+	HolyJudge() = delete;
+	// pos:座標			time:時間軸
+	// stage:ステージ	target:目標
 	HolyJudge(Vector2 pos, TIME time, int stage, OBJ_TYPE target);
 	~HolyJudge();
 

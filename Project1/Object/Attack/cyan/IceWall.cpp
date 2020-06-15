@@ -1,8 +1,5 @@
 #include "IceWall.h"
 
-IceWall::IceWall()
-{
-}
 
 IceWall::IceWall(Vector2 pos, TIME time, int stage, OBJ_TYPE target)
 {

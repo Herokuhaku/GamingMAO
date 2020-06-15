@@ -1,9 +1,5 @@
 #include "HolyJudge.h"
 
-HolyJudge::HolyJudge()
-{
-
-}
 
 HolyJudge::HolyJudge(Vector2 pos, TIME time, int stage, OBJ_TYPE target)
 {

@@ -15,7 +15,11 @@ class Fruit :
 	public Object
 {
 public:
-	Fruit();
+	Fruit() = delete;
+	// pos:座標			dir:方向
+	// speed:速度( speed > 0 でdir方向に、speed < 0 で反対側に)
+	// time:時間軸		stage:ステージ
+	// target:目標
 	Fruit(Vector2 pos, DIR dir, int speed, TIME time, int stage, OBJ_TYPE target);
 	~Fruit();
 

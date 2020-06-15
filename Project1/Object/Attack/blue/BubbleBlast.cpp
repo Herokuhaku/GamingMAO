@@ -1,8 +1,5 @@
 #include "BubbleBlast.h"
 
-BubbleBlast::BubbleBlast()
-{
-}
 
 BubbleBlast::BubbleBlast(Vector2 pos, TIME time, int stage, OBJ_TYPE target)
 {

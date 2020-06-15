@@ -5,7 +5,9 @@ class BubbleBlast :
 	public Object
 {
 public:
-	BubbleBlast();
+	BubbleBlast() = delete;
+	// pos:座標			time:時間軸
+	// stage:ステージ	target:目標
 	BubbleBlast(Vector2 pos, TIME time, int stage, OBJ_TYPE target);
 	~BubbleBlast();
 
