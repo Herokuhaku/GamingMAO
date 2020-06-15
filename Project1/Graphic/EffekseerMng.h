@@ -59,7 +59,5 @@ private:
 
 	EffekseerMng();
 	~EffekseerMng();
-
-	void EffectMngInit(void);
 };
 

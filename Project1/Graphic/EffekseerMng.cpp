@@ -88,8 +88,10 @@ EffekseerMng::EffekseerMng()
 
 EffekseerMng::~EffekseerMng()
 {
+	stopEffectAll();
+	for (auto data : _effectMap)
+	{
+		DeleteEffekseerEffect(data.second);
+	}
 }
 
-void EffekseerMng::EffectMngInit(void)
-{
-}
