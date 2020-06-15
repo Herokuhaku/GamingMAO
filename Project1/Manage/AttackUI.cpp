@@ -182,7 +182,7 @@ AttackUI::AttackUI()
 		lpImageMng.setEffect(key, effect);
 	}
 	lpImageMng.getImage("image/UI/AttackUIRing.png", "base_ring");
-	lpImageMng.getImage("image/UI/StickObj.png", "stick_obj", 60, 60, 8, 1);
+	lpImageMng.getImage("image/UI/StickObj.png", "stick_obj", 90, 90, 8, 1);
 
 	// èâä˙âª
 	_stickX = 0;
