@@ -1,5 +1,9 @@
 #include "ItemTrader.h"
 #include "../Scene/SceneMng.h"
+#include <math.h>
+#include "AttackUI.h"
+
+int ItemTrader::_count = 0;
 
 ItemTrader* ItemTrader::sInstance = nullptr;
 
@@ -16,7 +20,7 @@ void ItemTrader::Draw(void)
 	}
 }
 
-void ItemTrader::BagDraw(Vector2D pos, LAYER lay, Vector2 off, Vector2D rad)
+void ItemTrader::BagDraw(Vector2D pos , LAYER lay, Vector2 off, Vector2D rad)
 {
 	_pos.x = pos.x;
 	_pos.y = pos.y;
@@ -26,6 +30,26 @@ void ItemTrader::BagDraw(Vector2D pos, LAYER lay, Vector2 off, Vector2D rad)
 		{
 			data.first.pos = { _pos.x + (100 * data.first.book),_pos.y + off.x };
 			lpImageMng.AddBackDraw({ lpImageMng.getImage(data.first.image[0])[0],data.first.pos.x,data.first.pos.y, rad.x, 0.0,LAYER::EX, 110, DX_BLENDMODE_NOBLEND, 0 });
+		}
+	}
+}
+
+void ItemTrader::ToolDraw(Vector2 pos, LAYER lay, Vector2 off, Vector2D rad)
+{
+	int _draw = 0;
+	int count = _count;
+	for (auto data : _IBag)
+	{
+		if (data.first.tool == count)
+		{
+			if (_draw < 5)
+			{
+				_drawtool[_draw] = count;
+				count++;
+				_draw++;
+				lpImageMng.AddBackDraw({ lpImageMng.getImage(data.first.image[0])[0],cos(RAD(_draw * 45.0)) * 100.0,
+					sin(RAD(_draw * 45.0)) * 100.0,rad.x,0.0,LAYER::EX,120,DX_BLENDMODE_NOBLEND,0 });
+			}
 		}
 	}
 }
@@ -172,7 +196,7 @@ void ItemTrader::BagTypeSort(void)
 {
 	_stone = 0;
 	_book  = 0;
-
+	_tool = 0;
 	for (auto &data:_IBag)
 	{
 		switch(data.first.itemtype)
@@ -185,10 +209,15 @@ void ItemTrader::BagTypeSort(void)
 			data.first.stone = _stone;
  			_stone++;
 			break;
+		case ITEM_TYPE::TOOL:
+			data.first.tool = _tool;
+			_toolMax = _tool;
+			_tool++;
 		default:
 			break;
 		};
 	}
+
 }
 
 void ItemTrader::BagTypeCount(void)
@@ -242,6 +271,18 @@ std::array<int, 6> ItemTrader::getrock(void)
 	return rock;
 }
 
+void ItemTrader::ChangeCount(bool num)
+{
+	if (num == true)
+	{
+		ItemTrader::_count++;
+	}
+	else
+	{
+		ItemTrader::_count--;
+	}
+}
+
 ItemTrader::ItemTrader()
 {
 	for (int i = 0;i < 6;i++)
@@ -250,6 +291,7 @@ ItemTrader::ItemTrader()
 	}
 	_book = 0;
 	_stone = 0;
+	_tool = 0;
 	color = 0x000000;
 }
 

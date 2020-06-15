@@ -161,6 +161,7 @@ std::unique_ptr<BaceScene> GameScene::Update(std::unique_ptr<BaceScene> own)
 	{
 		lpTradeMng.BagDraw({ 800,670 }, LAYER::CHAR, { 0,0 }, {1.0,1.0});	// ècÇÕScreenSize.y - (DrawBoxÇÃí∑Ç≥/2)
 	}
+	lpTradeMng.ToolDraw({  800,670 }, LAYER::CHAR, { 0,0 }, {1.0,1.0});
 
 	lpTimeMng.resetFlag();
 
@@ -183,12 +184,12 @@ bool GameScene::Init(void)
 
 	lpEnemyMng.Init();
 
-	lpTradeMng.SetItemList({ 400,1300 }, ITEM_TYPE::STONE, COLOR::BLUE,1);
-	lpTradeMng.SetItemList({ 500,1300 }, ITEM_TYPE::STONE, COLOR::RED,1);
-	lpTradeMng.SetItemList({ 600,1300 }, ITEM_TYPE::STONE, COLOR::GREEN,1);
-	lpTradeMng.SetItemList({ 700,1300 }, ITEM_TYPE::BOOK, COLOR::BLUE, 1);
-	lpTradeMng.SetItemList({ 800,1300 }, ITEM_TYPE::BOOK, COLOR::RED, 1);
-	lpTradeMng.SetItemList({ 900,1300 }, ITEM_TYPE::BOOK, COLOR::GREEN, 1);
+	lpTradeMng.SetItemList({ 2080,1311 }, ITEM_TYPE::TOOL, COLOR::BLUE,1);
+	lpTradeMng.SetItemList({ 2080,1311 }, ITEM_TYPE::TOOL, COLOR::RED,1);
+	lpTradeMng.SetItemList({ 2080,1311 }, ITEM_TYPE::TOOL, COLOR::GREEN,1);
+	lpTradeMng.SetItemList({ 2080,1311 }, ITEM_TYPE::BOOK, COLOR::BLUE, 1);
+	lpTradeMng.SetItemList({ 2080,1311 }, ITEM_TYPE::BOOK, COLOR::RED, 1);
+	lpTradeMng.SetItemList({ 2080,1311 }, ITEM_TYPE::BOOK, COLOR::GREEN, 1);
 	
 
 

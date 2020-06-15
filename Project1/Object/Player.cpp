@@ -45,6 +45,7 @@ void Player::Update(void)
 {
 	VelUpdate();
 	MagicUpdate();
+
 	// ‘€ì‚µ‚Ä‚¢‚éƒvƒŒƒCƒ„[‚¶‚á‚È‚¢
 	if (_stage != lpMapMng.GetnowStage())
 	{

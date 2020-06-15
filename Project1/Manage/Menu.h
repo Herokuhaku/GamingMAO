@@ -47,6 +47,14 @@ public:
 			sInstance = new Menu;
 		}
 	}
+	static void Destroy(void)
+	{
+		if (sInstance != nullptr)
+		{
+			delete sInstance;
+		}
+		sInstance = nullptr;
+	}
 	bool Update(void);
 	bool GetMixFlag(void);
 	void ItemDraw(int tmp, Vector2 pos, Vector2 offset,Vector2 stroffset,LAYER lay);

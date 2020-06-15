@@ -27,9 +27,18 @@ public:
 			sInstance = new ItemTrader();
 		}
 	}
+	static void Destroy(void)
+	{
+		if (sInstance != nullptr)
+		{
+			delete sInstance;
+		}
+		sInstance = nullptr;
+	}
 	
 	void Draw(void);
 	void BagDraw(Vector2D pos,LAYER lay, Vector2 off , Vector2D rad);
+	void ToolDraw(Vector2 pos, LAYER lay, Vector2 off, Vector2D rad);
 	COLOR Trade(COLOR color1, COLOR color2);
 	bool ColorTradeCheck(COLOR color1, COLOR color2);
 	const void SetItemList(Vector2 pos, ITEM_TYPE itype,COLOR ctype, int stage);
@@ -46,7 +55,7 @@ public:
 	std::pair<int, int> getcount(void);	// 本,石の数を返す
 	
 	std::array<int, 6> getrock(void);	// 何色の石が何個あるかを返す //順番は 赤,緑,青,黄,マゼンタ,シアン
-
+	void ChangeCount(bool num);
 	
 
 private:
@@ -67,8 +76,13 @@ private:
 	Vector2 _pos;
 	int _stone;
 	int _book;
+	int _tool;
+	int _toolMax;
 	std::vector<std::pair<ItemSave, int>> _IBag;
 	std::vector<std::pair<ItemSave, int>> _ItemBag;
 	ItemSave save;
+	
+	int _drawtool[5];
+	static int _count;
 };
 

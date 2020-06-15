@@ -47,7 +47,16 @@ bool Menu::Update(void)
 
 	(this->*type)();	// select,mix,
 
-
+	if (lpButtonMng.Buttonf(0, XINPUT_BUTTON_DPAD_LEFT).first == 1 &&
+		lpButtonMng.Buttonf(0, XINPUT_BUTTON_DPAD_LEFT).second == 0)
+	{
+		lpTradeMng.ChangeCount(false);
+	}
+	else if (lpButtonMng.Buttonf(0, XINPUT_BUTTON_DPAD_RIGHT).first == 1 &&
+		lpButtonMng.Buttonf(0, XINPUT_BUTTON_DPAD_RIGHT).second == 0)
+	{
+		lpTradeMng.ChangeCount(true);
+	}
 	// ÉÅÉjÉÖÅ[èIóπ
 	if(lpButtonMng.Buttonf(0, XINPUT_BUTTON_BACK).first == 1 &&
 		lpButtonMng.Buttonf(0, XINPUT_BUTTON_BACK).second == 0)

@@ -20,6 +20,7 @@ struct ItemSave
 	int bagNo;				// バッグの中で何番目か
 	int book;				// 本の番号　本でなければ-1
 	int stone;				// 石の番号　石でなければ-1
+	int tool;
 	int hp;					// 体力
 	const char* image[2];	// 画像の種類
 };
@@ -55,6 +56,7 @@ private:
 
 	int _book;				// 本の番号　本でなければ-1
 	int _stone;				// 石の番号　石でなければ-1
+	int _tool;
 	const char* _image[2];	// 画像番号		// 0 通常,1 小
 	ItemSave save;
 };

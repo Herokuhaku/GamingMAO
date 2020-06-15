@@ -18,6 +18,7 @@ Item::Item(Vector2 pos, ITEM_TYPE itemtype,COLOR colortype,int no,int stage)
 {
 	_book = 0;
 	_stone = 0;
+	_tool = 0;
 	_type = OBJ_TYPE::ITEM;
 	_pos = pos;
 	_itemtype = itemtype;
@@ -28,6 +29,7 @@ Item::Item(Vector2 pos, ITEM_TYPE itemtype,COLOR colortype,int no,int stage)
 
 	save.bagNo = _bagNo;
 	save.book = _book;
+	save.tool = _tool;
 	save.colortype = colortype;
 	save.itemtype = itemtype;
 	save.hp = -1;
@@ -115,6 +117,7 @@ void Item::setSave(void)
 {
 	save.bagNo = _bagNo;
 	save.book = _book;
+	save.tool = _tool;
 	save.colortype = _colortype;
 	save.hp = _hp;
 	save.image[0] = _image[0];
