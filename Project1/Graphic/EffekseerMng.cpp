@@ -14,7 +14,6 @@ int EffekseerMng::getEffect(const std::string & filename, const std::string & ke
 {
 	if (_effectMap.find(key) == _effectMap.end())
 	{
-		//_effectMap[key] = LoadEffekseerEffect(filename.c_str(), exRate);
 		_effectMap.emplace(key, LoadEffekseerEffect(filename.c_str(), exRate));
 	}
 	return _effectMap[key];
@@ -88,8 +87,10 @@ EffekseerMng::EffekseerMng()
 
 EffekseerMng::~EffekseerMng()
 {
+	stopEffectAll();
+	for (auto data : _effectMap)
+	{
+		DeleteEffekseerEffect(data.second);
+	}
 }
 
-void EffekseerMng::EffectMngInit(void)
-{
-}

@@ -13,6 +13,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPreInstance, LPSTR lpSmdLine,
 	ItemTrader::GetInstance().Destroy();
 	Menu::GetInstance().Destroy();
 
+	Effkseer_End();
 	DxLib_End();
 	return 0;
 }
