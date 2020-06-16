@@ -50,7 +50,7 @@ void Player::Update(void)
 	MagicUpdate();
 
 	// ‘€ì‚µ‚Ä‚¢‚éƒvƒŒƒCƒ„[‚¶‚á‚È‚¢
-	if (_stage != lpMapMng.GetnowStage())
+	if (lpTimeMng.getTime() != _time);
 	{
 		StopWalk();
 		return;
