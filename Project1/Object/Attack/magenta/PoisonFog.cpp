@@ -1,4 +1,5 @@
 #include "PoisonFog.h"
+#include "../../../Graphic/ImageMng.h"
 
 
 PoisonFog::PoisonFog(Vector2 pos, int count, TIME time, int stage, OBJ_TYPE target)

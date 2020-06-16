@@ -1,4 +1,5 @@
 #include "GameOverScene.h"
+#include "../Graphic/ImageMng.h"
 
 GameOverScene::GameOverScene()
 {
@@ -17,7 +18,7 @@ GameOverScene::~GameOverScene()
 {
 }
 
-std::unique_ptr<BaceScene> GameOverScene::Update(std::unique_ptr<BaceScene> own)
+std::unique_ptr<BaseScene> GameOverScene::Update(std::unique_ptr<BaseScene> own)
 {
 	own = (this->*_control)(std::move(own));
 
@@ -25,7 +26,7 @@ std::unique_ptr<BaceScene> GameOverScene::Update(std::unique_ptr<BaceScene> own)
 	return own;
 }
 
-std::unique_ptr<BaceScene> GameOverScene::CursorControl(std::unique_ptr<BaceScene> scene)
+std::unique_ptr<BaseScene> GameOverScene::CursorControl(std::unique_ptr<BaseScene> scene)
 {
 	if (lpKeyMng.getBuf()[KEY_INPUT_UP] && !lpKeyMng.getOldBuf()[KEY_INPUT_UP])
 	{
@@ -80,7 +81,7 @@ std::unique_ptr<BaceScene> GameOverScene::CursorControl(std::unique_ptr<BaceScen
 	return std::move(scene);
 }
 
-std::unique_ptr<BaceScene> GameOverScene::SkipControl(std::unique_ptr<BaceScene> scene)
+std::unique_ptr<BaseScene> GameOverScene::SkipControl(std::unique_ptr<BaseScene> scene)
 {
 	// スペースキーを押すと暗くなっていくのをスキップできる
 	if ((lpKeyMng.getBuf()[KEY_INPUT_SPACE] && !lpKeyMng.getOldBuf()[KEY_INPUT_SPACE]) || 
@@ -139,11 +140,11 @@ void GameOverScene::Draw(void)
 
 			if (cursor == _cursor)
 			{
-				lpStrAdd.AddDraw(str, lpSceneMng.ScreenSize.x / 2, pos_y, color, DRAW_TO_CENTER);
+				lpStrAdd.AddStringDraw(str, lpSceneMng.ScreenSize.x / 2, pos_y, color, DRAW_TO_CENTER);
 			}
 			else
 			{
-				lpStrAdd.AddDraw(str, lpSceneMng.ScreenSize.x / 2, pos_y, 0xaaaaaa, DRAW_TO_CENTER);
+				lpStrAdd.AddStringDraw(str, lpSceneMng.ScreenSize.x / 2, pos_y, 0xaaaaaa, DRAW_TO_CENTER);
 			}
 		}
 	}

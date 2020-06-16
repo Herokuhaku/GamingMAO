@@ -1,5 +1,6 @@
 #include "demon.h"
 #include "../../Scene/SceneMng.h"
+#include "../../Graphic/ImageMng.h"
 
 void demon::Update(void)
 {

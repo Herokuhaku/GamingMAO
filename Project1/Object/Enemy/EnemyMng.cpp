@@ -4,6 +4,7 @@
 #include "wizard.h"
 #include "scorcererViilain.h"
 #include "../../Scene/SceneMng.h"
+#include "../../Manage/MapMng.h"
 
 EnemyMng *EnemyMng::sInstance = nullptr;
 

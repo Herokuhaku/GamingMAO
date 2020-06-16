@@ -1,5 +1,6 @@
 #include "scorcererViilain.h"
 #include "../../Scene/SceneMng.h"
+#include "../../Graphic/ImageMng.h"
 
 void sorcerer::Update(void)
 {

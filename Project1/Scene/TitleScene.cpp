@@ -16,7 +16,7 @@ TitleScene::~TitleScene()
 {
 }
 
-std::unique_ptr<BaceScene> TitleScene::Update(std::unique_ptr<BaceScene> own)
+std::unique_ptr<BaseScene> TitleScene::Update(std::unique_ptr<BaseScene> own)
 {
 	lpImageMng.AddBackDraw({ lpImageMng.getImage("•—˜C•~")[0], lpSceneMng.ScreenSize.x / 2, lpSceneMng.ScreenSize.y / 2, 1.0, 0.0, LAYER::BG, 0, DX_BLENDMODE_NOBLEND, 0 });
 

@@ -1,14 +1,14 @@
 #pragma once
-#include "BaceScene.h"
+#include "BaseScene.h"
 #include "../common/Vector2.h"
 
 class SeleScene :
-	public BaceScene
+	public BaseScene
 {
 public:
 	SeleScene();
 	~SeleScene();
-	std::unique_ptr<BaceScene> Update(std::unique_ptr<BaceScene> own) override;
+	std::unique_ptr<BaseScene> Update(std::unique_ptr<BaseScene> own) override;
 
 private:
 	short sel;

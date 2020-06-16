@@ -1,5 +1,6 @@
 #include "TimeMng.h"
 #include "../Scene/SceneMng.h"
+#include "MapMng.h"
 
 TimeMng* TimeMng::sInstance = nullptr;
 

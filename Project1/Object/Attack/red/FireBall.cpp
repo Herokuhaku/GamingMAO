@@ -1,4 +1,5 @@
 #include "FireBall.h"
+#include "../../../Graphic/ImageMng.h"
 
 
 FireBall::FireBall(Vector2 pos, DIR dir, Vector2 vec, TIME time, int stage, OBJ_TYPE target)

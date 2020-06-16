@@ -6,6 +6,8 @@
 #include "../Manage/KeyMng.h"
 #include "../func/CheckHitStage.h"
 #include "Attack/AttackMng.h"
+#include "../Graphic/EffekseerMng.h"
+#include "../Graphic/ImageMng.h"
 
 Player::Player()
 {

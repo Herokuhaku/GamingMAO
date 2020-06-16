@@ -1,3 +1,4 @@
+#include <type_traits>
 #include "EffekseerMng.h"
 #include "../Scene/SceneMng.h"
 

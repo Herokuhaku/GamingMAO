@@ -1,4 +1,6 @@
 #include "StringAddDraw.h"
+#include "../Graphic/ImageMng.h"
+#include "../Scene/SceneMng.h"
 
 StringAddDraw* StringAddDraw::sInstance = nullptr;
 
@@ -15,7 +17,7 @@ StringAddDraw::~StringAddDraw()
 
 }
 
-int StringAddDraw::AddDraw(const TCHAR * string, int pos_x, int pos_y, int color, int draw_type)
+int StringAddDraw::AddStringDraw(const char* string, int pos_x, int pos_y, int color, int draw_type)
 {
 	int length = strlen(string);
 	int width = GetDrawStringWidthToHandle(string, length, _fontHandle);

@@ -21,7 +21,7 @@ SeleScene::~SeleScene()
 {
 }
 
-std::unique_ptr<BaceScene> SeleScene::Update(std::unique_ptr<BaceScene> own)
+std::unique_ptr<BaseScene> SeleScene::Update(std::unique_ptr<BaseScene> own)
 {
 	// 1l--------- ‰‚ß‚©‚ç
 	// 		|-----  ‘±‚«‚©‚ç

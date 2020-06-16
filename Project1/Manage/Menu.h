@@ -3,6 +3,7 @@
 #include <array>
 #include "../common/Vector2.h"
 #include "ItemTrader.h"
+#include "../Graphic/LAYER.h"
 
 #define lpMenuMng Menu::GetInstance()
 

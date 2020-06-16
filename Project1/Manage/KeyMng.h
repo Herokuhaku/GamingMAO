@@ -1,12 +1,12 @@
 #pragma once
 #include <DxLib.h>
 
-#define lpKeyMng KeyMng::getInstance()
+#define lpKeyMng KeyMng::GetInstance()
 
 class KeyMng
 {
 public:
-	static KeyMng &getInstance(void)
+	static KeyMng &GetInstance(void)
 	{
 		Create();
 		return *sInstance;

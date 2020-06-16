@@ -1,5 +1,6 @@
 #include "HolyJudge.h"
-
+#include "../../../Graphic/EffekseerMng.h"
+#include "../../../Manage/MapMng.h"
 
 HolyJudge::HolyJudge(Vector2 pos, TIME time, int stage, OBJ_TYPE target)
 {

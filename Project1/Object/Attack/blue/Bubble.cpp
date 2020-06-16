@@ -1,4 +1,5 @@
 #include "Bubble.h"
+#include "../../../Graphic/ImageMng.h"
 
 
 Bubble::Bubble(Vector2 pos, TIME time, int stage, OBJ_TYPE target)

@@ -3,12 +3,12 @@
 #include <map>
 #include <vector>
 #include <tuple>
+#include <string>
 #include "LAYER.h"
 #include "../common/Vector2.h"
-#include <string>
-#include "EffekseerMng.h"
-
 #include "../Manage/MapMng.h"
+
+
 
 // 描画データの要素
 enum class DrawElm : int
@@ -55,7 +55,7 @@ enum class EffectDrawType
 	DRAW_TO_ABSOLUTE
 };
 
-#define lpImageMng ImageMng::getInstance()
+#define lpImageMng ImageMng::GetInstance()
 
 using DrawData = std::tuple<int, int, int, double, double,  LAYER, int, int, int>;	// 描画用データ　画像ID, 座標x, y, 拡大率、角度, レイヤー, zオーダー、ブレンド、パラメータ
 using EffectData = std::vector<std::pair<int, int>>;
@@ -63,7 +63,7 @@ using EffectData = std::vector<std::pair<int, int>>;
 class ImageMng
 {
 public:
-	static ImageMng& getInstance()
+	static ImageMng& GetInstance()
 	{
 		if (sInstance == nullptr)
 		{

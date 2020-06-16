@@ -1,6 +1,8 @@
+#include <math.h>
+#include <DxLib.h>
+#include "../Graphic/ImageMng.h"
 #include "ItemTrader.h"
 #include "../Scene/SceneMng.h"
-#include <math.h>
 #include "AttackUI.h"
 
 int ItemTrader::_count = 0;

@@ -1,4 +1,5 @@
 #include "IceWall.h"
+#include "../../../Graphic/ImageMng.h"
 
 
 IceWall::IceWall(Vector2 pos, TIME time, int stage, OBJ_TYPE target)

@@ -1,6 +1,7 @@
 #include "Fruit.h"
 #include "../../../Scene/SceneMng.h"
 #include "../../../func/CheckHitStage.h"
+#include "../../../Graphic/ImageMng.h"
 
 
 Fruit::Fruit(Vector2 pos, DIR dir, int speed, TIME time, int stage, OBJ_TYPE target)

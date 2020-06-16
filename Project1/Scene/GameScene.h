@@ -1,5 +1,5 @@
 #pragma once
-#include "BaceScene.h"
+#include "BaseScene.h"
 #include "../Object/Object.h"
 #include "../Object/Enemy/Enemy.h"
 #include "../Graphic/EffekseerMng.h"
@@ -7,13 +7,13 @@
 #include "GameOverScene.h"
 
 
-class GameScene:public BaceScene
+class GameScene:public BaseScene
 {
 public:
 	GameScene();
 	~GameScene();
 
-	std::unique_ptr<BaceScene> Update(std::unique_ptr<BaceScene> own) override;	
+	std::unique_ptr<BaseScene> Update(std::unique_ptr<BaseScene> own) override;	
 private:
 	friend struct CheckHitAttack;
 

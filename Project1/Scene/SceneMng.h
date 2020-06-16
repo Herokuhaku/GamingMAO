@@ -1,7 +1,7 @@
 #pragma once
 #include <random>
 #include <memory>
-#include "BaceScene.h"
+#include "BaseScene.h"
 #include "../Object/Object.h"
 #include "../Graphic/StringAddDraw.h"
 
@@ -55,7 +55,7 @@ public:
 	const Vector2 ScreenSize = { 1280,720 };
 private:
 	static SceneMng *sInstance;
-	std::unique_ptr<BaceScene> _activeScene;
+	std::unique_ptr<BaseScene> _activeScene;
 	std::map<TIME, std::shared_ptr<Object>> _plObj;
 	std::shared_ptr<Vector2D> _cPos;									// ÉJÉÅÉâç¿ïW
 

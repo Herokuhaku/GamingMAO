@@ -1,9 +1,11 @@
 #pragma once
 #include <vector>
+#include <array>
 #include <memory>
 #include <map>
 #include "../Object/Object.h"
 #include "../Object/Item.h"
+#include "../Graphic/LAYER.h"
 
 #define lpTradeMng ItemTrader::GetInstance()
 

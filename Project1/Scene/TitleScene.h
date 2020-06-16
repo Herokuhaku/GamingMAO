@@ -1,12 +1,12 @@
 #pragma once
-#include "BaceScene.h"
+#include "BaseScene.h"
 
 class TitleScene :
-	public BaceScene
+	public BaseScene
 {
 public:
 	TitleScene();
 	~TitleScene();
-	std::unique_ptr<BaceScene> Update(std::unique_ptr<BaceScene> own) override;
+	std::unique_ptr<BaseScene> Update(std::unique_ptr<BaseScene> own) override;
 };
 

@@ -3,6 +3,7 @@
 #include "../../Scene/SceneMng.h"
 #include "../../Manage/MapMng.h"
 #include "../../Manage/ItemTrader.h"
+#include "../../Graphic/ImageMng.h"
 
 void Enemy::Update(void)
 {

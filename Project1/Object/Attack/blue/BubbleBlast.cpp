@@ -1,4 +1,5 @@
 #include "BubbleBlast.h"
+#include "../../../Graphic/ImageMng.h"
 
 
 BubbleBlast::BubbleBlast(Vector2 pos, TIME time, int stage, OBJ_TYPE target)

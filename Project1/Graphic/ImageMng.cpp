@@ -1,9 +1,10 @@
 #include <algorithm>
 #include <string>
 #include "ImageMng.h"
-#include "../Manage/MapMng.h"
 #include "../Scene/SceneMng.h"
 #include "../Object/Enemy/EnemyMng.h"
+#include "EffekseerMng.h"
+#include "../Manage/MapMng.h"
 
 #define SCREEN_SIZE_X lpSceneMng.ScreenSize.x
 #define SCREEN_SIZE_Y lpSceneMng.ScreenSize.y

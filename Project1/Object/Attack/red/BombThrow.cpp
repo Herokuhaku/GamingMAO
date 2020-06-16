@@ -1,5 +1,6 @@
 #include "BombThrow.h"
 #include "../../../func/CheckHitStage.h"
+#include "../../../Graphic/ImageMng.h"
 
 
 BombThrow::BombThrow(Vector2 pos, DIR dir, int speed, double vel, TIME time, int stage, OBJ_TYPE target)

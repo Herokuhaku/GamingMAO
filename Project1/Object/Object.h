@@ -1,7 +1,7 @@
 #pragma once
 #include <map>
 #include <vector>
-#include "../Graphic/ImageMng.h"
+#include <array>
 #include "../common/Vector2.h"
 #include "DIR.h"
 #include "../Manage/TimeMng.h"

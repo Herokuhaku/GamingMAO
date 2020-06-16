@@ -1,4 +1,6 @@
 #include "Object.h"
+#include "../Graphic/ImageMng.h"
+#include "../Graphic/EffekseerMng.h"
 
 Object::Object()
 {

@@ -9,6 +9,7 @@
 #include "../Object/Enemy/EnemyMng.h"
 #include "../Object/Attack/AttackMng.h"
 #include "../Manage/AttackUI.h"
+#include "../Graphic/ImageMng.h"
 
 GameScene::GameScene()
 {
@@ -109,7 +110,7 @@ GameScene::~GameScene()
 {
 }
 
-std::unique_ptr<BaceScene> GameScene::Update(std::unique_ptr<BaceScene> own)
+std::unique_ptr<BaseScene> GameScene::Update(std::unique_ptr<BaseScene> own)
 {
 	lpAttackUI.Update();
 
@@ -257,12 +258,12 @@ void GameScene::ItemDraw(void)
 		if (i < 3)
 		{
 			lpImageMng.AddBackDraw({ lpImageMng.getImage(no)[0], pos.x + (i * 75),pos.y, 1.0, 0.0, LAYER::CHAR,150, DX_BLENDMODE_NOBLEND, 0 });
-			lpStrAdd.AddDraw(_no.c_str(), pos.x + (i * 75) + 20, pos.y-25, 0xffff00, DRAW_TO_LEFT);
+			lpStrAdd.AddStringDraw(_no.c_str(), pos.x + (i * 75) + 20, pos.y-25, 0xffff00, DRAW_TO_LEFT);
 		}
 		else
 		{
 			lpImageMng.AddBackDraw({ lpImageMng.getImage(no)[0], pos.x - (3 * 75) + (i*75),pos.y + 50, 1.0, 0.0, LAYER::CHAR,150, DX_BLENDMODE_NOBLEND, 0 });
-			lpStrAdd.AddDraw(_no.c_str(), pos.x - (3 * 75) + (i * 75) +20, pos.y + 25, 0xffff00, DRAW_TO_LEFT);
+			lpStrAdd.AddStringDraw(_no.c_str(), pos.x - (3 * 75) + (i * 75) +20, pos.y + 25, 0xffff00, DRAW_TO_LEFT);
 		}
 		tmp++;
 	}

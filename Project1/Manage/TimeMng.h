@@ -6,12 +6,12 @@ enum class TIME : int
 	FTR,	// –¢—ˆ
 };
 
-#define lpTimeMng TimeMng::getInstance()
+#define lpTimeMng TimeMng::GetInstance()
 
 class TimeMng
 {
 public:
-	static TimeMng& getInstance()
+	static TimeMng& GetInstance()
 	{
 		if (sInstance == nullptr)
 		{

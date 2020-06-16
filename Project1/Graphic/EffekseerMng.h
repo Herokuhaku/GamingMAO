@@ -1,10 +1,8 @@
 #pragma once
-#include <DxLib.h>
 #include <EffekseerForDXLib.h>
 #include <map>
 #include <vector>
 #include <tuple>
-#include <type_traits>
 #include "../Object/DIR.h"
 
 
@@ -17,12 +15,12 @@ enum class EFK_DATA : int
 	DIR
 };
 
-#define lpEffectMng EffekseerMng::getInstance()
+#define lpEffectMng EffekseerMng::GetInstance()
 
 class EffekseerMng
 {
 public:
-	static EffekseerMng& getInstance()
+	static EffekseerMng& GetInstance()
 	{
 		if (sInstance == nullptr)
 		{
@@ -43,6 +41,7 @@ public:
 	int getEffect(const std::string& key);														// キーを渡すとエフェクトのハンドルを返す
 	int getEffect(const std::string& filename, const std::string& key, const float& exRate);	// ファイル名で読み込み、キーに入れる
 
+	// 返り値:アニメーションハンドル
 	// efcHd:ハンドル time:時間 pos_x,pos_y:座標 offset_x,pffset_y:オフセット dir:向き 
 	int playEffect(const int efcHd, const int time, int* pos_x, int* pos_y, int offset_x, int offset_y, DIR* dir);			
 	void stopEffect(int playEfcHd);

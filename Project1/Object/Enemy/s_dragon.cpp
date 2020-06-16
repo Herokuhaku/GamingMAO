@@ -1,6 +1,7 @@
 #include "s_dragon.h"
 #include "../../Scene/SceneMng.h"
 #include "../Attack/AttackMng.h"
+#include "../../Graphic/ImageMng.h"
 
 void s_dragon::Update(void)
 {

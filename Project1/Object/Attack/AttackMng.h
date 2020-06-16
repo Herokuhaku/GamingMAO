@@ -1,14 +1,14 @@
 #pragma once
 #include "../Object.h"
 
-#define lpAtkMng AttackMng::getInstance()
+#define lpAtkMng AttackMng::GetInstance()
 
 
 class AttackMng :
 	public Object
 {
 public:
-	static AttackMng& getInstance()
+	static AttackMng& GetInstance()
 	{
 		if (sInstance == nullptr)
 		{

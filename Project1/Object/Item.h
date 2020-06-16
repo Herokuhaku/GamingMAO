@@ -2,6 +2,7 @@
 #include "Object.h"
 #include "../common/Vector2.h"
 #include "../Manage/COLOR.h"
+#include "../Graphic/LAYER.h"
 
 
 enum class ITEM_TYPE
