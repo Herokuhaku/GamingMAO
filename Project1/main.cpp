@@ -1,4 +1,4 @@
-#include <Dxlib.h>
+#include <EffekseerforDxlib.h>
 #include "Scene/SceneMng.h"
 #include "Graphic/ImageMng.h"
 #include "Manage/ButtonMng.h"
