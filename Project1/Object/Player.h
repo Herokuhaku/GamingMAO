@@ -28,6 +28,7 @@ class Player :
 public:
 	Player();
 	Player(Vector2Template<int> pos, int stage, TIME time);
+	Player(const Player&) = delete;
 	~Player();
 
 	void Update(void)override;
@@ -61,8 +62,8 @@ private:
 	double _vel;
 
 	bool MenuUpdate(void);
-
 	void Attack(void);
+	void Portal(void);
 
 	bool MenuFlag;
 

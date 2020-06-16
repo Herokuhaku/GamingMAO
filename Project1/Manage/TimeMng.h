@@ -45,6 +45,8 @@ private:
 	bool _changeFlag;
 	int _changeTime;
 
+	static constexpr int INTERVAL = 15;
+
 	TimeMng();
 	~TimeMng();
 };

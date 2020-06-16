@@ -28,6 +28,7 @@ Player::Player(Vector2Template<int> pos, int stage, TIME time)
 
 	_time = time;
 	_stage = stage;
+	MenuFlag = false;
 
 	_anmEfkHd = -1;
 
@@ -78,61 +79,7 @@ void Player::Update(void)
 		lpTradeMng.AddBag();
 	}
 
-	if ((lpKeyMng.getOldBuf()[KEY_INPUT_DOWN] && !lpKeyMng.getBuf()[KEY_INPUT_DOWN]))
-	{
-		// 
-		bool flag =
-			std::pow(lpMapMng.GetPortal()->Spos.x - _pos.x, 2.0) +
-				std::pow(lpMapMng.GetPortal()->Spos.y + 50 - _pos.y, 2.0)
-				<= 900 ? true : false;
-		// 900は正しい値じゃない
-		// 
-
-		int y = _pos.y - 50;
-		// if(座標を見て一番右のポータル)
-		if (lpMapMng.getGameMapM({ _pos.x,y },_stage) == 41)
-		{
-			_nextPos = { lpMapMng.GetFrontPosX(_stage),lpMapMng.GetFrontPosY(_stage) };
-			lpImageMng.SetplmoveF(true, MAP_DATA::FRONT);
-			lpImageMng.setGkind(ScrEff::FADEOUT);
-		}
-		// if(座標を見て一番左のポータル)
-		else if (lpMapMng.getGameMapM({ _pos.x,y },_stage) == 9)
-		{
-			_nextPos = { lpMapMng.GetBackPosX(_stage),lpMapMng.GetBackPosY(_stage) };
-			lpImageMng.SetplmoveF(true, MAP_DATA::BACK);
-			lpImageMng.setGkind(ScrEff::FADEOUT);
-		}
-		// if(座標 真ん中のポータル)
-		else if (flag)
-		{
-			_nextPos = { lpMapMng.GetBrancPosX(_stage),lpMapMng.GetBrancPosY(_stage) };
-			lpMapMng.setstageF(false);
-			lpImageMng.SetplmoveF(true, MAP_DATA::BRANCH);
-			lpImageMng.setGkind(ScrEff::FADEOUT);
-
-		}
-		// ポータルスタート
-		else if ( std::pow(lpMapMng.GetPortal2()->Spos.x - _pos.x, 2.0) +
-				std::pow(lpMapMng.GetPortal2()->Spos.y + 50 - _pos.y, 2.0)
-				<= 900 )
-		{
-				(*lpSceneMng.GetPlObj(lpTimeMng.getTime()))->setPos(lpMapMng.GetPortal2()->Epos);
-				(*lpSceneMng.GetPlObj(lpTimeMng.getTime()))->setPlTmpPos(lpMapMng.GetPortal2()->Epos);
-		}
-		// ポータルエンド
-		else if ( std::pow(lpMapMng.GetPortal2()->Epos.x - _pos.x, 2.0) +
-				std::pow(lpMapMng.GetPortal2()->Epos.y + 50 - _pos.y, 2.0)
-				<= 900 )
-		{
-				(*lpSceneMng.GetPlObj(lpTimeMng.getTime()))->setPos(lpMapMng.GetPortal2()->Spos);
-				(*lpSceneMng.GetPlObj(lpTimeMng.getTime()))->setPlTmpPos(lpMapMng.GetPortal2()->Spos);
-		}
-		else
-		{
-		}
-
-	}
+	Portal();
 }
 
 void Player::Draw(void)
@@ -601,11 +548,6 @@ void Player::VelUpdate(void)
 		}
 	}
 
-	//if (_vel < 0)
-	//{
-	//	setState({ OBJ_STATE::FALL, _state_dir.second });
-	//}
-
 	_tmpPos.y -= _vel;
 	_type = OBJ_TYPE::PLAYER;
 
@@ -620,10 +562,7 @@ bool Player::MenuUpdate(void)
 	{
 		MenuFlag = true;
 	}
-	//if (CheckHitKey(KEY_INPUT_D))
-	//{
-	//	MenuFlag = true;
-	//}
+
 	if (MenuFlag && _time == lpTimeMng.getTime())
 	{
 		MenuFlag = lpMenuMng.Update();
@@ -637,10 +576,69 @@ void Player::Attack(void)
 
 }
 
+void Player::Portal(void)
+{
+	if ((lpKeyMng.getOldBuf()[KEY_INPUT_DOWN] && !lpKeyMng.getBuf()[KEY_INPUT_DOWN]) ||
+		(lpButtonMng.Buttonf(0, XINPUT_BUTTON_Y).first == 1 && lpButtonMng.Buttonf(0, XINPUT_BUTTON_Y).second == 0))
+	{
+		// 
+		bool flag =
+			std::pow(lpMapMng.GetPortal()->Spos.x - _pos.x, 2.0) +
+			std::pow(lpMapMng.GetPortal()->Spos.y + 50 - _pos.y, 2.0)
+			<= 900 ? true : false;
+		// 900は正しい値じゃない
+		// 
+
+		int y = _pos.y - 50;
+		// if(座標を見て一番右のポータル)
+		if (lpMapMng.getGameMapM({ _pos.x,y }, _stage) == 41)
+		{
+			_nextPos = { lpMapMng.GetFrontPosX(_stage),lpMapMng.GetFrontPosY(_stage) };
+			lpImageMng.SetplmoveF(true, MAP_DATA::FRONT);
+			lpImageMng.setGkind(ScrEff::FADEOUT);
+		}
+		// if(座標を見て一番左のポータル)
+		else if (lpMapMng.getGameMapM({ _pos.x,y }, _stage) == 9)
+		{
+			_nextPos = { lpMapMng.GetBackPosX(_stage),lpMapMng.GetBackPosY(_stage) };
+			lpImageMng.SetplmoveF(true, MAP_DATA::BACK);
+			lpImageMng.setGkind(ScrEff::FADEOUT);
+		}
+		// if(座標 真ん中のポータル)
+		else if (flag)
+		{
+			_nextPos = { lpMapMng.GetBrancPosX(_stage),lpMapMng.GetBrancPosY(_stage) };
+			lpMapMng.setstageF(false);
+			lpImageMng.SetplmoveF(true, MAP_DATA::BRANCH);
+			lpImageMng.setGkind(ScrEff::FADEOUT);
+
+		}
+		// ポータルスタート
+		else if (std::pow(lpMapMng.GetPortal2()->Spos.x - _pos.x, 2.0) +
+			std::pow(lpMapMng.GetPortal2()->Spos.y + 50 - _pos.y, 2.0)
+			<= 900)
+		{
+			(*lpSceneMng.GetPlObj(lpTimeMng.getTime()))->setPos(lpMapMng.GetPortal2()->Epos);
+			(*lpSceneMng.GetPlObj(lpTimeMng.getTime()))->setPlTmpPos(lpMapMng.GetPortal2()->Epos);
+		}
+		// ポータルエンド
+		else if (std::pow(lpMapMng.GetPortal2()->Epos.x - _pos.x, 2.0) +
+			std::pow(lpMapMng.GetPortal2()->Epos.y + 50 - _pos.y, 2.0)
+			<= 900)
+		{
+			(*lpSceneMng.GetPlObj(lpTimeMng.getTime()))->setPos(lpMapMng.GetPortal2()->Spos);
+			(*lpSceneMng.GetPlObj(lpTimeMng.getTime()))->setPlTmpPos(lpMapMng.GetPortal2()->Spos);
+		}
+		else
+		{
+		}
+	}
+}
+
 void Player::Red1(void)
 {
 	lpAtkMng.MakeFireBall({ _pos.x + (static_cast<int>(_state_dir.second) - 1) * PLAYER_SIZE_X / 2, _pos.y - _drawOffset_y }, _state_dir.second,
-		{ 3, 0 }, _time, _stage, OBJ_TYPE::ENEMY);
+		{ 6, 0 }, _time, _stage, OBJ_TYPE::ENEMY);
 }
 
 void Player::Red2(void)
