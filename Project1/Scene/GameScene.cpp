@@ -175,11 +175,11 @@ bool GameScene::Init(void)
 	lpTimeMng.TimeInit();
 
 	_objList.clear();
-	_objList.emplace_back(new Player({ 2080,1311 }, 1, TIME::NOW));
+	_objList.emplace_back(std::make_shared<Player>((Vector2(2080,1311), 1, TIME::NOW)));
 	lpSceneMng.SetPlObj(_objList[0], TIME::NOW);
-	_objList.emplace_back(new Player({ 400,900 }, 1, TIME::FTR));
+	_objList.emplace_back(std::make_shared<Player>((Vector2(400, 900), 1, TIME::FTR)));
 	lpSceneMng.SetPlObj(_objList[1], TIME::FTR);
-	_objList.emplace_back(new camera());
+	_objList.emplace_back(std::make_shared<camera>());
 
 	lpMapMng.Init();
 
