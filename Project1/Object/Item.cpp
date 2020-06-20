@@ -16,9 +16,9 @@ Item::Item()
 
 Item::Item(Vector2 pos, ITEM_TYPE itemtype,COLOR colortype,int no,int stage)
 {
-	_book = 0;
-	_stone = 0;
-	_tool = 0;
+	_book = -1;
+	_stone = -1;
+	_tool = -1;
 	_type = OBJ_TYPE::ITEM;
 	_pos = pos;
 	_itemtype = itemtype;

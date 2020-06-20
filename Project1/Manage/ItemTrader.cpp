@@ -5,7 +5,7 @@
 #include "../Scene/SceneMng.h"
 #include "AttackUI.h"
 
-int ItemTrader::_count = 0;
+int ItemTrader::_count = 2;
 
 ItemTrader* ItemTrader::sInstance = nullptr;
 
@@ -38,22 +38,25 @@ void ItemTrader::BagDraw(Vector2D pos , LAYER lay, Vector2 off, Vector2D rad)
 
 void ItemTrader::ToolDraw(Vector2 pos, LAYER lay, Vector2 off, Vector2D rad)
 {
-	int _draw = 0;
-	int count = _count;
+	int count = 0;
 	for (auto data : _IBag)
 	{
-		if (data.first.tool == count)
+		while (_drawtool[count] == ~7)
 		{
-			if (_draw < 5)
-			{
-				_drawtool[_draw] = count;
-				count++;
-				_draw++;
-				lpImageMng.AddBackDraw({ lpImageMng.getImage(data.first.image[0])[0],cos(RAD(_draw * 45.0)) * 100.0,
-					sin(RAD(_draw * 45.0)) * 100.0,rad.x,0.0,LAYER::EX,120,DX_BLENDMODE_NOBLEND,0 });
-			}
+			count++;
 		}
+		if (data.first.tool == _drawtool[count])
+		{
+				lpImageMng.AddBackDraw({ lpImageMng.getImage(data.first.image[0])[0],cos(RAD(count * 45.0)-45.0) * 75.0,
+					sin(RAD(count*45.0)-45.0) * 75.0,rad.x,0.0,LAYER::EX,120,DX_BLENDMODE_NOBLEND,0 });
+				count++;
+		}
+
 	}
+}
+
+void ItemTrader::inTool(void)
+{
 }
 
 COLOR ItemTrader::Trade(COLOR color1, COLOR color2)
@@ -277,11 +280,44 @@ void ItemTrader::ChangeCount(bool num)
 {
 	if (num == true)
 	{
-		ItemTrader::_count++;
+		if (_count < _toolMax+2)
+		{
+			_count++;
+			for (int i = 0;i < 5;i++) {
+				if (i == 4)
+				{
+					_drawtool[i] = _count;
+					break;
+				}
+				_drawtool[i] = _drawtool[i + 1];
+			}
+		}
 	}
 	else
 	{
-		ItemTrader::_count--;
+		if (_count > 2)
+		{
+			_count--;
+			for (int i = 4;i >= 0;i--)
+			{
+				if (_drawtool[0] == 0 && i == 0)
+				{
+					_drawtool[0] = ~7;
+					break;
+				}
+				if (_drawtool[1] == 0 && i == 1)
+				{
+					_drawtool[1] = ~7;
+					_drawtool[0] = ~7;
+					break;
+				}
+				if (i == 0)
+				{
+					_drawtool[i] = _drawtool[i] - 1;
+				}
+				_drawtool[i] = _drawtool[i - 1];
+			}
+		}
 	}
 }
 
@@ -295,6 +331,14 @@ ItemTrader::ItemTrader()
 	_stone = 0;
 	_tool = 0;
 	color = 0x000000;
+	for (int i = 0;i < 2;i++)
+	{
+		_drawtool[i] = ~7;
+	}
+	for (int i = 0;i < 3;i++)
+	{
+		_drawtool[i+2] = i;
+	}
 }
 
 ItemTrader::~ItemTrader()
@@ -313,6 +357,8 @@ const char* ItemTrader::ChangeName(ITEM_TYPE _itemtype,COLOR _colortype)
 
 		switch (_colortype)
 		{
+		case COLOR::BLACK:
+			break;
 		case COLOR::BLUE:
 			save.image[0] = "BlueBook";
 			break;
@@ -321,6 +367,17 @@ const char* ItemTrader::ChangeName(ITEM_TYPE _itemtype,COLOR _colortype)
 			break;
 		case COLOR::RED:
 			save.image[0] = "RedBook";
+			break;
+		case COLOR::CYAN:
+			save.image[0] = "CyanBook";
+			break;
+		case COLOR::MAGENTA:
+			save.image[0] = "MagentaBook";
+			break;
+		case COLOR::YELLOW:
+			save.image[0] = "MagentaBook";
+			break;
+		case COLOR::WHITE:
 			break;
 		default:
 			break;

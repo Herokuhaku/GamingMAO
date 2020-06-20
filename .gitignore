@@ -707,3 +707,6 @@ ASALocalRun/
 *.un~
 /Project1/Log.txt
 /Project1.sln
+/Project1/*.vcxproj
+/Project1/*.filters
+/Project1/*.user

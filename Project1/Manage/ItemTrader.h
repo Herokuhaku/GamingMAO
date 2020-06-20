@@ -41,6 +41,9 @@ public:
 	void Draw(void);
 	void BagDraw(Vector2D pos,LAYER lay, Vector2 off , Vector2D rad);
 	void ToolDraw(Vector2 pos, LAYER lay, Vector2 off, Vector2D rad);
+
+	void inTool(void);
+
 	COLOR Trade(COLOR color1, COLOR color2);
 	bool ColorTradeCheck(COLOR color1, COLOR color2);
 	const void SetItemList(Vector2 pos, ITEM_TYPE itype,COLOR ctype, int stage);

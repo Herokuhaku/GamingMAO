@@ -50,7 +50,7 @@ void Player::Update(void)
 	MagicUpdate();
 
 	// ëÄçÏÇµÇƒÇ¢ÇÈÉvÉåÉCÉÑÅ[Ç∂Ç·Ç»Ç¢
-	if (lpTimeMng.getTime() != _time);
+	if (lpTimeMng.getTime() != _time)
 	{
 		StopWalk();
 		return;
@@ -67,6 +67,17 @@ void Player::Update(void)
 			lpButtonMng.Buttonf(0,XINPUT_BUTTON_LEFT_SHOULDER).first == 0 && lpButtonMng.Buttonf(0,XINPUT_BUTTON_LEFT_SHOULDER).second == 1)
 		{
 			lpTimeMng.ChangeTime();
+		}
+
+		if (lpButtonMng.Buttonf(0, XINPUT_BUTTON_DPAD_LEFT).first == 1 &&
+			lpButtonMng.Buttonf(0, XINPUT_BUTTON_DPAD_LEFT).second == 0)
+		{
+			lpTradeMng.ChangeCount(false);
+		}
+		else if (lpButtonMng.Buttonf(0, XINPUT_BUTTON_DPAD_RIGHT).first == 1 &&
+			lpButtonMng.Buttonf(0, XINPUT_BUTTON_DPAD_RIGHT).second == 0)
+		{
+			lpTradeMng.ChangeCount(true);
 		}
 	}
 	else
