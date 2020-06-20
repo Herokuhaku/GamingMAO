@@ -35,12 +35,23 @@ public:
 
 	void Draw(void)override;
 private:
-	static constexpr int WALK_SPEED = 3;
+	static constexpr int WALK_SPEED = 4;
 	static constexpr double G_ACC_NORMAL = 0.4;
 	static constexpr double INI_VEL_NORMAL = 9.0;
 	static constexpr double VEL_MAX = 9.0;
 
 	static constexpr int MP_MAX = 100;
+	static constexpr int MP_DATA[static_cast<int>(COLOR::MAX)][static_cast<int>(ATK_TYPE::MAX)] = 
+	{
+		{0, 0, 0},
+		{10, 0, 0},
+		{15, 0, 0},
+		{30, 0, 0},
+		{20, 0, 0},
+		{20, 0, 0},
+		{15, 0, 0},
+		{50, 0, 0}
+	};
 
 	void Init(void);
 

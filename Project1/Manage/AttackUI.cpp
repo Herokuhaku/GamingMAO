@@ -14,6 +14,7 @@ void AttackUI::Update(void)
 	// 現在の右スティックの情報の取得
 	lpButtonMng.GetThumb(THUMB_RIGHT, _stickX, _stickY);
 
+	MpUpdate();
 	StickTrans();
 
 	if (_coolTime != 0)
@@ -31,24 +32,50 @@ void AttackUI::Draw(void)
 {
 	// 現在の描画先を退避
 	int tmpScreen = GetDrawScreen();
+	int tmpBlend;
+	int tmpParam;
+
+	GetDrawBlendMode(&tmpBlend, &tmpParam);
 
 	// 描画
 	SetDrawScreen(_uiScreen);
 	ClsDrawScreen();
 
 	DrawGraph((UI_SIZE - RING_SIZE) / 2, (UI_SIZE - RING_SIZE) / 2, lpImageMng.getImage("base_ring")[0], true);
+
+	CreateMaskScreen();
+	unsigned int color = 0xff0000;
+	for (int i = 0; i < PRIMARY_COLOR_COUNT; i++)
+	{
+		FillMaskScreen(1);
+		DrawMask((UI_SIZE - RING_SIZE) / 2, (UI_SIZE - RING_SIZE) / 2, _maskHandle[i], DX_MASKTRANS_WHITE);
+		DrawBox(0, MP_GAUGE_OFFSET[i] - _magicState[i].second * MP_GAUGE_HEIGHT[i] / MP_MAX, UI_SIZE, MP_GAUGE_OFFSET[i], color, true);
+		color = color >> 8;
+	}
+	DeleteMaskScreen();
+
 	DrawRotaGraph(UI_SIZE / 2 + STICK_TO_POS(_stickX), UI_SIZE / 2 - STICK_TO_POS(_stickY), 1.0, 0.0, lpImageMng.getImage("stick_obj")[std::underlying_type<COLOR>::type(_AttackColor)], true);
 
 	if (_OldAttackColor != _AttackColor && _AttackColor != COLOR::BLACK)
 	{
-		lpImageMng.playEffect("stick_effect_" + std::to_string(static_cast<int>(_AttackColor)), &_absStickX, &_absStickY, EFFECT_EX_RATE, LAYER::EX, 501, DX_BLENDMODE_NOBLEND, 0, EffectDrawType::DRAW_TO_ABSOLUTE);
+		lpImageMng.playEffect("stick_effect_" + std::to_string(static_cast<int>(_AttackColor)), &_absStickX, &_absStickY, EFFECT_EX_RATE_STICK, LAYER::EX, Z_ORDER + 1, DX_BLENDMODE_NOBLEND, 0, EffectDrawType::DRAW_TO_ABSOLUTE);
 	}
-	
+
+	SetDrawBlendMode(DX_BLENDMODE_SUB, 25);
+	DrawRotaGraph(UI_SIZE / 2, UI_SIZE / 2, 1.0, 0.0, lpImageMng.getImage("ui_filter_1")[0], true);
+	SetDrawBlendMode(tmpBlend, tmpParam);
+	DrawRotaGraph(UI_SIZE / 2, UI_SIZE / 2, 1.0, 0.0, lpImageMng.getImage("ui_filter_2")[0], true);
+
 	// 描画先を戻す
 	SetDrawScreen(tmpScreen);
 
 	// スクリーンを描画してもらう
-	lpImageMng.AddBackDraw({ _uiScreen, DRAW_OFFSET_X, DRAW_OFFSET_Y, 1.0, 0.0, LAYER::EX, 500, DX_BLENDMODE_NOBLEND, 0 });
+	lpImageMng.AddBackDraw({ _uiScreen, DRAW_OFFSET_X, DRAW_OFFSET_Y, 1.0, 0.0, LAYER::EX, Z_ORDER, DX_BLENDMODE_NOBLEND, 0 });
+}
+
+COLOR AttackUI::GetAttackColor(void)
+{
+	return _AttackColor;
 }
 
 bool AttackUI::CheckAttackActivate(void)
@@ -56,9 +83,10 @@ bool AttackUI::CheckAttackActivate(void)
 	return ((ACTIVE_RADIUS <= (static_cast<double>(_stickX) * static_cast<double>(_stickX) + static_cast<double>(_stickY) * static_cast<double>(_stickY))) && _coolTime == 0);
 }
 
-COLOR AttackUI::RunAttack(int coolTime)
+bool AttackUI::RunAttack(const int& coolTime, const int& MP)
 {
-	COLOR rtnColor = static_cast<COLOR>(_AttackColor);
+	COLOR tmpColor = _AttackColor;
+	int checkColor = 0x001;
 
 	for (auto& data : _magicState)
 	{
@@ -72,9 +100,44 @@ COLOR AttackUI::RunAttack(int coolTime)
 
 	_coolTime = coolTime;
 
-	return rtnColor;
+	for (int i = 0; i < PRIMARY_COLOR_COUNT; i++)
+	{
+		if (static_cast<int>(tmpColor) & checkColor)
+		{
+			if (_magicState[i].second < static_cast<float>(MP))
+			{
+				// MPが足りないなら攻撃をしない
+				return false;
+			}
+		}
+		checkColor = checkColor << 1;
+	}
+
+	checkColor = 0x001;
+	for (int i = 0; i < PRIMARY_COLOR_COUNT; i++)
+	{
+		if (static_cast<int>(tmpColor) & checkColor)
+		{
+			_magicState[i].second -= static_cast<int>(MP);
+		}
+		checkColor = checkColor << 1;
+	}
+
+	return true;
 }
 
+
+void AttackUI::MpUpdate(void)
+{
+	for (auto& data : _magicState)
+	{
+		data.second += MP_REGENERATION_SPEED;
+		if (data.second > MP_MAX)
+		{
+			data.second = MP_MAX;
+		}
+	}
+}
 
 void AttackUI::ColorUpdate(void)
 {
@@ -181,8 +244,11 @@ AttackUI::AttackUI()
 		effect.emplace_back(0, -1);
 		lpImageMng.setEffect(key, effect);
 	}
-	lpImageMng.getImage("image/UI/AttackUIRing.png", "base_ring");
+	LoadDivMask("image/UI/MpMask.png", PRIMARY_COLOR_COUNT, PRIMARY_COLOR_COUNT, 1, RING_SIZE, RING_SIZE, _maskHandle);
+	lpImageMng.getImage("image/UI/Ring1.png", "base_ring");
 	lpImageMng.getImage("image/UI/StickObj.png", "stick_obj", 90, 90, 8, 1);
+	lpImageMng.getImage("image/UI/UIFilter1.png", "ui_filter_1");
+	lpImageMng.getImage("image/UI/UIFilter2.png", "ui_filter_2");
 
 	// 初期化
 	_stickX = 0;
@@ -191,7 +257,7 @@ AttackUI::AttackUI()
 	_absStickY = 0;
 	_OldAttackColor = COLOR::BLACK;
 	_AttackColor = COLOR::BLACK;
-	_magicState = { std::make_pair(ATK_STATE::NON, MP_MAX) };
+	_magicState = { std::make_pair(ATK_STATE::NON, MP_MAX), std::make_pair(ATK_STATE::NON, MP_MAX), std::make_pair(ATK_STATE::NON, MP_MAX) };
 	_coolTime = 0;
 }
 

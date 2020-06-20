@@ -50,7 +50,7 @@ void Player::Update(void)
 	MagicUpdate();
 
 	// ëÄçÏÇµÇƒÇ¢ÇÈÉvÉåÉCÉÑÅ[Ç∂Ç·Ç»Ç¢
-	if (lpTimeMng.getTime() != _time);
+	if (lpTimeMng.getTime() != _time)
 	{
 		StopWalk();
 		return;
@@ -162,44 +162,44 @@ void Player::Init(void)
 	setAnm({ OBJ_STATE::A_DASH, DIR::RIGHT }, data);
 
 	data.reserve(8);
-	data.emplace_back(lpImageMng.getImage("player_attack")[8], 15);
-	data.emplace_back(lpImageMng.getImage("player_attack")[9], 30);
-	data.emplace_back(lpImageMng.getImage("player_attack")[10], 45);
-	data.emplace_back(lpImageMng.getImage("player_attack")[11], 60);
-	data.emplace_back(lpImageMng.getImage("player_attack")[12], 75);
-	data.emplace_back(lpImageMng.getImage("player_attack")[13], 90);
-	data.emplace_back(lpImageMng.getImage("player_attack")[14], 105);
-	data.emplace_back(lpImageMng.getImage("player_attack")[15], 120);
+	data.emplace_back(lpImageMng.getImage("player_attack")[8], 8);
+	data.emplace_back(lpImageMng.getImage("player_attack")[9], 16);
+	data.emplace_back(lpImageMng.getImage("player_attack")[10], 24);
+	data.emplace_back(lpImageMng.getImage("player_attack")[11], 32);
+	data.emplace_back(lpImageMng.getImage("player_attack")[12], 40);
+	data.emplace_back(lpImageMng.getImage("player_attack")[13], 48);
+	data.emplace_back(lpImageMng.getImage("player_attack")[14], 56);
+	data.emplace_back(lpImageMng.getImage("player_attack")[15], 64);
 	setAnm({ OBJ_STATE::A_WALK, DIR::LEFT }, data);
 
-	data.emplace_back(lpImageMng.getImage("player_attack")[16], 15);
-	data.emplace_back(lpImageMng.getImage("player_attack")[17], 30);
-	data.emplace_back(lpImageMng.getImage("player_attack")[18], 45);
-	data.emplace_back(lpImageMng.getImage("player_attack")[19], 60);
-	data.emplace_back(lpImageMng.getImage("player_attack")[20], 75);
-	data.emplace_back(lpImageMng.getImage("player_attack")[21], 90);
-	data.emplace_back(lpImageMng.getImage("player_attack")[22], 105);
-	data.emplace_back(lpImageMng.getImage("player_attack")[23], 120);
+	data.emplace_back(lpImageMng.getImage("player_attack")[16], 8);
+	data.emplace_back(lpImageMng.getImage("player_attack")[17], 16);
+	data.emplace_back(lpImageMng.getImage("player_attack")[18], 24);
+	data.emplace_back(lpImageMng.getImage("player_attack")[19], 32);
+	data.emplace_back(lpImageMng.getImage("player_attack")[20], 40);
+	data.emplace_back(lpImageMng.getImage("player_attack")[21], 48);
+	data.emplace_back(lpImageMng.getImage("player_attack")[22], 56);
+	data.emplace_back(lpImageMng.getImage("player_attack")[23], 64);
 	setAnm({ OBJ_STATE::A_WALK, DIR::RIGHT }, data);
 
-	data.emplace_back(lpImageMng.getImage("player_walk")[0], 15);
-	data.emplace_back(lpImageMng.getImage("player_walk")[1], 30);
-	data.emplace_back(lpImageMng.getImage("player_walk")[2], 45);
-	data.emplace_back(lpImageMng.getImage("player_walk")[3], 60);
-	data.emplace_back(lpImageMng.getImage("player_walk")[4], 75);
-	data.emplace_back(lpImageMng.getImage("player_walk")[5], 90);
-	data.emplace_back(lpImageMng.getImage("player_walk")[6], 105);
-	data.emplace_back(lpImageMng.getImage("player_walk")[7], 120);
+	data.emplace_back(lpImageMng.getImage("player_walk")[0], 8);
+	data.emplace_back(lpImageMng.getImage("player_walk")[1], 16);
+	data.emplace_back(lpImageMng.getImage("player_walk")[2], 24);
+	data.emplace_back(lpImageMng.getImage("player_walk")[3], 32);
+	data.emplace_back(lpImageMng.getImage("player_walk")[4], 40);
+	data.emplace_back(lpImageMng.getImage("player_walk")[5], 48);
+	data.emplace_back(lpImageMng.getImage("player_walk")[6], 56);
+	data.emplace_back(lpImageMng.getImage("player_walk")[7], 64);
 	setAnm({ OBJ_STATE::WALK, DIR::LEFT }, data);
 
-	data.emplace_back(lpImageMng.getImage("player_walk")[8] , 15);
-	data.emplace_back(lpImageMng.getImage("player_walk")[9] , 30);
-	data.emplace_back(lpImageMng.getImage("player_walk")[10], 45);
-	data.emplace_back(lpImageMng.getImage("player_walk")[11], 60);
-	data.emplace_back(lpImageMng.getImage("player_walk")[12], 75);
-	data.emplace_back(lpImageMng.getImage("player_walk")[13], 90);
-	data.emplace_back(lpImageMng.getImage("player_walk")[14], 105);
-	data.emplace_back(lpImageMng.getImage("player_walk")[15], 120);
+	data.emplace_back(lpImageMng.getImage("player_walk")[8] , 8);
+	data.emplace_back(lpImageMng.getImage("player_walk")[9] , 16);
+	data.emplace_back(lpImageMng.getImage("player_walk")[10], 24);
+	data.emplace_back(lpImageMng.getImage("player_walk")[11], 32);
+	data.emplace_back(lpImageMng.getImage("player_walk")[12], 40);
+	data.emplace_back(lpImageMng.getImage("player_walk")[13], 48);
+	data.emplace_back(lpImageMng.getImage("player_walk")[14], 56);
+	data.emplace_back(lpImageMng.getImage("player_walk")[15], 64);
 	setAnm({ OBJ_STATE::WALK, DIR::RIGHT }, data);
 
 	data.reserve(2);
@@ -423,10 +423,13 @@ void Player::ControlAttack(void)
 	{
 		if (!lpAttackUI.CheckAttackActivate())
 		{
-			COLOR&& color = lpAttackUI.RunAttack(10);
+			COLOR&& color = lpAttackUI.GetAttackColor();
 			if (static_cast<int>(color) >= static_cast<int>(COLOR::RED) && static_cast<int>(color) < static_cast<int>(COLOR::MAX))
 			{
-				_attack[static_cast<int>(color)][static_cast<int>(_magicSet[static_cast<int>(color)])]();
+				if (lpAttackUI.RunAttack(10, MP_DATA[static_cast<int>(color)][static_cast<int>(_magicSet[static_cast<int>(color)])]))
+				{
+					_attack[static_cast<int>(color)][static_cast<int>(_magicSet[static_cast<int>(color)])]();
+				}
 			}
 			_coolTime = 10;
 		}
