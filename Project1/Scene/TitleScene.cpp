@@ -2,10 +2,10 @@
 #include "../Graphic/ImageMng.h"
 #include "SceneMng.h"
 #include "SeleScene.h"
-#include "GameScene.h"
 #include "SceneMng.h"
-#include "../Manage/KeyMng.h"
 #include "../Manage/ButtonMng.h"
+#include "../Manage/KeyMng.h"
+
 
 TitleScene::TitleScene()
 {

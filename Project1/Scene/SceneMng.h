@@ -64,7 +64,10 @@ private:
 	int _work;				// gameover用スクリーン
 
 	bool SysInit(void);
+	
 	SceneMng();
+	SceneMng(const SceneMng&) = delete;
+	SceneMng operator=(const SceneMng&) = delete;
 	~SceneMng();
 	
 };

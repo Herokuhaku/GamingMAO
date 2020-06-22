@@ -131,7 +131,7 @@ void GameOverScene::Draw(void)
 	}
 	else
 	{
-		for (auto data : _strSet)
+		for (const auto& data : _strSet)
 		{
 			int cursor, pos_y, color;
 			const TCHAR* str;

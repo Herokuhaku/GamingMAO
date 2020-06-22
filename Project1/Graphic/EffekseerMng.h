@@ -57,6 +57,8 @@ private:
 	std::vector<std::tuple<int, int, std::pair<int*,int*>, std::pair<int,int>, DIR*>> _effectList;	// 再生中のエフェクトのリスト ハンドル,時間,座標,オフセット,向き
 
 	EffekseerMng();
+	EffekseerMng(const EffekseerMng&) = delete;
+	EffekseerMng operator=(const EffekseerMng&) = delete;
 	~EffekseerMng();
 };
 

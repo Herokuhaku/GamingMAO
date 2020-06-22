@@ -82,7 +82,7 @@ public:
 	void setAttack(const std::string key, std::vector<atkData>& data);
 	void AddAttack(const std::string key);
 	void attackUpdate(void);
-	std::vector<atkData> getAttackQue(void);
+	std::vector<atkData>& getAttackQue(void);
 	int getAnmEfk(void);
 	void stopAttack(void);
 
@@ -97,7 +97,7 @@ public:
 	void nextPos(void) { _pos = _nextPos; _tmpPos = { static_cast<double>(_nextPos.x),static_cast<double>(_nextPos.y) }; };
 private:
 	int _inv;						// 無敵時間　0なら無敵ではない
-	std::array<int, 4> _hitOffset;	// 座標からの当たり判定の範囲 0:左 1:右 2:上 3:下
+	std::array<int, 4> _hitBox;	// 座標からの当たり判定の範囲 0:左 1:右 2:上 3:下
 protected:
 	int _hp;						// 体力
 	Vector2 _pos;					// 座標(x:中心　y:下辺)

@@ -17,7 +17,7 @@ Object::Object()
 
 	_hp = -1;
 	_inv = 0;
-	_hitOffset = {};
+	_hitBox = {};
 
 	_drawOffset_y = 0;
 	_type = OBJ_TYPE::PLAYER;
@@ -115,18 +115,18 @@ void Object::InvUpdate(void)
 
 void Object::setHitOffset(std::array<int, 4> ary)
 {
-	_hitOffset = ary;
+	_hitBox = ary;
 }
 
 std::array<int, 4> Object::getHitOffset(void)
 {
-	std::array<int, 4> tmpArray = _hitOffset;
+	std::array<int, 4> tmpArray = _hitBox;
 	if (_state_dir.second == DIR::RIGHT)
 	{
-		tmpArray[0] = _hitOffset[1];
-		tmpArray[1] = _hitOffset[0];
+		tmpArray[0] = _hitBox[1];
+		tmpArray[1] = _hitBox[0];
 	}
-	return _hitOffset;
+	return _hitBox;
 }
 
 void Object::setAnm(const std::pair<OBJ_STATE, DIR> state,AnmVec& data)
@@ -261,7 +261,7 @@ void Object::attackUpdate(void)
 	}
 }
 
-std::vector<atkData> Object::getAttackQue(void)
+std::vector<atkData>& Object::getAttackQue(void)
 {
 	// ï‘Ç∑ÉfÅ[É^
 	std::vector<atkData> rtnvec;

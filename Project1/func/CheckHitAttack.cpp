@@ -2,7 +2,7 @@
 
 void CheckHitAttack::operator()(const std::vector<std::shared_ptr<Object>>& objlist, const std::vector<std::pair<atkData, std::shared_ptr<Object>>>& atklist)
 {
-	for (auto attack : atklist)
+	for (const auto& attack : atklist)
 	{
 		bool flag;
 		OBJ_TYPE my_type, target;
@@ -21,7 +21,7 @@ void CheckHitAttack::operator()(const std::vector<std::shared_ptr<Object>>& objl
 			std::swap(pos1.x, pos2.x);
 		}
 
-		for (auto obj : objlist)
+		for (const auto& obj : objlist)
 		{
 			Vector2 objPos = obj->getPos();
 			std::array<int, 4> hitBox = obj->getHitOffset();
@@ -88,7 +88,7 @@ void CheckHitAttack::operator()(const std::vector<std::shared_ptr<Object>>& objl
 
 void CheckHitAttack::operator()(const std::vector<std::shared_ptr<Enemy>>& objlist, const std::vector<std::pair<atkData, std::shared_ptr<Object>>>& atklist)
 {
-	for (auto attack : atklist)
+	for (const auto& attack : atklist)
 	{
 		bool flag;
 		OBJ_TYPE my_type, target;
@@ -107,7 +107,7 @@ void CheckHitAttack::operator()(const std::vector<std::shared_ptr<Enemy>>& objli
 			std::swap(pos1.x, pos2.x);
 		}
 
-		for (auto obj : objlist)
+		for (const auto& obj : objlist)
 		{
 			Vector2 objPos = obj->getPos();
 			std::array<int, 4> hitBox = obj->getHitOffset();

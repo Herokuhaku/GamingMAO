@@ -19,14 +19,14 @@ void AttackMng::Update(void)
 
 	_canAddObj = false;
 
-	for (auto data : _attackObj)
+	for (const auto& data : _attackObj)
 	{
 		data->Update();
 	}
 
 	_canAddObj = true;
 
-	for (auto data : _tmpObj)
+	for (auto& data : _tmpObj)
 	{
 		_attackObj.emplace_back(data);
 	}
@@ -36,7 +36,7 @@ void AttackMng::Update(void)
 
 void AttackMng::Draw(void)
 {
-	for (auto data : _attackObj)
+	for (const auto& data : _attackObj)
 	{
 		if (data->getStage() == lpMapMng.GetnowStage())
 		{

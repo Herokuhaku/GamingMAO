@@ -65,6 +65,8 @@ public:
 
 private:
 	ItemTrader();
+	ItemTrader(const ItemTrader&) = delete;
+	ItemTrader operator=(const ItemTrader&) = delete;
 	~ItemTrader();
 	static ItemTrader* sInstance;
 	std::vector<std::shared_ptr<Item>>_ItemList;				// —‚¿‚Ä‚¢‚éƒAƒCƒeƒ€

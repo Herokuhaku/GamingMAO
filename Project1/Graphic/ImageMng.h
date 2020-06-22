@@ -137,6 +137,8 @@ private:
 	//---------------------------------------------------------
 
 	ImageMng();
+	ImageMng(const ImageMng&) = delete;
+	ImageMng operator=(const ImageMng&) = delete;
 	~ImageMng();
 
 	void ImageMngInit(void);

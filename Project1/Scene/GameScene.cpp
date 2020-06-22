@@ -114,7 +114,7 @@ std::unique_ptr<BaseScene> GameScene::Update(std::unique_ptr<BaseScene> own)
 {
 	lpAttackUI.Update();
 
-	for (auto data : _objList)
+	for (const auto& data : _objList)
 	{
 		(*data).Update();
 	}
@@ -128,7 +128,7 @@ std::unique_ptr<BaseScene> GameScene::Update(std::unique_ptr<BaseScene> own)
 	CheckHitAttack()(lpEnemyMng.GetenemyList(), _attackList);
 
 
-	for (auto data : _objList)
+	for (const auto& data : _objList)
 	{
 		if ((*data).getStage() == lpMapMng.GetnowStage())
 		{
@@ -203,7 +203,7 @@ void GameScene::getAttackQue(void)
 
 	std::vector<atkData> tmpData;
 
-	for (auto data : _objList)
+	for (const auto& data : _objList)
 	{
 		tmpData.clear();
 
@@ -211,13 +211,13 @@ void GameScene::getAttackQue(void)
 		tmpData = data->getAttackQue();
 		
 		// キューを保存
-		for (auto que : tmpData)
+		for (const auto& que : tmpData)
 		{
 			_attackList.emplace_back(std::make_pair(que, data));
 		}
 	}
 
-	for (auto data : lpEnemyMng.GetenemyList())
+	for (const auto& data : lpEnemyMng.GetenemyList())
 	{
 		tmpData.clear();
 
@@ -225,13 +225,13 @@ void GameScene::getAttackQue(void)
 		tmpData = data->getAttackQue();
 
 		// キューを保存
-		for (auto que : tmpData)
+		for (const auto& que : tmpData)
 		{
 			_attackList.emplace_back(std::make_pair(que, data));
 		}
 	}
 
-	for (auto data : lpAtkMng.GetAttackObjList())
+	for (const auto& data : lpAtkMng.GetAttackObjList())
 	{
 		tmpData.clear();
 
@@ -239,7 +239,7 @@ void GameScene::getAttackQue(void)
 		tmpData = data->getAttackQue();
 
 		// キューを保存
-		for (auto que : tmpData)
+		for (const auto& que : tmpData)
 		{
 			_attackList.emplace_back(std::make_pair(que, data));
 		}

@@ -56,6 +56,8 @@ private:
 	static ButtonMng* sInstance;
 
 	ButtonMng();
+	ButtonMng(const ButtonMng&) = delete;
+	ButtonMng operator=(const ButtonMng&) = delete;
 	~ButtonMng();
 	void ButtonInit(void);
 

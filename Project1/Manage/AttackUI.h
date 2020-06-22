@@ -64,8 +64,8 @@ private:
 	static constexpr int ACTIVE_RADIUS = 400000000;
 	static constexpr double STICK_RADIUS = 0x8000;
 
-	static constexpr float MP_MAX = 100.0;
-	static constexpr float MP_REGENERATION_SPEED = 0.1;
+	static constexpr float MP_MAX = 100.0f;
+	static constexpr float MP_REGENERATION_SPEED = 0.1f;
 	static constexpr int PRIMARY_COLOR_COUNT = 3;
 
 	static constexpr int MP_GAUGE_OFFSET[PRIMARY_COLOR_COUNT] = { 251, 251, 147 };
@@ -100,6 +100,8 @@ private:
 	void StateUpdate(void);	// ñÇñ@ÇÃèÛë‘ÇÃçXêV
 
 	AttackUI();
+	AttackUI(const AttackUI&) = delete;
+	AttackUI operator+(const AttackUI&) = delete;
 	~AttackUI();
 };
 

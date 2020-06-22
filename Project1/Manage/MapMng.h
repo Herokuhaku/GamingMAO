@@ -142,6 +142,8 @@ private:
 
 	static MapMng *sInstance;
 	MapMng();
+	MapMng(const MapMng&) = delete;
+	MapMng operator=(const MapMng&) = delete;
 	~MapMng();
 };
 

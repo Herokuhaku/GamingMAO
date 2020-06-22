@@ -43,6 +43,7 @@ void AttackUI::Draw(void)
 
 	DrawGraph((UI_SIZE - RING_SIZE) / 2, (UI_SIZE - RING_SIZE) / 2, lpImageMng.getImage("base_ring")[0], true);
 
+	// MPゲージ
 	CreateMaskScreen();
 	unsigned int color = 0xff0000;
 	for (int i = 0; i < PRIMARY_COLOR_COUNT; i++)
@@ -54,6 +55,7 @@ void AttackUI::Draw(void)
 	}
 	DeleteMaskScreen();
 
+	// スティック
 	DrawRotaGraph(UI_SIZE / 2 + STICK_TO_POS(_stickX), UI_SIZE / 2 - STICK_TO_POS(_stickY), 1.0, 0.0, lpImageMng.getImage("stick_obj")[std::underlying_type<COLOR>::type(_AttackColor)], true);
 
 	if (_OldAttackColor != _AttackColor && _AttackColor != COLOR::BLACK)

@@ -39,6 +39,8 @@ private:
 	char _oldBuf[256];
 
 	KeyMng();
+	KeyMng(const KeyMng&) = delete;
+	KeyMng operator=(const KeyMng&) = delete;
 	~KeyMng();
 };
 

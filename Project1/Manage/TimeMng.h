@@ -48,6 +48,8 @@ private:
 	static constexpr int INTERVAL = 15;
 
 	TimeMng();
+	TimeMng(const TimeMng&) = delete;
+	TimeMng operator=(const TimeMng&) = delete;
 	~TimeMng();
 };
 

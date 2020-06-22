@@ -118,6 +118,8 @@ private:
 	bool _canAddObj;
 
 	AttackMng();
+	AttackMng(const AttackMng&) = delete;
+	AttackMng operator=(const AttackMng&) = delete;
 	~AttackMng();
 };
 

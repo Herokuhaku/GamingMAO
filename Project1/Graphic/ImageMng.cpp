@@ -60,7 +60,7 @@ void ImageMng::Draw(void)
 	SetDrawScreen(_workLayer);
 	ClsDrawScreen();
 
-	for (auto data : _drawList[0])
+	for (const auto& data : _drawList[0])
 	{
 		int id, x, y, blend, prm;
 		double exRate, rad;
@@ -97,7 +97,7 @@ void ImageMng::Draw(void)
 	lpEffectMng.UpdateEffekseer();
 	DrawEffekseer2D_End();
 
-	for (auto data : _drawList[1])
+	for (const auto& data : _drawList[1])
 	{
 		int id, x, y, blend, prm;
 		double ex_rate, rad;
@@ -143,7 +143,7 @@ void ImageMng::Draw(int screen, bool deleteFlag)
 	SetDrawScreen(_workLayer);
 	ClsDrawScreen();
 
-	for (auto data : _drawList[0])
+	for (const auto& data : _drawList[0])
 	{
 		int id, x, y, blend, prm;
 		double ex_rate, rad;
@@ -180,7 +180,7 @@ void ImageMng::Draw(int screen, bool deleteFlag)
 	lpEffectMng.UpdateEffekseer();
 	DrawEffekseer2D_End();
 
-	for (auto data : _drawList[1])
+	for (const auto& data : _drawList[1])
 	{
 		int id, x, y, blend, prm;
 		double ex_rate, rad;

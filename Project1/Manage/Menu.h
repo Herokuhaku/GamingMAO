@@ -63,6 +63,8 @@ public:
 
 private:
 	Menu();
+	Menu(const Menu&) = delete;
+	Menu operator=(const Menu&) = delete;
 	~Menu();
 
 	void (Menu::* type)(void);				// ƒƒjƒ…[

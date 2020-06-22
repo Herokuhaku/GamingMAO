@@ -51,6 +51,8 @@ private:
 	int _fontHandle;		// フォントのハンドル
 
 	StringAddDraw();
+	StringAddDraw(const StringAddDraw&) = delete;
+	StringAddDraw operator+(const StringAddDraw&) = delete;
 	~StringAddDraw();
 };
 
