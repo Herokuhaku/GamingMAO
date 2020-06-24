@@ -88,6 +88,7 @@ int Enemy::Move(Vector2 pPos)
 			return 	AtkMove(pPos);
 		}
 	}
+	return _aState;
 }
 
 void Enemy::RandWait(void)

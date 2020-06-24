@@ -65,7 +65,7 @@ void EnemyMng::StageTPop(int nowStage, int nextStage)
 			return;
 	}
 
-	for (int i = 0; i < _enemyPlace[nextStage].size(); i++)
+	for (unsigned int i = 0; i < _enemyPlace[nextStage].size(); i++)
 	{
 		EnemyPop(_enemyPlace[nextStage][i].first, nextStage, i);
 	}

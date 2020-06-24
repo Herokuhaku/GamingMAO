@@ -19,7 +19,7 @@ StringAddDraw::~StringAddDraw()
 
 int StringAddDraw::AddStringDraw(const char* string, int pos_x, int pos_y, int color, int draw_type)
 {
-	int length = strlen(string);
+	int length = static_cast<int>(strlen(string));
 	int width = GetDrawStringWidthToHandle(string, length, _fontHandle);
 	
 	int tmpScreen = GetDrawScreen();

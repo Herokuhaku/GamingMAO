@@ -174,8 +174,8 @@ template<class T>
 inline Vector2Template<T> operator*(const Vector2Template<T>& u, double k)
 {
 	Vector2Template<T> vec;
-	vec.x = u.x * k;
-	vec.y = u.y * k;
+	vec.x = static_cast<T>(u.x * k);
+	vec.y = static_cast<T>(u.y * k);
 
 	return vec;
 }

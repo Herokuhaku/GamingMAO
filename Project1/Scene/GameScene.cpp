@@ -166,7 +166,6 @@ std::unique_ptr<BaseScene> GameScene::Update(std::unique_ptr<BaseScene> own)
 
 	lpTimeMng.resetFlag();
 
-
 	return own;
 }
 
