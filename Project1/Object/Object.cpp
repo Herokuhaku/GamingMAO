@@ -264,8 +264,8 @@ void Object::attackUpdate(void)
 std::vector<atkData>& Object::getAttackQue(void)
 {
 	// 返すデータ
-	std::vector<atkData> rtnvec;
-	
+	//std::vector<atkData> rtnvec;
+	rtnvec.clear();
 	for (auto data = _attackData.begin(); data != _attackData.end();)
 	{
 		// 範囲外チェック

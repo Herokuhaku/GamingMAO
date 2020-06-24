@@ -124,6 +124,10 @@ protected:
 
 	std::map<std::string, std::vector<atkData>> _attackMap;	// 攻撃の情報
 	std::vector<std::pair<std::string, unsigned int>> _attackData;	// 攻撃中の攻撃
+
+	// 返すデータ
+	std::vector<atkData> rtnvec;
+
 protected:
 	// ステージ移動
 	Vector2 _nextPos;
