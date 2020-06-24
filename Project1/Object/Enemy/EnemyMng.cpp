@@ -153,7 +153,6 @@ void EnemyMng::EnemyPop(ENEMY_TYPE type, int nextStage, int i)
 		_enemyList.emplace_back(new wizard(_enemyPlace[nextStage][i].second, nextStage, i, false));
 		break;
 	case ENEMY_TYPE::sorcerer:
-
 		_enemyList.emplace_back(new sorcerer(_enemyPlace[nextStage][i].second, nextStage, i, false));
 	default:
 		break;
