@@ -593,7 +593,7 @@ void Player::Attack(void)
 void Player::Portal(void)
 {
 	if ((lpKeyMng.getOldBuf()[KEY_INPUT_DOWN] && !lpKeyMng.getBuf()[KEY_INPUT_DOWN]) ||
-		(lpButtonMng.Buttonf(0, XINPUT_BUTTON_Y).first == 1 && lpButtonMng.Buttonf(0, XINPUT_BUTTON_Y).second == 0))
+		(lpButtonMng.Buttonf(0, XINPUT_BUTTON_A).first == 1 && lpButtonMng.Buttonf(0, XINPUT_BUTTON_A).second == 0))
 	{
 		// 
 		bool flag =
