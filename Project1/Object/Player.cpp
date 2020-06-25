@@ -64,21 +64,28 @@ void Player::Update(void)
 		}
 
 		if (((lpKeyMng.getOldBuf()[KEY_INPUT_LSHIFT] && !lpKeyMng.getBuf()[KEY_INPUT_LSHIFT])) || 
-			lpButtonMng.Buttonf(0,XINPUT_BUTTON_LEFT_SHOULDER).first == 0 && lpButtonMng.Buttonf(0,XINPUT_BUTTON_LEFT_SHOULDER).second == 1)
+			lpButtonMng.ButtonTrg(0,XINPUT_BUTTON_LEFT_SHOULDER))
 		{
 			lpTimeMng.ChangeTime();
 		}
 
-		if (lpButtonMng.Buttonf(0, XINPUT_BUTTON_DPAD_LEFT).first == 1 &&
-			lpButtonMng.Buttonf(0, XINPUT_BUTTON_DPAD_LEFT).second == 0)
+		if (lpButtonMng.ButtonTrg(0, XINPUT_BUTTON_DPAD_LEFT))
 		{
 			lpTradeMng.ChangeCount(false);
 		}
-		else if (lpButtonMng.Buttonf(0, XINPUT_BUTTON_DPAD_RIGHT).first == 1 &&
-			lpButtonMng.Buttonf(0, XINPUT_BUTTON_DPAD_RIGHT).second == 0)
+		else if (lpButtonMng.ButtonTrg(0, XINPUT_BUTTON_DPAD_RIGHT))
 		{
 			lpTradeMng.ChangeCount(true);
 		}
+
+		if(lpButtonMng.ButtonTrg(0,XINPUT_BUTTON_DPAD_UP))
+		{
+			if (lpTradeMng.CheckTool())
+			{
+				lpTradeMng.getTool();
+			}
+		}
+
 	}
 	else
 	{
@@ -571,8 +578,7 @@ void Player::VelUpdate(void)
 
 bool Player::MenuUpdate(void)
 {
-	if ((lpButtonMng.Buttonf(0, XINPUT_BUTTON_BACK).first == 1 &&
-		lpButtonMng.Buttonf(0, XINPUT_BUTTON_BACK).second == 0) && _time == lpTimeMng.getTime())
+	if (lpButtonMng.ButtonTrg(0, XINPUT_BUTTON_BACK) && _time == lpTimeMng.getTime())
 	{
 		MenuFlag = true;
 	}
@@ -593,7 +599,7 @@ void Player::Attack(void)
 void Player::Portal(void)
 {
 	if ((lpKeyMng.getOldBuf()[KEY_INPUT_DOWN] && !lpKeyMng.getBuf()[KEY_INPUT_DOWN]) ||
-		(lpButtonMng.Buttonf(0, XINPUT_BUTTON_A).first == 1 && lpButtonMng.Buttonf(0, XINPUT_BUTTON_A).second == 0))
+		(lpButtonMng.ButtonTrg(0, XINPUT_BUTTON_A)))
 	{
 		// 
 		bool flag =

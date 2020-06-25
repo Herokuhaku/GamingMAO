@@ -49,8 +49,7 @@ bool Menu::Update(void)
 	(this->*type)();	// select,mix,
 
 	// メニュー終了
-	if(lpButtonMng.Buttonf(0, XINPUT_BUTTON_BACK).first == 1 &&
-		lpButtonMng.Buttonf(0, XINPUT_BUTTON_BACK).second == 0)
+	if(lpButtonMng.ButtonTrg(0, XINPUT_BUTTON_BACK))
 	{
 		type = &Menu::SELECT;
 		MixFlag = false;
@@ -100,8 +99,7 @@ void Menu::SELECT(void)
 	// 矢印操作(スティック)
 	SelectCount(_select,XINPUT_THUMBL_Y,_count.y);
 	//　矢印操作 (DPAD)
-	if (lpButtonMng.Buttonf(0,XINPUT_BUTTON_DPAD_UP).first == 1&&
-		lpButtonMng.Buttonf(0,XINPUT_BUTTON_DPAD_UP).second == 0)
+	if (lpButtonMng.ButtonTrg(0,XINPUT_BUTTON_DPAD_UP))
 	{
 		_select--;
 		if (_select < 0)
@@ -110,8 +108,7 @@ void Menu::SELECT(void)
 		}
 	}
 	
-	if (lpButtonMng.Buttonf(0, XINPUT_BUTTON_DPAD_DOWN).first == 1 &&
-		lpButtonMng.Buttonf(0, XINPUT_BUTTON_DPAD_DOWN).second == 0)
+	if (lpButtonMng.ButtonTrg(0, XINPUT_BUTTON_DPAD_DOWN))
 	{
 		_select++;
 		if (_select > static_cast<int>(MENU_TYPE::ITEMMINUS))
@@ -121,8 +118,7 @@ void Menu::SELECT(void)
 	}
 	SelectDraw();
 	// SELECTからの切り替え
-	if (lpButtonMng.Buttonf(0, XINPUT_BUTTON_B).first == 1 &&
-		lpButtonMng.Buttonf(0, XINPUT_BUTTON_B).second == 0)
+	if (lpButtonMng.ButtonTrg(0, XINPUT_BUTTON_B))
 	{
 		_type = static_cast<MENU_TYPE>(_select);
 		_select = 0;
@@ -151,8 +147,7 @@ void Menu::ItemPup(void)
 		SelectCount(_select,XINPUT_THUMBL_X,_count.x);
 
 		// 矢印を右に移動させる
-		if (lpButtonMng.Buttonf(0, XINPUT_BUTTON_DPAD_RIGHT).first == 1 &&
-			lpButtonMng.Buttonf(0, XINPUT_BUTTON_DPAD_RIGHT).second == 0)
+		if (lpButtonMng.ButtonTrg(0, XINPUT_BUTTON_DPAD_RIGHT))
 		{
 			_select++;
 			if (_select > _count.x)
@@ -161,8 +156,7 @@ void Menu::ItemPup(void)
 			}
 		}
 		//　矢印を左に移動させる
-		if (lpButtonMng.Buttonf(0, XINPUT_BUTTON_DPAD_LEFT).first == 1 &&
-			lpButtonMng.Buttonf(0, XINPUT_BUTTON_DPAD_LEFT).second == 0)
+		if (lpButtonMng.ButtonTrg(0, XINPUT_BUTTON_DPAD_LEFT))
 		{
 			_select--;
 			if (_select < 0)
@@ -196,8 +190,7 @@ void Menu::ItemPup(void)
 		MixDraw();
 
 		// アイテムを選択
-		if ((lpButtonMng.Buttonf(0, XINPUT_BUTTON_B).first == 1 &&
-			lpButtonMng.Buttonf(0, XINPUT_BUTTON_B).second == 0))
+		if (lpButtonMng.ButtonTrg(0, XINPUT_BUTTON_B))
 		{
 			if (_select2 == 0)
 			{
@@ -222,8 +215,7 @@ void Menu::ItemPup(void)
 			}
 		}
 		// Select に戻る
-		if (lpButtonMng.Buttonf(0, XINPUT_BUTTON_A).first == 1 &&
-			lpButtonMng.Buttonf(0, XINPUT_BUTTON_A).second == 0)
+		if (lpButtonMng.ButtonTrg(0, XINPUT_BUTTON_A))
 		{
 			type = &Menu::SELECT;
 		}
@@ -559,8 +551,7 @@ void Menu::Item(SELECT_ITEM item)
 	ItemSelectD(no);
 
 	// 決定した場合
-	if (lpButtonMng.Buttonf(0, XINPUT_BUTTON_B).first == 1 &&
-		lpButtonMng.Buttonf(0, XINPUT_BUTTON_B).second == 0)
+	if (lpButtonMng.ButtonTrg(0, XINPUT_BUTTON_B))
 	{
 		if (ColorPtr(_select) != COLOR::BLACK)
 		{
@@ -639,8 +630,7 @@ void Menu::ItemSelectD(int no)
 	//	}
 	//}
 
-	if (lpButtonMng.Buttonf(0, XINPUT_BUTTON_A).first == 1 &&
-		lpButtonMng.Buttonf(0, XINPUT_BUTTON_A).second == 0)
+	if (lpButtonMng.ButtonTrg(0, XINPUT_BUTTON_A))
 	{
 		_select = 0;
 		_count = { 2,1 };

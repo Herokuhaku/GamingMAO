@@ -39,6 +39,7 @@ void ItemTrader::BagDraw(Vector2D pos , LAYER lay, Vector2 off, Vector2D rad)
 void ItemTrader::ToolDraw(Vector2 pos, LAYER lay, Vector2 off, Vector2D rad)
 {
 	int count = 0;
+	_drawtool[count];
 	for (auto data : _IBag)
 	{
 		while (_drawtool[count] == ~7)
@@ -55,9 +56,24 @@ void ItemTrader::ToolDraw(Vector2 pos, LAYER lay, Vector2 off, Vector2D rad)
 	}
 }
 
-void ItemTrader::inTool(void)
+bool ItemTrader::CheckTool(void)
 {
+	for (auto data : _IBag)
+	{
+		if (data.first.tool == _drawtool[2])
+		{
+			movetool = data.first;
+			return true;
+		}
+	}
+	return false;
 }
+
+ItemSave& ItemTrader::getTool(void)
+{
+	return movetool;
+}
+
 
 COLOR ItemTrader::Trade(COLOR color1, COLOR color2)
 {

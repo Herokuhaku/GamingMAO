@@ -42,7 +42,8 @@ public:
 	void BagDraw(Vector2D pos,LAYER lay, Vector2 off , Vector2D rad);
 	void ToolDraw(Vector2 pos, LAYER lay, Vector2 off, Vector2D rad);
 
-	void inTool(void);
+	bool CheckTool(void);
+	ItemSave& getTool(void);
 
 	COLOR Trade(COLOR color1, COLOR color2);
 	bool ColorTradeCheck(COLOR color1, COLOR color2);
@@ -91,5 +92,7 @@ private:
 	
 	int _drawtool[5];
 	static int _count;
+
+	ItemSave movetool;
 };
 

@@ -77,7 +77,7 @@ std::unique_ptr<BaseScene> SeleScene::Update(std::unique_ptr<BaseScene> own)
 	}
 	
 	if ((lpKeyMng.getBuf()[KEY_INPUT_RETURN] && !lpKeyMng.getOldBuf()[KEY_INPUT_RETURN]) ||
-		(lpButtonMng.Buttonf(0, XINPUT_BUTTON_B).first == 1 && lpButtonMng.Buttonf(0, XINPUT_BUTTON_B).second == 0))
+		(lpButtonMng.ButtonTrg(0, XINPUT_BUTTON_B)))
 	{
 		switch (sel)
 		{

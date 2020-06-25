@@ -40,6 +40,8 @@ public:
 		sInstance = nullptr;
 	}
 	void Run(void);
+	bool ButtonTrg(int no,int type);
+
 	std::pair<int, int> Buttonf(int no, int type);			// ボタンの情報を返す
 	std::pair<int, int> Thumbf(int no, int type);			// スティックの情報を返す
 
