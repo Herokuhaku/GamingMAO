@@ -74,6 +74,9 @@ private:
 	// UI用のスクリーンハンドル
 	int _uiScreen;
 
+	// MP用スクリーンハンドル
+	int _mpScreen[PRIMARY_COLOR_COUNT];
+
 	// マスク画像ハンドルの格納用
 	int _maskHandle[PRIMARY_COLOR_COUNT];
 

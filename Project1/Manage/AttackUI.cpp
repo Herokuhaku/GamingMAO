@@ -44,16 +44,27 @@ void AttackUI::Draw(void)
 	DrawGraph((UI_SIZE - RING_SIZE) / 2, (UI_SIZE - RING_SIZE) / 2, lpImageMng.getImage("base_ring")[0], true);
 
 	// MPゲージ
-	CreateMaskScreen();
 	unsigned int color = 0xff0000;
 	for (int i = 0; i < PRIMARY_COLOR_COUNT; i++)
 	{
+		SetDrawScreen(_mpScreen[i]);
+		ClsDrawScreen();
+		CreateMaskScreen();
 		FillMaskScreen(1);
 		DrawMask((UI_SIZE - RING_SIZE) / 2, (UI_SIZE - RING_SIZE) / 2, _maskHandle[i], DX_MASKTRANS_WHITE);
 		DrawBox(0, MP_GAUGE_OFFSET[i] - _magicState[i].second * MP_GAUGE_HEIGHT[i] / MP_MAX, UI_SIZE, MP_GAUGE_OFFSET[i], color, true);
+		if (_magicState[i].first == ATK_STATE::NON)
+		{
+			GraphFilter(_mpScreen[i], DX_GRAPH_FILTER_HSB, 0, 0, -255, 0);
+		}
 		color = color >> 8;
+		DeleteMaskScreen();
 	}
-	DeleteMaskScreen();
+	SetDrawScreen(_uiScreen);
+	for (const auto& sc : _mpScreen)
+	{
+		DrawGraph(0, 0, sc, true);
+	}
 
 	// スティック
 	DrawRotaGraph(UI_SIZE / 2 + STICK_TO_POS(_stickX), UI_SIZE / 2 - STICK_TO_POS(_stickY), 1.0, 0.0, lpImageMng.getImage("stick_obj")[std::underlying_type<COLOR>::type(_AttackColor)], true);
@@ -227,6 +238,10 @@ AttackUI::AttackUI()
 {
 	// スクリーンの作成
 	_uiScreen = MakeScreen(UI_SIZE, UI_SIZE, true);
+	for (auto& sc : _mpScreen)
+	{
+		sc = MakeScreen(UI_SIZE, UI_SIZE, true);
+	}
 
 	// 素材読み込み
 	char filename[32];

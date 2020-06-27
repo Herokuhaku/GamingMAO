@@ -1,6 +1,11 @@
 #include "FireBall.h"
 #include "../../../Graphic/ImageMng.h"
+#include "../../../Audio/AudioContainer.h"
 
+namespace
+{
+	static AudioContainer _audio;
+}
 
 FireBall::FireBall(Vector2 pos, DIR dir, Vector2 vec, TIME time, int stage, OBJ_TYPE target)
 {
@@ -57,6 +62,10 @@ void FireBall::Init(void)
 	attack.emplace_back(atkData(false, OBJ_TYPE::ATTACK, { 0, 0 }, { 0, 0 }, 0, -1, _target));
 
 	setAttack("fireball", attack);
+
+	_audio.LoadSound("sound/magic/fireball.wav", "fireball", 10);
+	_audio.ChangeVolume("fireball", 180);
+	PlaySoundMem(_audio.GetSound("fireball"), DX_PLAYTYPE_BACK, true);
 	 
 	_type = OBJ_TYPE::ATTACK;
 	setHitOffset({ 20,0,6,14 });
