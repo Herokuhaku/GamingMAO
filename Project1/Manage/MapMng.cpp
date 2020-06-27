@@ -215,7 +215,7 @@ bool MapMng::MapUpdate(void)
 
 		x = 0;
 		int no;
-		for (int i = 0; i < save.size(); i++)
+		for (unsigned int i = 0; i < save.size(); i++)
 		{
 			no = stoi(save.at(i));
 			if (no == 26)
@@ -362,11 +362,11 @@ void MapMng::BackGround(void)
 	// 描画用データ　画像ID, 座標x, y, 角度, レイヤー, zオーダー
 	lpImageMng.AddDraw({ lpImageMng.getImage("メイン背景")[0], GameMapSize.x / 2, GameMapSize.y / 2, 1.0, 0.0, LAYER::BG, 0, DX_BLENDMODE_NOBLEND, 0 });
 
-	int layerPosX = lpSceneMng.GetcPos().x + ((500 - lpSceneMng.GetcPos().x) / 2);
-	int layerPosY = GameMapSize.y / 2 - ((1171 - lpSceneMng.GetcPos().y) / 7);
+	int layerPosX = static_cast<int>(lpSceneMng.GetcPos().x + ((500 - lpSceneMng.GetcPos().x) / 2));
+	int layerPosY = static_cast<int>(GameMapSize.y / 2 - ((1171 - lpSceneMng.GetcPos().y) / 7));
 
-	int layerPosX2 = lpSceneMng.GetcPos().x + ((500 - lpSceneMng.GetcPos().x) / 4);
-	int layerPosY2 = GameMapSize.y / 2 - ((1171 - lpSceneMng.GetcPos().y) / 4);
+	int layerPosX2 = static_cast<int>(lpSceneMng.GetcPos().x + ((500 - lpSceneMng.GetcPos().x) / 4));
+	int layerPosY2 = static_cast<int>(GameMapSize.y / 2 - ((1171 - lpSceneMng.GetcPos().y) / 4));
 
 	lpImageMng.AddDraw({ _layer0, GameMapSize.x / 2, GameMapSize.y / 2, 1.0, 0.0, LAYER::BG, 3, DX_BLENDMODE_NOBLEND, 2 });
 	lpImageMng.AddDraw({ _layer1, layerPosX		   , layerPosY		  , 1.0, 0.0, LAYER::BG, 2, DX_BLENDMODE_NOBLEND, 1 });
@@ -582,7 +582,7 @@ bool MapMng::getHitMap(const Vector2& pos, int stage)
 		}
 	}
 
-	return -1;
+	return false;
 	exit(1);
 	return (HitMap[chip.y][chip.x][stage] == 1);
 }

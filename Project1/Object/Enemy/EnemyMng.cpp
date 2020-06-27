@@ -65,7 +65,7 @@ void EnemyMng::StageTPop(int nowStage, int nextStage)
 			return;
 	}
 
-	for (int i = 0; i < _enemyPlace[nextStage].size(); i++)
+	for (unsigned int i = 0; i < _enemyPlace[nextStage].size(); i++)
 	{
 		EnemyPop(_enemyPlace[nextStage][i].first, nextStage, i);
 	}
@@ -153,7 +153,6 @@ void EnemyMng::EnemyPop(ENEMY_TYPE type, int nextStage, int i)
 		_enemyList.emplace_back(new wizard(_enemyPlace[nextStage][i].second, nextStage, i, false));
 		break;
 	case ENEMY_TYPE::sorcerer:
-
 		_enemyList.emplace_back(new sorcerer(_enemyPlace[nextStage][i].second, nextStage, i, false));
 	default:
 		break;

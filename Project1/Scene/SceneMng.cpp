@@ -24,7 +24,9 @@ void SceneMng::Run(void)
 		lpImageMng.Draw();
 
 		_flame++;
-
+		int a = sizeof(this);
+		int b = sizeof(_activeScene);
+		auto c = b;
 		//(*_activeScene).RunActQue(std::move(_actList));
 	}
 }

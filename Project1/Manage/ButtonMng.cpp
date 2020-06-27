@@ -20,6 +20,11 @@ void ButtonMng::Run(void)
 	UpFlag();
 }
 
+bool ButtonMng::ButtonTrg(int no, int type)
+{
+	return Buttonf(0, type).first && !Buttonf(0, type).second;
+}
+
 std::pair<int, int> ButtonMng::Buttonf(int no,int type)		// コントローラー番号,ボタン番号を指定してpairで返す firstがold,secondがnow
 {
 	return ButtonState[no][type];

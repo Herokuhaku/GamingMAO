@@ -82,8 +82,8 @@ void ImageMng::Draw(void)
 	ClsDrawScreen();
 
 	int x, y;
-	x = lpSceneMng.GetcPos().x - (SCREEN_SIZE_X / 2);
-	y = lpSceneMng.GetcPos().y - (SCREEN_SIZE_Y / 2);
+	x = static_cast<int>(lpSceneMng.GetcPos().x - (SCREEN_SIZE_X / 2));
+	y = static_cast<int>(lpSceneMng.GetcPos().y - (SCREEN_SIZE_Y / 2));
 	
 	if (lpTimeMng.getTime() == TIME::FTR)
 	{
@@ -165,8 +165,8 @@ void ImageMng::Draw(int screen, bool deleteFlag)
 	ClsDrawScreen();
 
 	int x, y;
-	x = lpSceneMng.GetcPos().x - (SCREEN_SIZE_X / 2);
-	y = lpSceneMng.GetcPos().y - (SCREEN_SIZE_Y / 2);
+	x = static_cast<int>(lpSceneMng.GetcPos().x - (SCREEN_SIZE_X / 2));
+	y = static_cast<int>(lpSceneMng.GetcPos().y - (SCREEN_SIZE_Y / 2));
 
 	if (lpTimeMng.getTime() == TIME::FTR)
 	{
