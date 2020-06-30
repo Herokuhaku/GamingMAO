@@ -103,7 +103,7 @@ bool SceneMng::SysInit(void)
 	{
 		rtnFlag = false;
 	}
-
+	
 	SetDrawScreen(DX_SCREEN_BACK);
 	// effekseer ‚Ì‰Šúİ’è
 	if (Effekseer_Init(5000) == -1)	// 5000 ‰æ–ÊÅ‘å‚Ì—Ê

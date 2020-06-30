@@ -83,12 +83,12 @@ void Menu::ItemDraw(int tmp,Vector2 pos,Vector2 offset,Vector2 stroffset,LAYER l
 		if (i < 3)
 		{
 			lpImageMng.AddBackDraw({ lpImageMng.getImage(no)[0], _pos.x + (i * offset.x),_pos.y, 1.0, 0.0, lay,_zorder.item, DX_BLENDMODE_NOBLEND, 0 });
-			lpStrAdd.AddStringDraw(_no.c_str(), _pos.x + (i * offset.x) + stroffset.x, _pos.y - stroffset.y, 0xffff00, DRAW_TO_LEFT);
+			lpStrAdd.AddStringDraw(_no.c_str(), "SQUARE_BIG", _pos.x + (i * offset.x) + stroffset.x, _pos.y - stroffset.y, 0xffff00, DRAW_TO_LEFT);
 		}
 		else
 		{
 			lpImageMng.AddBackDraw({ lpImageMng.getImage(no)[0], _pos.x - (3 * offset.x) + (i * offset.x),_pos.y + offset.y, 1.0, 0.0, lay,_zorder.item, DX_BLENDMODE_NOBLEND, 0 });
-			lpStrAdd.AddStringDraw(_no.c_str(), _pos.x - (3 * offset.x) + (i * offset.x) + stroffset.x, _pos.y + stroffset.y, 0xffff00, DRAW_TO_LEFT);
+			lpStrAdd.AddStringDraw(_no.c_str(), "SQUARE_BIG", _pos.x - (3 * offset.x) + (i * offset.x) + stroffset.x, _pos.y + stroffset.y, 0xffff00, DRAW_TO_LEFT);
 		}
 		_tmp++;
 	}
@@ -185,7 +185,7 @@ void Menu::ItemPup(void)
 		}
 
 		// Œˆ’è•`‰æ
-		lpStrAdd.AddStringDraw("Œˆ’è", _cpos.x, _cpos.y+75, 0xffffff, DRAW_TO_CENTER);
+		lpStrAdd.AddStringDraw("Œˆ’è", "SQUARE_BIG", _cpos.x, _cpos.y+75, 0xffffff, DRAW_TO_CENTER);
 
 		MixDraw();
 
@@ -593,7 +593,7 @@ void Menu::ItemSelectD(int no)
 		image = std::to_string(tmp);
 		std::string _no = std::to_string(lpTradeMng.getrock().at(i));
 		lpImageMng.AddBackDraw({ lpImageMng.getImage(image)[0], pos.x + (i * 75),pos.y, 0.75, 0.0, LAYER::EX,_zorder.item, DX_BLENDMODE_NOBLEND, 0 });
-		lpStrAdd.AddStringDraw(_no.c_str(), pos.x + (i * 75), pos.y,0x000000, DRAW_TO_CENTER);
+		lpStrAdd.AddStringDraw(_no.c_str(), "SQUARE_BIG", pos.x + (i * 75), pos.y,0x000000, DRAW_TO_CENTER);
 		tmp++;
 	}
 

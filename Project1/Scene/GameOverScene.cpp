@@ -140,11 +140,11 @@ void GameOverScene::Draw(void)
 
 			if (cursor == _cursor)
 			{
-				lpStrAdd.AddStringDraw(str, lpSceneMng.ScreenSize.x / 2, pos_y, color, DRAW_TO_CENTER);
+				lpStrAdd.AddStringDraw(str, "SQUARE_BIG", lpSceneMng.ScreenSize.x / 2, pos_y, color, DRAW_TO_CENTER);
 			}
 			else
 			{
-				lpStrAdd.AddStringDraw(str, lpSceneMng.ScreenSize.x / 2, pos_y, 0xaaaaaa, DRAW_TO_CENTER);
+				lpStrAdd.AddStringDraw(str, "SQUARE_SMALL", lpSceneMng.ScreenSize.x / 2, pos_y, 0xaaaaaa, DRAW_TO_CENTER);
 			}
 		}
 	}
