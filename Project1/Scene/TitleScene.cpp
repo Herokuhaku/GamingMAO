@@ -145,7 +145,7 @@ BaseScene* TitleScene::ReverseUpdate(void)
 {
 	_timer--;
 	_blinkTimer++;
-	_degreeSpeed += 0.5;
+	_degreeSpeed += 2.3f;
 	if (_timer < 0)
 	{
 		_update = &TitleScene::FadeOutUpdate;
@@ -222,7 +222,7 @@ void TitleScene::DrawClock(void)
 void TitleScene::DrawReverseClock(void)
 {
 	_minDegree = fmodf(_minDegree - _degreeSpeed, 360.0f);
-	_hourDegree = fmodf(_hourDegree - _degreeSpeed, 360.0f);
+	_hourDegree = fmodf(_hourDegree - _degreeSpeed / 12.0f, 360.0f);
 	Vector2Template<int> screen = lpSceneMng.ScreenSize;
 	DrawRotaGraph(screen.x / 2, CLOCK_POSITION_Y, 2.0, 0.0, lpImageMng.getImage("ŽžŒv")[0], true);
 	DrawRotaGraph(screen.x / 2, CLOCK_POSITION_Y, 2.0, (_minDegree - 180.0f) / 180.0f * acos(-1.0), lpImageMng.getImage("ŽžŒv")[1], true);
