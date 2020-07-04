@@ -24,5 +24,8 @@ private:
 	void FadeOutDraw(void);		
 
 	void(TitleScene::*_draw)(void);
+
+	void DrawClock(void);
+	void DrawReverseClock(void);
 };
 
