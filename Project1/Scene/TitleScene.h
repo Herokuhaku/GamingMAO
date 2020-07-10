@@ -1,5 +1,9 @@
 #pragma once
 #include "BaseScene.h"
+#include "../common/Vector2.h"
+#include <functional>
+#include <string>
+#include <vector>
 
 class TitleScene :
 	public BaseScene
@@ -12,6 +16,7 @@ private:
 	// çXêV
 	BaseScene* FadeInUpdate(void);
 	BaseScene* NormalUpdate(void);
+	BaseScene* SelectUpdate(void);
 	BaseScene* ReverseUpdate(void);
 	BaseScene* FadeOutUpdate(void);
 
@@ -20,6 +25,7 @@ private:
 	// ï`âÊ
 	void FadeInDraw(void);
 	void NormalDraw(void);
+	void SelectDraw(void);
 	void ReverseDraw(void);
 	void FadeOutDraw(void);		
 
@@ -27,5 +33,16 @@ private:
 
 	void DrawClock(void);
 	void DrawReverseClock(void);
+
+	struct MenuParts
+	{
+		std::string _text;
+		Vector2Template<int> _pos;
+		std::function<void(void)> _func;
+
+		MenuParts(const char* text, Vector2Template<int>& pos, std::function<void(void)> func) :_text(text), _pos(pos), _func(func) {};
+	};
+	std::vector<MenuParts> _menu;
+	int _cursor;
 };
 

@@ -3,6 +3,7 @@
 #include "../Graphic/ImageMng.h"
 #include "ItemTrader.h"
 #include "Menu.h"
+#include "TimeMng.h"
 
 AttackUI* AttackUI::sInstance = nullptr;
 
@@ -11,8 +12,16 @@ void AttackUI::Update(void)
 	// 現在の色を保存
 	_OldAttackColor = _AttackColor;
 
-	// 現在の右スティックの情報の取得
-	lpButtonMng.GetThumb(THUMB_RIGHT, _stickX, _stickY);
+	if (lpTimeMng.getTime() == TIME::FTR)
+	{
+		// 現在の右スティックの情報の取得
+		lpButtonMng.GetThumb(THUMB_RIGHT, _stickX, _stickY);
+	}
+	else
+	{
+		_stickX = 0;
+		_stickY = 0;
+	}
 
 	MpUpdate();
 	StickTrans();

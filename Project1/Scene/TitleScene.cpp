@@ -11,10 +11,12 @@
 namespace
 {
 	constexpr int FADE_INTERVAL = 45;	// フェードにかける時間
+	constexpr int NORMAL_INTERVAL = 30;
 	constexpr int REVERSE_INTERVAL = 120; // 時戻しにかける時間
 	constexpr int BLINK_INTERVAL_NORMAL = 30;	// 点滅の間隔
 	constexpr int BLINK_INTERVAL_FAST = 5;
 	int _blinkTimer;	// 点滅用タイマー
+	int _blinkInterval;
 	int _timer;		// タイマー
 
 	float _degreeSpeed;
@@ -66,14 +68,22 @@ TitleScene::TitleScene()
 {
 	lpImageMng.getImage("image/hurosiki.png", "風呂敷");
 	lpImageMng.getImage("image/Title/tokei.png", "時計", 128, 128, 3, 1);
+	lpImageMng.getImage("image/Title/cursor.png", "cursor");
 
 	_update = &TitleScene::FadeInUpdate;
 	_draw = &TitleScene::FadeInDraw;
 
 	_blinkTimer = 0;
+	_blinkInterval = BLINK_INTERVAL_NORMAL;
 	_timer = FADE_INTERVAL;
 	_degreeSpeed = 0;
-
+	_cursor = 0;
+	
+	Vector2Template<int> pos;
+	pos = { lpSceneMng.ScreenSize.x / 2, 525 };
+	_menu.emplace_back("はじめから", pos, []() {});
+	pos = { lpSceneMng.ScreenSize.x / 2, 575 };
+	_menu.emplace_back("つづきから", pos, []() {});
 
 	_titleScreen = MakeScreen(lpSceneMng.ScreenSize.x, lpSceneMng.ScreenSize.y, true);
 }
@@ -122,6 +132,7 @@ BaseScene* TitleScene::FadeInUpdate(void)
 	{
 		_update = &TitleScene::NormalUpdate;
 		_draw = &TitleScene::NormalDraw;
+		_timer = -1;
 	}
 	return nullptr;
 }
@@ -131,10 +142,43 @@ BaseScene* TitleScene::NormalUpdate(void)
 	_blinkTimer++;
 	if (lpButtonMng.ButtonTrg(0, XINPUT_BUTTON_B))
 	{
+		_timer = NORMAL_INTERVAL;
+		_blinkInterval = BLINK_INTERVAL_FAST;
+	}
+	if (_timer >= 0)
+	{
+		_timer--;
+		if (_timer < 0)
+		{
+			_update = &TitleScene::SelectUpdate;
+			_draw = &TitleScene::SelectDraw;
+			_blinkInterval = BLINK_INTERVAL_NORMAL;
+			_blinkTimer = 0;
+		}
+	}
+	return nullptr;
+}
+
+BaseScene * TitleScene::SelectUpdate(void)
+{
+	_blinkTimer++;
+	if (lpButtonMng.Thumbf(0, XINPUT_THUMBL_Y).first == 1 && lpButtonMng.Thumbf(0, XINPUT_THUMBL_Y).second != 1)
+	{
+		_cursor = (_menu.size() + _cursor - 1) % _menu.size();
+		_blinkTimer = 0;
+	}
+	if (lpButtonMng.Thumbf(0, XINPUT_THUMBL_Y).first == 2 && lpButtonMng.Thumbf(0, XINPUT_THUMBL_Y).second != 2)
+	{
+		_cursor = (_cursor + 1) % _menu.size();
+		_blinkTimer = 0;
+	}
+
+	if (lpButtonMng.ButtonTrg(0, XINPUT_BUTTON_B))
+	{
 		_update = &TitleScene::ReverseUpdate;
 		_draw = &TitleScene::ReverseDraw;
 		_timer = REVERSE_INTERVAL;
-		_blinkTimer = 0;
+		_blinkInterval = BLINK_INTERVAL_FAST;
 		_minDegree = realtime::GetDegFromMinute();
 		_hourDegree = realtime::GetDegFromHour();
 	}
@@ -182,10 +226,29 @@ void TitleScene::NormalDraw(void)
 	Vector2Template<int> screen = lpSceneMng.ScreenSize;
 	DrawGraph(0, 0, lpImageMng.getImage("風呂敷")[0], true);
 	DrawClock();
-	if (_blinkTimer / BLINK_INTERVAL_NORMAL % 2 == 1)
+	if (_blinkTimer / _blinkInterval % 2 == 1)
 	{
 		lpStrAdd.AddStringDraw("P R E S S 'B'", "TITLE", lpSceneMng.ScreenSize.x / 2, lpSceneMng.ScreenSize.y * 4 / 5, 0xffffff, DRAW_TO_CENTER);
 	}
+	GraphFilter(_titleScreen, DX_GRAPH_FILTER_HSB, 0, 0, -255, 0);
+}
+
+void TitleScene::SelectDraw(void)
+{
+	Vector2Template<int> screen = lpSceneMng.ScreenSize;
+	DrawGraph(0, 0, lpImageMng.getImage("風呂敷")[0], true);
+	DrawClock();
+	
+	unsigned int color = 0xffffff;
+	for (int i = 0 ; i < _menu.size(); i++)
+	{
+		if (i == _cursor)
+		{
+			DrawRotaGraph(_menu[i]._pos.x - 100, _menu[i]._pos.y + 16, 1.0, 0.0, lpImageMng.getImage("cursor")[0], true);
+		}
+		lpStrAdd.AddStringDraw(_menu[i]._text.c_str(), "TITLE", _menu[i]._pos.x, _menu[i]._pos.y, color, DRAW_TO_CENTER);
+	}
+
 	GraphFilter(_titleScreen, DX_GRAPH_FILTER_HSB, 0, 0, -255, 0);
 }
 
@@ -194,9 +257,21 @@ void TitleScene::ReverseDraw(void)
 	Vector2Template<int> screen = lpSceneMng.ScreenSize;
 	DrawGraph(0, 0, lpImageMng.getImage("風呂敷")[0], true);
 	DrawReverseClock();
-	if (_blinkTimer / BLINK_INTERVAL_FAST % 2 == 1)
+
+	unsigned int color = 0xffffff;
+	for (int i = 0; i < _menu.size(); i++)
 	{
-		lpStrAdd.AddStringDraw("P R E S S 'B'", "TITLE", lpSceneMng.ScreenSize.x / 2, lpSceneMng.ScreenSize.y * 4 / 5, 0xffffff, DRAW_TO_CENTER);
+		if (i == _cursor)
+		{
+			if (_blinkTimer / _blinkInterval % 2 == 1)
+			{
+				lpStrAdd.AddStringDraw(_menu[i]._text.c_str(), "TITLE", _menu[i]._pos.x, _menu[i]._pos.y, color, DRAW_TO_CENTER);
+			}
+		}
+		else
+		{
+			lpStrAdd.AddStringDraw(_menu[i]._text.c_str(), "TITLE", _menu[i]._pos.x, _menu[i]._pos.y, color, DRAW_TO_CENTER);
+		}
 	}
 	GraphFilter(_titleScreen, DX_GRAPH_FILTER_HSB, 0, 0, static_cast<int>(-255.0f * (static_cast<float>(_timer) / static_cast<float>(REVERSE_INTERVAL))), 0);
 }
