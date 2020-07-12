@@ -5,6 +5,8 @@
 #include "../Object/Object.h"
 #include "../Graphic/StringAddDraw.h"
 
+class camera;
+
 #define lpSceneMng SceneMng::GetInstance()
 
 class SceneMng
@@ -43,9 +45,11 @@ public:
 	const std::shared_ptr<Object>* GetPlObj(TIME time) const;
 	void SetPlObj(std::shared_ptr<Object>& plObj, TIME time);
 
-	const Vector2D GetcPos(void) const;
-	const std::shared_ptr<Vector2D> GetccPos(void) const;
+	const Vector2D GetcPos(void) const;																// iranai
+	const std::shared_ptr<Vector2D> GetccPos(void) const;             // iranai
 	void SetcPos(std::shared_ptr<Vector2D> cPos);
+	const std::shared_ptr<camera>& GetcObj(void) const;
+	void SetcObj(std::shared_ptr<camera>& cObj);
 
 	void SetNum(int num);			// _workÇÃset
 	int GetNum(void);				// _workÇÃget
@@ -57,6 +61,7 @@ private:
 	static SceneMng *sInstance;
 	std::unique_ptr<BaseScene> _activeScene;
 	std::map<TIME, std::shared_ptr<Object>> _plObj;
+	std::shared_ptr<camera> _cObj;
 	std::shared_ptr<Vector2D> _cPos;									// ÉJÉÅÉâç¿ïW
 
 	unsigned int _flame;

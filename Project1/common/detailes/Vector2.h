@@ -1,13 +1,13 @@
 #include "..\Vector2.h"
 
 
-template<class T> Vector2Template<T>::Vector2Template()
+template<class T> Vector2Template<T>::Vector2Template() : x1{ x }, x2{ y }
 {
 	x = 0;
 	y = 0;
 }
 
-template<class T> Vector2Template<T>::Vector2Template(T x, T y)
+template<class T> Vector2Template<T>::Vector2Template(T x, T y) : x1{ x }, x2{ y }
 {
 	this->x = x;
 	this->y = y;

@@ -82,6 +82,16 @@ void SceneMng::SetcPos(std::shared_ptr<Vector2D> cPos)
 	_cPos = cPos;
 }
 
+const std::shared_ptr<camera>& SceneMng::GetcObj(void) const
+{
+	return _cObj;
+}
+
+void SceneMng::SetcObj(std::shared_ptr<camera>& cObj)
+{
+	_cObj = cObj;
+}
+
 void SceneMng::SetNum(int num)
 {
 	_work = num;

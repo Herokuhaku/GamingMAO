@@ -4,6 +4,7 @@
 #include "../Scene/SceneMng.h"
 #include "KeyMng.h"
 #include "../Object/Enemy/EnemyMng.h"
+#include "../Object/camera.h"
 
 MapMng* MapMng::sInstance = nullptr;
 
@@ -151,11 +152,10 @@ void MapMng::StageTrans(int no)
 		test.Spos = { std::get<static_cast<int>(MAP_DATA::BPOSX)>(a), std::get<static_cast<int>(MAP_DATA::BPOSY)>(a) - 50 };
 	}
 
-
-
-
-
 	MapUpdate();
+
+	SetCameraEndOffSet();
+
 }
 
 bool MapMng::MapUpdate(void)
@@ -501,6 +501,38 @@ void MapMng::InitEnd(void)
 	MapID = std::get<static_cast<int>(MAP_DATA::MAPLINK)>(_mapdata);
 	MapUpdate();
 	//SetDrawBright(0,0,0);
+}
+
+void MapMng::SetCameraEndOffSet(void)
+{
+	Vector2 offset;
+	int x1 = 0, x2 = 0;
+	for (int i = 0; i < MapChipX; i++)
+	{
+		if (GameMap[0][i][nowStage.second] == 9)
+		{
+			x1++;
+		}
+		else
+		{
+			break;
+		}
+	}
+	for (int i = MapChipX; i > 0; i--)
+	{
+		if (GameMap[0][i][nowStage.second] == 9)
+		{
+			x2++;
+		}
+		else
+		{
+			break;
+		}
+	}
+
+	// 40
+	offset = { (x1 + 40) * CHIP_SIZE,lpMapMng.GameMapSize.x - ((x2 + 40) * CHIP_SIZE) };
+	lpSceneMng.GetcObj()->SetcEndOffSet(std::move(offset));
 }
 
 MapMng::MapMng():

@@ -1,6 +1,4 @@
 #pragma once
-#include "../common/Vector2.h"
-#include "../Graphic/LAYER.h"
 #include <fstream>
 #include <string>
 #include <sstream>
@@ -8,7 +6,8 @@
 #include <map>
 #include <tuple>
 #include <string>
-
+#include "../common/Vector2.h"
+#include "../Graphic/LAYER.h"
 
 #define lpMapMng MapMng::GetInstance()
 
@@ -111,12 +110,15 @@ public:
 	void InitMap(void);
 	void InitEnd(void);		// 最後に実行したい初期化
 
+	void SetCameraEndOffSet(void);
+
 #define ACTIVEMAP 4
 private:
 	int _layer[ACTIVEMAP];
 	char GameMap[MapChipY][MapChipX][ACTIVEMAP];	// Y1440/16,X(2560/16)+壁2マス
 	char HitMap[MapChipY][MapChipX][ACTIVEMAP];		// 当たり判定Map
 	std::pair<bool, int> _activeMap[ACTIVEMAP];		// <保存していいか,stage>    UpdateをするMAP
+	std::pair<int,int> nowStage;					// <現在のステージ,_activeMap内の現在のステージの添え字>
 	int _writNo;									// 書き込んでいい添え字
 
 	void SetBgLayer(int bgNo);		// 
@@ -132,7 +134,6 @@ private:
 	MapData _mapdata;
 	std::map<int,MapData> mapindex;
 
-	std::pair<int,int> nowStage;					// <現在のステージ,_activeMap内の現在のステージの添え字>
 
 	// Mapの移動
 	portal_t test;

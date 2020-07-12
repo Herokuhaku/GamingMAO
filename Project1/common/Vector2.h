@@ -8,6 +8,8 @@ public:
 	~Vector2Template();
 	T x;
 	T y;
+	T& x1;
+	T& x2;
 
 
 	// “àÏ

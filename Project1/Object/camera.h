@@ -10,15 +10,18 @@ public:
 
 	void Update(void);
 	void Draw(void) override;
+
+	void SetcEndOffSet(Vector2&& cEndOffSet);
+
 	camera();
 	~camera();
 private:
-	unsigned long long int _flame;			// テスト
 	std::map<TIME, std::shared_ptr<Object>> _plObj;
 	std::shared_ptr<Vector2D> _cPos;
 	Vector2 _oldPlPos[10];
 
 	Vector2D _cOffSet;
+	Vector2 _cEndOffSet;								// カメラがステージの最左右で行き過ぎないように
 
 	bool CheckPos(void);
 };

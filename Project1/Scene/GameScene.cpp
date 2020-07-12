@@ -118,6 +118,7 @@ std::unique_ptr<BaseScene> GameScene::Update(std::unique_ptr<BaseScene> own)
 	{
 		(*data).Update();
 	}
+	_cobj->Update();
 
 	lpEnemyMng.Update();
 
@@ -178,7 +179,8 @@ bool GameScene::Init(void)
 	lpSceneMng.SetPlObj(_objList[0], TIME::NOW);
 	_objList.emplace_back(std::make_shared<Player>(Vector2(400, 900), 1, TIME::FTR));
 	lpSceneMng.SetPlObj(_objList[1], TIME::FTR);
-	_objList.emplace_back(std::make_shared<camera>());
+	_cobj = std::make_shared<camera>();
+	lpSceneMng.SetcObj(_cobj);
 
 	lpMapMng.Init();
 
