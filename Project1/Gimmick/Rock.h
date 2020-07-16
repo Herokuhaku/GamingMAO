@@ -6,10 +6,11 @@ class Rock :
 {
 public:
 	Rock() = delete;
-	Rock(const Vector2& pos, const int& stage);
+	Rock(const Vector2& pos, int stage);
 	~Rock();
 
-
+	void Update(void)override;
+	void Draw(void)override;
 private:
 };
 

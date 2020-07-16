@@ -10,6 +10,8 @@
 #include "../Object/Attack/AttackMng.h"
 #include "../Manage/AttackUI.h"
 #include "../Graphic/ImageMng.h"
+#include "../Gimmick/GimmickMng.h"
+#include "../Gimmick/Rock.h"
 
 GameScene::GameScene()
 {
@@ -89,6 +91,7 @@ GameScene::GameScene()
 
 	// çUåÇ
 	lpImageMng.getImage("image/Attack/fireball.png", "fireball", 100, 100, 5, 6);
+	lpImageMng.getImage("image/Attack/explosion.png", "explosion", 48, 48, 8, 1);
 	lpImageMng.getImage("image/Attack/bubble.png", "bubble");
 	lpImageMng.getImage("image/Attack/fruit.png", "fruit", 64, 64, 4, 1);
 	lpImageMng.getImage("image/Attack/poison_mist.png", "poison_mist", 320, 120, 1, 8);
@@ -122,6 +125,8 @@ std::unique_ptr<BaseScene> GameScene::Update(std::unique_ptr<BaseScene> own)
 
 	lpEnemyMng.Update();
 
+	_gimmickmng->Update();
+
 	lpAtkMng.Update();
 
 	getAttackQue();
@@ -139,6 +144,8 @@ std::unique_ptr<BaseScene> GameScene::Update(std::unique_ptr<BaseScene> own)
 	}
 
 	lpEnemyMng.Draw();
+
+	_gimmickmng->Draw();
 
 	lpAtkMng.Draw();
 
@@ -181,6 +188,9 @@ bool GameScene::Init(void)
 	lpSceneMng.SetPlObj(_objList[1], TIME::FTR);
 	_cobj = std::make_shared<camera>();
 	lpSceneMng.SetcObj(_cobj);
+
+	_gimmickmng = std::make_unique<GimmickMng>();
+	_gimmickmng->AddGimmick(new Rock(Vector2Template<int>(1550, 1100), 1));
 
 	lpMapMng.Init();
 

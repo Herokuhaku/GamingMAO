@@ -38,9 +38,9 @@ private:
 	{
 		std::string _text;
 		Vector2Template<int> _pos;
-		std::function<void(void)> _func;
+		std::function<BaseScene*(void)> _func;
 
-		MenuParts(const char* text, Vector2Template<int>& pos, std::function<void(void)> func) :_text(text), _pos(pos), _func(func) {};
+		MenuParts(const char* text, Vector2Template<int>& pos, std::function<BaseScene*(void)> func) :_text(text), _pos(pos), _func(func) {};
 	};
 	std::vector<MenuParts> _menu;
 	int _cursor;

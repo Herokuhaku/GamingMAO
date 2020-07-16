@@ -6,6 +6,7 @@
 #include "../func/CheckHitAttack.h"
 #include "GameOverScene.h"
 
+class GimmickMng;
 
 class GameScene:public BaseScene
 {
@@ -24,6 +25,7 @@ private:
 
 	std::vector<std::shared_ptr<Object>> _objList;
 	std::shared_ptr<camera> _cobj;
+	std::unique_ptr<GimmickMng> _gimmickmng;
 
 	// 1:当たるか　2:自分の種類 3:判定の左上の座標　4:判定の右下の座標　
 	// 5:ダメージ量　6:無敵時間　7:当てる対象(MAXで自分以外すべてに)

@@ -4,13 +4,14 @@
 #include "../Graphic/ImageMng.h"
 #include "../Manage/ButtonMng.h"
 #include "../Manage/KeyMng.h"
+#include "GameScene.h"
 
 SceneMng *SceneMng::sInstance = nullptr;
 
 void SceneMng::Run(void)
 {
 	SysInit();
-	_activeScene = std::make_unique<TitleScene>();
+	_activeScene = std::make_unique<GameScene>();
 	while (ProcessMessage() == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0)
 	{
 		lpKeyMng.KeyUpdate();

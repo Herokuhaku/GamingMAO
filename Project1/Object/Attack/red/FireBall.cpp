@@ -5,6 +5,8 @@
 namespace
 {
 	static AudioContainer _audio;
+
+	constexpr int EXPLOSION_DURATION = 16;
 }
 
 FireBall::FireBall(Vector2 pos, DIR dir, Vector2 vec, TIME time, int stage, OBJ_TYPE target)
@@ -17,6 +19,7 @@ FireBall::FireBall(Vector2 pos, DIR dir, Vector2 vec, TIME time, int stage, OBJ_
 	_target = target;
 
 	_rad = atan2(_vec.y, _vec.x);
+	_update = &FireBall::FireballUpdate;
 
 	Init();
 }
@@ -26,19 +29,40 @@ FireBall::~FireBall()
 	stopAttack();
 }
 
-void FireBall::Update(void)
+void FireBall::FireballUpdate(void)
 {
 	_pos += _vec;
 	if (CheckHitStage()(static_cast<CHECK_DIR>(static_cast<int>(_state_dir.second) / 2), _pos, getHitOffset(), _stage) != NOTHIT)
 	{
+		setState({ OBJ_STATE::A_NORMAL, _state_dir.second });
+		_update = &FireBall::ExplosionUpdate;
+		_exRate = 2.0;
+		_alive = false;
+		_timer = EXPLOSION_DURATION;
+		PlaySoundMem(_audio.GetSound("explosion"), DX_PLAYTYPE_BACK, true);
+	}
+}
+
+void FireBall::ExplosionUpdate(void)
+{
+	_timer--;
+	if (_timer < 0)
+	{
 		setState({ OBJ_STATE::DEAD, _state_dir.second });
 	}
-	
+}
+
+void FireBall::Update(void)
+{
+	(this->*_update)();
 }
 
 void FireBall::IfHitAttack(void)
 {
-	setState({ OBJ_STATE::DEAD, _state_dir.second });
+	_update = &FireBall::ExplosionUpdate;
+	setState({ OBJ_STATE::A_NORMAL, _state_dir.second });
+	_exRate = 2.0;
+	PlaySoundMem(_audio.GetSound("explosion"), DX_PLAYTYPE_BACK, true);
 }
 
 void FireBall::Init(void)
@@ -53,6 +77,14 @@ void FireBall::Init(void)
 
 	setAnm({ OBJ_STATE::NORMAL, _state_dir.second }, data);
 
+	for (int i = 0; i < 8; i++)
+	{
+		data.emplace_back(lpImageMng.getImage("explosion")[i], (i + 1)* 2);
+	}
+	data.emplace_back(-1, -1);
+
+	setAnm({ OBJ_STATE::A_NORMAL, _state_dir.second }, data);
+
 	std::vector<atkData> attack;
 	attack.reserve(31);
 	for (int i = 0; i < 30; i++)
@@ -66,7 +98,10 @@ void FireBall::Init(void)
 	_audio.LoadSound("sound/magic/fireball.wav", "fireball", 10);
 	_audio.ChangeVolume("fireball", 180);
 	PlaySoundMem(_audio.GetSound("fireball"), DX_PLAYTYPE_BACK, true);
-	 
+
+	_audio.LoadSound("sound/magic/explosion.wav", "explosion", 10);
+	_audio.ChangeVolume("explosion", 180);
+
 	_type = OBJ_TYPE::ATTACK;
 	setHitOffset({ 20,0,6,14 });
 

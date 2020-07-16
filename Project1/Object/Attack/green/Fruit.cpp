@@ -102,10 +102,10 @@ void Fruit::Init(void)
 
 void Fruit::VelUpdate(void)
 {
-	int tmpDown = CheckHitStage()(CHECK_DIR::DOWN, { _pos.x, static_cast<int>(_tmpPos.y) + getHitOffset()[static_cast<int>(CHECK_DIR::DOWN)] + 1 }, getHitOffset(), _stage);
+	int tmpDown = CheckHitStage()(CHECK_DIR::DOWN, { _pos.x, static_cast<int>(_tmpPos.y) }, getHitOffset(), _stage);
 	if (tmpDown != NOTHIT)
 	{
-		_tmpPos.y = tmpDown - getHitOffset()[static_cast<int>(CHECK_DIR::DOWN)] - 1;
+		_tmpPos.y = static_cast<double>(tmpDown - getHitOffset()[static_cast<int>(CHECK_DIR::DOWN)] - 1);
 		_vel = 0.0;
 	}
 	else
@@ -119,11 +119,11 @@ void Fruit::VelUpdate(void)
 			_vel += G_ACC;
 		}
 
-		tmpDown = CheckHitStage()(CHECK_DIR::DOWN, { _pos.x, static_cast<int>(_tmpPos.y + _vel) + 1 }, getHitOffset(), _stage);
+		tmpDown = CheckHitStage()(CHECK_DIR::DOWN, { _pos.x, static_cast<int>(_tmpPos.y + _vel) }, getHitOffset(), _stage);
 
 		if (tmpDown != NOTHIT)
 		{
-			_tmpPos.y = tmpDown - 1;
+			_tmpPos.y = tmpDown - getHitOffset()[static_cast<int>(CHECK_DIR::DOWN)] - 1;
 			_vel = 0.0;
 		}
 		else

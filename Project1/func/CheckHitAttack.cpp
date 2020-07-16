@@ -26,6 +26,11 @@ void CheckHitAttack::operator()(const std::vector<std::shared_ptr<Object>>& objl
 			Vector2 objPos = obj->getPos();
 			std::array<int, 4> hitBox = obj->getHitOffset();
 
+			if (!(obj->Alive()) || attack.second->getState().first == OBJ_STATE::DEAD)
+			{
+				continue;
+			}
+
 			if (obj->getObjType() == OBJ_TYPE::CAMERA)
 			{
 				continue;
@@ -111,6 +116,11 @@ void CheckHitAttack::operator()(const std::vector<std::shared_ptr<Enemy>>& objli
 		{
 			Vector2 objPos = obj->getPos();
 			std::array<int, 4> hitBox = obj->getHitOffset();
+
+			if(!(obj->Alive()) || !(attack.second->Alive()))
+			{
+				continue;
+			}
 
 			if (obj->getObjType() == OBJ_TYPE::CAMERA)
 			{

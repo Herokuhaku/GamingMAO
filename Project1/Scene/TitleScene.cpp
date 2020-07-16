@@ -7,6 +7,8 @@
 #include "SceneMng.h"
 #include "../Manage/ButtonMng.h"
 #include "../Manage/KeyMng.h"
+#include "AnimatedScene/OpeningAnimationScene.h"
+#include "GameScene.h"
 
 namespace
 {
@@ -81,9 +83,9 @@ TitleScene::TitleScene()
 	
 	Vector2Template<int> pos;
 	pos = { lpSceneMng.ScreenSize.x / 2, 525 };
-	_menu.emplace_back("‚Í‚¶‚ß‚©‚ç", pos, []() {});
+	_menu.emplace_back("‚Í‚¶‚ß‚©‚ç", pos, []() { return new OpeningAnimationScene(); });
 	pos = { lpSceneMng.ScreenSize.x / 2, 575 };
-	_menu.emplace_back("‚Â‚Ã‚«‚©‚ç", pos, []() {});
+	_menu.emplace_back("‚Â‚Ã‚«‚©‚ç", pos, []() { return new GameScene(); });
 
 	_titleScreen = MakeScreen(lpSceneMng.ScreenSize.x, lpSceneMng.ScreenSize.y, true);
 }
@@ -205,7 +207,7 @@ BaseScene* TitleScene::FadeOutUpdate(void)
 	_blinkTimer++;
 	if (_timer < 0)
 	{
-		return new SeleScene();
+		return _menu[_cursor]._func();
 	}
 	return nullptr;
 }

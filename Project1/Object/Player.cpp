@@ -527,6 +527,13 @@ void Player::StateRotate(void)
 
 void Player::VelUpdate(void)
 {
+	int tmpTop = CheckHitStage()(CHECK_DIR::UP, { _pos.x, static_cast<int>(_tmpPos.y) }, getHitOffset(), _stage);
+	if (tmpTop != NOTHIT)
+	{
+		_tmpPos.y = static_cast<double>(tmpTop + getHitOffset()[static_cast<int>(CHECK_DIR::UP)]);
+		_vel = 0.0;
+	}
+
 	if (CheckHitStage()(CHECK_DIR::DOWN, { _pos.x, static_cast<int>(_tmpPos.y) + 1 }, getHitOffset(),_stage) == NOTHIT)
 	{
 		if (_vel - G_ACC_NORMAL > -VEL_MAX)
@@ -543,7 +550,7 @@ void Player::VelUpdate(void)
 
 	if (_vel != 0.0 && tmpDown != NOTHIT)
 	{
-		_tmpPos.y = tmpDown - 1;
+		_tmpPos.y = static_cast<double>(tmpDown - getHitOffset()[static_cast<int>(CHECK_DIR::DOWN)]);
 		_vel = 0.0;
 		if (lpKeyMng.getBuf()[KEY_INPUT_LEFT] || lpKeyMng.getBuf()[KEY_INPUT_RIGHT])
 		{

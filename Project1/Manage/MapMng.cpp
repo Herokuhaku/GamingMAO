@@ -613,10 +613,8 @@ bool MapMng::getHitMap(const Vector2& pos, int stage)
 			return (HitMap[chip.y][chip.x][i] == 1);
 		}
 	}
-
-	return false;
 	exit(1);
-	return (HitMap[chip.y][chip.x][stage] == 1);
+	return true;
 }
 
 char MapMng::getGameMapM(const Vector2& pos, int stage)
