@@ -83,7 +83,7 @@ TitleScene::TitleScene()
 	
 	Vector2Template<int> pos;
 	pos = { lpSceneMng.ScreenSize.x / 2, 525 };
-	_menu.emplace_back("‚Í‚¶‚ß‚©‚ç", pos, []() { return new OpeningAnimationScene(); });
+	_menu.emplace_back("‚Í‚¶‚ß‚©‚ç", pos, []() { return new GameScene(); });
 	pos = { lpSceneMng.ScreenSize.x / 2, 575 };
 	_menu.emplace_back("‚Â‚Ã‚«‚©‚ç", pos, []() { return new GameScene(); });
 
@@ -164,12 +164,12 @@ BaseScene* TitleScene::NormalUpdate(void)
 BaseScene * TitleScene::SelectUpdate(void)
 {
 	_blinkTimer++;
-	if (lpButtonMng.Thumbf(0, XINPUT_THUMBL_Y).first == 1 && lpButtonMng.Thumbf(0, XINPUT_THUMBL_Y).second != 1)
+	if (lpButtonMng.Thumbf(0, XINPUT_THUMBL_Y).first == 2 && lpButtonMng.Thumbf(0, XINPUT_THUMBL_Y).second != 2)
 	{
 		_cursor = (_menu.size() + _cursor - 1) % _menu.size();
 		_blinkTimer = 0;
 	}
-	if (lpButtonMng.Thumbf(0, XINPUT_THUMBL_Y).first == 2 && lpButtonMng.Thumbf(0, XINPUT_THUMBL_Y).second != 2)
+	if (lpButtonMng.Thumbf(0, XINPUT_THUMBL_Y).first == 1 && lpButtonMng.Thumbf(0, XINPUT_THUMBL_Y).second != 1)
 	{
 		_cursor = (_cursor + 1) % _menu.size();
 		_blinkTimer = 0;

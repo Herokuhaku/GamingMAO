@@ -11,6 +11,7 @@
 #include "../Manage/AttackUI.h"
 #include "../Graphic/ImageMng.h"
 #include "../Gimmick/GimmickMng.h"
+#include "../Menu/MenuExecuter.h"
 #include "../Gimmick/Rock.h"
 
 GameScene::GameScene()
@@ -129,6 +130,8 @@ std::unique_ptr<BaseScene> GameScene::Update(std::unique_ptr<BaseScene> own)
 
 	lpAtkMng.Update();
 
+	_menu->Update();
+
 	getAttackQue();
 	CheckHitAttack()(_objList, _attackList);
 	CheckHitAttack()(lpEnemyMng.GetenemyList(), _attackList);
@@ -156,6 +159,8 @@ std::unique_ptr<BaseScene> GameScene::Update(std::unique_ptr<BaseScene> own)
 
 	lpAttackUI.Draw();
 
+	_menu->Draw();
+
 	// éÄÇÒÇ≈Ç¢ÇÈÉvÉåÉCÉÑÅ[ÇíTÇ∑
 	auto plDead = std::find_if(_objList.begin(), _objList.end(), [](std::shared_ptr<Object> obj) { return (obj->getObjType() == OBJ_TYPE::PLAYER && obj->getState().first == OBJ_STATE::DEAD); });
 
@@ -177,6 +182,11 @@ std::unique_ptr<BaseScene> GameScene::Update(std::unique_ptr<BaseScene> own)
 	return own;
 }
 
+std::shared_ptr<MenuExecuter>& GameScene::GetMenuExecuter(void)
+{
+	return _menu;
+}
+
 bool GameScene::Init(void)
 {
 	lpTimeMng.TimeInit();
@@ -191,6 +201,8 @@ bool GameScene::Init(void)
 
 	_gimmickmng = std::make_unique<GimmickMng>();
 	_gimmickmng->AddGimmick(new Rock(Vector2Template<int>(1550, 1100), 1));
+
+	_menu.reset(new MenuExecuter(this));
 
 	lpMapMng.Init();
 

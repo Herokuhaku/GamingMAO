@@ -5,8 +5,10 @@
 #include "../Graphic/EffekseerMng.h"
 #include "../func/CheckHitAttack.h"
 #include "GameOverScene.h"
+#include <memory>
 
 class GimmickMng;
+class MenuExecuter;
 
 class GameScene:public BaseScene
 {
@@ -15,6 +17,8 @@ public:
 	~GameScene();
 
 	std::unique_ptr<BaseScene> Update(std::unique_ptr<BaseScene> own) override;	
+
+	std::shared_ptr<MenuExecuter>& GetMenuExecuter(void);
 private:
 	friend struct CheckHitAttack;
 
@@ -26,6 +30,7 @@ private:
 	std::vector<std::shared_ptr<Object>> _objList;
 	std::shared_ptr<camera> _cobj;
 	std::unique_ptr<GimmickMng> _gimmickmng;
+	std::shared_ptr<MenuExecuter> _menu;
 
 	// 1:当たるか　2:自分の種類 3:判定の左上の座標　4:判定の右下の座標　
 	// 5:ダメージ量　6:無敵時間　7:当てる対象(MAXで自分以外すべてに)

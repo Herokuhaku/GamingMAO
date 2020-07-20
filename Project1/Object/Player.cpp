@@ -8,6 +8,7 @@
 #include "Attack/AttackMng.h"
 #include "../Graphic/EffekseerMng.h"
 #include "../Graphic/ImageMng.h"
+#include "../Menu/MenuExecuter.h"
 
 Player::Player()
 {
@@ -56,7 +57,7 @@ void Player::Update(void)
 		return;
 	}
 	
-	if (!MenuUpdate() && _time == lpTimeMng.getTime())
+	if (!MenuExecuter::IsActive() && _time == lpTimeMng.getTime())
 	{
 		if (_state_dir.first != OBJ_STATE::DEAD && _state_dir.first != OBJ_STATE::DAMAGE)
 		{
