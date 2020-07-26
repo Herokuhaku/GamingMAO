@@ -112,6 +112,8 @@ public:
 
 	void SetCameraEndOffSet(void);
 
+	int mapMove(int flag, int x, int y, int stage);	// flag = 1 = left, 2 = center, 3 = right		enumçÏÇÈÇÃñ ì|
+
 #define ACTIVEMAP 4
 private:
 	int _layer[ACTIVEMAP];

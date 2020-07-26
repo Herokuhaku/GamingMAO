@@ -618,22 +618,29 @@ void Player::Portal(void)
 		// 
 
 		int y = _pos.y - 50;
-		// if(座標を見て一番右のポータル)
-		if (lpMapMng.getGameMapM({ _pos.x,y }, _stage) == 41)
+		switch (lpMapMng.mapMove(1, _pos.x, y, _stage))
 		{
+		case 1:
+		{
+			// if(座標を見て一番右のポータル)
 			_nextPos = { lpMapMng.GetFrontPosX(_stage),lpMapMng.GetFrontPosY(_stage) };
 			lpImageMng.SetplmoveF(true, MAP_DATA::FRONT);
 			lpImageMng.setGkind(ScrEff::FADEOUT);
 		}
-		// if(座標を見て一番左のポータル)
-		else if (lpMapMng.getGameMapM({ _pos.x,y }, _stage) == 9)
+		break;
+		case 3:
+			// if(座標を見て一番左のポータル)
 		{
 			_nextPos = { lpMapMng.GetBackPosX(_stage),lpMapMng.GetBackPosY(_stage) };
 			lpImageMng.SetplmoveF(true, MAP_DATA::BACK);
 			lpImageMng.setGkind(ScrEff::FADEOUT);
+			break;
+		}
+		default:
+			break;
 		}
 		// if(座標 真ん中のポータル)
-		else if (flag)
+		if (flag)
 		{
 			_nextPos = { lpMapMng.GetBrancPosX(_stage),lpMapMng.GetBrancPosY(_stage) };
 			lpMapMng.setstageF(false);

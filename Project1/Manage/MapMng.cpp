@@ -218,11 +218,11 @@ bool MapMng::MapUpdate(void)
 		for (unsigned int i = 0; i < save.size(); i++)
 		{
 			no = stoi(save.at(i));
-			if (no == 26)
+			if (no == 68)
 			{
 				tp[nowStage.first].Spos = { x * 16, y * 16 };
 			}
-			if (no == 29)
+			if (no == 69)
 			{
 				tp[nowStage.first].Epos = { x * 16, y * 16 };
 				tp[nowStage.first].stageF = true;
@@ -385,7 +385,6 @@ void MapMng::BlockLayer(void)
 		{
 			if (GameMap[y][x][_writNo] != -1)
 			{
-				int a = static_cast<int>(GameMap[y][x][_writNo]);
 				DrawRotaGraph(x*16+(CHIP_SIZE/2), y*16, 1.0, 0, lpImageMng.getImage("Block")[static_cast<int>(GameMap[y][x][_writNo])], true);
 			}
 		}
@@ -535,6 +534,27 @@ void MapMng::SetCameraEndOffSet(void)
 	lpSceneMng.GetcObj()->SetcEndOffSet(std::move(offset));
 }
 
+int MapMng::mapMove(int flag, int x, int y, int stage)
+{
+	// ひどすぎる
+	int mapC = getGameMapM({ x,y }, stage);
+	if(mapC == 61)		// 61 = もんの画像のID
+	{
+		// 画面中央より左
+		if (x < lpSceneMng.ScreenSize.x / 2)
+		{
+			// 左
+			return 3;
+		}
+		else
+		{
+			// 右
+			return 1;
+		}
+	}
+	return -1;
+}
+
 MapMng::MapMng():
 	GameMapSize{2560,1440}
 {
@@ -572,7 +592,7 @@ MapMng::MapMng():
 	lpImageMng.getImage("image/background/layer_0008.png", "8");
 
 
-	lpImageMng.getImage("image/back/block/For/Tileset.png", "Block",16,16,10,6);
+	lpImageMng.getImage("image/back/block/For/Tileset.png", "Block",16,16,10,7);
 
 	
 	for (int i = 0; i < ACTIVEMAP; i++)
@@ -635,7 +655,7 @@ char MapMng::getGameMapM(const Vector2& pos, int stage)
 			return GameMap[chip.y][chip.x][i];
 		}
 	}
-
+	// activeMapにいない  プレイヤーが変なステージ
 	exit(1);
 	return GameMap[chip.y][chip.x][stage];
 }
