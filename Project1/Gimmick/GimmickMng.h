@@ -3,6 +3,8 @@
 #include <vector>
 
 class Gimmick;
+struct ItemSave;
+template<typename T> class Vector2Template;
 
 class GimmickMng
 {
@@ -17,6 +19,8 @@ public:
 
 	void AddGimmick(Gimmick* gimmick);
 	static const std::vector<std::shared_ptr<Gimmick>>& GetGimmicks(void);
+
+	void CheckUsableRange(Vector2Template<int> pos, int stage, const ItemSave& item);
 private:
 	static std::vector<std::shared_ptr<Gimmick>> _gimmickList;	
 };

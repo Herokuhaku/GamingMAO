@@ -1,4 +1,5 @@
 #include "AttackMng.h"
+#include "../../Manage/MapMng.h"
 #include "red/FireBall.h"
 #include "red/BombThrow.h"
 #include "blue/Bubble.h"

@@ -5,6 +5,7 @@
 #include "MenuBase.h"
 
 class GameScene;
+struct AudioContainer;
 
 class MenuExecuter
 {
@@ -29,6 +30,7 @@ private:
 
 	// Œ»İ‚Ìƒy[ƒW
 	std::unique_ptr<MenuBase> _currentMenu;
+	std::shared_ptr<AudioContainer> _audio;
 	
 	GameScene* _gameScene;
 	

@@ -9,6 +9,7 @@
 #include "../Graphic/EffekseerMng.h"
 #include "../Graphic/ImageMng.h"
 #include "../Menu/MenuExecuter.h"
+#include "../Manage/MapMng.h"
 
 Player::Player()
 {

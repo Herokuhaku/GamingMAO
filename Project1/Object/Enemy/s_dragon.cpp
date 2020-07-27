@@ -2,6 +2,7 @@
 #include "../../Scene/SceneMng.h"
 #include "../Attack/AttackMng.h"
 #include "../../Graphic/ImageMng.h"
+#include "../../Manage/MapMng.h"
 
 void s_dragon::Update(void)
 {

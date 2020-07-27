@@ -2,6 +2,8 @@
 #include "../Gimmick/Gimmick.h"
 #include "../Gimmick/GimmickMng.h"
 #include <algorithm>
+#include "../Manage/MapMng.h"
+
 
 int CheckHitStage::operator()(const CHECK_DIR & dir, const Vector2 & pos, const std::array<int, 4>& offset, int stage)
 {

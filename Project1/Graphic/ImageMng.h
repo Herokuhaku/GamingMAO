@@ -6,9 +6,8 @@
 #include <string>
 #include "LAYER.h"
 #include "../common/Vector2.h"
-#include "../Manage/MapMng.h"
 
-
+enum class MAP_DATA;
 
 // 描画データの要素
 enum class DrawElm : int

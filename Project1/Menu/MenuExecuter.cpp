@@ -3,6 +3,7 @@
 #include "../Graphic/ImageMng.h"
 #include "../Manage/ButtonMng.h"
 #include "../Scene/GameScene.h"
+#include "../Audio/AudioContainer.h"
 
 bool MenuExecuter::_active;
 
@@ -17,6 +18,14 @@ MenuExecuter::MenuExecuter(GameScene* gs) : _gameScene(gs)
 	lpImageMng.getImage("image/ÉÅÉjÉÖÅ[.png", "Menu");
 	GetWindowSize(&scSize.x, &scSize.y);
 	scSize = scSize / 2;
+
+	_audio = std::make_shared<AudioContainer>();
+	_audio->LoadSound("sound/system/cursor_move.wav", "move", 5);
+	_audio->LoadSound("sound/system/cursor_select.wav", "select", 3);
+	_audio->LoadSound("sound/system/cancel.wav", "cancel", 3);
+	_audio->ChangeVolume("move", 150);
+	_audio->ChangeVolume("select", 180);
+	_audio->ChangeVolume("cancel", 150);
 
 	_active = false;
 }
@@ -66,12 +75,13 @@ bool MenuExecuter::Control(void)
 	{
 		if (_active)
 		{
+			PlaySoundMem(_audio->GetSound("cancel"), DX_PLAYTYPE_BACK, true);
 			_active = false;
 		}
 		else
 		{
 			_active = true;
-			_currentMenu.reset(new SelectMenu(0, _gameScene->GetMenuExecuter()));
+			_currentMenu.reset(new SelectMenu(0, _gameScene->GetMenuExecuter(), _audio));
 		}
 	}
 	return _active;

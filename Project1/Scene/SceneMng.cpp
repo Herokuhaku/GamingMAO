@@ -11,7 +11,7 @@ SceneMng *SceneMng::sInstance = nullptr;
 void SceneMng::Run(void)
 {
 	SysInit();
-	_activeScene = std::make_unique<GameScene>();
+	_activeScene = std::make_unique<TitleScene>();
 	while (ProcessMessage() == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0)
 	{
 		lpKeyMng.KeyUpdate();

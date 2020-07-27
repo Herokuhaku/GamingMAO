@@ -4,12 +4,13 @@
 #include "MenuParts.h"
 
 class MenuExecuter;
+struct AudioContainer;
 
 class MenuBase
 {
 public:
 	MenuBase() = delete;
-	MenuBase(std::shared_ptr<MenuExecuter> exe);
+	MenuBase(std::shared_ptr<MenuExecuter> exe, std::shared_ptr<AudioContainer> audio);
 	virtual ~MenuBase();
 
 	virtual void Update(void) = 0;
@@ -19,5 +20,6 @@ protected:
 	int _cursor = 0;
 
 	std::shared_ptr<MenuExecuter> _executer;
+	std::shared_ptr<AudioContainer> _audio;
 };
 

@@ -1,6 +1,7 @@
 #include "wizard.h"
 #include "../../Scene/SceneMng.h"
 #include "../../Graphic/ImageMng.h"
+#include "../../Manage/MapMng.h"
 
 void wizard::Update(void)
 {

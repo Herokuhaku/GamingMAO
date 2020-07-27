@@ -4,7 +4,7 @@
 
 namespace
 {
-	static AudioContainer _audio;
+	AudioContainer _audio;
 
 	constexpr int EXPLOSION_DURATION = 16;
 }

@@ -6,7 +6,7 @@ class ItemMenu :
 {
 public:
 	ItemMenu() = delete;
-	ItemMenu(std::shared_ptr<MenuExecuter> exe);
+	ItemMenu(std::shared_ptr<MenuExecuter> exe, std::shared_ptr<AudioContainer> audio);
 	~ItemMenu();
 
 	void Update(void);

@@ -2,6 +2,8 @@
 #include "../common/Vector2.h"
 #include <array>
 
+struct ItemSave;
+
 class Gimmick
 {
 public:
@@ -15,8 +17,11 @@ public:
 	bool isDeleted(void);
 
 	const Vector2Template<int>& GetPos(void)const;
+	const int GetStage(void)const;
 	const std::array<int, 4>& GetHitBox(void)const;
 	const std::array<int, 4>& GetUsable(void)const;
+
+	virtual void Action(const ItemSave& item);
 protected:
 	// ç¿ïW
 	Vector2Template<int> _pos;

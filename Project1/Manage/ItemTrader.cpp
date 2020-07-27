@@ -4,6 +4,7 @@
 #include "ItemTrader.h"
 #include "../Scene/SceneMng.h"
 #include "AttackUI.h"
+#include "MapMng.h"
 
 int ItemTrader::_count = 2;
 

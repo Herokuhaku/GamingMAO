@@ -1,6 +1,7 @@
 #include "ThunderCloud.h"
 #include "../AttackMng.h"
 #include "../../../Graphic/ImageMng.h"
+#include "../../../Manage/MapMng.h"
 
 
 ThunderCloud::ThunderCloud(Vector2 pos, DIR dir, int speed, int count, int dur, TIME time, int stage, OBJ_TYPE target)

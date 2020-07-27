@@ -1,6 +1,5 @@
 #pragma once
 #include "../Object/Object.h"
-#include "../Manage/MapMng.h"
 
 #define NOTHIT -20000
 

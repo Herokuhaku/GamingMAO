@@ -7,7 +7,7 @@ class SelectMenu :
 {
 public:
 	SelectMenu() = delete;
-	SelectMenu(int cursor, std::shared_ptr<MenuExecuter> exe);
+	SelectMenu(int cursor, std::shared_ptr<MenuExecuter> exe, std::shared_ptr<AudioContainer> audio);
 	~SelectMenu();
 
 	void Update(void);

@@ -9,9 +9,12 @@
 #include "../Manage/KeyMng.h"
 #include "AnimatedScene/OpeningAnimationScene.h"
 #include "GameScene.h"
+#include "../Audio/AudioContainer.h"
 
 namespace
 {
+	AudioContainer _audio;
+
 	constexpr int FADE_INTERVAL = 45;	// フェードにかける時間
 	constexpr int NORMAL_INTERVAL = 30;
 	constexpr int REVERSE_INTERVAL = 120; // 時戻しにかける時間
@@ -88,6 +91,13 @@ TitleScene::TitleScene()
 	_menu.emplace_back("つづきから", pos, []() { return new GameScene(); });
 
 	_titleScreen = MakeScreen(lpSceneMng.ScreenSize.x, lpSceneMng.ScreenSize.y, true);
+
+	_audio.LoadSound("sound/system/cursor_move.wav", "move", 5);
+	_audio.LoadSound("sound/system/cursor_select.wav", "select", 3);
+	_audio.LoadSound("sound/system/cancel.wav", "cancel", 3);
+	_audio.ChangeVolume("move", 180);
+	_audio.ChangeVolume("select", 210);
+	_audio.ChangeVolume("cancel", 180);
 }
 
 TitleScene::~TitleScene()
@@ -144,6 +154,7 @@ BaseScene* TitleScene::NormalUpdate(void)
 	_blinkTimer++;
 	if (lpButtonMng.ButtonTrg(0, XINPUT_BUTTON_B))
 	{
+		PlaySoundMem(_audio.GetSound("select"), DX_PLAYTYPE_BACK, true);
 		_timer = NORMAL_INTERVAL;
 		_blinkInterval = BLINK_INTERVAL_FAST;
 	}
@@ -166,17 +177,20 @@ BaseScene * TitleScene::SelectUpdate(void)
 	_blinkTimer++;
 	if (lpButtonMng.Thumbf(0, XINPUT_THUMBL_Y).first == 2 && lpButtonMng.Thumbf(0, XINPUT_THUMBL_Y).second != 2)
 	{
+		PlaySoundMem(_audio.GetSound("move"), DX_PLAYTYPE_BACK, true);
 		_cursor = (_menu.size() + _cursor - 1) % _menu.size();
 		_blinkTimer = 0;
 	}
 	if (lpButtonMng.Thumbf(0, XINPUT_THUMBL_Y).first == 1 && lpButtonMng.Thumbf(0, XINPUT_THUMBL_Y).second != 1)
 	{
+		PlaySoundMem(_audio.GetSound("move"), DX_PLAYTYPE_BACK, true);
 		_cursor = (_cursor + 1) % _menu.size();
 		_blinkTimer = 0;
 	}
 
 	if (lpButtonMng.ButtonTrg(0, XINPUT_BUTTON_B))
 	{
+		PlaySoundMem(_audio.GetSound("select"), DX_PLAYTYPE_BACK, true);
 		_update = &TitleScene::ReverseUpdate;
 		_draw = &TitleScene::ReverseDraw;
 		_timer = REVERSE_INTERVAL;

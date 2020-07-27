@@ -1,6 +1,7 @@
 #include "demon.h"
 #include "../../Scene/SceneMng.h"
 #include "../../Graphic/ImageMng.h"
+#include "../../Manage/MapMng.h"
 
 void demon::Update(void)
 {

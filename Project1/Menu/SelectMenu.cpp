@@ -5,6 +5,7 @@
 #include "../common/Vector2.h"
 #include "MenuExecuter.h"
 #include "ItemMenu.h"
+#include "../Audio/AudioContainer.h"
 
 
 namespace
@@ -16,7 +17,7 @@ namespace
 	constexpr int PARTS_SPACE = 100;
 }
 
-SelectMenu::SelectMenu(int cursor, std::shared_ptr<MenuExecuter> exe) : MenuBase(exe)
+SelectMenu::SelectMenu(int cursor, std::shared_ptr<MenuExecuter> exe, std::shared_ptr<AudioContainer> audio) : MenuBase(exe, audio)
 {
 	if (cursor >= SELECT_CURSOR_RANGE || cursor < 0)
 	{
@@ -30,7 +31,7 @@ SelectMenu::SelectMenu(int cursor, std::shared_ptr<MenuExecuter> exe) : MenuBase
 
 	if (lpTimeMng.getTime() == TIME::NOW)
 	{
-		_parts.emplace_back(new MenuParts("合成", Vector2Template<int>(PARTS_POS_X, partsPosY), [this]() { _executer->ChangePage(new ItemMenu(_executer)); }));
+		_parts.emplace_back(new MenuParts("合成", Vector2Template<int>(PARTS_POS_X, partsPosY), [this]() { _executer->ChangePage(new ItemMenu(_executer, _audio)); }));
 		partsPosY += PARTS_SPACE;
 	}
 	_parts.emplace_back(new MenuParts("セーブ", Vector2Template<int>(PARTS_POS_X, partsPosY), []() { OutputDebugString("\nセーブ"); }));
@@ -66,15 +67,18 @@ void SelectMenu::CursorControl(void)
 {
 	if (lpButtonMng.Thumbf(0, XINPUT_THUMBL_Y).first == 2 && lpButtonMng.Thumbf(0, XINPUT_THUMBL_Y).second != 2)
 	{
+		PlaySoundMem(_audio->GetSound("move"), DX_PLAYTYPE_BACK, true);
 		_cursor = (_parts.size() + _cursor - 1) % _parts.size();
 	}
 	if (lpButtonMng.Thumbf(0, XINPUT_THUMBL_Y).first == 1 && lpButtonMng.Thumbf(0, XINPUT_THUMBL_Y).second != 1)
 	{
+		PlaySoundMem(_audio->GetSound("move"), DX_PLAYTYPE_BACK, true);
 		_cursor = (_cursor + 1) % _parts.size();
 	}
 
 	if (lpButtonMng.ButtonTrg(0, XINPUT_BUTTON_B))
 	{
+		PlaySoundMem(_audio->GetSound("select"), DX_PLAYTYPE_BACK, true);
 		_parts[_cursor]->_func();
 	}
 }
