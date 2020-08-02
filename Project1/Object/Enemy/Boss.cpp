@@ -1,11 +1,6 @@
 #include "Boss.h"
 #include "../../Graphic/ImageMng.h"
 
-//void Boss::Update(void)
-//{
-
-//}
-
 void Boss::DrawHP(void)
 {
 	(this->*func)();

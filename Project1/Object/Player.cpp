@@ -627,8 +627,8 @@ void Player::Portal(void)
 			_nextPos = { lpMapMng.GetFrontPosX(_stage),lpMapMng.GetFrontPosY(_stage) };
 			lpImageMng.SetplmoveF(true, MAP_DATA::FRONT);
 			lpImageMng.setGkind(ScrEff::FADEOUT);
+			break;
 		}
-		break;
 		case 3:
 			// if(座標を見て一番左のポータル)
 		{

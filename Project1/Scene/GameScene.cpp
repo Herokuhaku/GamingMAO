@@ -126,7 +126,7 @@ std::unique_ptr<BaseScene> GameScene::Update(std::unique_ptr<BaseScene> own)
 
 	lpEnemyMng.Update();
 
-	_gimmickmng->Update();
+	//_gimmickmng->Update();
 
 	lpAtkMng.Update();
 
@@ -192,15 +192,15 @@ bool GameScene::Init(void)
 	lpTimeMng.TimeInit();
 
 	_objList.clear();
-	_objList.emplace_back(std::make_shared<Player>(Vector2(2000,1300), 1, TIME::NOW));
-	lpSceneMng.SetPlObj(_objList[0], TIME::NOW);
-	_objList.emplace_back(std::make_shared<Player>(Vector2(400, 900), 1, TIME::FTR));
-	lpSceneMng.SetPlObj(_objList[1], TIME::FTR);
+	_objList.emplace_back(std::make_shared<Player>(Vector2(2000,1300), 1, TIME::FTR));
+	lpSceneMng.SetPlObj(_objList[0], TIME::FTR);
+	_objList.emplace_back(std::make_shared<Player>(Vector2(400, 900), 1, TIME::NOW));
+	lpSceneMng.SetPlObj(_objList[1], TIME::NOW);
 	_cobj = std::make_shared<camera>();
 	lpSceneMng.SetcObj(_cobj);
 
-	_gimmickmng = std::make_unique<GimmickMng>();
-	_gimmickmng->AddGimmick(new Rock(Vector2Template<int>(1550, 1100), 1));
+	//_gimmickmng = std::make_unique<GimmickMng>();
+	//_gimmickmng->AddGimmick(new Rock(Vector2Template<int>(1550, 1100), 1));
 
 	_menu.reset(new MenuExecuter(this));
 

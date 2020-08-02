@@ -541,7 +541,7 @@ int MapMng::mapMove(int flag, int x, int y, int stage)
 	if(mapC == 61)		// 61 = ‚à‚ñ‚Ì‰æ‘œ‚ÌID
 	{
 		// ‰æ–Ê’†‰›‚æ‚è¶
-		if (x < lpSceneMng.ScreenSize.x / 2)
+		if (x < GameMapSize.x / 2)
 		{
 			// ¶
 			return 3;
@@ -633,7 +633,7 @@ bool MapMng::getHitMap(const Vector2& pos, int stage)
 			return (HitMap[chip.y][chip.x][i] == 1);
 		}
 	}
-	exit(1);
+	// Enemy‚©‚ç—ˆ‚é‚Ì‚Í‚¢‚¢‚ª‘¼‚ÌêŠ‚©‚ç—ˆ‚é‚Ì‚Í‚¨‚©‚µ‚¢?
 	return true;
 }
 

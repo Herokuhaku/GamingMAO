@@ -8,7 +8,18 @@ void sorcerer::Update(void)
 	Enemy::Update();
 }
 
-//s_dragon::s_dragon(Vector2Template<int> pos, double rad, TIME time, int stage, OBJ_TYPE type, std::pair<OBJ_STATE, DIR> state_dir)
+void sorcerer::damagingHP(int damage)
+{
+	if (damage >= 45)
+	{
+		Enemy::damagingHP(damage);
+	}
+	else
+	{
+		Object::damagingHP(damage);
+	}
+}
+
 sorcerer::sorcerer(Vector2 pos, int stage)
 	{
 	_pos = pos;

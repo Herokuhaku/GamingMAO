@@ -4,7 +4,6 @@
 class Boss : public Enemy
 {
 public:
-	//void Update(void);
 
 	void DrawHP(void) override;
 
