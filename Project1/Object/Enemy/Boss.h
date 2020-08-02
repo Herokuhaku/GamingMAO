@@ -1,5 +1,12 @@
 #pragma once
 #include "Enemy.h"
+//#includ
+
+enum class AtkList
+{
+	TRACKING_BALL,
+	MAX
+};
 
 class Boss : public Enemy
 {
@@ -10,6 +17,8 @@ public:
 	Boss();
 	~Boss();
 
+	void RunAtkList(void);
+
 private:
 	void (Boss::*func)(void);
 
@@ -17,6 +26,9 @@ protected:
 	int _startCnt;
 	int _saveDivNum;
 	int _tmpHP;
+
+	std::vector<std::pair<AtkList, int>> atkList;		// <,ŒÂ”>
+
 	
 	void funcDrawHPStart(void);
 	void funcDrawHP(void);

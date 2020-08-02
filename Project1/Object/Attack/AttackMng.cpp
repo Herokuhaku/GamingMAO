@@ -11,6 +11,8 @@
 #include "yellow/Thunder.h"
 #include "white/HolyJudge.h"
 
+#include "../EnemyAttack/TrackingBall.h"
+
 AttackMng* AttackMng::sInstance = nullptr;
 
 void AttackMng::Update(void)
@@ -173,6 +175,22 @@ int AttackMng::MakeHolyJudge(Vector2 pos, TIME time, int stage, OBJ_TYPE target)
 		_tmpObj.emplace_back(new HolyJudge(pos, time, stage, target));
 
 		return _tmpObj.back()->getAnmEfk();
+	}
+}
+
+void AttackMng::MakeTrackingBall(Vector2 ePos, Vector2 pPos, TIME time, int stage, OBJ_TYPE target)
+{
+	if (_canAddObj)
+	{
+		_attackObj.emplace_back(new TrackingBall(ePos, pPos, time, stage, target));
+
+	//	return _attackObj.back()->getAnmEfk();
+	}
+	else
+	{
+		_tmpObj.emplace_back(new TrackingBall(ePos, pPos, time, stage, target));
+
+	//	return _tmpObj.back()->getAnmEfk();
 	}
 }
 

@@ -1,5 +1,7 @@
 #include "Boss.h"
 #include "../../Graphic/ImageMng.h"
+#include "../Attack/AttackMng.h"
+#include "../../Scene/SceneMng.h"
 
 void Boss::DrawHP(void)
 {
@@ -16,6 +18,32 @@ Boss::Boss()
 
 Boss::~Boss()
 {
+}
+
+void Boss::RunAtkList(void)
+{
+	if (lpSceneMng.GetFlame() % 10 == 0)
+	{
+		if (atkList.size() > 0)
+		{
+			auto pPos = lpSceneMng.GetPlPos(TIME::FTR);
+			switch (atkList[0].first)
+			{
+			case AtkList::TRACKING_BALL:
+				if (atkList[0].second > 0)
+				{
+					lpAtkMng.MakeTrackingBall({ _pos.x - 30,_pos.y - 200 }, std::move(pPos), _time, _stage, OBJ_TYPE::PLAYER);
+					atkList[0].second--;
+					break;
+				}
+				atkList.erase(atkList.begin());
+				break;
+
+			default:
+				break;
+			}
+		}
+	}
 }
 
 void Boss::funcDrawHPStart(void)

@@ -2,10 +2,13 @@
 #include "../../Scene/SceneMng.h"
 #include "../../Graphic/ImageMng.h"
 #include "../../Manage/MapMng.h"
+#include "../EnemyAttack/TrackingBall.h"
+#include "../Attack/AttackMng.h"
 
 void sorcerer::Update(void)
 {
 	Enemy::Update();
+	RunAtkList();
 }
 
 void sorcerer::damagingHP(int damage)
@@ -18,6 +21,19 @@ void sorcerer::damagingHP(int damage)
 	{
 		Object::damagingHP(damage);
 	}
+}
+
+int sorcerer::Attack(Vector2 pPos)
+{
+	if (_state_dir.first != OBJ_STATE::ATTACK)
+	{
+		setState({ OBJ_STATE::ATTACK, _plDir });
+		//atkList.emplace_back(AtkList::TRACKING_BALL, 7);
+		_waitTime = 300;	// クールタイム
+		_waitCnt = 0;
+		return static_cast<int>(MOVE_SELECT::WAIT);
+	}
+	return static_cast<int>(MOVE_SELECT::WAIT);
 }
 
 sorcerer::sorcerer(Vector2 pos, int stage)
@@ -49,8 +65,8 @@ sorcerer::sorcerer(Vector2 pos, int stage, int pPos, bool flag)
 	_tmpHP = _maxHP / _saveDivNum;
 	_exRate = 3.0;
 
-	_rangeS = 300;
-	_rangeA = 250;
+	_rangeS = 1000;
+	_rangeA = 450;
 
 	if (flag)
 	{
@@ -178,10 +194,11 @@ void sorcerer::Init(void)
 	setAnm({ OBJ_STATE::WALK,DIR::LEFT }, data);
 	animCnt = 5;
 
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 6; i++)
 	{
 		data.emplace_back(lpImageMng.getImage("sorcViL")[84 - i], animCnt + i * animCnt);
 	}
+	data.emplace_back(lpImageMng.getImage("sorcViL")[84 - 6], animCnt + 20 * animCnt);
 	data.emplace_back(-1, 0);
 	setAnm({ OBJ_STATE::ATTACK,DIR::LEFT }, data);
 

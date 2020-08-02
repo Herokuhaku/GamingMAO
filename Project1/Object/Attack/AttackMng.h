@@ -109,6 +109,14 @@ public:
 	// stage:ステージ	target:目標
 	int MakeHolyJudge(Vector2 pos, TIME time, int stage, OBJ_TYPE target);
 
+	// 敵
+	
+	// 追尾弾
+	// ePos:敵の座標		pPos:攻撃時点でのプレイヤーの座標
+	// time:時間軸		stage:ステージ
+	// target:目標
+	void MakeTrackingBall(Vector2 ePos, Vector2 pPos, TIME time, int stage, OBJ_TYPE target);
+
 private:
 	static AttackMng* sInstance;
 
