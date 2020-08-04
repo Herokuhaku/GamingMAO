@@ -9,11 +9,13 @@ public:
 
 	void Update(void)override;
 	void Draw(void) override;
+	void IfHitAttack(void) override;
 
 private:
 
 	Vector2 _ePos;
 	Vector2 _pPos;
+	Vector2 _vec;
 
 	OBJ_TYPE _target;
 	DIR _dir;

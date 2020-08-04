@@ -14,6 +14,10 @@ TrackingBall::TrackingBall(Vector2 & ePos, Vector2 & pPos, TIME time, int stage,
 	_time = time;
 	_stage = stage;
 	_target = target;
+
+	_vec.x = (static_cast<int>(_dir) - 1) * 10;			// 10 = speed
+	_rad = atan2(_vec.y, _vec.x);
+
 	Init();
 }
 
@@ -28,12 +32,17 @@ void TrackingBall::Update(void)
 		_alive = false;
 		setState({ OBJ_STATE::DEAD, _state_dir.second });
 	}
-	_pos.x-= 10;
+	_pos += _vec;
 }
 
 void TrackingBall::Draw(void)
 {
 	Object::Draw();
+}
+
+void TrackingBall::IfHitAttack(void)
+{
+	setState({ OBJ_STATE::DEAD, _state_dir.second });
 }
 
 bool TrackingBall::Init(void)

@@ -28,7 +28,7 @@ int sorcerer::Attack(Vector2 pPos)
 	if (_state_dir.first != OBJ_STATE::ATTACK)
 	{
 		setState({ OBJ_STATE::ATTACK, _plDir });
-		//atkList.emplace_back(AtkList::TRACKING_BALL, 7);
+		atkList.emplace_back(AtkList::TRACKING_BALL, 7);
 		_waitTime = 300;	// クールタイム
 		_waitCnt = 0;
 		return static_cast<int>(MOVE_SELECT::WAIT);
@@ -128,10 +128,11 @@ void sorcerer::Init(void)
 	setAnm({ OBJ_STATE::WALK,DIR::RIGHT }, data);
 	animCnt = 5;
 
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 6; i++)
 	{
 		data.emplace_back(lpImageMng.getImage("sorcViR")[68 + i], animCnt + i * animCnt);
 	}
+	data.emplace_back(lpImageMng.getImage("sorcViR")[68 + 6], animCnt + 20 * animCnt);
 	data.emplace_back(-1, 0);
 	setAnm({ OBJ_STATE::ATTACK,DIR::RIGHT }, data);
 
