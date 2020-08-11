@@ -119,6 +119,7 @@ void ImageMng::Draw(void)
 	DrawGraph(0,0,_screen,true);
 
 	ScreenEffect();
+	DrawFormatString(10, 10, 0xffffff, "fps %.3f", GetFPS());
 
 	ScreenFlip();
 

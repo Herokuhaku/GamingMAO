@@ -5,7 +5,7 @@ class ItemMenu :
 	public MenuBase
 {
 public:
-	ItemMenu() = delete;
+	ItemMenu() = default;
 	ItemMenu(std::shared_ptr<MenuExecuter> exe, std::shared_ptr<AudioContainer> audio);
 	~ItemMenu();
 

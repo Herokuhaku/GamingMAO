@@ -5,6 +5,7 @@
 #include "../common/Vector2.h"
 #include "MenuExecuter.h"
 #include "ItemMenu.h"
+#include "MagicMenu.h"
 #include "../Audio/AudioContainer.h"
 
 
@@ -32,6 +33,11 @@ SelectMenu::SelectMenu(int cursor, std::shared_ptr<MenuExecuter> exe, std::share
 	if (lpTimeMng.getTime() == TIME::NOW)
 	{
 		_parts.emplace_back(new MenuParts("合成", Vector2Template<int>(PARTS_POS_X, partsPosY), [this]() { _executer->ChangePage(new ItemMenu(_executer, _audio)); }));
+		partsPosY += PARTS_SPACE;
+	}
+	else
+	{
+		_parts.emplace_back(new MenuParts("魔法", Vector2Template<int>(PARTS_POS_X, partsPosY), [this]() { _executer->ChangePage(new MagicMenu(_executer, _audio)); }));
 		partsPosY += PARTS_SPACE;
 	}
 	_parts.emplace_back(new MenuParts("セーブ", Vector2Template<int>(PARTS_POS_X, partsPosY), []() { OutputDebugString("\nセーブ"); }));

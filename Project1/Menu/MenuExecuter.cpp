@@ -80,6 +80,7 @@ bool MenuExecuter::Control(void)
 		}
 		else
 		{
+			PlaySoundMem(_audio->GetSound("select"), DX_PLAYTYPE_BACK, true);
 			_active = true;
 			_currentMenu.reset(new SelectMenu(0, _gameScene->GetMenuExecuter(), _audio));
 		}

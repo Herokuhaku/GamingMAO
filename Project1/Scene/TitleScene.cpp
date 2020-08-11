@@ -11,6 +11,8 @@
 #include "GameScene.h"
 #include "../Audio/AudioContainer.h"
 
+#include "../Object/Attack/AttackDetails.h"
+
 namespace
 {
 	AudioContainer _audio;
@@ -98,6 +100,8 @@ TitleScene::TitleScene()
 	_audio.ChangeVolume("move", 180);
 	_audio.ChangeVolume("select", 210);
 	_audio.ChangeVolume("cancel", 180);
+
+	lpAtkDetails;
 }
 
 TitleScene::~TitleScene()
@@ -106,15 +110,6 @@ TitleScene::~TitleScene()
 
 std::unique_ptr<BaseScene> TitleScene::Update(std::unique_ptr<BaseScene> own)
 {
-	//lpImageMng.AddBackDraw({ lpImageMng.getImage("•—˜C•~")[0], lpSceneMng.ScreenSize.x / 2, lpSceneMng.ScreenSize.y / 2, 1.0, 0.0, LAYER::BG, 0, DX_BLENDMODE_NOBLEND, 0 });
-
-	//if ((lpKeyMng.getBuf()[KEY_INPUT_RETURN] && !lpKeyMng.getOldBuf()[KEY_INPUT_RETURN]) ||
-	//	lpButtonMng.ButtonTrg(0, XINPUT_BUTTON_B))
-	//{
-	//	lpImageMng.setGkind(ScrEff::FADEOUT);
-	//	return std::make_unique<SeleScene>();
-	//}
-
 	BaseScene* scene = (this->*_update)();
 	if (scene != nullptr)
 	{
@@ -152,7 +147,7 @@ BaseScene* TitleScene::FadeInUpdate(void)
 BaseScene* TitleScene::NormalUpdate(void)
 {
 	_blinkTimer++;
-	if (lpButtonMng.ButtonTrg(0, XINPUT_BUTTON_B))
+	if (lpButtonMng.ButtonTrg(0, XINPUT_BUTTON_B) && _timer < 0)
 	{
 		PlaySoundMem(_audio.GetSound("select"), DX_PLAYTYPE_BACK, true);
 		_timer = NORMAL_INTERVAL;

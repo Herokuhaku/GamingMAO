@@ -21,10 +21,12 @@ enum class ATK_TYPE : int
 	MAX
 };
 
+class MagicMenu;
 
 class Player :
 	public Object
 {
+	friend MagicMenu;
 public:
 	Player();
 	Player(Vector2Template<int> pos, int stage, TIME time);
@@ -41,17 +43,6 @@ private:
 	static constexpr double VEL_MAX = 9.0;
 
 	static constexpr int MP_MAX = 100;
-	static constexpr int MP_DATA[static_cast<int>(COLOR::MAX)][static_cast<int>(ATK_TYPE::MAX)] = 
-	{
-		{0, 0, 0},
-		{10, 0, 0},
-		{15, 0, 0},
-		{30, 0, 0},
-		{20, 0, 0},
-		{20, 0, 0},
-		{15, 0, 0},
-		{50, 0, 0}
-	};
 
 	void Init(void);
 

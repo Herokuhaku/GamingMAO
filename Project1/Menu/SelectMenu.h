@@ -6,7 +6,7 @@ class SelectMenu :
 	public MenuBase
 {
 public:
-	SelectMenu() = delete;
+	SelectMenu() = default;
 	SelectMenu(int cursor, std::shared_ptr<MenuExecuter> exe, std::shared_ptr<AudioContainer> audio);
 	~SelectMenu();
 

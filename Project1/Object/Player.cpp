@@ -10,6 +10,7 @@
 #include "../Graphic/ImageMng.h"
 #include "../Menu/MenuExecuter.h"
 #include "../Manage/MapMng.h"
+#include "Attack/AttackDetails.h"
 
 Player::Player()
 {
@@ -446,7 +447,7 @@ void Player::ControlAttack(void)
 			COLOR&& color = lpAttackUI.GetAttackColor();
 			if (static_cast<int>(color) >= static_cast<int>(COLOR::RED) && static_cast<int>(color) < static_cast<int>(COLOR::MAX))
 			{
-				if (lpAttackUI.RunAttack(10, MP_DATA[static_cast<int>(color)][static_cast<int>(_magicSet[static_cast<int>(color)])]))
+				if (lpAttackUI.RunAttack(10, AttackDetails::GetInstance().GetDetail(static_cast<int>(color), static_cast<int>(_magicSet[static_cast<int>(color)]))->_magicPoint))
 				{
 					_attack[static_cast<int>(color)][static_cast<int>(_magicSet[static_cast<int>(color)])]();
 				}
