@@ -1,7 +1,14 @@
 #include "BombThrow.h"
 #include "../../../func/CheckHitStage.h"
 #include "../../../Graphic/ImageMng.h"
+#include "../../../Audio/AudioContainer.h"
 
+namespace
+{
+	AudioContainer _audio;
+
+	constexpr int EXPLOSION_DURATION = 16;
+}
 
 BombThrow::BombThrow(Vector2 pos, DIR dir, int speed, double vel, TIME time, int stage, OBJ_TYPE target)
 {
@@ -11,6 +18,14 @@ BombThrow::BombThrow(Vector2 pos, DIR dir, int speed, double vel, TIME time, int
 	_time = time;
 	_stage = stage;
 	_rad = 0.0;
+	_target = target;
+
+	_type = OBJ_TYPE::ATTACK;
+	_update = &BombThrow::BombUpdate;
+
+	setHitOffset({ 22, 22, 22, 22 });
+
+	_tmpPos.y = static_cast<double>(_pos.y);
 
 	setState({ OBJ_STATE::NORMAL, dir });
 
@@ -23,11 +38,21 @@ BombThrow::~BombThrow()
 
 void BombThrow::Update(void)
 {
-	_rad += (static_cast<int>(_state_dir.second) - 1) * RAD_VEL;
+	(this->*_update)();
 }
 
 void BombThrow::IfHitAttack(void)
 {
+	if (_update == &BombThrow::BombUpdate)
+	{
+		_update = &BombThrow::ExplosionUpdate;
+		setState({ OBJ_STATE::A_NORMAL, _state_dir.second });
+		_exRate = 2.0;
+		_timer = EXPLOSION_DURATION;
+		PlaySoundMem(_audio.GetSound("explosion"), DX_PLAYTYPE_BACK, true);
+		stopAttack();
+		AddAttack("explosion");
+	}
 }
 
 void BombThrow::Init(void)
@@ -39,42 +64,75 @@ void BombThrow::Init(void)
 
 	setAnm({ OBJ_STATE::NORMAL, _state_dir.second }, data);
 
+	for (int i = 0; i < 8; i++)
+	{
+		data.emplace_back(lpImageMng.getImage("explosion")[i], (i + 1) * 2);
+	}
+	data.emplace_back(-1, -1);
+
+	setAnm({ OBJ_STATE::A_NORMAL, _state_dir.second }, data);
+
 	std::vector<atkData> attack;
+	attack.reserve(2);
+	attack.emplace_back(atkData(true, OBJ_TYPE::ATTACK, { -22, -22 }, { 22, 22 }, 0, 0, _target));
+	attack.emplace_back(atkData(false, OBJ_TYPE::ATTACK, { 0, 0 }, { 0, 0 }, 0, -1, _target));
 
+	setAttack("bomb", attack);
 
+	attack.reserve(17);
+	for (int i = 0; i < 17; i++)
+	{
+		attack.emplace_back(atkData(true, OBJ_TYPE::ATTACK, { -22, -22 }, { 22, 22 }, 30, 20, _target));
+	}
+	attack.emplace_back(atkData(false, OBJ_TYPE::ATTACK, { 0, 0 }, { 0, 0 }, 0, -1, _target));
+
+	setAttack("explosion", attack);
+
+	AddAttack("bomb");
+
+	_audio.LoadSound("sound/magic/explosion.wav", "explosion", 10);
+	_audio.ChangeVolume("explosion", 180);
+}
+
+void BombThrow::BombUpdate(void)
+{
+	_rad += (static_cast<int>(_state_dir.second) - 1) * RAD_VEL;
+
+	_pos.x += _speed;
+
+	VelUpdate();
+
+	if ((CheckHitStage()(CHECK_DIR::UP, { _pos.x, static_cast<int>(_tmpPos.y) }, getHitOffset(), _stage) != NOTHIT) || 
+		(CheckHitStage()(CHECK_DIR::DOWN, { _pos.x, static_cast<int>(_tmpPos.y) }, getHitOffset(), _stage) != NOTHIT) || 
+		(CheckHitStage()(CHECK_DIR::LEFT, { _pos.x, static_cast<int>(_tmpPos.y) }, getHitOffset(), _stage) != NOTHIT) || 
+		CheckHitStage()(CHECK_DIR::RIGHT, { _pos.x, static_cast<int>(_tmpPos.y) }, getHitOffset(), _stage) != NOTHIT)
+	{
+		_update = &BombThrow::ExplosionUpdate;
+		setState({ OBJ_STATE::A_NORMAL, _state_dir.second });
+		_exRate = 2.0;
+		_timer = EXPLOSION_DURATION;
+		PlaySoundMem(_audio.GetSound("explosion"), DX_PLAYTYPE_BACK, true);
+		stopAttack();
+		AddAttack("explosion");
+	}
+}
+
+void BombThrow::ExplosionUpdate(void)
+{
+	_timer--;
+	if (_timer < 0)
+	{
+		setState({ OBJ_STATE::DEAD, _state_dir.second });
+		_alive = false;
+	}
 }
 
 void BombThrow::VelUpdate(void)
 {
-	int tmpDown = CheckHitStage()(CHECK_DIR::DOWN, { _pos.x, static_cast<int>(_tmpPos.y) + getHitOffset()[static_cast<int>(CHECK_DIR::DOWN)] + 1 }, getHitOffset(), _stage);
-	if (tmpDown != NOTHIT)
-	{
-		_tmpPos.y = tmpDown - getHitOffset()[static_cast<int>(CHECK_DIR::DOWN)] - 1;
-		_vel = 0.0;
-	}
-	else
-	{
-		if (_vel + G_ACC > ACC_MAX)
-		{
-			_vel = ACC_MAX;
-		}
-		else
-		{
-			_vel += G_ACC;
-		}
+	_vel = min(_vel - G_ACC, ACC_MAX);
 
-		tmpDown = CheckHitStage()(CHECK_DIR::DOWN, { _pos.x, static_cast<int>(_tmpPos.y + _vel) + 1 }, getHitOffset(), _stage);
+	_tmpPos.y -= _vel;
 
-		if (tmpDown != NOTHIT)
-		{
-			_tmpPos.y = tmpDown - 1;
-			_vel = 0.0;
-		}
-		else
-		{
-			_tmpPos.y += _vel;
-		}
-	}
-
-	_pos.y = _tmpPos.y;
+	_pos.y = static_cast<int>(_tmpPos.y);
 }
+

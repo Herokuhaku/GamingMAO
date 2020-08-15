@@ -40,6 +40,7 @@ void FireBall::FireballUpdate(void)
 		_alive = false;
 		_timer = EXPLOSION_DURATION;
 		PlaySoundMem(_audio.GetSound("explosion"), DX_PLAYTYPE_BACK, true);
+		_alive = false;
 	}
 }
 
@@ -62,6 +63,8 @@ void FireBall::IfHitAttack(void)
 	_update = &FireBall::ExplosionUpdate;
 	setState({ OBJ_STATE::A_NORMAL, _state_dir.second });
 	_exRate = 2.0;
+	_alive = false;
+	_timer = EXPLOSION_DURATION;
 	PlaySoundMem(_audio.GetSound("explosion"), DX_PLAYTYPE_BACK, true);
 }
 

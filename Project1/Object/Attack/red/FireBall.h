@@ -14,15 +14,16 @@ public:
 	FireBall(Vector2 pos, DIR dir, Vector2 vec, TIME time, int stage, OBJ_TYPE target);
 	~FireBall();
 
-	void FireballUpdate(void);
-	void ExplosionUpdate(void);
-	void(FireBall::*_update)(void);
 	void Update(void);
 
 	void IfHitAttack(void)override;
 
 private:
 	void Init(void);
+
+	void FireballUpdate(void);
+	void ExplosionUpdate(void);
+	void(FireBall::*_update)(void);
 
 	Vector2 _vec;
 	OBJ_TYPE _target;

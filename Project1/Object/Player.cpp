@@ -580,7 +580,6 @@ void Player::VelUpdate(void)
 	}
 
 	_tmpPos.y -= _vel;
-	_type = OBJ_TYPE::PLAYER;
 
 	_pos.y = static_cast<int>(_tmpPos.y);
 
@@ -680,6 +679,8 @@ void Player::Red1(void)
 
 void Player::Red2(void)
 {
+	lpAtkMng.MakeBomb({ _pos.x + (static_cast<int>(_state_dir.second) - 1) * PLAYER_SIZE_X / 2, _pos.y - _drawOffset_y }, _state_dir.second,
+		4, 4.0, _time, _stage, OBJ_TYPE::ENEMY);
 }
 
 void Player::Red3(void)

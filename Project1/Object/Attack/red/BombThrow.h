@@ -20,12 +20,18 @@ public:
 private:
 	void Init(void);
 
+	void BombUpdate(void);
+	void ExplosionUpdate(void);
+	void(BombThrow::*_update)(void);
+
 	int _speed;
 	double _vel;
 
-	OBJ_STATE _target;
+	OBJ_TYPE _target;
 
-	static constexpr double G_ACC = 0.3;
+	int _timer;
+
+	static constexpr double G_ACC = 0.1;
 	static constexpr double ACC_MAX = 5.0;
 
 	static constexpr double RAD_VEL = 3.141592653589 / 128.0;

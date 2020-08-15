@@ -76,7 +76,10 @@ void CheckHitAttack::operator()(const std::vector<std::shared_ptr<Object>>& objl
 				continue;
 			}
 
-
+			if (!attack.second->Alive())
+			{
+				continue;
+			}
 
 			if (objPos.x - hitBox[static_cast<int>(CHECK_DIR::LEFT)] <= pos2.x &&
 				objPos.x + hitBox[static_cast<int>(CHECK_DIR::RIGHT)] >= pos1.x &&
