@@ -29,6 +29,8 @@ Player::Player(Vector2Template<int> pos, int stage, TIME time)
 	setHitOffset({ 14,10,70,0 });
 	_drawOffset_y = 45;
 
+	_zOrder = 10;
+
 	_time = time;
 	_stage = stage;
 	MenuFlag = false;
@@ -733,6 +735,7 @@ void Player::Magenta1(void)
 
 void Player::Magenta2(void)
 {
+	lpAtkMng.MakeHealTree(_pos, _time, _stage, OBJ_TYPE::PLAYER);
 }
 
 void Player::Magenta3(void)

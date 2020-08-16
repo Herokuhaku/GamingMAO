@@ -5,7 +5,7 @@
 HolyJudge::HolyJudge(Vector2 pos, TIME time, int stage, OBJ_TYPE target)
 {
 	_pos.x = pos.x;
-	_pos.y = FindSF(pos.y)/* - 540*/;
+	_pos.y = FindSF(pos.y);
 	_time = time;
 	_stage = stage;
 	_target = target;

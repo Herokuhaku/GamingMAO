@@ -78,6 +78,11 @@ public:
 	// target:目標
 	void MakePoisonFog(Vector2 pos, int count, TIME time, int stage, OBJ_TYPE target);
 
+	// 回復する木
+	// pos:座標			time:時間軸
+	// stage:ステージ	target:目標
+	void MakeHealTree(Vector2 pos, TIME time, int stage, OBJ_TYPE target);
+
 	// 水色魔法
 
 	// 氷の壁

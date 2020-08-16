@@ -101,6 +101,7 @@ GameScene::GameScene()
 	lpImageMng.getImage("image/Attack/bomb.png", "bomb", 64, 64, 2, 1);
 	lpImageMng.getImage("image/Attack/cloud.png", "cloud");
 	lpImageMng.getImage("image/Attack/Lightning.png", "lightning", 240, 240, 8, 1);
+	lpImageMng.getImage("image/Attack/tree.png", "tree", 250, 150, 1, 5);
 
 
 	// エフェクト

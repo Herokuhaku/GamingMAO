@@ -10,6 +10,7 @@
 #include "yellow/ThunderCloud.h"
 #include "yellow/Thunder.h"
 #include "white/HolyJudge.h"
+#include "magenta/HealTree.h"
 
 #include "../EnemyAttack/TrackingBall.h"
 
@@ -123,6 +124,18 @@ void AttackMng::MakePoisonFog(Vector2 pos, int count, TIME time, int stage, OBJ_
 	else
 	{
 		_tmpObj.emplace_back(new PoisonFog(pos, count, time, stage, target));
+	}
+}
+
+void AttackMng::MakeHealTree(Vector2 pos, TIME time, int stage, OBJ_TYPE target)
+{
+	if (_canAddObj)
+	{
+		_attackObj.emplace_back(new HealTree(pos, time, stage, target));
+	}
+	else
+	{
+		_tmpObj.emplace_back(new HealTree(pos, time, stage, target));
 	}
 }
 
