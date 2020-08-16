@@ -69,6 +69,8 @@ private:
 
 	bool MenuFlag;
 
+	Vector2 _centerPos;
+
 	// UŒ‚ŠÖŒW
 	std::array<ATK_TYPE, static_cast<int>(COLOR::MAX)> _magicSet;	// F‚²‚Æ‚É‚Ç‚Ì‹Z‚Éİ’è‚µ‚Ä‚ ‚é‚©
 	std::array<std::array<std::function<void(void)>, static_cast<int>(ATK_TYPE::MAX)>, static_cast<int>(COLOR::MAX)> _attack;

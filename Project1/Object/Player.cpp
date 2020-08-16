@@ -26,6 +26,9 @@ Player::Player(Vector2Template<int> pos, int stage, TIME time)
 	_control = &Player::ControlNormal;
 	_type = OBJ_TYPE::PLAYER;
 
+	_centerPos.x = _pos.x;
+	_centerPos.y = _pos.y - _drawOffset_y;
+
 	setHitOffset({ 14,10,70,0 });
 	_drawOffset_y = 45;
 
@@ -60,7 +63,7 @@ void Player::Update(void)
 		StopWalk();
 		return;
 	}
-	
+
 	if (!MenuExecuter::IsActive() && _time == lpTimeMng.getTime())
 	{
 		if (_state_dir.first != OBJ_STATE::DEAD && _state_dir.first != OBJ_STATE::DAMAGE)
@@ -68,8 +71,8 @@ void Player::Update(void)
 			(this->*_control)();
 		}
 
-		if (((lpKeyMng.getOldBuf()[KEY_INPUT_LSHIFT] && !lpKeyMng.getBuf()[KEY_INPUT_LSHIFT])) || 
-			lpButtonMng.ButtonTrg(0,XINPUT_BUTTON_LEFT_SHOULDER))
+		if (((lpKeyMng.getOldBuf()[KEY_INPUT_LSHIFT] && !lpKeyMng.getBuf()[KEY_INPUT_LSHIFT])) ||
+			lpButtonMng.ButtonTrg(0, XINPUT_BUTTON_LEFT_SHOULDER))
 		{
 			lpTimeMng.ChangeTime();
 		}
@@ -83,7 +86,7 @@ void Player::Update(void)
 			lpTradeMng.ChangeCount(true);
 		}
 
-		if(lpButtonMng.ButtonTrg(0,XINPUT_BUTTON_DPAD_UP))
+		if (lpButtonMng.ButtonTrg(0, XINPUT_BUTTON_DPAD_UP))
 		{
 			if (lpTradeMng.CheckTool())
 			{
@@ -103,6 +106,8 @@ void Player::Update(void)
 	}
 
 	Portal();
+	_centerPos.x = _pos.x;
+	_centerPos.y = _pos.y - _drawOffset_y;
 }
 
 void Player::Draw(void)
@@ -269,7 +274,7 @@ void Player::Init(void)
 	_attack[static_cast<int>(COLOR::GREEN)]	[static_cast<int>(ATK_TYPE::TYPE_2)] = std::bind(&Player::Green2  , this);
 	_attack[static_cast<int>(COLOR::GREEN)]	[static_cast<int>(ATK_TYPE::TYPE_3)] = std::bind(&Player::Green3  , this);
 	_attack[static_cast<int>(COLOR::YELLOW)][static_cast<int>(ATK_TYPE::TYPE_1)] = std::bind(&Player::Yellow1, this);
-	_attack[static_cast<int>(COLOR::YELLOW)][static_cast<int>(ATK_TYPE::TYPE_2)] = std::bind(&Player::Yellow1, this);
+	_attack[static_cast<int>(COLOR::YELLOW)][static_cast<int>(ATK_TYPE::TYPE_2)] = std::bind(&Player::Yellow2, this);
 	_attack[static_cast<int>(COLOR::YELLOW)][static_cast<int>(ATK_TYPE::TYPE_3)] = std::bind(&Player::Yellow3, this);
 	_attack[static_cast<int>(COLOR::BLUE)]	[static_cast<int>(ATK_TYPE::TYPE_1)] = std::bind(&Player::Blue1   , this);
 	_attack[static_cast<int>(COLOR::BLUE)]	[static_cast<int>(ATK_TYPE::TYPE_2)] = std::bind(&Player::Blue2   , this);
@@ -709,6 +714,7 @@ void Player::Yellow1(void)
 
 void Player::Yellow2(void)
 {
+	lpAtkMng.MakeSpark(&_centerPos, _time, _stage, OBJ_TYPE::ENEMY);
 }
 
 void Player::Yellow3(void)

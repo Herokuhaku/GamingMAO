@@ -107,6 +107,11 @@ public:
 	// stage:ステージ		target:目標	
 	void MakeThunder(Vector2 pos1, Vector2 pos2, bool useRef, Vector2* refPos, int damage, TIME time, int stage, OBJ_TYPE target);
 
+	// スパーク
+	// pos:座標			time:時間軸
+	// stage:ステージ	target:目標
+	void MakeSpark(Vector2* pos, TIME time, int stage, OBJ_TYPE target);
+
 	// 白魔法
 
 	// 光の柱

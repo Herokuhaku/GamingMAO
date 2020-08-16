@@ -11,6 +11,7 @@
 #include "yellow/Thunder.h"
 #include "white/HolyJudge.h"
 #include "magenta/HealTree.h"
+#include "yellow/Spark.h"
 
 #include "../EnemyAttack/TrackingBall.h"
 
@@ -172,6 +173,18 @@ void AttackMng::MakeThunder(Vector2 pos1, Vector2 pos2, bool useRef, Vector2* re
 	else
 	{
 		_tmpObj.emplace_back(new Thunder(pos1, pos2, useRef, refPos, damage, time, stage, target));
+	}
+}
+
+void AttackMng::MakeSpark(Vector2* pos, TIME time, int stage, OBJ_TYPE target)
+{
+	if (_canAddObj)
+	{
+		_attackObj.emplace_back(new Spark(pos, time, stage, target));
+	}
+	else
+	{
+		_tmpObj.emplace_back(new Spark(pos, time, stage, target));
 	}
 }
 
