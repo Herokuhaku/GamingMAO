@@ -120,6 +120,11 @@ bool AttackUI::RunAttack(const int& coolTime, const int& MP)
 
 	_AttackColor = COLOR::BLACK;
 
+	if (coolTime == -1)
+	{
+		return false;
+	}
+
 	_coolTime = coolTime;
 
 	for (int i = 0; i < PRIMARY_COLOR_COUNT; i++)

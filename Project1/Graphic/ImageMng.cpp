@@ -120,6 +120,7 @@ void ImageMng::Draw(void)
 
 	ScreenEffect();
 	DrawFormatString(10, 10, 0xffffff, "fps %.3f", GetFPS());
+	DrawFormatString(10, 30, 0xffffff, "DC %d", GetDrawCallCount());
 
 	ScreenFlip();
 

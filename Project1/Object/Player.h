@@ -38,8 +38,10 @@ public:
 	void Draw(void)override;
 private:
 	static constexpr int WALK_SPEED = 4;
+	static constexpr int SUPER_SPEED = 8;
 	static constexpr double G_ACC_NORMAL = 0.4;
 	static constexpr double INI_VEL_NORMAL = 9.0;
+	static constexpr double INI_VEL_SUPER = 20.0;
 	static constexpr double VEL_MAX = 9.0;
 
 	static constexpr int MP_MAX = 100;
@@ -59,9 +61,12 @@ private:
 
 	bool _rotateFlag;
 
+	bool _isSuperJump;
+
 	void VelUpdate(void);
 
 	double _vel;
+	int _speed;
 
 	bool MenuUpdate(void);
 	void Attack(void);

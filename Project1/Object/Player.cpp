@@ -25,6 +25,8 @@ Player::Player(Vector2Template<int> pos, int stage, TIME time)
 	_rotateFlag = false;
 	_control = &Player::ControlNormal;
 	_type = OBJ_TYPE::PLAYER;
+	_speed = WALK_SPEED;
+	_isSuperJump = false;
 
 	_centerPos.x = _pos.x;
 	_centerPos.y = _pos.y - _drawOffset_y;
@@ -307,10 +309,10 @@ void Player::ControlNormal(void)
 			// ‚È‚µ
 		}
 
-		int tmpLeft = CheckHitStage()(CHECK_DIR::LEFT, { _pos.x - WALK_SPEED, _pos.y }, getHitOffset(),_stage);
+		int tmpLeft = CheckHitStage()(CHECK_DIR::LEFT, { _pos.x - _speed, _pos.y }, getHitOffset(),_stage);
 		if (tmpLeft == NOTHIT)
 		{
-			_pos.x -= WALK_SPEED;
+			_pos.x -= _speed;
 		}
 		else
 		{
@@ -332,10 +334,10 @@ void Player::ControlNormal(void)
 			// ‚È‚µ
 		}
 
-		int tmpRight = CheckHitStage()(CHECK_DIR::RIGHT, { _pos.x + WALK_SPEED, _pos.y }, getHitOffset(),_stage);
+		int tmpRight = CheckHitStage()(CHECK_DIR::RIGHT, { _pos.x + _speed, _pos.y }, getHitOffset(),_stage);
 		if (tmpRight == NOTHIT)
 		{
-			_pos.x += WALK_SPEED;
+			_pos.x += _speed;
 		}
 		else
 		{
@@ -389,10 +391,10 @@ void Player::ControlAttack(void)
 			// ‚È‚µ
 		}
 
-		int tmpLeft = CheckHitStage()(CHECK_DIR::LEFT, { _pos.x - WALK_SPEED, _pos.y }, getHitOffset(),_stage);
+		int tmpLeft = CheckHitStage()(CHECK_DIR::LEFT, { _pos.x - _speed, _pos.y }, getHitOffset(),_stage);
 		if (tmpLeft == NOTHIT)
 		{
-			_pos.x -= WALK_SPEED;
+			_pos.x -= _speed;
 		}
 		else
 		{
@@ -422,10 +424,10 @@ void Player::ControlAttack(void)
 			// ‚È‚µ
 		}
 
-		int tmpRight = CheckHitStage()(CHECK_DIR::RIGHT, { _pos.x + WALK_SPEED, _pos.y }, getHitOffset(),_stage);
+		int tmpRight = CheckHitStage()(CHECK_DIR::RIGHT, { _pos.x + _speed, _pos.y }, getHitOffset(),_stage);
 		if (tmpRight == NOTHIT)
 		{
-			_pos.x += WALK_SPEED;
+			_pos.x += _speed;
 		}
 		else
 		{
@@ -454,7 +456,13 @@ void Player::ControlAttack(void)
 			COLOR&& color = lpAttackUI.GetAttackColor();
 			if (static_cast<int>(color) >= static_cast<int>(COLOR::RED) && static_cast<int>(color) < static_cast<int>(COLOR::MAX))
 			{
-				if (lpAttackUI.RunAttack(10, AttackDetails::GetInstance().GetDetail(static_cast<int>(color), static_cast<int>(_magicSet[static_cast<int>(color)]))->_magicPoint))
+				int ct = 10;
+				if (color == COLOR::GREEN && _magicSet[static_cast<int>(color)] == ATK_TYPE::TYPE_2 && _isSuperJump)
+				{
+					ct = -1;
+				}
+
+				if (lpAttackUI.RunAttack(ct, AttackDetails::GetInstance().GetDetail(static_cast<int>(color), static_cast<int>(_magicSet[static_cast<int>(color)]))->_magicPoint))
 				{
 					_attack[static_cast<int>(color)][static_cast<int>(_magicSet[static_cast<int>(color)])]();
 				}
@@ -562,6 +570,8 @@ void Player::VelUpdate(void)
 	{
 		_tmpPos.y = static_cast<double>(tmpDown - getHitOffset()[static_cast<int>(CHECK_DIR::DOWN)]);
 		_vel = 0.0;
+		_speed = WALK_SPEED;
+		_isSuperJump = false;
 		if (lpKeyMng.getBuf()[KEY_INPUT_LEFT] || lpKeyMng.getBuf()[KEY_INPUT_RIGHT])
 		{
 			if (_state_dir.first == OBJ_STATE::A_JUMP)
@@ -701,6 +711,17 @@ void Player::Green1(void)
 
 void Player::Green2(void)
 {
+	_vel = INI_VEL_SUPER;
+	_speed = SUPER_SPEED;
+	_isSuperJump = true;
+	if (_control == &Player::ControlNormal)
+	{
+		setState({ OBJ_STATE::JUMP, _state_dir.second });
+	}
+	else
+	{
+		setState({ OBJ_STATE::A_JUMP, _state_dir.second });
+	}
 }
 
 void Player::Green3(void)
