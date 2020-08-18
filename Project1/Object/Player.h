@@ -46,6 +46,8 @@ private:
 
 	static constexpr int MP_MAX = 100;
 
+	static constexpr int WING_OFFSET = 120;
+
 	void Init(void);
 
 	void ControlNormal(void);
@@ -75,6 +77,7 @@ private:
 	bool MenuFlag;
 
 	Vector2 _centerPos;
+	Vector2 _wingPos;
 
 	// UŒ‚ŠÖŒW
 	std::array<ATK_TYPE, static_cast<int>(COLOR::MAX)> _magicSet;	// F‚²‚Æ‚É‚Ç‚Ì‹Z‚Éİ’è‚µ‚Ä‚ ‚é‚©

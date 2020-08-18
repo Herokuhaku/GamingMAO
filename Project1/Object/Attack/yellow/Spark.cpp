@@ -30,7 +30,7 @@ void Spark::Update(void)
 {
 	if(_timer % SPARK_INTERVAL == 30)
 	{
-		lpImageMng.playEffect("spark_effect", &_ownerPos->x, &_ownerPos->y, 1.5, LAYER::CHAR, 50, DX_BLENDMODE_NOBLEND, 0, EffectDrawType::DRAW_TO_RELATIVE);
+		lpImageMng.playEffect("spark_effect", &_ownerPos->x, &_ownerPos->y, 1.5, 0.0, LAYER::CHAR, 50, DX_BLENDMODE_NOBLEND, 0, EffectDrawType::DRAW_TO_RELATIVE);
 		AddAttack("spark");
 	}
 	_timer--;

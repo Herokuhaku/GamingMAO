@@ -110,6 +110,8 @@ void Player::Update(void)
 	Portal();
 	_centerPos.x = _pos.x;
 	_centerPos.y = _pos.y - _drawOffset_y;
+	_wingPos.x = _pos.x;
+	_wingPos.y = _pos.y - WING_OFFSET;
 }
 
 void Player::Draw(void)
@@ -247,6 +249,18 @@ void Player::Init(void)
 
 	data.emplace_back(lpImageMng.getImage("player_damaged")[3], 3);
 	setAnm({ OBJ_STATE::DEAD, DIR::RIGHT }, data);
+
+
+	EffectData effect;
+	effect.reserve(6);
+
+	lpImageMng.getImage("image/Attack/white_wing.png", "wing", 188, 75, 1, 5);
+	for (int i = 0; i < 5; i++)
+	{
+		effect.emplace_back(lpImageMng.getImage("wing")[i], (i + 1) * (i + 1) * 3);
+	}
+	effect.emplace_back(0, -1);
+	lpImageMng.setEffect("wing_effect", effect);
 
 
 	std::vector<atkData> attack;
@@ -789,6 +803,10 @@ void Player::White1(void)
 
 void Player::White2(void)
 {
+	if (lpAttackUI.ToFeverTime())
+	{
+		lpImageMng.playEffect("wing_effect", &_wingPos.x, &_wingPos.y, 1.0, 0.0, LAYER::CHAR, _zOrder + 1, DX_BLENDMODE_NOBLEND, 0, EffectDrawType::DRAW_TO_RELATIVE);
+	}
 }
 
 void Player::White3(void)

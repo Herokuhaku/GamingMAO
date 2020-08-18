@@ -29,6 +29,7 @@ enum class EffectElm : int
 	X,
 	Y,
 	EX_RATE,
+	RAD,
 	LAYER,
 	ZORDER,
 	BLEND,
@@ -92,7 +93,7 @@ public:
 	void Draw(int screen, bool deleteFlag);
 
 
-	void playEffect(std::string key, const int* posX, const int* posY, double exRate, LAYER layer, int zOrder, int blend_mode, int blend_prm, EffectDrawType draw);	// エフェクトの再生
+	void playEffect(std::string key, const int* posX, const int* posY, double exRate, double rad, LAYER layer, int zOrder, int blend_mode, int blend_prm, EffectDrawType draw);	// エフェクトの再生
 	void stopEffect(void);
 	void UpdateEffect(void);		// エフェクトの描画と更新
 
@@ -108,7 +109,7 @@ private:
 	std::map<std::string, EffectData>		_effectMap;		// エフェクト保存用
 
 	std::vector<DrawData> _drawList[2];							// 描画情報保存用
-	std::vector<std::tuple<std::string, const int*, const int*, double, LAYER, int, int, int, int, int, EffectDrawType>> _effectList;		// 進行中のエフェクト
+	std::vector<std::tuple<std::string, const int*, const int*, double, double, LAYER, int, int, int, int, int, EffectDrawType>> _effectList;		// 進行中のエフェクト
 
 	//---------------------------------------------------------
 	void ScreenEffect(void);		// 画面エフェクトの分岐

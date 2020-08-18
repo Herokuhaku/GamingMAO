@@ -4,8 +4,34 @@
 #include "ItemTrader.h"
 #include "Menu.h"
 #include "TimeMng.h"
+#include "../Scene/SceneMng.h"
 
 AttackUI* AttackUI::sInstance = nullptr;
+
+namespace
+{
+	constexpr int Z_ORDER = 500;
+	constexpr int UI_SIZE = 300;
+	constexpr int RING_SIZE = 230;
+	constexpr int RING_RADIUS = 102;
+	constexpr int STICK_OBJ_SIZE = 60;
+	constexpr int EFFECT_ANM_COUNT = 10;
+	constexpr int EFFECT_ANM_INTERVAL = 3;
+	constexpr double EFFECT_EX_RATE_STICK = 1.0;
+	constexpr double EFFECT_EX_RATE_RUN = 5.0;
+
+	constexpr int DRAW_OFFSET_X = 1150;
+	constexpr int DRAW_OFFSET_Y = 600;
+
+	constexpr int ACTIVE_RADIUS = 400000000;
+	constexpr double STICK_RADIUS = 0x8000;
+
+	constexpr float MP_MAX = 100.0f;
+	constexpr float MP_REGENERATION_SPEED = 0.1f;
+
+	constexpr int FEVER_DURATION = 400;
+	constexpr float FEVER_MP_DEC = MP_MAX / static_cast<float>(FEVER_DURATION);
+}
 
 void AttackUI::Update(void)
 {
@@ -29,6 +55,10 @@ void AttackUI::Update(void)
 	if (_coolTime != 0)
 	{
 		_coolTime--;
+	}
+	if (_feverTime != 0)
+	{
+		_feverTime--;
 	}
 	if (_coolTime == 0)
 	{
@@ -80,7 +110,12 @@ void AttackUI::Draw(void)
 
 	if (_OldAttackColor != _AttackColor && _AttackColor != COLOR::BLACK)
 	{
-		lpImageMng.playEffect("stick_effect_" + std::to_string(static_cast<int>(_AttackColor)), &_absStickX, &_absStickY, EFFECT_EX_RATE_STICK, LAYER::EX, Z_ORDER + 1, DX_BLENDMODE_NOBLEND, 0, EffectDrawType::DRAW_TO_ABSOLUTE);
+		lpImageMng.playEffect("stick_effect_" + std::to_string(static_cast<int>(_AttackColor)), &_absStickX, &_absStickY, EFFECT_EX_RATE_STICK, 0.0, LAYER::EX, Z_ORDER + 1, DX_BLENDMODE_NOBLEND, 0, EffectDrawType::DRAW_TO_ABSOLUTE);
+	}
+	if (_feverTime != 0 && (FEVER_DURATION - _feverTime) % 20 == 0)
+	{
+		std::uniform_real_distribution<double> _urd(RAD(-180), RAD(180));
+		lpImageMng.playEffect("rev_stick_effect_7", &_absStickX, &_absStickY, 1.5, _urd(lpSceneMng._rnd), LAYER::EX, Z_ORDER + 1, DX_BLENDMODE_NOBLEND, 0, EffectDrawType::DRAW_TO_ABSOLUTE);
 	}
 
 	SetDrawBlendMode(DX_BLENDMODE_SUB, 25);
@@ -127,6 +162,11 @@ bool AttackUI::RunAttack(const int& coolTime, const int& MP)
 
 	_coolTime = coolTime;
 
+	if (_feverTime > 0)
+	{
+		return true;
+	}
+
 	for (int i = 0; i < PRIMARY_COLOR_COUNT; i++)
 	{
 		if (static_cast<int>(tmpColor) & checkColor)
@@ -153,9 +193,39 @@ bool AttackUI::RunAttack(const int& coolTime, const int& MP)
 	return true;
 }
 
+bool AttackUI::ToFeverTime(void)
+{
+	for (auto& data : _magicState)
+	{
+		if (data.second != MP_MAX)
+		{
+			return false;
+		}
+	}
+
+	if (_feverTime == 0)
+	{
+		_feverTime = FEVER_DURATION;
+		return true;
+	}
+	return false;
+}
 
 void AttackUI::MpUpdate(void)
 {
+	if (_feverTime > 0)
+	{
+		for (auto& data : _magicState)
+		{
+			data.second -= FEVER_MP_DEC;
+			if (data.second < 0.0f)
+			{
+				data.second = 0.0f;
+			}
+		}
+		return;
+	}
+
 	for (auto& data : _magicState)
 	{
 		data.second += MP_REGENERATION_SPEED;
@@ -275,6 +345,15 @@ AttackUI::AttackUI()
 		effect.emplace_back(0, -1);
 		lpImageMng.setEffect(key, effect);
 	}
+
+
+	for (int j = 0; j < EFFECT_ANM_COUNT; j++)
+	{
+		effect.emplace_back(lpImageMng.getImage("stick_effect_7")[j], EFFECT_ANM_INTERVAL * (j + 1));
+	}
+	effect.emplace_back(0, -1);
+	lpImageMng.setEffect("rev_stick_effect_7", effect);
+
 	LoadDivMask("image/UI/MpMask.png", PRIMARY_COLOR_COUNT, PRIMARY_COLOR_COUNT, 1, RING_SIZE, RING_SIZE, _maskHandle);
 	lpImageMng.getImage("image/UI/Ring1.png", "base_ring");
 	lpImageMng.getImage("image/UI/StickObj.png", "stick_obj", 90, 90, 8, 1);
@@ -290,6 +369,7 @@ AttackUI::AttackUI()
 	_AttackColor = COLOR::BLACK;
 	_magicState = { std::make_pair(ATK_STATE::NON, MP_MAX), std::make_pair(ATK_STATE::NON, MP_MAX), std::make_pair(ATK_STATE::NON, MP_MAX) };
 	_coolTime = 0;
+	_feverTime = 0;
 }
 
 AttackUI::~AttackUI()

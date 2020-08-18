@@ -42,30 +42,11 @@ public:
 
 	bool CheckAttackActivate(void);			// 右スティックが一定以上傾いているか
 	bool RunAttack(const int& coolTime, const int& MP);		// 攻撃を発動させる
-
-
+	
+	bool ToFeverTime(void);
 private:
 	static AttackUI* sInstance;
 
-	// 定義
-	static constexpr int Z_ORDER = 500;
-	static constexpr int UI_SIZE = 300;
-	static constexpr int RING_SIZE = 230;
-	static constexpr int RING_RADIUS = 102;
-	static constexpr int STICK_OBJ_SIZE = 60;
-	static constexpr int EFFECT_ANM_COUNT = 10;
-	static constexpr int EFFECT_ANM_INTERVAL = 3;
-	static constexpr double EFFECT_EX_RATE_STICK = 1.0;
-	static constexpr double EFFECT_EX_RATE_RUN = 5.0;
-
-	static constexpr int DRAW_OFFSET_X = 1150;
-	static constexpr int DRAW_OFFSET_Y = 600;
-
-	static constexpr int ACTIVE_RADIUS = 400000000;
-	static constexpr double STICK_RADIUS = 0x8000;
-
-	static constexpr float MP_MAX = 100.0f;
-	static constexpr float MP_REGENERATION_SPEED = 0.1f;
 	static constexpr int PRIMARY_COLOR_COUNT = 3;
 
 	static constexpr int MP_GAUGE_OFFSET[PRIMARY_COLOR_COUNT] = { 251, 251, 147 };
@@ -93,6 +74,9 @@ private:
 
 	// 攻撃のクールタイム
 	int _coolTime;
+
+	// MP無しで出せる時間
+	int _feverTime;
 
 	void MpUpdate(void);
 	void ColorUpdate(void);	// 色の更新

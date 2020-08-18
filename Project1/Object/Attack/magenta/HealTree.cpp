@@ -55,7 +55,7 @@ void HealTree::ActiveUpdate(void)
 	if (_timer % HEAL_DURATION == 50)
 	{
 		AddAttack("heal");
-		lpImageMng.playEffect("heal_effect", &_pos.x, &_pos.y, 0.5, LAYER::CHAR, 1, DX_BLENDMODE_NOBLEND, 0, EffectDrawType::DRAW_TO_RELATIVE);
+		lpImageMng.playEffect("heal_effect", &_pos.x, &_pos.y, 0.5, 0.0, LAYER::CHAR, 1, DX_BLENDMODE_NOBLEND, 0, EffectDrawType::DRAW_TO_RELATIVE);
 	}
 
 	if (_timer <= 0)
