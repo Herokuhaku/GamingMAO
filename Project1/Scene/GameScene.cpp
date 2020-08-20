@@ -103,6 +103,7 @@ GameScene::GameScene()
 	lpImageMng.getImage("image/Attack/Lightning.png", "lightning", 240, 240, 8, 1);
 	lpImageMng.getImage("image/Attack/tree.png", "tree", 250, 150, 1, 5);
 	lpImageMng.getImage("image/Attack/spark.png", "spark", 80, 80, 8, 1);
+	lpImageMng.getImage("image/Attack/clock_stop.png", "clock_stop", 480, 480, 5, 3);
 
 
 	// エフェクト
@@ -217,6 +218,26 @@ bool GameScene::Init(void)
 	lpTradeMng.SetItemList({ 2080,1311 }, ITEM_TYPE::BOOK, COLOR::RED, 1);
 	lpTradeMng.SetItemList({ 2080,1311 }, ITEM_TYPE::BOOK, COLOR::GREEN, 1);
 	
+	EffectData effect;
+	effect.reserve(16);
+	effect.emplace_back(lpImageMng.getImage("clock_stop")[0], 3);
+	effect.emplace_back(lpImageMng.getImage("clock_stop")[1], 6);
+	effect.emplace_back(lpImageMng.getImage("clock_stop")[2], 9);
+	effect.emplace_back(lpImageMng.getImage("clock_stop")[3], 12);
+	effect.emplace_back(lpImageMng.getImage("clock_stop")[4], 15);
+	effect.emplace_back(lpImageMng.getImage("clock_stop")[5], 25);
+	effect.emplace_back(lpImageMng.getImage("clock_stop")[6], 35);
+	effect.emplace_back(lpImageMng.getImage("clock_stop")[7], 45);
+	effect.emplace_back(lpImageMng.getImage("clock_stop")[8], 48);
+	effect.emplace_back(lpImageMng.getImage("clock_stop")[9], 51);
+	effect.emplace_back(lpImageMng.getImage("clock_stop")[10], 54);
+	effect.emplace_back(lpImageMng.getImage("clock_stop")[11], 57);
+	effect.emplace_back(lpImageMng.getImage("clock_stop")[12], 60);
+	effect.emplace_back(lpImageMng.getImage("clock_stop")[13], 63);
+	effect.emplace_back(lpImageMng.getImage("clock_stop")[14], 83);
+	effect.emplace_back(0, -1);
+
+	lpImageMng.setEffect("clock_stop", effect);
 
 
 	return false;

@@ -42,6 +42,14 @@ void AttackUI::Update(void)
 	{
 		// 現在の右スティックの情報の取得
 		lpButtonMng.GetThumb(THUMB_RIGHT, _stickX, _stickY);
+		if (!_stickAreaIsSquare)
+		{
+			double a = static_cast<double>(_stickX) * static_cast<double>(_stickX) + static_cast<double>(_stickY) * static_cast<double>(_stickY);
+			if (STICK_RADIUS * STICK_RADIUS < a)
+			{
+				_stickAreaIsSquare = true;
+			}
+		}
 	}
 	else
 	{
@@ -272,30 +280,33 @@ void AttackUI::ColorUpdate(void)
 
 void AttackUI::StickTrans(void)
 {
-	// スティック座標を円形に矯正
-	double&& stickRad = atan2(_stickY, _stickX);
-	double length;
-	double exRate;
-	short tmpX;
-	short tmpY;
-
-	if (abs(_stickX) >= abs(_stickY))
+	if (_stickAreaIsSquare)
 	{
-		exRate = abs(static_cast<double>(_stickX)) / STICK_RADIUS;
-		tmpY = static_cast<short>(_stickY / exRate);
-		length = sqrt(STICK_RADIUS * STICK_RADIUS + tmpY * tmpY);
-	}
-	else
-	{
-		exRate = abs(static_cast<double>(_stickY)) / STICK_RADIUS;
-		tmpX = static_cast<short>(_stickX / exRate);
-		length = sqrt(tmpX * tmpX + STICK_RADIUS * STICK_RADIUS);
-	}
-	length = sqrt(static_cast<double>(_stickX) * static_cast<double>(_stickX) + static_cast<double>(_stickY) * static_cast<double>(_stickY)) 
-					* exRate * STICK_RADIUS / length;
+		// スティック座標を円形に矯正
+		double&& stickRad = atan2(_stickY, _stickX);
+		double length;
+		double exRate;
+		short tmpX;
+		short tmpY;
 
-	_stickX = static_cast<short>(length * cos(stickRad));
-	_stickY = static_cast<short>(length * sin(stickRad));
+		if (abs(_stickX) >= abs(_stickY))
+		{
+			exRate = abs(static_cast<double>(_stickX)) / STICK_RADIUS;
+			tmpY = static_cast<short>(_stickY / exRate);
+			length = sqrt(STICK_RADIUS * STICK_RADIUS + tmpY * tmpY);
+		}
+		else
+		{
+			exRate = abs(static_cast<double>(_stickY)) / STICK_RADIUS;
+			tmpX = static_cast<short>(_stickX / exRate);
+			length = sqrt(tmpX * tmpX + STICK_RADIUS * STICK_RADIUS);
+		}
+		length = sqrt(static_cast<double>(_stickX) * static_cast<double>(_stickX) + static_cast<double>(_stickY) * static_cast<double>(_stickY))
+			* exRate * STICK_RADIUS / length;
+
+		_stickX = static_cast<short>(length * cos(stickRad));
+		_stickY = static_cast<short>(length * sin(stickRad));
+	}
 	_absStickX = static_cast<int>(STICK_TO_POS(_stickX) + DRAW_OFFSET_X);
 	_absStickY = static_cast<int>(STICK_TO_POS(-_stickY) + DRAW_OFFSET_Y);
 }
