@@ -78,8 +78,6 @@ private:
 	// MP無しで出せる時間
 	int _feverTime;
 
-	bool _stickAreaIsSquare = false;;
-
 	void MpUpdate(void);
 	void ColorUpdate(void);	// 色の更新
 	void StickTrans(void);	// スティック座標を円に補正
