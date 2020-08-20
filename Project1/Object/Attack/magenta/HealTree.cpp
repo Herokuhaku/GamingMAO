@@ -55,7 +55,7 @@ void HealTree::ActiveUpdate(void)
 	if (_timer % HEAL_DURATION == 50)
 	{
 		AddAttack("heal");
-		lpImageMng.playEffect("heal_effect", &_pos.x, &_pos.y, 0.5, 0.0, LAYER::CHAR, 1, DX_BLENDMODE_NOBLEND, 0, EffectDrawType::DRAW_TO_RELATIVE);
+		lpImageMng.playEffect("heal_effect", &_pos.x, &_pos.y, 0.5, 0.0, LAYER::CHAR, 1, DX_BLENDMODE_NOBLEND, 0, _stage, EffectDrawType::DRAW_TO_RELATIVE);
 	}
 
 	if (_timer <= 0)
@@ -79,9 +79,9 @@ int HealTree::FindSF(int pos)
 {
 	int tmp = pos;
 
-	if (lpMapMng.getHitMap({ _pos.x, tmp }, _stage))
+	if (lpMapMng.getHitMap({ _pos.x, tmp }, lpMapMng.GetnowStage()))
 	{
-		while (lpMapMng.getHitMap({ _pos.x, tmp }, _stage))
+		while (lpMapMng.getHitMap({ _pos.x, tmp }, lpMapMng.GetnowStage()))
 		{
 			if (tmp < 0)
 			{
@@ -92,7 +92,7 @@ int HealTree::FindSF(int pos)
 	}
 	else
 	{
-		while (!lpMapMng.getHitMap({ _pos.x, tmp }, _stage))
+		while (!lpMapMng.getHitMap({ _pos.x, tmp }, lpMapMng.GetnowStage()))
 		{
 			if (tmp > SURFACE_LIMIT)
 			{

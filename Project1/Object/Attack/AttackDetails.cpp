@@ -62,7 +62,6 @@ void AttackDetails::LoadAttackData(void)
 	FileRead_read(mp.data(), mp.size(), fp);
 
 
-
 	char path[64];
 
 	for (int i = 0; i < static_cast<int>(COLOR::MAX); i++)

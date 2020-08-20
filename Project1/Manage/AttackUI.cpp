@@ -113,12 +113,12 @@ void AttackUI::Draw(void)
 
 	if (_OldAttackColor != _AttackColor && _AttackColor != COLOR::BLACK)
 	{
-		lpImageMng.playEffect("stick_effect_" + std::to_string(static_cast<int>(_AttackColor)), &_absStickX, &_absStickY, EFFECT_EX_RATE_STICK, 0.0, LAYER::EX, Z_ORDER + 1, DX_BLENDMODE_NOBLEND, 0, EffectDrawType::DRAW_TO_ABSOLUTE);
+		lpImageMng.playEffect("stick_effect_" + std::to_string(static_cast<int>(_AttackColor)), &_absStickX, &_absStickY, EFFECT_EX_RATE_STICK, 0.0, LAYER::EX, Z_ORDER + 1, DX_BLENDMODE_NOBLEND, 0, -1, EffectDrawType::DRAW_TO_ABSOLUTE);
 	}
 	if (_feverTime != 0 && (FEVER_DURATION - _feverTime) % 20 == 0)
 	{
 		std::uniform_real_distribution<double> _urd(RAD(-180), RAD(180));
-		lpImageMng.playEffect("rev_stick_effect_7", &_absStickX, &_absStickY, 1.5, _urd(lpSceneMng._rnd), LAYER::EX, Z_ORDER + 1, DX_BLENDMODE_NOBLEND, 0, EffectDrawType::DRAW_TO_ABSOLUTE);
+		lpImageMng.playEffect("rev_stick_effect_7", &_absStickX, &_absStickY, 1.5, _urd(lpSceneMng._rnd), LAYER::EX, Z_ORDER + 1, DX_BLENDMODE_NOBLEND, 0, -1, EffectDrawType::DRAW_TO_ABSOLUTE);
 	}
 
 	SetDrawBlendMode(DX_BLENDMODE_SUB, 25);

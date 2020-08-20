@@ -212,13 +212,13 @@ void ImageMng::Draw(int screen, bool deleteFlag)
 	}
 }
 
-void ImageMng::playEffect(std::string key, const int* posX, const int* posY, double exRate, double rad, LAYER layer, int zOrder, int blend_mode, int blend_prm, EffectDrawType draw = EffectDrawType::DRAW_TO_RELATIVE)
+void ImageMng::playEffect(std::string key, const int* posX, const int* posY, double exRate, double rad, LAYER layer, int zOrder, int blend_mode, int blend_prm, int stage, EffectDrawType draw = EffectDrawType::DRAW_TO_RELATIVE)
 {
 	if (_effectMap.find(key) == _effectMap.end())
 	{
 		return;
 	}
-	_effectList.emplace_back(std::make_tuple(key, posX, posY, exRate, rad, layer, zOrder, blend_mode, blend_prm, 0, 0, draw));
+	_effectList.emplace_back(std::make_tuple(key, posX, posY, exRate, rad, layer, zOrder, blend_mode, blend_prm, 0, 0, stage, draw));
 }
 
 void ImageMng::stopEffect(void)
@@ -232,26 +232,29 @@ void ImageMng::UpdateEffect(void)
 	{
 		std::string key;
 		LAYER layer;
-		int posX, posY, count, flame, blend, zOrder, prm;
+		int posX, posY, count, flame, blend, zOrder, prm, stage;
 		double ex_rate, rad;
 		EffectDrawType drawType;
 
-		std::tie(key, std::ignore, std::ignore, ex_rate, rad, layer, zOrder, blend, prm, count, flame, drawType) = (*data);
+		std::tie(key, std::ignore, std::ignore, ex_rate, rad, layer, zOrder, blend, prm, count, flame, stage, drawType) = (*data);
 
-		posX = *(std::get<static_cast<int>(EffectElm::X)>(*data));
-		posY = *(std::get<static_cast<int>(EffectElm::Y)>(*data));
+		if (std::get<11>(*data) == lpMapMng.GetnowStage() || std::get<11>(*data) == -1)
+		{
+			posX = *(std::get<static_cast<int>(EffectElm::X)>(*data));
+			posY = *(std::get<static_cast<int>(EffectElm::Y)>(*data));
 
-		if (drawType == EffectDrawType::DRAW_TO_RELATIVE)
-		{
-			AddDraw({ _effectMap[key][count].first , posX, posY, ex_rate, rad, layer, zOrder, blend, prm });
-		}
-		else if (drawType == EffectDrawType::DRAW_TO_ABSOLUTE)
-		{
-			AddBackDraw({ _effectMap[key][count].first , posX, posY, ex_rate, rad, layer, zOrder, blend, prm });
-		}
-		else
-		{
-			// ‚È‚É‚à‚È‚µ
+			if (drawType == EffectDrawType::DRAW_TO_RELATIVE)
+			{
+				AddDraw({ _effectMap[key][count].first , posX, posY, ex_rate, rad, layer, zOrder, blend, prm });
+			}
+			else if (drawType == EffectDrawType::DRAW_TO_ABSOLUTE)
+			{
+				AddBackDraw({ _effectMap[key][count].first , posX, posY, ex_rate, rad, layer, zOrder, blend, prm });
+			}
+			else
+			{
+				// ‚È‚É‚à‚È‚µ
+			}
 		}
 
 		flame++;

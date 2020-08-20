@@ -744,12 +744,12 @@ void Player::Green3(void)
 
 void Player::Yellow1(void)
 {
-	lpAtkMng.MakeThunderCloud({ _pos.x + (static_cast<int>(_state_dir.second) - 1) * 30, _pos.y - 300 }, _state_dir.second, 3, 3, 60, _time, _stage, OBJ_TYPE::ENEMY);
+	lpAtkMng.MakeThunderCloud({ _pos.x + (static_cast<int>(_state_dir.second) - 1) * 30, _pos.y - 300 }, _state_dir.second, 3, 3, 60, _time, lpMapMng.GetnowStage(), OBJ_TYPE::ENEMY);
 }
 
 void Player::Yellow2(void)
 {
-	lpAtkMng.MakeSpark(&_centerPos, _time, _stage, OBJ_TYPE::ENEMY);
+	lpAtkMng.MakeSpark(&_centerPos, _time, lpMapMng.GetnowStage(), OBJ_TYPE::ENEMY);
 }
 
 void Player::Yellow3(void)
@@ -758,7 +758,7 @@ void Player::Yellow3(void)
 
 void Player::Blue1(void)
 {
-	lpAtkMng.MakeBubble(_pos, _time, _stage, OBJ_TYPE::ENEMY);
+	lpAtkMng.MakeBubble(_pos, _time, lpMapMng.GetnowStage(), OBJ_TYPE::ENEMY);
 }
 
 void Player::Blue2(void)
@@ -771,12 +771,12 @@ void Player::Blue3(void)
 
 void Player::Magenta1(void)
 {
-	lpAtkMng.MakePoisonFog({ _pos.x +(static_cast<int>(_state_dir.second) - 1) * 160, _pos.y - 60 }, 180, _time, _stage, OBJ_TYPE::ENEMY);
+	lpAtkMng.MakePoisonFog({ _pos.x +(static_cast<int>(_state_dir.second) - 1) * 160, _pos.y - 60 }, 180, _time, lpMapMng.GetnowStage(), OBJ_TYPE::ENEMY);
 }
 
 void Player::Magenta2(void)
 {
-	lpAtkMng.MakeHealTree(_pos, _time, _stage, OBJ_TYPE::PLAYER);
+	lpAtkMng.MakeHealTree(_pos, _time, lpMapMng.GetnowStage(), OBJ_TYPE::PLAYER);
 }
 
 void Player::Magenta3(void)
@@ -785,7 +785,7 @@ void Player::Magenta3(void)
 
 void Player::Cyan1(void)
 {
-	lpAtkMng.MakeIceWall({ _pos.x, _pos.y - 40 }, _time, _stage, OBJ_TYPE::ENEMY);
+	lpAtkMng.MakeIceWall({ _pos.x, _pos.y - 40 }, _time, lpMapMng.GetnowStage(), OBJ_TYPE::ENEMY);
 }
 
 void Player::Cyan2(void)
@@ -798,14 +798,14 @@ void Player::Cyan3(void)
 
 void Player::White1(void)
 {
-	lpAtkMng.MakeHolyJudge({ _pos.x + (static_cast<int>(_state_dir.second) - 1) * 250, _pos.y }, _time, _stage, OBJ_TYPE::ENEMY);
+	lpAtkMng.MakeHolyJudge({ _pos.x + (static_cast<int>(_state_dir.second) - 1) * 250, _pos.y }, _time, lpMapMng.GetnowStage(), OBJ_TYPE::ENEMY);
 }
 
 void Player::White2(void)
 {
 	if (lpAttackUI.ToFeverTime())
 	{
-		lpImageMng.playEffect("wing_effect", &_wingPos.x, &_wingPos.y, 1.0, 0.0, LAYER::CHAR, _zOrder + 1, DX_BLENDMODE_NOBLEND, 0, EffectDrawType::DRAW_TO_RELATIVE);
+		lpImageMng.playEffect("wing_effect", &_wingPos.x, &_wingPos.y, 1.0, 0.0, LAYER::CHAR, _zOrder + 1, DX_BLENDMODE_NOBLEND, 0, lpMapMng.GetnowStage(), EffectDrawType::DRAW_TO_RELATIVE);
 	}
 }
 

@@ -73,9 +73,9 @@ int HolyJudge::FindSF(int pos)
 {
 	int tmp = pos;
 
-	if (lpMapMng.getHitMap({ _pos.x, tmp }, _stage))
+	if (lpMapMng.getHitMap({ _pos.x, tmp }, lpMapMng.GetnowStage()))
 	{
-		while (lpMapMng.getHitMap({ _pos.x, tmp }, _stage))
+		while (lpMapMng.getHitMap({ _pos.x, tmp }, lpMapMng.GetnowStage()))
 		{
 			if (tmp < 0)
 			{
@@ -86,7 +86,7 @@ int HolyJudge::FindSF(int pos)
 	}
 	else
 	{
-		while (!lpMapMng.getHitMap({ _pos.x, tmp }, _stage))
+		while (!lpMapMng.getHitMap({ _pos.x, tmp }, lpMapMng.GetnowStage()))
 		{
 			if (tmp > SURFACE_LIMIT)
 			{
