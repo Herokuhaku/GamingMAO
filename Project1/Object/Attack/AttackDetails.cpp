@@ -1,6 +1,22 @@
 #include "AttackDetails.h"
 #include <DxLib.h>
 #include <cassert>
+#include <vector>
+
+namespace
+{
+	const char* magicname[static_cast<int>(COLOR::MAX) * ATTACK_TYPE_MAX] = 
+	{
+		"黒1", "黒2", "黒3", 
+		"ファイア", "ボム", "赤3",
+		"くだもののちから", "スーパージャンプ", "緑3",
+		"サンダー", "黄2", "黄3",
+		"バブル", "青2", "青3",
+		"ポイズンミスト", "せいめいのき", "黒3",
+		"フリーズ", "黒2", "黒3",
+		"ジャッジメント", "オーバードライブ", "黒3",
+	};
+}
 
 AttackDetails& AttackDetails::GetInstance(void)
 {
@@ -36,26 +52,27 @@ AttackDetails::AttackDetails()
 void AttackDetails::LoadAttackData(void)
 {
 	int fp, pathfp;
-	fp = FileRead_open("data/attack_data.txt");
+	fp = FileRead_open("data/mp_data.dat");
 	pathfp = FileRead_open("data/magic_icon_path.txt");
 
 	assert(fp != -1);
 
-	char name[32];
-	char desc[32];
-	int mp;
+	std::vector<uint8_t> mp;
+	mp.resize(24);
+	FileRead_read(mp.data(), mp.size(), fp);
+
+
+
 	char path[64];
 
-	for (auto& col : _details)
+	for (int i = 0; i < static_cast<int>(COLOR::MAX); i++)
 	{
-		for (auto& type : col)
+		for (int j = 0; j < ATTACK_TYPE_MAX; j++)
 		{
-			FileRead_scanf(fp, "%s %d %s\n", name, &mp, desc);
 			FileRead_scanf(pathfp, "%s", path);
-			type->_name = name;
-			type->_magicPoint = mp;
-			type->_desc = desc;
-			type->_handle = LoadGraph(path);
+			_details[i][j]->_magicPoint = mp[i * ATTACK_TYPE_MAX + j];
+			_details[i][j]->_name = magicname[i * ATTACK_TYPE_MAX + j];
+			_details[i][j]->_handle = LoadGraph(path);
 		}
 	}
 	
