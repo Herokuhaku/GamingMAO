@@ -60,6 +60,12 @@ void ImageMng::Draw(void)
 	SetDrawScreen(_workLayer);
 	ClsDrawScreen();
 
+	if (lpTimeMng.getTime() == TIME::FTR)
+	{
+		SetDrawScreen(_tmpWorkLayer);
+		ClsDrawScreen();
+	}
+
 	for (const auto& data : _drawList[0])
 	{
 		int id, x, y, blend, prm;
@@ -87,7 +93,9 @@ void ImageMng::Draw(void)
 	
 	if (lpTimeMng.getTime() == TIME::FTR)
 	{
-		GraphFilter(_workLayer, DX_GRAPH_FILTER_HSB, 0, 0, -255, 0);
+		//GraphFilter(_workLayer, DX_GRAPH_FILTER_HSB, 0, 0, -255, 0);
+		//GraphFilterBlt(_tmpWorkLayer, _workLayer, DX_GRAPH_FILTER_HSB, 0, 0, -255, 0);
+		GraphFilterRectBlt(_tmpWorkLayer, _workLayer, x, y, x + SCREEN_SIZE_X, y + SCREEN_SIZE_Y, x, y, DX_GRAPH_FILTER_HSB, 0, 0, -255, 0);
 	}
 	
 	DrawRectGraph(0, 0, x, y, SCREEN_SIZE_X, SCREEN_SIZE_Y, _workLayer, false, false);
@@ -145,6 +153,12 @@ void ImageMng::Draw(int screen, bool deleteFlag)
 	SetDrawScreen(_workLayer);
 	ClsDrawScreen();
 
+	if (lpTimeMng.getTime() == TIME::FTR)
+	{
+		SetDrawScreen(_tmpWorkLayer);
+		ClsDrawScreen();
+	}
+
 	for (const auto& data : _drawList[0])
 	{
 		int id, x, y, blend, prm;
@@ -172,7 +186,8 @@ void ImageMng::Draw(int screen, bool deleteFlag)
 
 	if (lpTimeMng.getTime() == TIME::FTR)
 	{
-		GraphFilter(_workLayer, DX_GRAPH_FILTER_HSB, 0, 0, -255, 0);
+		//GraphFilterBlt(_tmpWorkLayer, _workLayer, DX_GRAPH_FILTER_HSB, 0, 0, -255, 0);
+		GraphFilterRectBlt(_tmpWorkLayer, _workLayer, x, y, x + SCREEN_SIZE_X, y + SCREEN_SIZE_Y, x, y, DX_GRAPH_FILTER_HSB, 0, 0, -255, 0);
 	}
 
 	DrawRectGraph(0, 0, x, y, SCREEN_SIZE_X, SCREEN_SIZE_Y, _workLayer, false, false);
@@ -435,6 +450,7 @@ ImageMng::ImageMng()
 {
 	ImageMngInit();
 	_workLayer = MakeScreen(2560,1440,  true);
+	_tmpWorkLayer = MakeScreen(2560, 1440, true);
 	_screenCap = MakeScreen(lpSceneMng.ScreenSize.x,lpSceneMng.ScreenSize.y,true);
 	_screen =  MakeScreen(lpSceneMng.ScreenSize.x,lpSceneMng.ScreenSize.y,true);
 }

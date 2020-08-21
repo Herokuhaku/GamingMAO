@@ -104,6 +104,7 @@ public:
 private:
 	static ImageMng* sInstance;		// インスタンス
 	int _workLayer;
+	int _tmpWorkLayer;
 
 	std::map<std::string, std::vector<int>> _imageMap;					// 画像ID保存用
 	std::map<std::string, EffectData>		_effectMap;		// エフェクト保存用
