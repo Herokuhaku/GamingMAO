@@ -31,6 +31,27 @@ inline int Vector2Template<T>::CrossProduct(const Vector2Template& a, const Vect
 }
 
 template<class T>
+inline T Vector2Template<T>::Magnitude(void)
+{
+	return std::hypot(x,y);
+}
+
+template<class T>
+inline T Vector2Template<T>::Magnitude2(void)
+{
+	return (x * x + y * y);
+}
+
+template<class T>
+inline Vector2Template<float> Vector2Template<T>::UnitVec(void)
+{
+	Vector2F rtn;
+	float mg = Magnitude();
+	rtn = { x / mg, y / mg };
+	return rtn;
+}
+
+template<class T>
 Vector2Template<T>& Vector2Template<T>::operator = (const Vector2Template& vec)
 {
 	x = vec.x;

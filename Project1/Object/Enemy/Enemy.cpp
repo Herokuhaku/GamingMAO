@@ -111,11 +111,13 @@ int Enemy::Search(Vector2 pPos)
 		if (_stage == lpEnemyMng.GetPlStage())
 		{
 			if (pPos.y < _pos.y + 10 && pPos.y > _pos.y - 10)
-			{
-				if ((pPos.x - _pos.x)  * (static_cast<int>(_state_dir.second) - 1) <= _rangeS &&
-					(pPos.x - _pos.x)  * (static_cast<int>(_state_dir.second) - 1) >= -80)
+			{		// ‘O
+				if ((pPos.x - _pos.x)  * (static_cast<int>(_state_dir.second) - 1) <= _rangeSF &&
+					// Œã
+					(pPos.x - _pos.x)  * (static_cast<int>(_state_dir.second) - 1) >= -_rangeSB)
 				{
-					if ((pPos.x - _pos.x) * (static_cast<int>(_state_dir.second) - 1) <= _rangeA)
+					if ((pPos.x - _pos.x) * (static_cast<int>(_state_dir.second) - 1) <= _rangeA && 
+						(pPos.y <= _pos.y + _size.y) && (pPos.y >= _pos.y - _size.y))
 					{
 						aState(static_cast<int>(MOVE_SELECT::ATTACK));
 						lpImageMng.AddDraw({ lpImageMng.getImage("excPoint")[0], _pos.x, _pos.y - _drawOffset_y, 1.0, 0.0, LAYER::EX, 10, DX_BLENDMODE_NOBLEND, 0 });
@@ -191,7 +193,8 @@ void Enemy::Init(void)
 	_waitTime = std::rand() % 180;
 	_waitCnt = 0;
 	_waitF = true;
-	_rangeS = 200;
+	_rangeSF = 200;
+	_rangeSB = 100;
 	_rangeA = 80;
 	_encntF = false;
 	_plDir = DIR::RIGHT;
@@ -203,6 +206,7 @@ void Enemy::Init(void)
 	_time = TIME::FTR;
 	_divNum = 70;
 	_maxHP = _hp;
+	_size = { 10,10 };
 }
 
 void Enemy::Draw(void)

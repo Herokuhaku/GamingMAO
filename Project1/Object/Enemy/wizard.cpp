@@ -35,7 +35,7 @@ wizard::wizard(Vector2 pos, int stage, int pPos, bool flag)
 	setHitOffset({ 55, 55, 100, 0 });
 	_exRate = 3.0;
 
-	_rangeS = 300;
+	_rangeSF = 300;
 	_rangeA = 200;
 
 	if (flag)

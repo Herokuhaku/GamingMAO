@@ -15,7 +15,7 @@ private:
 
 	Vector2 _ePos;
 	Vector2 _pPos;
-	Vector2 _vec;
+	Vector2F _vec;
 
 	OBJ_TYPE _target;
 	DIR _dir;

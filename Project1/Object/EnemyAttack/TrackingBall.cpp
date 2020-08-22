@@ -15,7 +15,23 @@ TrackingBall::TrackingBall(Vector2 & ePos, Vector2 & pPos, TIME time, int stage,
 	_stage = stage;
 	_target = target;
 
-	_vec.x = (static_cast<int>(_dir) - 1) * 10;			// 10 = speed
+
+	// -30 ~ 30度のランダム
+	float rrad = rand() % 60 - 30;
+	// プレイヤーと弾の角度
+	auto v = pPos - ePos;
+	float eprad = atan2(v.y, v.x);
+
+
+
+	float rad = rrad + eprad;
+
+	
+
+
+	auto a = v.UnitVec();
+	_vec = { a.x * 5.0f, a.y * 5.0f };
+//	_vec.x = (static_cast<int>(_dir) - 1) * _vec.x;			// 10 = speed
 	_rad = atan2(_vec.y, _vec.x);
 
 	Init();
@@ -32,7 +48,7 @@ void TrackingBall::Update(void)
 		_alive = false;
 		setState({ OBJ_STATE::DEAD, _state_dir.second });
 	}
-	_pos += _vec;
+	_pos = { _pos.x + static_cast<int>(_vec.x), _pos.y + static_cast<int>(_vec.y) };
 }
 
 void TrackingBall::Draw(void)

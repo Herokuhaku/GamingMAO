@@ -65,8 +65,9 @@ sorcerer::sorcerer(Vector2 pos, int stage, int pPos, bool flag)
 	_tmpHP = _maxHP / _saveDivNum;
 	_exRate = 3.0;
 
-	_rangeS = 1000;
-	_rangeA = 450;
+	_rangeSF = 1000;
+	_rangeSB = 600;
+	_rangeA = 850;
 
 	if (flag)
 	{
@@ -219,4 +220,6 @@ void sorcerer::Init(void)
 
 	_etype = ENEMY_TYPE::sorcerer;
 	_drawOffset_y = 80 * (int)_exRate / 2;
+
+	_size = { 10, 200 };
 }

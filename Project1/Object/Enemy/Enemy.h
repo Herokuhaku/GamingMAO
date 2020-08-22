@@ -66,7 +66,8 @@ static const int e_fn_ptr_num = 5;
 	int _waitCnt;		// wait‚ÌƒJƒEƒ“ƒg
 	int _waitTime;		// wait‚ÌŠÔ
 	//---------------------------------------------------
-	int _rangeS;		// range of search	‰Šú200
+	int _rangeSF;		// range of search	‰Šú200
+	int _rangeSB;		// range of search	‰Šú100
 	int _rangeA;		// rage of attack	‰Šú80
 	DIR _plDir;		// 
 
@@ -80,4 +81,6 @@ static const int e_fn_ptr_num = 5;
 
 	int _maxHP;
 	int _divNum;		// HP‚ğ•`‰æ‚·‚é‚Æ‚«‚Ì•ªŠ„”
+
+	Vector2 _size;
 };

@@ -18,6 +18,15 @@ public:
 	int CrossProduct(const Vector2Template& vec);
 	int CrossProduct(const Vector2Template& a, const Vector2Template& b);
 
+	// 大きさ
+	T Magnitude(void);
+	// 大きさの2乗
+	T Magnitude2(void);
+	
+	// 単位ベクトル
+	Vector2Template<float> UnitVec(void);
+
+
 	// 返値が左辺式　引数が右辺式
 
 	// 代入演算子
