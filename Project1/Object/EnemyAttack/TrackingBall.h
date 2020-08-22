@@ -16,6 +16,7 @@ private:
 	Vector2 _ePos;
 	Vector2 _pPos;
 	Vector2F _vec;
+	int addX;
 
 	OBJ_TYPE _target;
 	DIR _dir;

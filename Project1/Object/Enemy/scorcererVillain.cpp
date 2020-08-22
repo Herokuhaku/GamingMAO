@@ -28,8 +28,8 @@ int sorcerer::Attack(Vector2 pPos)
 	if (_state_dir.first != OBJ_STATE::ATTACK)
 	{
 		setState({ OBJ_STATE::ATTACK, _plDir });
-		atkList.emplace_back(AtkList::TRACKING_BALL, 7);
-		_waitTime = 300;	// クールタイム
+		atkList.emplace_back(AtkList::TRACKING_BALL, 4);
+		_waitTime = 180;	// クールタイム
 		_waitCnt = 0;
 		return static_cast<int>(MOVE_SELECT::WAIT);
 	}
