@@ -12,6 +12,7 @@
 
 #define HP_MAX			100
 
+class GameScene;
 
 enum class ATK_TYPE : int
 {
@@ -29,7 +30,7 @@ class Player :
 	friend MagicMenu;
 public:
 	Player();
-	Player(Vector2Template<int> pos, int stage, TIME time);
+	Player(Vector2Template<int> pos, int stage, TIME time, GameScene* gs);
 	Player(const Player&) = delete;
 	~Player();
 
@@ -78,6 +79,8 @@ private:
 
 	Vector2 _centerPos;
 	Vector2 _wingPos;
+
+	GameScene* _gameScene;
 
 	// UŒ‚ŠÖŒW
 	std::array<ATK_TYPE, static_cast<int>(COLOR::MAX)> _magicSet;	// F‚²‚Æ‚É‚Ç‚Ì‹Z‚Éİ’è‚µ‚Ä‚ ‚é‚©

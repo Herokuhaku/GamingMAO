@@ -13,6 +13,7 @@
 #include "../Gimmick/GimmickMng.h"
 #include "../Menu/MenuExecuter.h"
 #include "../Gimmick/Rock.h"
+#include "../Object/Barrier/BarrierMng.h"
 
 GameScene::GameScene()
 {
@@ -129,13 +130,16 @@ std::unique_ptr<BaseScene> GameScene::Update(std::unique_ptr<BaseScene> own)
 
 	lpEnemyMng.Update();
 
-	//_gimmickmng->Update();
+	_barrierMng->Update();
+
+	//_gimmickMng->Update();
 
 	lpAtkMng.Update();
 
 	_menu->Update();
 
 	getAttackQue();
+	CheckHitAttack()(_barrierMng->GetBarrier(), _attackList);
 	CheckHitAttack()(_objList, _attackList);
 	CheckHitAttack()(lpEnemyMng.GetenemyList(), _attackList);
 
@@ -151,7 +155,9 @@ std::unique_ptr<BaseScene> GameScene::Update(std::unique_ptr<BaseScene> own)
 
 	lpEnemyMng.Draw();
 
-	_gimmickmng->Draw();
+	_barrierMng->Draw();
+
+	//_gimmickMng->Draw();
 
 	lpAtkMng.Draw();
 
@@ -190,22 +196,53 @@ std::shared_ptr<MenuExecuter>& GameScene::GetMenuExecuter(void)
 	return _menu;
 }
 
+std::shared_ptr<BarrierMng>& GameScene::GetBarrierMng(void)
+{
+	return _barrierMng;
+}
+
+std::shared_ptr<Object> GameScene::FindObject(Object* obj)
+{
+	for (const auto& ol : _objList)
+	{
+		if (obj == ol.get())
+		{
+			return ol;
+		}
+	}
+
+	auto enemyl = lpEnemyMng.GetenemyList();
+
+	for (const auto& el : enemyl)
+	{
+		std::shared_ptr<Object> eo = std::dynamic_pointer_cast<Object>(el);
+		if (obj == eo.get())
+		{
+			return eo;
+		}
+	}
+
+	return nullptr;
+}
+
 bool GameScene::Init(void)
 {
 	lpTimeMng.TimeInit();
 
 	_objList.clear();
-	_objList.emplace_back(std::make_shared<Player>(Vector2(2000,1300), 1, TIME::FTR));
+	_objList.emplace_back(std::make_shared<Player>(Vector2(2000,1300), 1, TIME::FTR, this));
 	lpSceneMng.SetPlObj(_objList[0], TIME::FTR);
-	_objList.emplace_back(std::make_shared<Player>(Vector2(400, 900), 1, TIME::NOW));
+	_objList.emplace_back(std::make_shared<Player>(Vector2(400, 900), 1, TIME::NOW, this));
 	lpSceneMng.SetPlObj(_objList[1], TIME::NOW);
 	_cobj = std::make_shared<camera>();
 	lpSceneMng.SetcObj(_cobj);
 
-	//_gimmickmng = std::make_unique<GimmickMng>();
-	//_gimmickmng->AddGimmick(new Rock(Vector2Template<int>(1550, 1100), 1));
+	//_gimmickMng = std::make_unique<GimmickMng>();
+	//_gimmickMng->AddGimmick(new Rock(Vector2Template<int>(1550, 1100), 1));
 
 	_menu.reset(new MenuExecuter(this));
+
+	_barrierMng.reset(new BarrierMng(this));
 
 	lpMapMng.Init();
 

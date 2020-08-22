@@ -38,7 +38,7 @@ void AttackUI::Update(void)
 	// 現在の色を保存
 	_OldAttackColor = _AttackColor;
 
-	if (lpTimeMng.getTime() == TIME::FTR)
+	if (lpTimeMng.getTime() == TIME::FTR && _active)
 	{
 		// 現在の右スティックの情報の取得
 		lpButtonMng.GetThumb(THUMB_RIGHT, _stickX, _stickY);
@@ -212,6 +212,11 @@ bool AttackUI::ToFeverTime(void)
 		return true;
 	}
 	return false;
+}
+
+void AttackUI::Active(bool flag)
+{
+	_active = flag;
 }
 
 void AttackUI::MpUpdate(void)

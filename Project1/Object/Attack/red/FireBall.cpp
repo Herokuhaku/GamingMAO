@@ -60,6 +60,10 @@ void FireBall::Update(void)
 
 void FireBall::IfHitAttack(void)
 {
+	if (_update == &FireBall::ExplosionUpdate)
+	{
+		return;
+	}
 	_update = &FireBall::ExplosionUpdate;
 	setState({ OBJ_STATE::A_NORMAL, _state_dir.second });
 	_exRate = 2.0;

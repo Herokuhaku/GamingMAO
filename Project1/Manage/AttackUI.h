@@ -44,6 +44,7 @@ public:
 	bool RunAttack(const int& coolTime, const int& MP);		// 攻撃を発動させる
 	
 	bool ToFeverTime(void);
+	void Active(bool);
 private:
 	static AttackUI* sInstance;
 
@@ -81,6 +82,8 @@ private:
 	void MpUpdate(void);
 	void ColorUpdate(void);	// 色の更新
 	void StickTrans(void);	// スティック座標を円に補正
+
+	bool _active = true;
 
 	std::array<std::pair<ATK_STATE, float>, PRIMARY_COLOR_COUNT> _magicState;	// 魔法の状態
 

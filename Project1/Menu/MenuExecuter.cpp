@@ -4,6 +4,7 @@
 #include "../Manage/ButtonMng.h"
 #include "../Scene/GameScene.h"
 #include "../Audio/AudioContainer.h"
+#include "../Manage/AttackUI.h"
 
 bool MenuExecuter::_active;
 
@@ -77,12 +78,14 @@ bool MenuExecuter::Control(void)
 		{
 			PlaySoundMem(_audio->GetSound("cancel"), DX_PLAYTYPE_BACK, true);
 			_active = false;
+			lpAttackUI.Active(true);
 		}
 		else
 		{
 			PlaySoundMem(_audio->GetSound("select"), DX_PLAYTYPE_BACK, true);
 			_active = true;
 			_currentMenu.reset(new SelectMenu(0, _gameScene->GetMenuExecuter(), _audio));
+			lpAttackUI.Active(false);
 		}
 	}
 	return _active;

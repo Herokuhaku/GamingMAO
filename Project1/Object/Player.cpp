@@ -11,12 +11,16 @@
 #include "../Menu/MenuExecuter.h"
 #include "../Manage/MapMng.h"
 #include "Attack/AttackDetails.h"
+#include "../Scene/GameScene.h"
+#include "Barrier/BarrierMng.h"
+#include "Barrier/Barrier.h"
+
 
 Player::Player()
 {
 }
 
-Player::Player(Vector2Template<int> pos, int stage, TIME time)
+Player::Player(Vector2Template<int> pos, int stage, TIME time, GameScene* gs)
 {
 	_pos = pos;
 	_tmpPos = {static_cast<double>(pos.x),static_cast<double>(pos.y)};
@@ -27,6 +31,8 @@ Player::Player(Vector2Template<int> pos, int stage, TIME time)
 	_type = OBJ_TYPE::PLAYER;
 	_speed = WALK_SPEED;
 	_isSuperJump = false;
+	
+	_gameScene = gs;
 
 	_centerPos.x = _pos.x;
 	_centerPos.y = _pos.y - _drawOffset_y;
@@ -76,6 +82,18 @@ void Player::Update(void)
 		if (((lpKeyMng.getOldBuf()[KEY_INPUT_LSHIFT] && !lpKeyMng.getBuf()[KEY_INPUT_LSHIFT])) ||
 			lpButtonMng.ButtonTrg(0, XINPUT_BUTTON_LEFT_SHOULDER))
 		{
+			if (_control == &Player::ControlAttack && _coolTime == 0 && _time == TIME::FTR)
+			{
+				Attack();
+				_coolTime = 0;
+				_control = &Player::ControlNormal;
+				StateRotate();
+				lpAttackUI.Active(false);
+			}
+			if (_time == TIME::NOW)
+			{
+				lpAttackUI.Active(true);
+			}
 			lpTimeMng.ChangeTime();
 		}
 
@@ -100,6 +118,13 @@ void Player::Update(void)
 	else
 	{
 		StopWalk();
+		if (_control == &Player::ControlAttack && _coolTime == 0)
+		{
+			if (!lpAttackUI.CheckAttackActivate())
+			{
+				Attack();
+			}
+		}
 	}
 
 	if (CheckHitKey(KEY_INPUT_T) || lpButtonMng.Buttonf(0, XINPUT_BUTTON_X).first == 1)
@@ -467,21 +492,7 @@ void Player::ControlAttack(void)
 	{
 		if (!lpAttackUI.CheckAttackActivate())
 		{
-			COLOR&& color = lpAttackUI.GetAttackColor();
-			if (static_cast<int>(color) >= static_cast<int>(COLOR::RED) && static_cast<int>(color) < static_cast<int>(COLOR::MAX))
-			{
-				int ct = 10;
-				if (color == COLOR::GREEN && _magicSet[static_cast<int>(color)] == ATK_TYPE::TYPE_2 && _isSuperJump)
-				{
-					ct = -1;
-				}
-
-				if (lpAttackUI.RunAttack(ct, AttackDetails::GetInstance().GetDetail(static_cast<int>(color), static_cast<int>(_magicSet[static_cast<int>(color)]))->_magicPoint))
-				{
-					_attack[static_cast<int>(color)][static_cast<int>(_magicSet[static_cast<int>(color)])]();
-				}
-			}
-			_coolTime = 10;
+			Attack();
 		}
 	}
 }
@@ -510,8 +521,6 @@ void Player::MagicUpdate(void)
 			StateRotate();
 		}
 	}
-
-	
 
 	if (_anmEfkHd != -1)
 	{
@@ -633,7 +642,21 @@ bool Player::MenuUpdate(void)
 
 void Player::Attack(void)
 {
+	COLOR&& color = lpAttackUI.GetAttackColor();
+	if (static_cast<int>(color) >= static_cast<int>(COLOR::RED) && static_cast<int>(color) < static_cast<int>(COLOR::MAX))
+	{
+		int ct = 10;
+		if (color == COLOR::GREEN && _magicSet[static_cast<int>(color)] == ATK_TYPE::TYPE_2 && _isSuperJump)
+		{
+			ct = -1;
+		}
 
+		if (lpAttackUI.RunAttack(ct, AttackDetails::GetInstance().GetDetail(static_cast<int>(color), static_cast<int>(_magicSet[static_cast<int>(color)]))->_magicPoint))
+		{
+			_attack[static_cast<int>(color)][static_cast<int>(_magicSet[static_cast<int>(color)])]();
+		}
+	}
+	_coolTime = 10;
 }
 
 void Player::Portal(void)
@@ -716,6 +739,7 @@ void Player::Red2(void)
 
 void Player::Red3(void)
 {
+	_gameScene->GetBarrierMng()->MakeBarrier(this, COLOR::RED, { 50, -_drawOffset_y });
 }
 
 void Player::Green1(void)
@@ -740,6 +764,7 @@ void Player::Green2(void)
 
 void Player::Green3(void)
 {
+	_gameScene->GetBarrierMng()->MakeBarrier(this, COLOR::GREEN, { 50, -_drawOffset_y });
 }
 
 void Player::Yellow1(void)
@@ -767,6 +792,7 @@ void Player::Blue2(void)
 
 void Player::Blue3(void)
 {
+	_gameScene->GetBarrierMng()->MakeBarrier(this, COLOR::BLUE, { 50, -_drawOffset_y });
 }
 
 void Player::Magenta1(void)
