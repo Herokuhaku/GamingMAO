@@ -7,6 +7,7 @@
 TrackingBall::TrackingBall(Vector2 & ePos, Vector2 & pPos, TIME time, int stage, OBJ_TYPE target)
 {
 	_ePos = ePos;
+	_fePos = ePos;
 	_pos = _ePos;
 	_pPos = pPos;
 	_dir = _ePos.x > _pPos.x ? DIR::LEFT : DIR::RIGHT;
@@ -28,7 +29,7 @@ TrackingBall::TrackingBall(Vector2 & ePos, Vector2 & pPos, TIME time, int stage,
 
 	_ePos.y -= (0.001f) * pow(_vec.x, 2);
 
-	float rad = rrad + eprad;
+	angle = (rrad * 3.141529 / 180) + eprad ;
 	
 	addX = (static_cast<int>(_dir) - 1) * 5;
 
@@ -53,6 +54,11 @@ void TrackingBall::Update(void)
 
 	_pos.y = (0.001f) * pow(_vec.x, 2) + _ePos.y;
 	_pos.x = _ePos.x + _vec.x;
+
+	_pos -= _fePos;
+	_pos.x = _pos.x * cosf(angle) - _pos.y * sinf(angle);
+	_pos.y = _pos.x * sinf(angle) + _pos.y * cosf(angle);
+	_pos += _fePos;
 
 	if (_pos.x < 0 || _pos.x > 2400)
 	{

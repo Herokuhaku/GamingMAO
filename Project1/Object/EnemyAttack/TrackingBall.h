@@ -14,9 +14,12 @@ public:
 private:
 
 	Vector2 _ePos;
+	Vector2 _fePos;	// first Pos
 	Vector2 _pPos;
 	Vector2F _vec;
+	Vector2 _changePos;
 	int addX;
+	float angle;
 
 	OBJ_TYPE _target;
 	DIR _dir;
