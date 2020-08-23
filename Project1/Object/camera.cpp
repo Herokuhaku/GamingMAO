@@ -1,5 +1,6 @@
 #include "camera.h"
 #include "../Manage/MapMng.h"
+#include "../Manage/ButtonMng.h"
 
 void camera::Update(void)
 {
@@ -15,6 +16,37 @@ void camera::Update(void)
 	//{
 	//	_oldPlPos[i] = _oldPlPos[i + 1];
 	//}
+
+	if (lpButtonMng.Buttonf(0, XINPUT_BUTTON_RIGHT_SHOULDER).first == 1)
+	{
+		if (lpButtonMng.Buttonf(0, XINPUT_BUTTON_DPAD_UP).first == 1) {
+			addY1 -= 10;
+			if (addY1 < -150)
+				addY1 = -150;
+		}
+		if (lpButtonMng.Buttonf(0, XINPUT_BUTTON_DPAD_RIGHT).first == 1) {
+			addX1 += 10;
+			if (addX1 > 150)
+				addX1 = 150;
+		}
+		if (lpButtonMng.Buttonf(0, XINPUT_BUTTON_DPAD_DOWN).first == 1) {
+			addY1 += 10;
+			if (addY1 > 100)
+				addY1 = 100;
+		}
+		if (lpButtonMng.Buttonf(0, XINPUT_BUTTON_DPAD_LEFT).first == 1) {
+			addX1 -= 10;
+			if (addX1 < -150)
+				addX1 = -150;
+		}
+		_oldPlPos[0].y += addY1;
+		_oldPlPos[0].x += addX1;
+	}
+	else
+	{
+		addX1 = 0;
+		addY1 = 0;
+	}
 
 	_oldPlPos[3] = _plObj.at(lpTimeMng.getTime())->getPos();
 	CheckPos();
@@ -66,6 +98,11 @@ camera::camera() : _cPos{ new Vector2D(0,0) }
 		_oldPlPos[i] = _plObj.at(lpTimeMng.getTime())->getPos();
 	}
 	_stage = -1;
+
+	addX1 = 0;
+	addX2 = 0;
+	addY1 = 0;
+	addY2 = 0;
 }
 
 camera::~camera()

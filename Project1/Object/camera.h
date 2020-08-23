@@ -20,6 +20,11 @@ private:
 	std::shared_ptr<Vector2D> _cPos;
 	Vector2 _oldPlPos[10];
 
+	int addX1;
+	int addX2;
+	int addY1;
+	int addY2;
+
 	Vector2D _cOffSet;
 	Vector2 _cEndOffSet;								// カメラがステージの最左右で行き過ぎないように
 
