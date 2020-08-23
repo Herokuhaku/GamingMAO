@@ -19,27 +19,28 @@ TrackingBall::TrackingBall(Vector2 & ePos, Vector2 & pPos, TIME time, int stage,
 
 	// -30 ~ 30度のランダム
 	float rrad = rand() % 60 - 30;
-	// プレイヤーと弾の角度
+	// プレイヤーと弾のベクトル
 	auto v = pPos - ePos;
-
-	float eprad = atan2(v.y, v.x);
-
+	// 
 	_vec.x = -(v.x / 2);
+	// 座標補正用
 	_ePos.x -= _vec.x;
-
 	_ePos.y -= (0.001f) * pow(_vec.x, 2);
-
-	angle = (rrad * 3.141529 / 180) + eprad ;
-	
+	// 曲線をrrad分回転
+	angle = (rrad * 3.141529 / 180);
+	// 
 	addX = (static_cast<int>(_dir) - 1) * 5;
 
-	
-
-	//auto a = v.UnitVec();
-	//_vec = { a.x * 5.0f, a.y * 5.0f };
-
-
-	_rad = atan2(_vec.y, _vec.x);
+	// 曲線のXに加算
+	_vec.x += addX;
+	// 曲線のYXを求めて座標補正
+	_nextPos.y = (0.001f) * pow(_vec.x, 2) + _ePos.y;
+	_nextPos.x = _ePos.x + _vec.x;
+	// 回転
+	_nextPos -= _fePos;
+	_nextPos.x = _nextPos.x * cosf(angle) - _nextPos.y * sinf(angle);
+	_nextPos.y = _nextPos.x * sinf(angle) + _nextPos.y * cosf(angle);
+	_nextPos += _fePos;
 
 	Init();
 }
@@ -50,17 +51,21 @@ TrackingBall::~TrackingBall()
 
 void TrackingBall::Update(void)
 {
+	_pos = _nextPos;
+	// 曲線のXに加算
 	_vec.x += addX;
+	// 曲線のYXを求めて座標補正
+	_nextPos.y = (0.001f) * pow(_vec.x, 2) + _ePos.y;
+	_nextPos.x = _ePos.x + _vec.x;
+	// 回転
+	_nextPos -= _fePos;
+	_nextPos.x = _nextPos.x * cosf(angle) - _nextPos.y * sinf(angle);
+	_nextPos.y = _nextPos.x * sinf(angle) + _nextPos.y * cosf(angle);
+	_nextPos += _fePos;
+	// 角度計算
+	_rad = atan2(_nextPos.y - _pos.y, _nextPos.x - _pos.x);// +1.5708;
 
-	_pos.y = (0.001f) * pow(_vec.x, 2) + _ePos.y;
-	_pos.x = _ePos.x + _vec.x;
-
-	_pos -= _fePos;
-	_pos.x = _pos.x * cosf(angle) - _pos.y * sinf(angle);
-	_pos.y = _pos.x * sinf(angle) + _pos.y * cosf(angle);
-	_pos += _fePos;
-
-	if (_pos.x < 0 || _pos.x > 2400)
+	if (_pos.x < 0 || _pos.x > 2400 || _pos.y < 0 || _pos.y > 2400)
 	{
 		_alive = false;
 		setState({ OBJ_STATE::DEAD, _state_dir.second });

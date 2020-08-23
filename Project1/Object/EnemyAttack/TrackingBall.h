@@ -13,6 +13,7 @@ public:
 
 private:
 
+	Vector2 _nextPos;
 	Vector2 _ePos;
 	Vector2 _fePos;	// first Pos
 	Vector2 _pPos;

@@ -110,14 +110,14 @@ int Enemy::Search(Vector2 pPos)
 	{
 		if (_stage == lpEnemyMng.GetPlStage())
 		{
-			if (pPos.y < _pos.y + 10 && pPos.y > _pos.y - 10)
+			// 上下がサーチ範囲内
+			if (pPos.y < _pos.y + _size.y && pPos.y > _pos.y - _size.y)
 			{		// 前
 				if ((pPos.x - _pos.x)  * (static_cast<int>(_state_dir.second) - 1) <= _rangeSF &&
 					// 後
 					(pPos.x - _pos.x)  * (static_cast<int>(_state_dir.second) - 1) >= -_rangeSB)
 				{
-					if ((pPos.x - _pos.x) * (static_cast<int>(_state_dir.second) - 1) <= _rangeA && 
-						(pPos.y <= _pos.y + _size.y) && (pPos.y >= _pos.y - _size.y))
+					if ((pPos.x - _pos.x) * (static_cast<int>(_state_dir.second) - 1) <= _rangeA) 
 					{
 						aState(static_cast<int>(MOVE_SELECT::ATTACK));
 						lpImageMng.AddDraw({ lpImageMng.getImage("excPoint")[0], _pos.x, _pos.y - _drawOffset_y, 1.0, 0.0, LAYER::EX, 10, DX_BLENDMODE_NOBLEND, 0 });
