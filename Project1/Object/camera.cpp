@@ -64,7 +64,7 @@ bool camera::CheckPos(void)
 		_cPos->x = _cEndOffSet.x2;
 	}
 
-	if (_cPos->y <  490)		// ‚È‚º490‚¾H
+	if (_cPos->y <  490)		// ‚È‚º490H
 	{
 		_cPos->y = 490;
 	}
