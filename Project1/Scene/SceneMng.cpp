@@ -93,11 +93,6 @@ void SceneMng::SetcObj(std::shared_ptr<camera>& cObj)
 	_cObj = cObj;
 }
 
-bool SceneMng::IsClockStoped(void)
-{
-	return _activeScene->IsClockStoped();
-}
-
 void SceneMng::SetNum(int num)
 {
 	_work = num;

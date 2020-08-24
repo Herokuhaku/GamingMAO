@@ -19,7 +19,7 @@ void TimeMng::ChangeTime(void)
 	if (!_changeFlag)
 	{
 		_changeFlag = true;
-		_changeTime = INTERVAL;
+		_changeTime = 0;
 	}
 }
 

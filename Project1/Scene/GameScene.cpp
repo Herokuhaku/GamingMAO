@@ -14,6 +14,7 @@
 #include "../Menu/MenuExecuter.h"
 #include "../Gimmick/Rock.h"
 #include "../Object/Barrier/BarrierMng.h"
+#include "../Object/Attack/white/StopTime.h"
 
 GameScene::GameScene()
 {
@@ -120,74 +121,7 @@ GameScene::~GameScene()
 
 std::unique_ptr<BaseScene> GameScene::Update(std::unique_ptr<BaseScene> own)
 {
-	lpAttackUI.Update();
-
-	for (const auto& data : _objList)
-	{
-		(*data).Update();
-	}
-	_cobj->Update();
-
-	lpEnemyMng.Update();
-
-	_barrierMng->Update();
-
-	//_gimmickMng->Update();
-
-	lpAtkMng.Update();
-
-	_menu->Update();
-
-	getAttackQue();
-	CheckHitAttack()(_barrierMng->GetBarrier(), _attackList);
-	CheckHitAttack()(_objList, _attackList);
-	CheckHitAttack()(lpEnemyMng.GetenemyList(), _attackList);
-
-
-	for (const auto& data : _objList)
-	{
-		if ((*data).getStage() == lpMapMng.GetnowStage())
-		{
-			(*data).Draw();
-			(*data).attackUpdate();
-		}
-	}
-
-	lpEnemyMng.Draw();
-
-	_barrierMng->Draw();
-
-	//_gimmickMng->Draw();
-
-	lpAtkMng.Draw();
-
-	lpTradeMng.Draw();
-	ItemDraw();
-
-	lpMapMng.MapDraw();
-
-	lpAttackUI.Draw();
-
-	_menu->Draw();
-
-	// €‚ñ‚Å‚¢‚éƒvƒŒƒCƒ„[‚ğ’T‚·
-	auto plDead = std::find_if(_objList.begin(), _objList.end(), [](std::shared_ptr<Object> obj) { return (obj->getObjType() == OBJ_TYPE::PLAYER && obj->getState().first == OBJ_STATE::DEAD); });
-
-	// €‚ñ‚¾‚Æ‚«‚Ìˆ—
-	if (plDead != _objList.end())
-	{
-		lpImageMng.Draw(lpSceneMng.GetNum(), false);
-		own = std::make_unique<GameOverScene>();
-	}
-
-	if (!lpMenuMng.GetMixFlag())
-	{
-		lpTradeMng.BagDraw({ 800,670 }, LAYER::CHAR, { 0,0 }, {1.0,1.0});	// c‚ÍScreenSize.y - (DrawBox‚Ì’·‚³/2)
-	}
-	lpTradeMng.ToolDraw({  800,670 }, LAYER::CHAR, { 0,0 }, {1.0,1.0});
-
-	lpTimeMng.resetFlag();
-
+	own = (this->*_update)(std::move(own));
 	return own;
 }
 
@@ -243,6 +177,8 @@ bool GameScene::Init(void)
 	_menu.reset(new MenuExecuter(this));
 
 	_barrierMng.reset(new BarrierMng(this));
+
+	_update = &GameScene::NormalUpdate;
 
 	lpMapMng.Init();
 
@@ -350,5 +286,158 @@ void GameScene::ItemDraw(void)
 		}
 		tmp++;
 	}
+}
+
+std::unique_ptr<BaseScene> GameScene::NormalUpdate(std::unique_ptr<BaseScene> own)
+{
+	std::dynamic_pointer_cast<Player>(lpSceneMng.GetPlObj2(TIME::FTR))->GetStopTime()->Update();
+
+	lpAttackUI.Update();
+
+	for (const auto& data : _objList)
+	{
+		(*data).Update();
+	}
+	_cobj->Update();
+
+	lpEnemyMng.Update();
+
+	_barrierMng->Update();
+
+	//_gimmickMng->Update();
+
+	lpAtkMng.Update();
+
+	_menu->Update();
+
+	getAttackQue();
+	CheckHitAttack()(_barrierMng->GetBarrier(), _attackList);
+	CheckHitAttack()(_objList, _attackList);
+	CheckHitAttack()(lpEnemyMng.GetenemyList(), _attackList);
+
+	std::dynamic_pointer_cast<Player>(lpSceneMng.GetPlObj2(TIME::FTR))->GetStopTime()->Draw();
+
+	for (const auto& data : _objList)
+	{
+		if ((*data).getStage() == lpMapMng.GetnowStage())
+		{
+			(*data).Draw();
+			(*data).attackUpdate();
+		}
+	}
+
+	lpEnemyMng.Draw();
+
+	_barrierMng->Draw();
+
+	//_gimmickMng->Draw();
+
+	lpAtkMng.Draw();
+
+	lpTradeMng.Draw();
+	ItemDraw();
+
+	lpMapMng.MapDraw();
+
+	lpAttackUI.Draw();
+
+	_menu->Draw();
+
+	// €‚ñ‚Å‚¢‚éƒvƒŒƒCƒ„[‚ğ’T‚·
+	auto plDead = std::find_if(_objList.begin(), _objList.end(), [](std::shared_ptr<Object> obj) { return (obj->getObjType() == OBJ_TYPE::PLAYER && obj->getState().first == OBJ_STATE::DEAD); });
+
+	// €‚ñ‚¾‚Æ‚«‚Ìˆ—
+	if (plDead != _objList.end())
+	{
+		lpImageMng.Draw(lpSceneMng.GetNum(), false);
+		own = std::make_unique<GameOverScene>();
+	}
+
+	if (!lpMenuMng.GetMixFlag())
+	{
+		lpTradeMng.BagDraw({ 800,670 }, LAYER::CHAR, { 0,0 }, { 1.0,1.0 });	// c‚ÍScreenSize.y - (DrawBox‚Ì’·‚³/2)
+	}
+	lpTradeMng.ToolDraw({ 800,670 }, LAYER::CHAR, { 0,0 }, { 1.0,1.0 });
+
+	lpTimeMng.resetFlag();
+
+	if (std::dynamic_pointer_cast<Player>(lpSceneMng.GetPlObj2(TIME::FTR))->IsTimeStoped())
+	{
+		_update = &GameScene::StopedUpdate;
+	}
+
+	return own;
+}
+
+std::unique_ptr<BaseScene> GameScene::StopedUpdate(std::unique_ptr<BaseScene> own)
+{
+	std::dynamic_pointer_cast<Player>(lpSceneMng.GetPlObj2(TIME::FTR))->GetStopTime()->Update();
+
+	lpAttackUI.Update();
+
+	lpSceneMng.GetPlObj2(TIME::FTR)->Update();
+
+	_cobj->Update();
+
+	_barrierMng->Update();
+
+	_menu->Update();
+
+	getAttackQue();
+	CheckHitAttack()(_barrierMng->GetBarrier(), _attackList);
+	CheckHitAttack()(_objList, _attackList);
+	CheckHitAttack()(lpEnemyMng.GetenemyList(), _attackList);
+
+	std::dynamic_pointer_cast<Player>(lpSceneMng.GetPlObj2(TIME::FTR))->GetStopTime()->Draw();
+
+	for (const auto& data : _objList)
+	{
+		if ((*data).getStage() == lpMapMng.GetnowStage())
+		{
+			(*data).Draw();
+		}
+	}
+
+	lpEnemyMng.Draw();
+
+	_barrierMng->Draw();
+
+	//_gimmickMng->Draw();
+
+	lpAtkMng.Draw();
+
+	lpTradeMng.Draw();
+	ItemDraw();
+
+	lpMapMng.MapDraw();
+
+	lpAttackUI.Draw();
+
+	_menu->Draw();
+
+	// €‚ñ‚Å‚¢‚éƒvƒŒƒCƒ„[‚ğ’T‚·
+	auto plDead = std::find_if(_objList.begin(), _objList.end(), [](std::shared_ptr<Object> obj) { return (obj->getObjType() == OBJ_TYPE::PLAYER && obj->getState().first == OBJ_STATE::DEAD); });
+
+	// €‚ñ‚¾‚Æ‚«‚Ìˆ—
+	if (plDead != _objList.end())
+	{
+		lpImageMng.Draw(lpSceneMng.GetNum(), false);
+		own = std::make_unique<GameOverScene>();
+	}
+
+	if (!lpMenuMng.GetMixFlag())
+	{
+		lpTradeMng.BagDraw({ 800,670 }, LAYER::CHAR, { 0,0 }, { 1.0,1.0 });	// c‚ÍScreenSize.y - (DrawBox‚Ì’·‚³/2)
+	}
+	lpTradeMng.ToolDraw({ 800,670 }, LAYER::CHAR, { 0,0 }, { 1.0,1.0 });
+
+	lpTimeMng.resetFlag();
+
+	if (!std::dynamic_pointer_cast<Player>(lpSceneMng.GetPlObj2(TIME::FTR))->IsTimeStoped())
+	{
+		_update = &GameScene::NormalUpdate;
+	}
+
+	return own;
 }
 

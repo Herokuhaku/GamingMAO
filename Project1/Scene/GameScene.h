@@ -38,6 +38,10 @@ private:
 	void getAttackQue(void);
 	void ItemDraw(void);
 
+	std::unique_ptr<BaseScene> NormalUpdate(std::unique_ptr<BaseScene> own);
+	std::unique_ptr<BaseScene> StopedUpdate(std::unique_ptr<BaseScene> own);
+	std::unique_ptr<BaseScene>(GameScene::*_update)(std::unique_ptr<BaseScene> own);
+
 	std::vector<std::shared_ptr<Object>> _objList;
 	std::shared_ptr<camera> _cobj;
 	std::unique_ptr<GimmickMng> _gimmickMng;

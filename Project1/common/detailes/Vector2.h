@@ -1,4 +1,5 @@
 #include "..\Vector2.h"
+#include <cmath>
 
 
 template<class T> Vector2Template<T>::Vector2Template() : x1{ x }, x2{ y }

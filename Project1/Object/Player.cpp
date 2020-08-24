@@ -14,6 +14,7 @@
 #include "../Scene/GameScene.h"
 #include "Barrier/BarrierMng.h"
 #include "Barrier/Barrier.h"
+#include "Attack/white/StopTime.h"
 
 
 Player::Player()
@@ -31,6 +32,8 @@ Player::Player(Vector2Template<int> pos, int stage, TIME time, GameScene* gs)
 	_type = OBJ_TYPE::PLAYER;
 	_speed = WALK_SPEED;
 	_isSuperJump = false;
+
+	_stopTime.reset(new StopTime());
 	
 	_gameScene = gs;
 
@@ -80,21 +83,32 @@ void Player::Update(void)
 		}
 
 		if (((lpKeyMng.getOldBuf()[KEY_INPUT_LSHIFT] && !lpKeyMng.getBuf()[KEY_INPUT_LSHIFT])) ||
-			lpButtonMng.ButtonTrg(0, XINPUT_BUTTON_LEFT_SHOULDER))
+			lpButtonMng.ButtonTrg(0, XINPUT_BUTTON_LEFT_SHOULDER) && !_stopTime->IsCountdowned())
 		{
 			if (_control == &Player::ControlAttack && _coolTime == 0 && _time == TIME::FTR)
 			{
-				Attack();
-				_coolTime = 0;
-				_control = &Player::ControlNormal;
-				StateRotate();
-				lpAttackUI.Active(false);
+				if (!Attack())
+				{
+					_coolTime = 0;
+					_control = &Player::ControlNormal;
+					StateRotate();
+					lpAttackUI.Active(false);
+					lpTimeMng.ChangeTime();
+				}
+				else
+				{
+
+				}
 			}
-			if (_time == TIME::NOW)
+			else if (_time == TIME::NOW)
 			{
 				lpAttackUI.Active(true);
+				lpTimeMng.ChangeTime();
 			}
-			lpTimeMng.ChangeTime();
+			else
+			{
+				lpTimeMng.ChangeTime();
+			}
 		}
 
 		if (lpButtonMng.ButtonTrg(0, XINPUT_BUTTON_DPAD_LEFT))
@@ -163,6 +177,16 @@ void Player::Draw(void)
 		}
 		lpImageMng.AddDraw({ lpImageMng.getImage("hp_bar")[tmpNum], _pos.x - 27 + 6 * i, _pos.y - 60 - _drawOffset_y, 1.0, 0.0, LAYER::CHAR, 160, DX_BLENDMODE_NOBLEND, 0 });
 	}
+}
+
+bool Player::IsTimeStoped(void)
+{
+	return _stopTime->IsTimeStoped();
+}
+
+std::unique_ptr<StopTime>& Player::GetStopTime(void)
+{
+	return _stopTime;
 }
 
 void Player::Init(void)
@@ -640,8 +664,9 @@ bool Player::MenuUpdate(void)
 	return false;
 }
 
-void Player::Attack(void)
+bool Player::Attack(void)
 {
+	bool notChangingTime = false;
 	COLOR&& color = lpAttackUI.GetAttackColor();
 	if (static_cast<int>(color) >= static_cast<int>(COLOR::RED) && static_cast<int>(color) < static_cast<int>(COLOR::MAX))
 	{
@@ -650,6 +675,17 @@ void Player::Attack(void)
 		{
 			ct = -1;
 		}
+		if (color == COLOR::WHITE && _magicSet[static_cast<int>(color)] == ATK_TYPE::TYPE_3)
+		{
+			if (_stopTime->IsCountdowned())
+			{
+				ct = -1;
+			}
+			else
+			{
+				notChangingTime = true;
+			}
+		}
 
 		if (lpAttackUI.RunAttack(ct, AttackDetails::GetInstance().GetDetail(static_cast<int>(color), static_cast<int>(_magicSet[static_cast<int>(color)]))->_magicPoint))
 		{
@@ -657,6 +693,8 @@ void Player::Attack(void)
 		}
 	}
 	_coolTime = 10;
+
+	return notChangingTime;
 }
 
 void Player::Portal(void)
@@ -837,4 +875,5 @@ void Player::White2(void)
 
 void Player::White3(void)
 {
+	_stopTime->Stop();
 }

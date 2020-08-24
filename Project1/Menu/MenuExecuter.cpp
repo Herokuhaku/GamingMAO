@@ -5,6 +5,8 @@
 #include "../Scene/GameScene.h"
 #include "../Audio/AudioContainer.h"
 #include "../Manage/AttackUI.h"
+#include "../Object/Player.h"
+#include "../Object/Attack/white/StopTime.h"
 
 bool MenuExecuter::_active;
 
@@ -72,6 +74,12 @@ std::shared_ptr<MenuExecuter>& MenuExecuter::GetThis(void)
 
 bool MenuExecuter::Control(void)
 {
+	if (std::dynamic_pointer_cast<Player>(lpSceneMng.GetPlObj2(TIME::FTR))->GetStopTime()->IsCountdowned())
+	{
+		_active = false;
+		lpAttackUI.Active(true);
+	}
+
 	if (lpButtonMng.ButtonTrg(0, XINPUT_BUTTON_BACK))
 	{
 		if (_active)

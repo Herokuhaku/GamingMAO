@@ -5,6 +5,8 @@
 #include "Menu.h"
 #include "TimeMng.h"
 #include "../Scene/SceneMng.h"
+#include "../Object/Player.h"
+#include "../Object/Attack/white/StopTime.h"
 
 AttackUI* AttackUI::sInstance = nullptr;
 
@@ -231,6 +233,11 @@ void AttackUI::MpUpdate(void)
 				data.second = 0.0f;
 			}
 		}
+		return;
+	}
+
+	if (std::dynamic_pointer_cast<Player>(lpSceneMng.GetPlObj2(TIME::FTR))->GetStopTime()->IsTimeStoped())
+	{
 		return;
 	}
 

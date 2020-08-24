@@ -7,9 +7,5 @@ public:
 	BaseScene();
 	virtual ~BaseScene();
 	virtual std::unique_ptr<BaseScene> Update(std::unique_ptr<BaseScene> own) = 0;
-
-	bool IsClockStoped(void);
-protected:
-	bool _stoped = false;
 };
 

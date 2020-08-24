@@ -1,6 +1,9 @@
 #include "Object.h"
 #include "../Graphic/ImageMng.h"
 #include "../Graphic/EffekseerMng.h"
+#include "../Scene/SceneMng.h"
+#include "Player.h"
+#include <memory>
 
 Object::Object()
 {
@@ -174,6 +177,11 @@ bool Object::anmUpdate(void)
 		return false;
 	}
 
+	if (std::dynamic_pointer_cast<Player>(lpSceneMng.GetPlObj2(TIME::FTR))->IsTimeStoped())
+	{
+		return true;
+	}
+
 	// アニメーションのカウントのチェック
 	if (_anmTime >= _anmMap[_state_dir][_anmFlame].second)
 	{
@@ -316,4 +324,3 @@ void Object::IfHitAttack(void)
 {
 	// 通常は何もなし
 }
-

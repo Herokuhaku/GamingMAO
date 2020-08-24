@@ -4,6 +4,7 @@
 #include <functional>
 #include "Object.h"
 #include "../Manage/AttackUI.h"
+#include <memory>
 
 #define PLAYER_SIZE_X	85
 #define PLAYER_SIZE_Y	90
@@ -13,6 +14,7 @@
 #define HP_MAX			100
 
 class GameScene;
+struct StopTime;
 
 enum class ATK_TYPE : int
 {
@@ -37,6 +39,10 @@ public:
 	void Update(void)override;
 
 	void Draw(void)override;
+
+	bool IsTimeStoped(void);
+
+	std::unique_ptr<StopTime>& GetStopTime(void);
 private:
 	static constexpr int WALK_SPEED = 4;
 	static constexpr int SUPER_SPEED = 8;
@@ -72,7 +78,7 @@ private:
 	int _speed;
 
 	bool MenuUpdate(void);
-	void Attack(void);
+	bool Attack(void);
 	void Portal(void);
 
 	bool MenuFlag;
@@ -81,6 +87,8 @@ private:
 	Vector2 _wingPos;
 
 	GameScene* _gameScene;
+
+	std::unique_ptr<StopTime> _stopTime;
 
 	// çUåÇä÷åW
 	std::array<ATK_TYPE, static_cast<int>(COLOR::MAX)> _magicSet;	// êFÇ≤Ç∆Ç…Ç«ÇÃãZÇ…ê›íËÇµÇƒÇ†ÇÈÇ©

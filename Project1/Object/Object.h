@@ -127,7 +127,6 @@ protected:
 
 	// 返すデータ
 	std::vector<atkData> rtnvec;
-
 protected:
 	// ステージ移動
 	Vector2 _nextPos;

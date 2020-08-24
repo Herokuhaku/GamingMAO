@@ -51,8 +51,6 @@ public:
 	const std::shared_ptr<camera>& GetcObj(void) const;
 	void SetcObj(std::shared_ptr<camera>& cObj);
 
-	bool IsClockStoped(void);
-
 	void SetNum(int num);			// _work‚Ìset
 	int GetNum(void);				// _work‚Ìget
 
