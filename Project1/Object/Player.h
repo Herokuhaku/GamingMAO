@@ -44,8 +44,6 @@ public:
 
 	std::unique_ptr<StopTime>& GetStopTime(void);
 private:
-	static constexpr int WALK_SPEED = 4;
-	static constexpr int SUPER_SPEED = 8;
 	static constexpr double G_ACC_NORMAL = 0.4;
 	static constexpr double INI_VEL_NORMAL = 9.0;
 	static constexpr double INI_VEL_SUPER = 20.0;
@@ -55,10 +53,13 @@ private:
 
 	static constexpr int WING_OFFSET = 120;
 
+	static 	constexpr int DASH_DURATION = 5;
+
 	void Init(void);
 
 	void ControlNormal(void);
 	void ControlAttack(void);
+	void ControlDash(void);
 	void (Player::*_control)(void); // è„2Ç¬ÇÃä÷êîÉ|ÉCÉìÉ^
 
 	void StopWalk(void);
@@ -89,6 +90,15 @@ private:
 	GameScene* _gameScene;
 
 	std::unique_ptr<StopTime> _stopTime;
+
+	static constexpr int HISTORY_COUNT = 5;
+	int _dashTimer;
+	std::array<Vector2F, HISTORY_COUNT> _dashHistory;
+	bool _writeHistory = false;
+	void HistoryUpdate(void);
+	void HistoryDraw(void);
+	DIR _dashDir;
+	std::pair<OBJ_STATE, DIR> _tmpsd;
 
 	// çUåÇä÷åW
 	std::array<ATK_TYPE, static_cast<int>(COLOR::MAX)> _magicSet;	// êFÇ≤Ç∆Ç…Ç«ÇÃãZÇ…ê›íËÇµÇƒÇ†ÇÈÇ©

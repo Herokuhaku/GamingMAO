@@ -297,6 +297,7 @@ std::unique_ptr<BaseScene> GameScene::NormalUpdate(std::unique_ptr<BaseScene> ow
 	for (const auto& data : _objList)
 	{
 		(*data).Update();
+		(*data).InvUpdate();
 	}
 	_cobj->Update();
 

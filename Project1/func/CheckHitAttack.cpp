@@ -70,7 +70,6 @@ void CheckHitAttack::operator()(const std::vector<std::shared_ptr<Object>>& objl
 
 			if (obj->checkInv())
 			{
-				obj->InvUpdate();
 				continue;
 			}
 
@@ -164,7 +163,6 @@ void CheckHitAttack::operator()(const std::vector<std::shared_ptr<Enemy>>& objli
 
 			if (obj->checkInv())
 			{
-				obj->InvUpdate();
 				continue;
 			}
 

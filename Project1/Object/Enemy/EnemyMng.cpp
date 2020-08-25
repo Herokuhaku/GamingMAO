@@ -13,6 +13,7 @@ void EnemyMng::Update(void)
 	for(auto data : _enemyList)
 	{
 		(*data).Update();
+		(*data).InvUpdate();
 	}
 	_enemyList.erase(std::remove_if(_enemyList.begin(), _enemyList.end(), 
 		[&](std::shared_ptr<Enemy>& data)

@@ -16,6 +16,12 @@
 #include "Barrier/Barrier.h"
 #include "Attack/white/StopTime.h"
 
+namespace
+{
+	constexpr int WALK_SPEED = 4;
+	constexpr int SUPER_SPEED = 8;
+	constexpr int DASH_SPEED = 30;
+}
 
 Player::Player()
 {
@@ -56,6 +62,11 @@ Player::Player(Vector2Template<int> pos, int stage, TIME time, GameScene* gs)
 
 	_magicSet = { ATK_TYPE::TYPE_1 };
 
+	for (auto& h : _dashHistory) 
+	{
+		h = { NAN,NAN };
+	}
+
 	Init();
 }
 
@@ -67,6 +78,7 @@ void Player::Update(void)
 {
 	VelUpdate();
 	MagicUpdate();
+	HistoryUpdate();
 
 	// ëÄçÏÇµÇƒÇ¢ÇÈÉvÉåÉCÉÑÅ[Ç∂Ç·Ç»Ç¢
 	if (lpTimeMng.getTime() != _time)
@@ -177,6 +189,7 @@ void Player::Draw(void)
 		}
 		lpImageMng.AddDraw({ lpImageMng.getImage("hp_bar")[tmpNum], _pos.x - 27 + 6 * i, _pos.y - 60 - _drawOffset_y, 1.0, 0.0, LAYER::CHAR, 160, DX_BLENDMODE_NOBLEND, 0 });
 	}
+	HistoryDraw();
 }
 
 bool Player::IsTimeStoped(void)
@@ -521,6 +534,75 @@ void Player::ControlAttack(void)
 	}
 }
 
+void Player::ControlDash(void)
+{
+	_dashTimer--;
+	if (_dashTimer <= 0)
+	{
+		_control = &Player::ControlNormal;
+		setState({ OBJ_STATE::NORMAL, _dashDir });
+		StateRotate();
+		_writeHistory = false;
+		return;
+	}
+	if (_dashDir == DIR::LEFT)
+	{
+		setState({ OBJ_STATE::DASH, DIR::LEFT });
+		int tmpLeft = NOTHIT;
+		int t;
+		for (int i = 0; i <= DASH_SPEED / CHIP_SIZE; i++)
+		{
+			t = CheckHitStage()(CHECK_DIR::LEFT, { _pos.x - i * CHIP_SIZE, _pos.y }, getHitOffset(), _stage);
+			if (t != NOTHIT)
+			{
+				tmpLeft = t;
+				break;
+			}
+		}
+		if (tmpLeft == NOTHIT)
+		{
+			tmpLeft = CheckHitStage()(CHECK_DIR::LEFT, { _pos.x - DASH_SPEED, _pos.y }, getHitOffset(), _stage);
+		}
+
+		if (tmpLeft == NOTHIT)
+		{
+			_pos.x -= DASH_SPEED;
+		}
+		else
+		{
+			_pos.x = tmpLeft + getHitOffset()[static_cast<int>(CHECK_DIR::LEFT)];
+		}
+	}
+	if (_dashDir == DIR::RIGHT)
+	{
+		setState({ OBJ_STATE::DASH, DIR::RIGHT });
+		int tmpRight = NOTHIT;
+		int t;
+		for (int i = 0; i <= DASH_SPEED / CHIP_SIZE; i++)
+		{
+			t = CheckHitStage()(CHECK_DIR::RIGHT, { _pos.x + i * CHIP_SIZE, _pos.y }, getHitOffset(), _stage);
+			if (t != NOTHIT)
+			{
+				tmpRight = t;
+				break;
+			}
+		}
+		if (tmpRight == NOTHIT)
+		{
+			tmpRight = CheckHitStage()(CHECK_DIR::RIGHT, { _pos.x + DASH_SPEED, _pos.y }, getHitOffset(), _stage);
+		}
+
+		if (tmpRight == NOTHIT)
+		{
+			_pos.x += DASH_SPEED;
+		}
+		else
+		{
+			_pos.x = tmpRight - getHitOffset()[static_cast<int>(CHECK_DIR::RIGHT)];
+		}
+	}
+}
+
 void Player::StopWalk(void)
 {
 	if (_state_dir.first == OBJ_STATE::DASH || _state_dir.first == OBJ_STATE::WALK)
@@ -592,10 +674,15 @@ void Player::StateRotate(void)
 
 void Player::VelUpdate(void)
 {
+	if (_control == &Player::ControlDash)
+	{
+		return;
+	}
+
 	int tmpTop = CheckHitStage()(CHECK_DIR::UP, { _pos.x, static_cast<int>(_tmpPos.y) }, getHitOffset(), _stage);
 	if (tmpTop != NOTHIT)
 	{
-		_tmpPos.y = static_cast<double>(tmpTop + getHitOffset()[static_cast<int>(CHECK_DIR::UP)]);
+		_tmpPos.y = static_cast<double>(tmpTop) + static_cast<double>(getHitOffset()[static_cast<int>(CHECK_DIR::UP)]);
 		_vel = 0.0;
 	}
 
@@ -615,7 +702,7 @@ void Player::VelUpdate(void)
 
 	if (_vel != 0.0 && tmpDown != NOTHIT)
 	{
-		_tmpPos.y = static_cast<double>(tmpDown - getHitOffset()[static_cast<int>(CHECK_DIR::DOWN)]);
+		_tmpPos.y = static_cast<double>(tmpDown) - static_cast<double>(getHitOffset()[static_cast<int>(CHECK_DIR::DOWN)]);
 		_vel = 0.0;
 		_speed = WALK_SPEED;
 		_isSuperJump = false;
@@ -763,6 +850,27 @@ void Player::Portal(void)
 	}
 }
 
+void Player::HistoryUpdate(void)
+{
+	for (int i = HISTORY_COUNT - 2; i >= 0; i--)
+	{
+		_dashHistory[i + 1] = _dashHistory[i];
+	}
+	_dashHistory[0] = _writeHistory ? Vector2F{ static_cast<float>(_pos.x), static_cast<float>(_pos.y) } : Vector2F{ NAN, NAN };
+}
+
+void Player::HistoryDraw(void)
+{
+	for (auto& d : _dashHistory)
+	{
+		if (std::isnan(d.x) || std::isnan(d.y))
+		{
+			continue;
+		}
+		lpImageMng.AddDraw({ lpImageMng.getImage("player_dash")[static_cast<int>(_dashDir)], d.x, d.y - _drawOffset_y, 1.0, 0.0, LAYER::CHAR, _zOrder - 1, DX_BLENDMODE_ALPHA, 120 });
+	}
+}
+
 void Player::Red1(void)
 {
 	lpAtkMng.MakeFireBall({ _pos.x + (static_cast<int>(_state_dir.second) - 1) * PLAYER_SIZE_X / 2, _pos.y - _drawOffset_y }, _state_dir.second,
@@ -826,6 +934,15 @@ void Player::Blue1(void)
 
 void Player::Blue2(void)
 {
+	if (_control != &Player::ControlDash)
+	{
+		_tmpsd = _state_dir;
+		_dashDir = _state_dir.second;
+	}
+	_writeHistory = true;
+	_dashTimer = DASH_DURATION;
+	setInv(DASH_DURATION + 3);
+	_control = &Player::ControlDash;
 }
 
 void Player::Blue3(void)
