@@ -93,7 +93,7 @@ private:
 
 	static constexpr int HISTORY_COUNT = 5;
 	int _dashTimer;
-	std::array<Vector2F, HISTORY_COUNT> _dashHistory;
+	std::array<std::pair<Vector2F, DIR>, HISTORY_COUNT> _dashHistory;
 	bool _writeHistory = false;
 	void HistoryUpdate(void);
 	void HistoryDraw(void);

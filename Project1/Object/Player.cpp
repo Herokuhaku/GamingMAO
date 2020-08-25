@@ -64,7 +64,7 @@ Player::Player(Vector2Template<int> pos, int stage, TIME time, GameScene* gs)
 
 	for (auto& h : _dashHistory) 
 	{
-		h = { NAN,NAN };
+		h = { Vector2F{ NAN,NAN } , DIR::LEFT };
 	}
 
 	Init();
@@ -545,6 +545,16 @@ void Player::ControlDash(void)
 		_writeHistory = false;
 		return;
 	}
+
+	if (lpKeyMng.getBuf()[KEY_INPUT_LEFT] || lpButtonMng.Thumbf(0, XINPUT_THUMBL_X).first == 2)
+	{
+		_dashDir = DIR::LEFT;
+	}
+	else if (lpKeyMng.getBuf()[KEY_INPUT_RIGHT] || lpButtonMng.Thumbf(0, XINPUT_THUMBL_X).first == 1)
+	{
+		_dashDir = DIR::RIGHT;
+	}
+
 	if (_dashDir == DIR::LEFT)
 	{
 		setState({ OBJ_STATE::DASH, DIR::LEFT });
@@ -856,18 +866,18 @@ void Player::HistoryUpdate(void)
 	{
 		_dashHistory[i + 1] = _dashHistory[i];
 	}
-	_dashHistory[0] = _writeHistory ? Vector2F{ static_cast<float>(_pos.x), static_cast<float>(_pos.y) } : Vector2F{ NAN, NAN };
+	_dashHistory[0] = _writeHistory ? std::make_pair(Vector2F{ static_cast<float>(_pos.x), static_cast<float>(_pos.y)}, _state_dir.second) : std::make_pair(Vector2F{ NAN, NAN }, _state_dir.second);
 }
 
 void Player::HistoryDraw(void)
 {
 	for (auto& d : _dashHistory)
 	{
-		if (std::isnan(d.x) || std::isnan(d.y))
+		if (std::isnan(d.first.x) || std::isnan(d.first.y))
 		{
 			continue;
 		}
-		lpImageMng.AddDraw({ lpImageMng.getImage("player_dash")[static_cast<int>(_dashDir)], d.x, d.y - _drawOffset_y, 1.0, 0.0, LAYER::CHAR, _zOrder - 1, DX_BLENDMODE_ALPHA, 120 });
+		lpImageMng.AddDraw({ lpImageMng.getImage("player_dash")[static_cast<int>(_dashDir)], d.first.x, d.first.y - _drawOffset_y, 1.0, 0.0, LAYER::CHAR, _zOrder - 1, DX_BLENDMODE_ALPHA, 120 });
 	}
 }
 
