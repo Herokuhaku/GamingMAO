@@ -50,7 +50,7 @@ void PoisonFog::Update(void)
 	}
 }
 
-void PoisonFog::IfHitAttack(void)
+void PoisonFog::IfHitAttack(std::shared_ptr<Object> target)
 {
 	// ‚È‚É‚à‚µ‚È‚¢
 }

@@ -48,7 +48,7 @@ public:
 	COLOR Trade(COLOR color1, COLOR color2);
 	bool ColorTradeCheck(COLOR color1, COLOR color2);
 	const void SetItemList(Vector2 pos, ITEM_TYPE itype,COLOR ctype, int stage);
-	bool NoReturn(int no);
+	bool NoReturn(unsigned int no);
 	ItemSave& ReturnBag(int no);
 
 	void DeleteItem(ItemSave& item);

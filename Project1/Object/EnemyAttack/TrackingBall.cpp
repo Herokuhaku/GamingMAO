@@ -22,10 +22,10 @@ TrackingBall::TrackingBall(Vector2 & ePos, Vector2 & pPos, TIME time, int stage,
 	// プレイヤーと弾のベクトル
 	auto v = pPos - ePos;
 	// 
-	_vec.x = -(v.x / 2);
+	_vec.x = static_cast<float>(-(v.x / 2));
 	// 座標補正用
-	_ePos.x -= _vec.x;
-	_ePos.y -= (0.001f) * pow(_vec.x, 2);
+	_ePos.x -= static_cast<int>(_vec.x);
+	_ePos.y -= static_cast<int>((0.001f) * pow(_vec.x, 2));
 	// 曲線をrrad分回転
 	angle = (rrad * 3.141529 / 180);
 	// 
@@ -34,8 +34,8 @@ TrackingBall::TrackingBall(Vector2 & ePos, Vector2 & pPos, TIME time, int stage,
 	// 曲線のXに加算
 	_vec.x += addX;
 	// 曲線のYXを求めて座標補正
-	_nextPos.y = (0.001f) * pow(_vec.x, 2) + _ePos.y;
-	_nextPos.x = _ePos.x + _vec.x;
+	_nextPos.y = static_cast<int>((0.001f) * pow(_vec.x, 2) + _ePos.y);
+	_nextPos.x = _ePos.x + static_cast<int>(_vec.x);
 	// 回転
 	_nextPos -= _fePos;
 	_nextPos.x = _nextPos.x * cosf(angle) - _nextPos.y * sinf(angle);
@@ -56,7 +56,7 @@ void TrackingBall::Update(void)
 	_vec.x += addX;
 	// 曲線のYXを求めて座標補正
 	_nextPos.y = (0.001f) * pow(_vec.x, 2) + _ePos.y;
-	_nextPos.x = _ePos.x + _vec.x;
+	_nextPos.x = _ePos.x + static_cast<int>(_vec.x);
 	// 回転
 	_nextPos -= _fePos;
 	_nextPos.x = _nextPos.x * cosf(angle) - _nextPos.y * sinf(angle);
@@ -79,7 +79,7 @@ void TrackingBall::Draw(void)
 	Object::Draw();
 }
 
-void TrackingBall::IfHitAttack(void)
+void TrackingBall::IfHitAttack(std::shared_ptr<Object> target)
 {
 	setState({ OBJ_STATE::DEAD, _state_dir.second });
 }

@@ -25,8 +25,8 @@ void ItemTrader::Draw(void)
 
 void ItemTrader::BagDraw(Vector2D pos , LAYER lay, Vector2 off, Vector2D rad)
 {
-	_pos.x = pos.x;
-	_pos.y = pos.y;
+	_pos.x = static_cast<int>(pos.x);
+	_pos.y = static_cast<int>(pos.y);
 	for (auto data : _IBag)
 	{
 		if (data.first.itemtype == ITEM_TYPE::BOOK)
@@ -187,7 +187,7 @@ bool ItemTrader::ReBook(COLOR color)
 
 
 
-bool ItemTrader::NoReturn(int no)
+bool ItemTrader::NoReturn(unsigned int no)
 {
 	// アイテムバッグに何も入っていない場合falseを返す
 	if (_IBag.empty() == true)

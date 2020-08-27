@@ -251,7 +251,7 @@ void TitleScene::SelectDraw(void)
 	DrawClock();
 	
 	unsigned int color = 0xffffff;
-	for (int i = 0 ; i < _menu.size(); i++)
+	for (size_t i = 0 ; i < _menu.size(); i++)
 	{
 		if (i == _cursor)
 		{
@@ -270,7 +270,7 @@ void TitleScene::ReverseDraw(void)
 	DrawReverseClock();
 
 	unsigned int color = 0xffffff;
-	for (int i = 0; i < _menu.size(); i++)
+	for (size_t i = 0; i < _menu.size(); i++)
 	{
 		if (i == _cursor)
 		{

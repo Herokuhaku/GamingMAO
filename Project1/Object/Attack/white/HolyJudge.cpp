@@ -30,7 +30,7 @@ void HolyJudge::Update(void)
 	}
 }
 
-void HolyJudge::IfHitAttack(void)
+void HolyJudge::IfHitAttack(std::shared_ptr<Object> target)
 {
 }
 

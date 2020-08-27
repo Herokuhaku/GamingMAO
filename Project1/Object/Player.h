@@ -31,7 +31,7 @@ class Player :
 {
 	friend MagicMenu;
 public:
-	Player();
+	Player() = delete;
 	Player(Vector2Template<int> pos, int stage, TIME time, GameScene* gs);
 	Player(const Player&) = delete;
 	~Player();

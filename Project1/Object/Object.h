@@ -92,7 +92,7 @@ public:
 	void setStage(int stage) { _stage = stage; };
 	int getStage(void) { return _stage; };
 
-	virtual void IfHitAttack(void);
+	virtual void IfHitAttack(std::shared_ptr<Object> target);
 
 	void nextPos(void) { _pos = _nextPos; _tmpPos = { static_cast<double>(_nextPos.x),static_cast<double>(_nextPos.y) }; };
 private:

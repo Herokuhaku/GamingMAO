@@ -41,7 +41,7 @@ void BombThrow::Update(void)
 	(this->*_update)();
 }
 
-void BombThrow::IfHitAttack(void)
+void BombThrow::IfHitAttack(std::shared_ptr<Object> target)
 {
 	if (_update == &BombThrow::BombUpdate)
 	{
@@ -96,7 +96,7 @@ void BombThrow::Init(void)
 
 void BombThrow::BombUpdate(void)
 {
-	_rad += (static_cast<int>(_state_dir.second) - 1) * RAD_VEL;
+	_rad += (static_cast<double>(static_cast<int>(_state_dir.second)) - 1.0) * RAD_VEL;
 
 	_pos.x += _speed;
 

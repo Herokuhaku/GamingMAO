@@ -90,7 +90,7 @@ void CheckHitAttack::operator()(const std::vector<std::shared_ptr<Object>>& objl
 			{
 				obj->damagingHP(damage);
 				obj->setInv(invTime);
-				attack.second->IfHitAttack();
+				attack.second->IfHitAttack(obj);
 			}
 		}
 	}
@@ -180,7 +180,7 @@ void CheckHitAttack::operator()(const std::vector<std::shared_ptr<Enemy>>& objli
 			{
 				obj->damagingHP(damage);
 				obj->setInv(invTime);
-				attack.second->IfHitAttack();
+				attack.second->IfHitAttack(obj);
 			}
 		}
 	}
@@ -251,7 +251,7 @@ void CheckHitAttack::operator()(const std::vector<std::shared_ptr<Barrier>>& bar
 				bPos.y - hitBox[static_cast<int>(CHECK_DIR::UP)] <= pos2.y &&
 				bPos.y + hitBox[static_cast<int>(CHECK_DIR::DOWN)] >= pos1.y)
 			{
-				attack.second->IfHitAttack();
+				attack.second->IfHitAttack(nullptr);
 			}
 		}
 	}

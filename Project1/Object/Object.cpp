@@ -320,7 +320,7 @@ TIME Object::getTimeLine(void)
 	return _time;
 }
 
-void Object::IfHitAttack(void)
+void Object::IfHitAttack(std::shared_ptr<Object> target)
 {
 	// í èÌÇÕâΩÇ‡Ç»Çµ
 }

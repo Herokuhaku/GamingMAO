@@ -16,7 +16,7 @@ public:
 
 	void Update(void);
 
-	void IfHitAttack(void)override;
+	void IfHitAttack(std::shared_ptr<Object> target)override;
 
 private:
 	void Init(void);

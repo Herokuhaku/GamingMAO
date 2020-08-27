@@ -7,6 +7,7 @@
 #include "green/Fruit.h"
 #include "magenta/PoisonFog.h"
 #include "cyan/IceWall.h"
+#include "cyan/IceShot.h"
 #include "yellow/ThunderCloud.h"
 #include "yellow/Thunder.h"
 #include "white/HolyJudge.h"
@@ -137,6 +138,18 @@ void AttackMng::MakeHealTree(Vector2 pos, TIME time, int stage, OBJ_TYPE target)
 	else
 	{
 		_tmpObj.emplace_back(new HealTree(pos, time, stage, target));
+	}
+}
+
+void AttackMng::MakeIceShot(std::shared_ptr<Object> owner, Vector2 offset, DIR dir, Vector2 vec, TIME time, int stage, OBJ_TYPE target)
+{
+	if (_canAddObj)
+	{
+		_attackObj.emplace_back(new IceShot(owner, offset, dir, vec, time, stage, target));
+	}
+	else
+	{
+		_tmpObj.emplace_back(new IceShot(owner, offset, dir, vec, time, stage, target));
 	}
 }
 

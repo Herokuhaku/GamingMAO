@@ -26,7 +26,7 @@ void IceWall::Update(void)
 	}
 }
 
-void IceWall::IfHitAttack(void)
+void IceWall::IfHitAttack(std::shared_ptr<Object> target)
 {
 }
 

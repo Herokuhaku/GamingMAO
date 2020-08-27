@@ -58,7 +58,7 @@ void FireBall::Update(void)
 	(this->*_update)();
 }
 
-void FireBall::IfHitAttack(void)
+void FireBall::IfHitAttack(std::shared_ptr<Object> target)
 {
 	if (_update == &FireBall::ExplosionUpdate)
 	{

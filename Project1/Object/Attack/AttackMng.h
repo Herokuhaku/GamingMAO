@@ -85,6 +85,14 @@ public:
 
 	// 水色魔法
 
+	// 氷の球
+	// owner:所有者
+	// pos:座標			dir:方向
+	// vec:移動ベクトル( vec.x > 0 でdir方向に、vec.x < 0 で反対側に)
+	// time:時間軸		stage:ステージ
+	// target:目標
+	void MakeIceShot(std::shared_ptr<Object> owner, Vector2 offset, DIR dir, Vector2 vec, TIME time, int stage, OBJ_TYPE target);
+
 	// 氷の壁
 	// pos:座標			time:時間軸
 	// stage:ステージ	target:目標

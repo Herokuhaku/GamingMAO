@@ -9,7 +9,7 @@ public:
 
 	void Update(void)override;
 	void Draw(void) override;
-	void IfHitAttack(void) override;
+	void IfHitAttack(std::shared_ptr<Object> target) override;
 
 private:
 

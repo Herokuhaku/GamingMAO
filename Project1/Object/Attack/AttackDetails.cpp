@@ -13,7 +13,7 @@ namespace
 		"サンダー"			, "スパーク"			, "黄3",
 		"バブル"			, "ウルトラダッシュ"	, "バリア",
 		"ポイズンミスト"	, "せいめいのき"		, "紫3",
-		"フリーズ"			, "水色2"				, "水色3",
+		"アイス"			, "フリーズ"			, "水色3",
 		"ジャッジメント"	, "オーバードライブ"	, "クロノレジスタンス",
 	};
 }
@@ -51,16 +51,20 @@ AttackDetails::AttackDetails()
 
 void AttackDetails::LoadAttackData(void)
 {
-	int fp, pathfp;
-	fp = FileRead_open("data/mp_data.dat");
+	int mp_fp, mc_fp, pathfp;
+	mp_fp = FileRead_open("data/mp_data.dat");
+	mc_fp = FileRead_open("data/mp_cooltime.dat");
 	pathfp = FileRead_open("data/magic_icon_path.txt");
 
-	assert(fp != -1);
+	assert(mp_fp != -1);
 
 	std::vector<uint8_t> mp;
 	mp.resize(24);
-	FileRead_read(mp.data(), mp.size(), fp);
+	FileRead_read(mp.data(), mp.size(), mp_fp);
 
+	std::vector<uint8_t> mc;
+	mc.resize(24);
+	FileRead_read(mc.data(), mc.size(), mc_fp);
 
 	char path[64];
 
@@ -70,11 +74,13 @@ void AttackDetails::LoadAttackData(void)
 		{
 			FileRead_scanf(pathfp, "%s", path);
 			_details[i][j]->_magicPoint = mp[i * ATTACK_TYPE_MAX + j];
+			_details[i][j]->_cooltime = mc[i * ATTACK_TYPE_MAX + j];
 			_details[i][j]->_name = magicname[i * ATTACK_TYPE_MAX + j];
 			_details[i][j]->_handle = LoadGraph(path);
 		}
 	}
 	
-	FileRead_close(fp);
+	FileRead_close(mp_fp);
+	FileRead_close(mc_fp);
 	FileRead_close(pathfp);
 }

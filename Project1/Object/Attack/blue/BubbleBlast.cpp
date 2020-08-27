@@ -31,7 +31,7 @@ void BubbleBlast::Update(void)
 	setState({ OBJ_STATE::DEAD, DIR::LEFT });
 }
 
-void BubbleBlast::IfHitAttack(void)
+void BubbleBlast::IfHitAttack(std::shared_ptr<Object> target)
 {
 	// ‚È‚É‚à‚È‚µ
 }

@@ -38,7 +38,7 @@ void Fruit::Update(void)
 	VelUpdate();
 }
 
-void Fruit::IfHitAttack(void)
+void Fruit::IfHitAttack(std::shared_ptr<Object> target)
 {
 	setState({ OBJ_STATE::DEAD, _state_dir.second });
 }
@@ -95,7 +95,7 @@ void Fruit::Init(void)
 
 	AddAttack("bubble");
 
-	_radSpeed = ((_speed / (size * 2 * acos(-1.0f)) * (acos(-1.0f) * 2)));
+	_radSpeed = static_cast<double>(_speed / (size * 2 * acos(-1.0f))) * static_cast<double>(acos(-1.0f)) * 2.0;
 
 	_tmpPos.y = _pos.y;
 }
@@ -105,7 +105,7 @@ void Fruit::VelUpdate(void)
 	int tmpDown = CheckHitStage()(CHECK_DIR::DOWN, { _pos.x, static_cast<int>(_tmpPos.y) }, getHitOffset(), _stage);
 	if (tmpDown != NOTHIT)
 	{
-		_tmpPos.y = static_cast<double>(tmpDown - getHitOffset()[static_cast<int>(CHECK_DIR::DOWN)] - 1);
+		_tmpPos.y = static_cast<double>(tmpDown) - (static_cast<double>(getHitOffset()[static_cast<int>(CHECK_DIR::DOWN)]) - 1);
 		_vel = 0.0;
 	}
 	else
@@ -123,7 +123,7 @@ void Fruit::VelUpdate(void)
 
 		if (tmpDown != NOTHIT)
 		{
-			_tmpPos.y = tmpDown - getHitOffset()[static_cast<int>(CHECK_DIR::DOWN)] - 1;
+			_tmpPos.y = static_cast<double>(tmpDown) - (static_cast<double>(getHitOffset()[static_cast<int>(CHECK_DIR::DOWN)]) - 1);
 			_vel = 0.0;
 		}
 		else
@@ -132,5 +132,5 @@ void Fruit::VelUpdate(void)
 		}
 	}
 
-	_pos.y = _tmpPos.y;
+	_pos.y = static_cast<int>(_tmpPos.y);
 }

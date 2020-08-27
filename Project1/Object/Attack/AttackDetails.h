@@ -12,6 +12,7 @@ struct Detail
 {
 	std::string _name;	// 魔法名
 	int _magicPoint;	// 消費MP
+	int _cooltime;		// クールタイム
 	std::string _desc;	// 魔法の説明
 	int _handle;		// 画像ハンドル
 };

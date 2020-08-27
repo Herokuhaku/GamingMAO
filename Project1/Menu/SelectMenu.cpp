@@ -57,7 +57,7 @@ void SelectMenu::Update(void)
 void SelectMenu::Draw(void)
 {
 	int color;
-	for (int i = 0; i < _parts.size(); i++)
+	for (size_t i = 0; i < _parts.size(); i++)
 	{
 		color = 0xffffff;
 		if (i == _cursor)

@@ -23,14 +23,13 @@ void Bubble::Update(void)
 	_floatCount++;
 	if (_floatCount > LIFE_TIME)
 	{
-		IfHitAttack();
-
+		IfHitAttack(nullptr);
 	}
 
-	_pos.y = static_cast<int>(_basePos_y + sin(_floatCount * acos(-1.0f) / 180.0) * 20);
+	_pos.y = static_cast<int>(_basePos_y + sinf(_floatCount * acos(-1.0f) / 180.0f) * 20);
 }
 
-void Bubble::IfHitAttack(void)
+void Bubble::IfHitAttack(std::shared_ptr<Object> target)
 {
 	lpAtkMng.MakeBubbleBlast(_pos, _time, _stage, _target);
 	setState({ OBJ_STATE::DEAD, _state_dir.second });

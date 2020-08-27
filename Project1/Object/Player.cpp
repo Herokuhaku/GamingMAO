@@ -23,10 +23,6 @@ namespace
 	constexpr int DASH_SPEED = 30;
 }
 
-Player::Player()
-{
-}
-
 Player::Player(Vector2Template<int> pos, int stage, TIME time, GameScene* gs)
 {
 	_pos = pos;
@@ -788,8 +784,8 @@ bool Player::Attack(void)
 		{
 			_attack[static_cast<int>(color)][static_cast<int>(_magicSet[static_cast<int>(color)])]();
 		}
+		_coolTime = lpAtkDetails.GetDetail(static_cast<int>(color), static_cast<int>(_magicSet[static_cast<int>(color)]))->_cooltime;
 	}
-	_coolTime = 10;
 
 	return notChangingTime;
 }
@@ -976,11 +972,12 @@ void Player::Magenta3(void)
 
 void Player::Cyan1(void)
 {
-	lpAtkMng.MakeIceWall({ _pos.x, _pos.y - 40 }, _time, lpMapMng.GetnowStage(), OBJ_TYPE::ENEMY);
+	lpAtkMng.MakeIceShot(lpSceneMng.GetPlObj2(TIME::FTR), { PLAYER_SIZE_X / 2, -_drawOffset_y }, _state_dir.second, { 15, 0 }, _time, lpMapMng.GetnowStage(), OBJ_TYPE::ENEMY);
 }
 
 void Player::Cyan2(void)
 {
+	lpAtkMng.MakeIceWall({ _pos.x, _pos.y - 40 }, _time, lpMapMng.GetnowStage(), OBJ_TYPE::ENEMY);
 }
 
 void Player::Cyan3(void)

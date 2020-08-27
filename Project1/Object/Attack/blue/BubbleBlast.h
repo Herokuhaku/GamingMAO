@@ -13,7 +13,7 @@ public:
 
 	void Update(void)override;
 
-	void IfHitAttack(void)override;
+	void IfHitAttack(std::shared_ptr<Object> target)override;
 private:
 	int _count;
 	static constexpr int LIFE_TIME = 5;

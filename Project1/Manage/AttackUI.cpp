@@ -96,7 +96,7 @@ void AttackUI::Draw(void)
 		CreateMaskScreen();
 		FillMaskScreen(1);
 		DrawMask((UI_SIZE - RING_SIZE) / 2, (UI_SIZE - RING_SIZE) / 2, _maskHandle[i], DX_MASKTRANS_WHITE);
-		DrawBox(0, MP_GAUGE_OFFSET[i] - _magicState[i].second * MP_GAUGE_HEIGHT[i] / MP_MAX, UI_SIZE, MP_GAUGE_OFFSET[i], color, true);
+		DrawBox(0, static_cast<int>(MP_GAUGE_OFFSET[i] - _magicState[i].second * MP_GAUGE_HEIGHT[i] / MP_MAX), UI_SIZE, MP_GAUGE_OFFSET[i], color, true);
 		if (_magicState[i].first == ATK_STATE::NON)
 		{
 			GraphFilter(_mpScreen[i], DX_GRAPH_FILTER_HSB, 0, 0, -255, 0);
@@ -299,13 +299,13 @@ void AttackUI::StickTrans(void)
 	{
 		exRate = abs(static_cast<double>(_stickX)) / STICK_RADIUS;
 		tmpY = static_cast<short>(_stickY / exRate);
-		length = sqrt(STICK_RADIUS * STICK_RADIUS + tmpY * tmpY);
+		length = sqrt(STICK_RADIUS * STICK_RADIUS + static_cast<double>(tmpY) * static_cast<double>(tmpY));
 	}
 	else
 	{
 		exRate = abs(static_cast<double>(_stickY)) / STICK_RADIUS;
 		tmpX = static_cast<short>(_stickX / exRate);
-		length = sqrt(tmpX * tmpX + STICK_RADIUS * STICK_RADIUS);
+		length = sqrt(static_cast<double>(tmpX) * static_cast<double>(tmpX) + STICK_RADIUS * STICK_RADIUS);
 	}
 	length = sqrt(static_cast<double>(_stickX) * static_cast<double>(_stickX) + static_cast<double>(_stickY) * static_cast<double>(_stickY))
 		* exRate * STICK_RADIUS / length;
