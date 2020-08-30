@@ -27,12 +27,46 @@ void ItemTrader::BagDraw(Vector2D pos , LAYER lay, Vector2 off, Vector2D rad)
 {
 	_pos.x = static_cast<int>(pos.x);
 	_pos.y = static_cast<int>(pos.y);
-	for (auto data : _IBag)
+
+	bool red = false, green = false, blue = false;
+	int no = 0;
+	for (auto& data : _IBag)
 	{
 		if (data.first.itemtype == ITEM_TYPE::BOOK)
 		{
-			data.first.pos = { _pos.x + (100 * data.first.book),_pos.y + off.x };
-			lpImageMng.AddBackDraw({ lpImageMng.getImage(data.first.image[0])[0],data.first.pos.x,data.first.pos.y, rad.x, 0.0,LAYER::EX, 110, DX_BLENDMODE_NOBLEND, 0 });
+			auto name = data.first.colortype;
+			switch (name)
+			{
+			case COLOR::RED:
+				if (!red)
+				{
+					data.first.pos = { _pos.x + (100 * no),_pos.y + off.x };
+					lpImageMng.AddBackDraw({ lpImageMng.getImage(data.first.image[0])[0],data.first.pos.x,data.first.pos.y, rad.x, 0.0,LAYER::EX, 110, DX_BLENDMODE_NOBLEND, 0 });
+					no++;
+				}
+				red = true;
+				break;
+			case COLOR::GREEN:
+				if (!green)
+				{
+					data.first.pos = { _pos.x + (100 * no),_pos.y + off.x };
+					lpImageMng.AddBackDraw({ lpImageMng.getImage(data.first.image[0])[0],data.first.pos.x,data.first.pos.y, rad.x, 0.0,LAYER::EX, 110, DX_BLENDMODE_NOBLEND, 0 });
+					no++;
+				}
+				green = true;
+				break;
+			case COLOR::BLUE:
+				if (!blue)
+				{
+					data.first.pos = { _pos.x + (100 * no),_pos.y + off.x };
+					lpImageMng.AddBackDraw({ lpImageMng.getImage(data.first.image[0])[0],data.first.pos.x,data.first.pos.y, rad.x, 0.0,LAYER::EX, 110, DX_BLENDMODE_NOBLEND, 0 });
+					no++;
+				}
+				blue = true;
+				break;
+			default:
+				break;
+			}
 		}
 	}
 }
@@ -53,7 +87,6 @@ void ItemTrader::ToolDraw(Vector2 pos, LAYER lay, Vector2 off, Vector2D rad)
 					sin(RAD(count*45.0)-45.0) * 75.0,rad.x,0.0,LAYER::EX,120,DX_BLENDMODE_NOBLEND,0 });
 				count++;
 		}
-
 	}
 }
 
