@@ -9,7 +9,7 @@ int CheckHitStage::operator()(const CHECK_DIR & dir, const Vector2 & pos, const 
 {
 	std::vector<std::shared_ptr<Gimmick>> gimmick = GimmickMng::GetGimmicks();
 	int width = offset[static_cast<int>(CHECK_DIR::LEFT)] + offset[static_cast<int>(CHECK_DIR::RIGHT)];
-	int height = offset[static_cast<int>(CHECK_DIR::UP)] + offset[static_cast<int>(CHECK_DIR::DOWN)];
+	int height = offset[static_cast<int>(CHECK_DIR::UP)] + offset[static_cast<int>(CHECK_DIR::DOWN)] - 1;
 	int rtnPos = NOTHIT;
 
 	int top = pos.y - offset[static_cast<int>(CHECK_DIR::UP)];
@@ -104,18 +104,18 @@ int CheckHitStage::operator()(const CHECK_DIR & dir, const Vector2 & pos, const 
 		{
 			if (lpMapMng.getHitMap({ left + i, bottom },stage))
 			{
-				if (rtnPos > bottom - bottom % CHIP_SIZE - 1 || rtnPos == NOTHIT)
+				if (rtnPos > bottom - bottom % CHIP_SIZE || rtnPos == NOTHIT)
 				{
-					rtnPos = bottom - bottom % CHIP_SIZE - 1;
+					rtnPos = bottom - bottom % CHIP_SIZE;
 				}
 			}
 		}
 
 		if (lpMapMng.getHitMap({ right, bottom },stage))
 		{
-			if (rtnPos > bottom - bottom % CHIP_SIZE - 1 || rtnPos == NOTHIT)
+			if (rtnPos > bottom - bottom % CHIP_SIZE || rtnPos == NOTHIT)
 			{
-				rtnPos = bottom - bottom % CHIP_SIZE - 1;
+				rtnPos = bottom - bottom % CHIP_SIZE;
 			}
 		}
 		for (auto& gm : gimmick)
@@ -129,11 +129,11 @@ int CheckHitStage::operator()(const CHECK_DIR & dir, const Vector2 & pos, const 
 			{
 				if (rtnPos == NOTHIT)
 				{
-					rtnPos = gmPos.y - gmBox[static_cast<int>(CHECK_DIR::UP)] - 1;
+					rtnPos = gmPos.y - gmBox[static_cast<int>(CHECK_DIR::UP)];
 				}
 				else
 				{
-					rtnPos = std::min(rtnPos, gmPos.y - gmBox[static_cast<int>(CHECK_DIR::UP)] - 1);
+					rtnPos = std::min(rtnPos, gmPos.y - gmBox[static_cast<int>(CHECK_DIR::UP)]);
 				}
 			}
 		}

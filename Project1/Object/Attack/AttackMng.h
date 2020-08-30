@@ -83,6 +83,14 @@ public:
 	// stage:ステージ	target:目標
 	void MakeHealTree(Vector2 pos, TIME time, int stage, OBJ_TYPE target);
 
+	// ブラックホール
+	// pos:座標			dir:方向
+	// vec:移動ベクトル( vec.x > 0 でdir方向に、vec.x < 0 で反対側に)
+	// lifetime:生存時間
+	// time:時間軸		stage:ステージ
+	// target:目標
+	void MakeBlackHole(Vector2 pos, DIR dir, Vector2 vec, int lifetime, TIME time, int stage, OBJ_TYPE target);
+
 	// 水色魔法
 
 	// 氷の球

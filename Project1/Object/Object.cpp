@@ -3,6 +3,7 @@
 #include "../Graphic/EffekseerMng.h"
 #include "../Scene/SceneMng.h"
 #include "Player.h"
+#include "../func/CheckHitStage.h"
 #include <memory>
 
 Object::Object()
@@ -46,6 +47,44 @@ Vector2Template<int> Object::getPos(void)
 	return _pos;
 }
 
+Vector2Template<int> Object::getPosWithOffset(void)
+{
+	return Vector2Template<int>(_pos.x, _pos.y - _drawOffset_y);
+}
+
+void Object::MovePos(const Vector2Template<int>& pos)
+{
+	int l = CheckHitStage()(CHECK_DIR::LEFT, { _pos.x + pos.x, _pos.y }, getHitOffset(), _stage);
+	int r = CheckHitStage()(CHECK_DIR::RIGHT, { _pos.x + pos.x, _pos.y }, getHitOffset(), _stage);
+	int u = CheckHitStage()(CHECK_DIR::UP, { _pos.x, _pos.y + pos.y }, getHitOffset(), _stage);
+	int d = CheckHitStage()(CHECK_DIR::DOWN, { _pos.x, _pos.y + pos.y }, getHitOffset(), _stage);
+
+	if (l != NOTHIT)
+	{
+		_pos.x = l + getHitOffset()[static_cast<int>(CHECK_DIR::LEFT)];
+	}
+	else if (r != NOTHIT)
+	{
+		_pos.x = r - getHitOffset()[static_cast<int>(CHECK_DIR::RIGHT)];
+	}
+	else
+	{
+		_pos.x += pos.x;
+	}
+	if (u != NOTHIT)
+	{
+		_pos.y = u + getHitOffset()[static_cast<int>(CHECK_DIR::UP)];
+	}
+	else if (d != NOTHIT)
+	{
+		_pos.y = d - getHitOffset()[static_cast<int>(CHECK_DIR::DOWN)];
+	}
+	else
+	{
+		_pos.y += pos.y;
+	}
+}
+
 void Object::setState(std::pair<OBJ_STATE, DIR> state)
 {
 	_state_dir = state;
@@ -70,6 +109,11 @@ int Object::getHP(void)
 
 void Object::damagingHP(int damage)
 {
+	if (damage == -1)
+	{
+		return;
+	}
+
 	_hp -= damage;
 
 	if (damage <= 0)

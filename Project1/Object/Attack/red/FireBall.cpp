@@ -40,7 +40,6 @@ void FireBall::FireballUpdate(void)
 		_alive = false;
 		_timer = EXPLOSION_DURATION;
 		PlaySoundMem(_audio.GetSound("explosion"), DX_PLAYTYPE_BACK, true);
-		_alive = false;
 	}
 }
 

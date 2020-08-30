@@ -54,6 +54,9 @@ public:
 	void setPos(Vector2Template<int> pos);
 	void setPlTmpPos(Vector2Template<int> pos) { _tmpPos = { static_cast<double>(pos.x),static_cast<double>(pos.y) }; };
 	Vector2Template<int> getPos(void);
+	Vector2Template<int> getPosWithOffset(void);
+
+	void MovePos(const Vector2Template<int>& pos);
 
 	void setState(std::pair<OBJ_STATE, DIR> state);
 	std::pair<OBJ_STATE, DIR> getState(void);

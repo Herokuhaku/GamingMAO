@@ -81,6 +81,9 @@ Vector2Template<T> operator * (const Vector2Template<T>& u, double k);
 // Vector2 / int
 template<class T>
 Vector2Template<T> operator / (const Vector2Template<T>& u, int k);
+
+template<class T>
+Vector2Template<T> operator / (const Vector2Template<T>& u, float k);
 // Vector2 / int
 template<class T>
 Vector2Template<T> operator / (const Vector2Template<T>& u, double k);

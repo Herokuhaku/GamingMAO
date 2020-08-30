@@ -968,6 +968,8 @@ void Player::Magenta2(void)
 
 void Player::Magenta3(void)
 {
+	lpAtkMng.MakeBlackHole({ _pos.x + (static_cast<int>(_state_dir.second) - 1) * PLAYER_SIZE_X / 2, _pos.y - _drawOffset_y }, _state_dir.second,
+		{ 1, 0 }, 120, _time, _stage, OBJ_TYPE::ENEMY);
 }
 
 void Player::Cyan1(void)

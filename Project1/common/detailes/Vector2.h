@@ -213,6 +213,16 @@ inline Vector2Template<T> operator/(const Vector2Template<T>& u, int k)
 }
 
 template<class T>
+Vector2Template<T> operator / (const Vector2Template<T>& u, float k)
+{
+	Vector2Template<T> vec;
+	vec.x = u.x / k;
+	vec.y = u.y / k;
+
+	return vec;
+}
+
+template<class T>
 Vector2Template<T> operator / (const Vector2Template<T>& u, double k)
 {
 	Vector2Template<T> vec;

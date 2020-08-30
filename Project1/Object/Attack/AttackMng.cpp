@@ -12,6 +12,7 @@
 #include "yellow/Thunder.h"
 #include "white/HolyJudge.h"
 #include "magenta/HealTree.h"
+#include "magenta/BlackHole.h"
 #include "yellow/Spark.h"
 
 #include "../EnemyAttack/TrackingBall.h"
@@ -138,6 +139,18 @@ void AttackMng::MakeHealTree(Vector2 pos, TIME time, int stage, OBJ_TYPE target)
 	else
 	{
 		_tmpObj.emplace_back(new HealTree(pos, time, stage, target));
+	}
+}
+
+void AttackMng::MakeBlackHole(Vector2 pos, DIR dir, Vector2 vec, int lifetime, TIME time, int stage, OBJ_TYPE target)
+{
+	if (_canAddObj)
+	{
+		_attackObj.emplace_back(new BlackHole(pos, dir, vec, lifetime, time, stage, target));
+	}
+	else
+	{
+		_tmpObj.emplace_back(new BlackHole(pos, dir, vec, lifetime, time, stage, target));
 	}
 }
 

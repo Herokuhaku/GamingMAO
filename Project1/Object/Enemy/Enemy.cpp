@@ -161,6 +161,11 @@ int Enemy::AtkMove(Vector2 pPos)
 
 void Enemy::damagingHP(int damage)
 {
+	if (damage == -1)
+	{
+		return;
+	}
+
 	setState({ OBJ_STATE::DAMAGE, _state_dir.second });
 	_waitCnt = 0;
 	_waitTime = 60;	// クールタイム
