@@ -10,10 +10,14 @@ EnemyMng *EnemyMng::sInstance = nullptr;
 
 void EnemyMng::Update(void)
 {
-	for(auto data : _enemyList)
+	for (auto data : _enemyList)
 	{
-		(*data).Update();
+		if ((*data).CanMoveWithEffect())
+		{
+			(*data).Update();
+		}
 		(*data).InvUpdate();
+		(*data).UpdateStateEffect();
 	}
 	_enemyList.erase(std::remove_if(_enemyList.begin(), _enemyList.end(), 
 		[&](std::shared_ptr<Enemy>& data)

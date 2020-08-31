@@ -440,6 +440,12 @@ void ImageMng::setGkind(ScrEff kind)
 	}
 }
 
+void ImageMng::GetCurrentScreen(int* screen, int* blendMode, int* parameter)
+{
+	*screen = GetDrawScreen();
+	GetDrawBlendMode(blendMode, parameter);
+}
+
 void ImageMng::SetplmoveF(bool plSmoveF, MAP_DATA plf)
 {
 	_plSmoveF = plSmoveF; 

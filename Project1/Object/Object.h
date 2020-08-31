@@ -2,6 +2,7 @@
 #include <map>
 #include <vector>
 #include <array>
+#include <memory>
 #include "../common/Vector2.h"
 #include "DIR.h"
 #include "../Manage/TimeMng.h"
@@ -40,6 +41,15 @@ enum class CHECK_DIR : int
 	DOWN
 };
 
+// 状態異常
+enum class STATE_EFFECT_TYPE
+{
+	PARALYSIS,
+	FREEZE,
+};
+
+class StateEffect;
+
 using AnmVec = std::vector<std::pair<int, unsigned int>>;
 using atkData = std::tuple<bool, OBJ_TYPE, Vector2, Vector2, int, int, OBJ_TYPE>;
 
@@ -60,6 +70,12 @@ public:
 
 	void setState(std::pair<OBJ_STATE, DIR> state);
 	std::pair<OBJ_STATE, DIR> getState(void);
+	
+	// 状態異常関係
+	void SetStateEffect(StateEffect* sEff);
+	void UpdateStateEffect(void);
+	bool IsEffected(STATE_EFFECT_TYPE type);
+	bool CanMoveWithEffect(void);
 
 	void setHP(int hp);
 	int getHP(void);
@@ -112,10 +128,14 @@ protected:
 
 	bool _alive;					// 生きてるか
 
+	std::vector<std::unique_ptr<StateEffect>> _sEff; // 状態異常
+	void DrawStateEffect(void);
+
 	int _zOrder;							// Zオーダー
 	double _exRate;							// 拡大率
 	OBJ_TYPE _type;							// オブジェクトの種類
 	std::pair<OBJ_STATE, DIR> _state_dir;	// オブジェクトの状態
+	double _stateEffectExRate = 1.0;
 
 	std::map<std::pair<OBJ_STATE, DIR>, AnmVec> _anmMap;	// アニメーションを保存するとこ
 	unsigned int _anmTime;			// アニメーションの経過時間
@@ -134,4 +154,21 @@ protected:
 	// ステージ移動
 	Vector2 _nextPos;
 
+};
+
+class StateEffect
+{
+	friend Object;
+
+	STATE_EFFECT_TYPE _type;
+	int _duration;
+	int _timer;
+public:
+	/// <summary>
+	/// 状態異常
+	/// </summary>
+	/// <param name="type">状態異常の種類</param>
+	/// <param name="duration">持続時間</param>
+	StateEffect(STATE_EFFECT_TYPE type, int duration) :_type(type), _duration(duration), _timer(duration) {};
+	~StateEffect() = default;
 };

@@ -101,6 +101,8 @@ public:
 	void AddBackDraw(DrawData data);// DX_SCREEN_BACKに描画
 
 	void setGkind(ScrEff kind);		// 画面エフェクトの種類
+
+	static void GetCurrentScreen(int* screen, int* blendMode, int* parameter);
 private:
 	static ImageMng* sInstance;		// インスタンス
 	int _workLayer;

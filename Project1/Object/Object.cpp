@@ -5,6 +5,12 @@
 #include "Player.h"
 #include "../func/CheckHitStage.h"
 #include <memory>
+#include <algorithm>
+
+namespace
+{
+	const STATE_EFFECT_TYPE cantMoveEffects[] = { STATE_EFFECT_TYPE::PARALYSIS, STATE_EFFECT_TYPE::FREEZE };
+}
 
 Object::Object()
 {
@@ -95,6 +101,62 @@ void Object::setState(std::pair<OBJ_STATE, DIR> state)
 std::pair<OBJ_STATE, DIR> Object::getState(void)
 {
 	return _state_dir;
+}
+
+void Object::SetStateEffect(StateEffect* sEff)
+{
+	if (IsEffected(sEff->_type))
+	{
+		return;
+	}
+	_sEff.emplace_back(sEff);
+}
+
+void Object::UpdateStateEffect(void)
+{
+	if (_sEff.size() == 0)
+	{
+		return;
+	}
+
+	auto it = std::remove_if(_sEff.begin(), _sEff.end(), [](std::unique_ptr<StateEffect>& sEff) 
+		{
+			sEff->_timer--;
+			return sEff->_timer <= 0;
+		});
+	_sEff.erase(it, _sEff.end());
+}
+
+bool Object::IsEffected(STATE_EFFECT_TYPE type)
+{
+	for (auto& se : _sEff)
+	{
+		if (se->_type == type)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+bool Object::CanMoveWithEffect(void)
+{
+	if (_sEff.size() == 0)
+	{
+		return true;
+	}
+
+	for (auto& se : _sEff)
+	{
+		for (auto& cme : cantMoveEffects)
+		{
+			if (se->_type == cme)
+			{
+				return false;
+			}
+		}
+	}
+	return true;
 }
 
 void Object::setHP(int hp)
@@ -367,4 +429,17 @@ TIME Object::getTimeLine(void)
 void Object::IfHitAttack(std::shared_ptr<Object> target)
 {
 	// ’Êí‚Í‰½‚à‚È‚µ
+}
+
+void Object::DrawStateEffect(void)
+{
+	for (auto& se : _sEff)
+	{
+		switch (se->_type)
+		{
+		case::STATE_EFFECT_TYPE::PARALYSIS:
+			lpImageMng.AddDraw({ lpImageMng.getImage("ice_effect")[min(se->_duration / 2 - se->_timer / 2, 3)], _pos.x, _pos.y - _hitBox[3] + 50 * _stateEffectExRate, _stateEffectExRate, _rad, LAYER::CHAR, _zOrder, DX_BLENDMODE_NOBLEND, 0 });
+			break;
+		}
+	}
 }

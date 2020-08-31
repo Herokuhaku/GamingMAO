@@ -112,6 +112,9 @@ GameScene::GameScene()
 	lpEffectMng.getEffect("effect/player_attack_fire.efk", "magic_fire", 1.0);
 	lpEffectMng.getEffect("effect/player_attack_white_1.efk", "holy", 1.0);
 
+	// èÛë‘àŸèÌ
+	lpImageMng.getImage("image/Attack/iceblock.png", "ice_effect", 100, 100, 4, 1);
+
 	Init();
 }
 
@@ -296,8 +299,12 @@ std::unique_ptr<BaseScene> GameScene::NormalUpdate(std::unique_ptr<BaseScene> ow
 
 	for (const auto& data : _objList)
 	{
-		(*data).Update();
+		if ((*data).CanMoveWithEffect())
+		{
+			(*data).Update();
+		}
 		(*data).InvUpdate();
+		(*data).UpdateStateEffect();
 	}
 	_cobj->Update();
 
@@ -372,11 +379,15 @@ std::unique_ptr<BaseScene> GameScene::NormalUpdate(std::unique_ptr<BaseScene> ow
 
 std::unique_ptr<BaseScene> GameScene::StopedUpdate(std::unique_ptr<BaseScene> own)
 {
-	std::dynamic_pointer_cast<Player>(lpSceneMng.GetPlObj2(TIME::FTR))->GetStopTime()->Update();
+	std::shared_ptr<Object> player = lpSceneMng.GetPlObj2(TIME::FTR);
+	std::dynamic_pointer_cast<Player>(player)->GetStopTime()->Update();
 
 	lpAttackUI.Update();
 
-	lpSceneMng.GetPlObj2(TIME::FTR)->Update();
+	if (player->CanMoveWithEffect())
+	{
+		player->Update();
+	}
 
 	_cobj->Update();
 

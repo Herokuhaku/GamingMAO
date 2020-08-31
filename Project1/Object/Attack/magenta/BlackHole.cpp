@@ -11,6 +11,9 @@ namespace
 
 	constexpr int RADIUS = 20;
 	constexpr int DAMAGE = 1;
+
+	constexpr int B_SCREEN_SIZE = 256;
+	constexpr unsigned int CIRCLE_COLOR = 0xdd00dd;
 }
 
 BlackHole::BlackHole(Vector2 pos, DIR dir, Vector2 vec, int lifetime, TIME time, int stage, OBJ_TYPE target)
@@ -68,8 +71,19 @@ void BlackHole::Draw(void)
 	{
 		return;
 	}
+	
+	int tmps, tmpb, tmpp;
+	ImageMng::GetCurrentScreen(&tmps, &tmpb, &tmpp);
+	SetDrawScreen(_screen);
+	ClsDrawScreen();
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 140);
+	DrawCircle(B_SCREEN_SIZE / 2, B_SCREEN_SIZE / 2, B_SCREEN_SIZE / 2 , CIRCLE_COLOR, true);
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+	DrawRotaGraph(B_SCREEN_SIZE / 2, B_SCREEN_SIZE / 2, _exRate, _rad, _anmMap[_state_dir][_anmFlame].first, true);
 
-	lpImageMng.AddDraw({ _anmMap[_state_dir][_anmFlame].first, _pos.x, _pos.y - _drawOffset_y, _exRate, _rad, LAYER::CHAR, _zOrder, DX_BLENDMODE_ALPHA, static_cast<int>(255.0f * static_cast<float>(_timer) / static_cast<float>(FINISH_DURATION)) });
+	SetDrawScreen(tmps);
+	SetDrawBlendMode(tmpb, tmpp);
+	lpImageMng.AddDraw({ _screen, _pos.x, _pos.y - _drawOffset_y, 1.0, 0.0, LAYER::CHAR, _zOrder, DX_BLENDMODE_ALPHA, static_cast<int>(255.0f * static_cast<float>(_timer) / static_cast<float>(FINISH_DURATION)) });
 }
 
 void BlackHole::IfHitAttack(std::shared_ptr<Object> target)
@@ -110,7 +124,7 @@ void BlackHole::Init(void)
 	std::vector<atkData> attack;
 	attack.reserve(2);
 
-	attack.emplace_back(atkData(true, OBJ_TYPE::ATTACK, { -150, -150 }, { 150, 150 }, -1, 0, _target));
+	attack.emplace_back(atkData(true, OBJ_TYPE::ATTACK, { -128, -128 }, { 128, 128 }, -1, 0, _target));
 	attack.emplace_back(atkData(false, OBJ_TYPE::ATTACK, { 0, 0 }, { 0, 0 }, 0, -1, _target));
 
 	setAttack("blackhole", attack);
@@ -119,4 +133,6 @@ void BlackHole::Init(void)
 	setHitOffset({ 20,20,20,20 });
 
 	AddAttack("blackhole");
+
+	_screen = MakeScreen(B_SCREEN_SIZE, B_SCREEN_SIZE, true);
 }

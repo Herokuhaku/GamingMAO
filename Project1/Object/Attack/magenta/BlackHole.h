@@ -33,5 +33,7 @@ private:
 	int _lifetime;
 
 	int _timer;
+
+	int _screen;
 };
 
