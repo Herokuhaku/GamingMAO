@@ -269,6 +269,7 @@ void Object::Draw(void)
 	}
 
 	lpImageMng.AddDraw({ _anmMap[_state_dir][_anmFlame].first, _pos.x, _pos.y - _drawOffset_y, _exRate, _rad, LAYER::CHAR, _zOrder, DX_BLENDMODE_NOBLEND, 0 });
+	DrawStateEffect();
 }
 
 bool Object::anmUpdate(void)
@@ -284,6 +285,11 @@ bool Object::anmUpdate(void)
 	}
 
 	if (std::dynamic_pointer_cast<Player>(lpSceneMng.GetPlObj2(TIME::FTR))->IsTimeStoped())
+	{
+		return true;
+	}
+
+	if (IsEffected(STATE_EFFECT_TYPE::FREEZE))
 	{
 		return true;
 	}
@@ -433,12 +439,20 @@ void Object::IfHitAttack(std::shared_ptr<Object> target)
 
 void Object::DrawStateEffect(void)
 {
+	if (_sEff.size() == 0)
+	{
+		return;
+	}
+
 	for (auto& se : _sEff)
 	{
 		switch (se->_type)
 		{
-		case::STATE_EFFECT_TYPE::PARALYSIS:
-			lpImageMng.AddDraw({ lpImageMng.getImage("ice_effect")[min(se->_duration / 2 - se->_timer / 2, 3)], _pos.x, _pos.y - _hitBox[3] + 50 * _stateEffectExRate, _stateEffectExRate, _rad, LAYER::CHAR, _zOrder, DX_BLENDMODE_NOBLEND, 0 });
+		case STATE_EFFECT_TYPE::FREEZE:
+			lpImageMng.AddDraw({ lpImageMng.getImage("ice_effect")[min(se->_duration / 4 - se->_timer / 4, 3)], _pos.x, _pos.y + _hitBox[3] - 50 * _stateEffectExRate, _stateEffectExRate, _rad, LAYER::CHAR, _zOrder + 1, DX_BLENDMODE_NOBLEND, 0 });
+			break;
+		case STATE_EFFECT_TYPE::PARALYSIS:
+			lpImageMng.AddDraw({ lpImageMng.getImage("spark")[se->_timer / 2 % 4 + 2], _pos.x, _pos.y - _drawOffset_y, _stateEffectExRate, _rad, LAYER::CHAR, _zOrder + 1, DX_BLENDMODE_NOBLEND, 0 });
 			break;
 		}
 	}

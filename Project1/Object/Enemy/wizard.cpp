@@ -34,6 +34,7 @@ wizard::wizard(Vector2 pos, int stage, int pPos, bool flag)
 	setHP(100);
 	setHitOffset({ 55, 55, 100, 0 });
 	_exRate = 3.0;
+	_stateEffectExRate = 2.0;
 
 	_rangeSF = 300;
 	_rangeA = 200;
