@@ -115,6 +115,7 @@ public:
 	// time:時間軸			stage:ステージ
 	// target:目標
 	void MakeThunderCloud(Vector2 pos, DIR dir, int speed, int count, int dur, TIME time, int stage, OBJ_TYPE target);
+
 	// 雷
 	// pos1:始点座標		pos2:終点座標
 	// useRef:refPosを参照するか(refPosの移動に合わせて動くようになる)
@@ -122,6 +123,11 @@ public:
 	// damage:ダメージ		time:時間軸
 	// stage:ステージ		target:目標	
 	void MakeThunder(Vector2 pos1, Vector2 pos2, bool useRef, Vector2* refPos, int damage, TIME time, int stage, OBJ_TYPE target);
+
+	// 閃光
+	// pos:座標			time:時間軸
+	// stage:ステージ	target:目標
+	void MakeFlash(Vector2* pos, TIME time, int stage, OBJ_TYPE target);
 
 	// スパーク
 	// pos:座標			time:時間軸

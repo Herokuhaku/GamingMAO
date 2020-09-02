@@ -45,6 +45,7 @@ void Spark::Update(void)
 void Spark::Init(void)
 {
 	std::vector<atkData> attack;
+	attack.reserve(32);
 	for (int i = 0; i < 32; i++)
 	{
 		attack.emplace_back(atkData(true, OBJ_TYPE::ATTACK, { -40, -40 }, { 40, 40 }, 8, 10, _target));

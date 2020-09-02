@@ -11,7 +11,7 @@ public:
 	Spark(Vector2* pos, TIME time, int stage, OBJ_TYPE target);
 	~Spark();
 
-	void Update(void);
+	void Update(void)override;
 private:
 	void Init(void);
 

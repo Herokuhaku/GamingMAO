@@ -9,7 +9,7 @@
 
 namespace
 {
-	const STATE_EFFECT_TYPE cantMoveEffects[] = { STATE_EFFECT_TYPE::PARALYSIS, STATE_EFFECT_TYPE::FREEZE };
+	const STATE_EFFECT_TYPE cantMoveEffects[] = { STATE_EFFECT_TYPE::PARALYSIS, STATE_EFFECT_TYPE::FREEZE, STATE_EFFECT_TYPE::CONFUSION };
 }
 
 Object::Object()
@@ -452,6 +452,9 @@ void Object::DrawStateEffect(void)
 			lpImageMng.AddDraw({ lpImageMng.getImage("ice_effect")[min(se->_duration / 4 - se->_timer / 4, 3)], _pos.x, _pos.y + _hitBox[3] - 50 * _stateEffectExRate, _stateEffectExRate, _rad, LAYER::CHAR, _zOrder + 1, DX_BLENDMODE_NOBLEND, 0 });
 			break;
 		case STATE_EFFECT_TYPE::PARALYSIS:
+			lpImageMng.AddDraw({ lpImageMng.getImage("spark")[se->_timer / 2 % 4 + 2], _pos.x, _pos.y - _drawOffset_y, _stateEffectExRate, _rad, LAYER::CHAR, _zOrder + 1, DX_BLENDMODE_NOBLEND, 0 });
+			break;
+		case STATE_EFFECT_TYPE::CONFUSION:
 			lpImageMng.AddDraw({ lpImageMng.getImage("spark")[se->_timer / 2 % 4 + 2], _pos.x, _pos.y - _drawOffset_y, _stateEffectExRate, _rad, LAYER::CHAR, _zOrder + 1, DX_BLENDMODE_NOBLEND, 0 });
 			break;
 		}

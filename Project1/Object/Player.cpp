@@ -931,7 +931,7 @@ void Player::Yellow2(void)
 
 void Player::Yellow3(void)
 {
-
+	lpAtkMng.MakeFlash(&_centerPos, _time, lpMapMng.GetnowStage(), OBJ_TYPE::ENEMY);
 }
 
 void Player::Blue1(void)

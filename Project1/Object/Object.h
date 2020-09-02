@@ -46,6 +46,7 @@ enum class STATE_EFFECT_TYPE
 {
 	PARALYSIS,
 	FREEZE,
+	CONFUSION
 };
 
 class StateEffect;
