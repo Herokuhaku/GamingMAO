@@ -101,6 +101,11 @@ void Thunder::Draw(void)
 	lpImageMng.AddDraw({ _anmMap[_state_dir][_anmFlame].first, _pos.x, _pos.y - _drawOffset_y, _exRate, _rad, LAYER::CHAR, _zOrder, DX_BLENDMODE_NOBLEND, 0 });
 }
 
+void Thunder::IfHitAttack(std::shared_ptr<Object> target)
+{
+	target->SetStateEffect(new StateEffect(STATE_EFFECT_TYPE::PARALYSIS, 60));
+}
+
 void Thunder::Init(void)
 {
 	std::vector<atkData> attack;
