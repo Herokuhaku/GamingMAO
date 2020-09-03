@@ -455,7 +455,7 @@ void Object::DrawStateEffect(void)
 			lpImageMng.AddDraw({ lpImageMng.getImage("spark")[se->_timer / 2 % 4 + 2], _pos.x, _pos.y - _drawOffset_y, _stateEffectExRate, _rad, LAYER::CHAR, _zOrder + 1, DX_BLENDMODE_NOBLEND, 0 });
 			break;
 		case STATE_EFFECT_TYPE::CONFUSION:
-			lpImageMng.AddDraw({ lpImageMng.getImage("spark")[se->_timer / 2 % 4 + 2], _pos.x, _pos.y - _drawOffset_y, _stateEffectExRate, _rad, LAYER::CHAR, _zOrder + 1, DX_BLENDMODE_NOBLEND, 0 });
+			lpImageMng.AddDraw({ lpImageMng.getImage("star")[se->_timer / 4 % 6], _pos.x, _pos.y - _hitBox[2] - 15, 1.0, _rad, LAYER::CHAR, _zOrder + 1, DX_BLENDMODE_NOBLEND, 0 });
 			break;
 		}
 	}

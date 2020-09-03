@@ -106,6 +106,7 @@ GameScene::GameScene()
 	lpImageMng.getImage("image/Attack/tree.png", "tree", 250, 150, 1, 5);
 	lpImageMng.getImage("image/Attack/spark.png", "spark", 80, 80, 8, 1);
 	lpImageMng.getImage("image/Attack/clock_stop.png", "clock_stop", 480, 480, 5, 3);
+	lpImageMng.getImage("image/Attack/star.png", "star", 96, 64, 6, 1);
 
 
 	// エフェクト
