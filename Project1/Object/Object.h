@@ -49,17 +49,56 @@ enum class STATE_EFFECT_TYPE
 	CONFUSION
 };
 
+enum class COLLISION_TYPE
+{
+	SQUARE,
+	CIRCLE,
+};
+
 class StateEffect;
 
 using AnmVec = std::vector<std::pair<int, unsigned int>>;
-using atkData = std::tuple<bool, OBJ_TYPE, Vector2, Vector2, int, int, OBJ_TYPE>;
+
+struct atkData
+{
+	bool _isHit;
+	OBJ_TYPE _myType;
+
+	Vector2 _topLeft;
+	Vector2 _bottomRight;
+
+	Vector2 _offset;
+	float _radius;
+
+	int _damage;
+	int _invincibleTime;
+	OBJ_TYPE _target;
+	COLLISION_TYPE _colType;
+
+	atkData(bool isHit, OBJ_TYPE mytype, const Vector2& topleft, const Vector2& bottomright, int damage, int inv, OBJ_TYPE target) :
+		_isHit(isHit), _myType(mytype), _topLeft(topleft), _bottomRight(bottomright), _damage(damage), _invincibleTime(inv), _target(target) 
+	{
+		_colType = COLLISION_TYPE::SQUARE;
+	};
+
+	atkData(bool isHit, OBJ_TYPE mytype, const Vector2& offset, float rad, int damage, int inv, OBJ_TYPE target) :
+		_isHit(isHit), _myType(mytype), _offset(offset), _radius(rad), _damage(damage), _invincibleTime(inv), _target(target)
+	{
+		_colType = COLLISION_TYPE::CIRCLE;
+	};
+
+	int GetLeft(void)const;
+	int GetRight(void)const;
+
+	bool IsHit(const Vector2& mypos, DIR mydir, const Vector2& targetpos, const std::array<int, 4>& hitbox)const;
+};
 
 class Object
 {
 public:
 	Object();
 	virtual ~Object();
-
+	
 	virtual void Update(void);
 
 	void setPos(Vector2Template<int> pos);

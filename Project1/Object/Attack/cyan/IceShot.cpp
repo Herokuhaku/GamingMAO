@@ -79,7 +79,10 @@ void IceShot::IfHitAttack(std::shared_ptr<Object> target)
 	_draw = &IceShot::FlyingDraw;
 	stopAttack();
 
-	target->SetStateEffect(new StateEffect(STATE_EFFECT_TYPE::FREEZE, 200));
+	if (target != nullptr)
+	{
+		target->SetStateEffect(new StateEffect(STATE_EFFECT_TYPE::FREEZE, 200));
+	}
 }
 
 void IceShot::Init(void)

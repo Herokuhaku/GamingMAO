@@ -9,6 +9,7 @@ namespace
 
 	constexpr float MOVE_TARGET_DISTANCE = 4.0f;
 
+	constexpr float GRAVITY_RADIUS = 118.0f;
 	constexpr int RADIUS = 20;
 	constexpr int DAMAGE = 1;
 
@@ -102,7 +103,6 @@ void BlackHole::IfHitAttack(std::shared_ptr<Object> target)
 
 	if (dist <= RADIUS)
 	{
-		target->Object::damagingHP(DAMAGE);
 		target->Object::setInv(1);
 	}
 }
@@ -124,8 +124,8 @@ void BlackHole::Init(void)
 	std::vector<atkData> attack;
 	attack.reserve(2);
 
-	attack.emplace_back(atkData(true, OBJ_TYPE::ATTACK, { -128, -128 }, { 128, 128 }, -1, 0, _target));
-	attack.emplace_back(atkData(false, OBJ_TYPE::ATTACK, { 0, 0 }, { 0, 0 }, 0, -1, _target));
+	attack.emplace_back(atkData(true, OBJ_TYPE::ATTACK, { 0, 0 }, GRAVITY_RADIUS, -1, 0, _target));
+	attack.emplace_back(atkData(false, OBJ_TYPE::ATTACK, { 0, 0 }, GRAVITY_RADIUS, 0, -1, _target));
 
 	setAttack("blackhole", attack);
 

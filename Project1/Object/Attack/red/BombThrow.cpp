@@ -8,6 +8,8 @@ namespace
 	AudioContainer _audio;
 
 	constexpr int EXPLOSION_DURATION = 16;
+
+	constexpr int ATTACK_RADIUS = 22;
 }
 
 BombThrow::BombThrow(Vector2 pos, DIR dir, int speed, double vel, TIME time, int stage, OBJ_TYPE target)
@@ -74,17 +76,17 @@ void BombThrow::Init(void)
 
 	std::vector<atkData> attack;
 	attack.reserve(2);
-	attack.emplace_back(atkData(true, OBJ_TYPE::ATTACK, { -22, -22 }, { 22, 22 }, 0, 0, _target));
-	attack.emplace_back(atkData(false, OBJ_TYPE::ATTACK, { 0, 0 }, { 0, 0 }, 0, -1, _target));
+	attack.emplace_back(atkData(true, OBJ_TYPE::ATTACK, { 0, 0 }, static_cast<float>(ATTACK_RADIUS), 0, 0, _target));
+	attack.emplace_back(atkData(false, OBJ_TYPE::ATTACK, { 0, 0 }, static_cast<float>(ATTACK_RADIUS), 0, -1, _target));
 
 	setAttack("bomb", attack);
 
 	attack.reserve(17);
 	for (int i = 0; i < 17; i++)
 	{
-		attack.emplace_back(atkData(true, OBJ_TYPE::ATTACK, { -22, -22 }, { 22, 22 }, 30, 20, _target));
+		attack.emplace_back(atkData(true, OBJ_TYPE::ATTACK, { 0, 0 }, static_cast<float>(ATTACK_RADIUS), 30, 20, _target));
 	}
-	attack.emplace_back(atkData(false, OBJ_TYPE::ATTACK, { 0, 0 }, { 0, 0 }, 0, -1, _target));
+	attack.emplace_back(atkData(false, OBJ_TYPE::ATTACK, { 0, 0 }, static_cast<float>(ATTACK_RADIUS), 0, -1, _target));
 
 	setAttack("explosion", attack);
 

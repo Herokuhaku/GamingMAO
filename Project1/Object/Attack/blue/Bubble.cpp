@@ -1,6 +1,10 @@
 #include "Bubble.h"
 #include "../../../Graphic/ImageMng.h"
 
+namespace
+{
+	constexpr float ATTACK_RADIUS = 40.0f;
+}
 
 Bubble::Bubble(Vector2 pos, TIME time, int stage, OBJ_TYPE target)
 {
@@ -47,8 +51,8 @@ void Bubble::Init(void)
 	std::vector<atkData> attack;
 	attack.reserve(2);
 
-	attack.emplace_back(atkData(true, OBJ_TYPE::ATTACK, { -40, -40 }, { 40, 40 }, 0, 0, _target));
-	attack.emplace_back(atkData(true, OBJ_TYPE::ATTACK, { -40, -40 }, { 40, 40 }, 0, -1, _target));
+	attack.emplace_back(atkData(true, OBJ_TYPE::ATTACK, { 0, 0 }, ATTACK_RADIUS, 0, 0, _target));
+	attack.emplace_back(atkData(true, OBJ_TYPE::ATTACK, { 0, 0 }, ATTACK_RADIUS, 0, -1, _target));
 
 	setAttack("bubble", attack);
 

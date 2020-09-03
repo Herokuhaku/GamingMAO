@@ -372,7 +372,7 @@ void Object::attackUpdate(void)
 		}
 		else
 		{
-			if (std::get<5>(_attackMap[data->first][data->second]) == -1)
+			if (_attackMap[data->first][data->second]._invincibleTime == -1)
 			{
 				data->second = 0;
 			}
@@ -401,7 +401,7 @@ std::vector<atkData>& Object::getAttackQue(void)
 			continue;
 		}
 
-		if (std::get<0>(_attackMap[data->first][data->second]))
+		if (_attackMap[data->first][data->second]._isHit == true)
 		{
 			rtnvec.emplace_back(_attackMap[data->first][data->second]);
 		}
@@ -459,4 +459,83 @@ void Object::DrawStateEffect(void)
 			break;
 		}
 	}
+}
+
+int atkData::GetLeft(void) const
+{
+	return min(_topLeft.x, _bottomRight.x);
+}
+
+int atkData::GetRight(void) const
+{
+	return max(_topLeft.x, _bottomRight.x);
+}
+
+bool atkData::IsHit(const Vector2& mypos, DIR mydir, const Vector2 & targetpos, const std::array<int, 4>& hitbox)const
+{
+	int left = targetpos.x - hitbox[static_cast<int>(CHECK_DIR::LEFT)];
+	int right = targetpos.x + hitbox[static_cast<int>(CHECK_DIR::RIGHT)];
+	int top = targetpos.y - hitbox[static_cast<int>(CHECK_DIR::UP)];
+	int bottom = targetpos.y + hitbox[static_cast<int>(CHECK_DIR::DOWN)];
+	bool flag = true;
+	Vector2 opos = mypos + _offset;
+
+	int myleft = _topLeft.x * (static_cast<int>(mydir) - 1);
+	int myright = _bottomRight.x * (static_cast<int>(mydir) - 1);
+
+	if (myleft > myright)
+	{
+		std::swap(myleft, myright);
+	}
+
+	switch (_colType)
+	{
+	case COLLISION_TYPE::SQUARE:
+		return (left <= mypos.x + myright &&
+			right >= mypos.x + myleft &&
+			top <= mypos.y + _bottomRight.y &&
+			bottom >= mypos.y + _topLeft.y);
+		break;
+	case COLLISION_TYPE::CIRCLE:
+		if (left <= opos.x &&
+			right >= opos.x &&
+			top <= opos.y &&
+			bottom >= opos.y)
+		{
+			return true;
+		}
+
+		if (left - _radius >= opos.x ||
+			right + _radius <= opos.x ||
+			top - _radius >= opos.y ||
+			bottom + _radius <= opos.y)
+		{
+			return false;
+		}
+		else if (left >= opos.x && top >= opos.y &&
+			_radius * _radius <= (opos.x - left) * (opos.x - left) + (opos.y - top) * (opos.y - top))
+		{
+			return false;
+		}
+		else if (right <= opos.x && top >= opos.y &&
+			_radius * _radius <= (opos.x - right) * (opos.x - right) + (opos.y - top) * (opos.y - top))
+		{
+			return false;
+		}
+		else if (left >= opos.x && bottom <= opos.y &&
+			_radius * _radius <= (opos.x - left) * (opos.x - left) + (opos.y - bottom) * (opos.y - bottom))
+		{
+			return false;
+		}
+		else if (right <= opos.x && bottom <= opos.y &&
+			_radius * _radius <= (opos.x - right) * (opos.x - right) + (opos.y - bottom) * (opos.y - bottom))
+		{
+			return false;
+		}
+		return true;
+		break;
+	default:
+		break;
+	}
+	return false;
 }

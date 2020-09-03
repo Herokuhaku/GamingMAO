@@ -1,6 +1,10 @@
 #include "BubbleBlast.h"
 #include "../../../Graphic/ImageMng.h"
 
+namespace
+{
+	constexpr float ATTACK_RADIUS = 60.0f;
+}
 
 BubbleBlast::BubbleBlast(Vector2 pos, TIME time, int stage, OBJ_TYPE target)
 {
@@ -13,8 +17,8 @@ BubbleBlast::BubbleBlast(Vector2 pos, TIME time, int stage, OBJ_TYPE target)
 	setState({ OBJ_STATE::NORMAL, DIR::LEFT });
 
 	std::vector<atkData> attack;
-	attack.emplace_back(atkData(true, OBJ_TYPE::ATTACK, { 60,-60 }, { -60,60 }, 50, 30, target));
-	attack.emplace_back(atkData(true, OBJ_TYPE::ATTACK, { 60,-60 }, { -60,60 }, 50, -1, target));
+	attack.emplace_back(atkData(true, OBJ_TYPE::ATTACK, { 0, 0 }, ATTACK_RADIUS, 50, 30, target));
+	attack.emplace_back(atkData(true, OBJ_TYPE::ATTACK, { 0, 0 }, ATTACK_RADIUS, 50, -1, target));
 	setAttack("bubbleblast", attack);
 
 	_type = OBJ_TYPE::ATTACK;
