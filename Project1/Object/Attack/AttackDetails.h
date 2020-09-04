@@ -1,5 +1,6 @@
 #pragma once
 #include <array>
+#include <vector>
 #include <string>
 #include <memory>
 #include "../../Manage/COLOR.h"
@@ -13,7 +14,7 @@ struct Detail
 	std::string _name;	// 魔法名
 	int _magicPoint;	// 消費MP
 	int _cooltime;		// クールタイム
-	std::string _desc;	// 魔法の説明
+	std::vector<std::string> _desc;	// 魔法の説明
 	int _handle;		// 画像ハンドル
 };
 
@@ -46,6 +47,8 @@ private:
 	~AttackDetails() = default;
 
 	void LoadAttackData(void);
+
+	std::vector<std::string> DivStringToLine(const char* ptr, size_t length);
 
 	std::array<std::array<std::unique_ptr<Detail>, ATTACK_TYPE_MAX>, static_cast<int>(COLOR::MAX)> _details;
 };
