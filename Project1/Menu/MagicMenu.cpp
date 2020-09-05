@@ -35,10 +35,10 @@ namespace
 	constexpr int CIRCLE_SIZE = 450;
 	constexpr int FILTER_SCREEN_SIZE = 128;
 
-	constexpr int BOX_OFFSET_X = 330;
+	constexpr int BOX_OFFSET_X = 300;
 	constexpr int BOX_OFFSET_Y = 150;
-	constexpr int BOX_SIZE_X = 250;
-	constexpr int BOX_SIZE_Y = 150;
+	constexpr int BOX_SIZE_X = 300;
+	constexpr int BOX_SIZE_Y = 200;
 
 	constexpr int S_BOX_OFFSET_X = 330;
 	constexpr int S_BOX_OFFSET_Y = 350;
@@ -243,26 +243,23 @@ void MagicMenu::DrawMagicDesc(int color, int type)
 
 	Detail* det = lpAtkDetails.GetDetail(color, type).get();
 
-	DrawRotaGraph(BOX_OFFSET_X + 50, BOX_OFFSET_Y + 90, 1.5, 0.0, det->_handle, true);
+	DrawRotaGraph(BOX_OFFSET_X + 50, BOX_OFFSET_Y + 50, 1.5, 0.0, det->_handle, true);
 
 	std::stringstream str;
 	str << det->_name;
-	lpStrAdd.AddStringDraw(str.str().c_str(), "SQUARE_SMALL", BOX_OFFSET_X + 20, BOX_OFFSET_Y + 20, 0xffffff, DRAW_TO_LEFT);
+	lpStrAdd.AddStringDraw(str.str().c_str(), "SQUARE_SMALL", BOX_OFFSET_X + 100, BOX_OFFSET_Y + 20, 0xffffff, DRAW_TO_LEFT);
 	str.str("");
 	str.clear(std::stringstream::goodbit);
 	
 	str << "MP:" << det->_magicPoint;
-	lpStrAdd.AddStringDraw(str.str().c_str(), "SQUARE_SMALL", BOX_OFFSET_X + 100, BOX_OFFSET_Y + 70, 0xffffff, DRAW_TO_LEFT);
+	lpStrAdd.AddStringDraw(str.str().c_str(), "SQUARE_SMALL", BOX_OFFSET_X + 100, BOX_OFFSET_Y + 50, 0xffffff, DRAW_TO_LEFT);
 	str.str("");
 	str.clear(std::stringstream::goodbit);
 
-	//std::wstringstream wstr;
-	//wstr << " " << det->_desc;
-	//size_t size = str.str().length();
-	//for (int i = 0; i * 10 < static_cast<int>(size); i++)
-	//{
-	//	lpStrAdd.AddStringDraw(str.str().substr(i * 10, min(10, size - i * 10)).c_str(), "SQUARE_SMALL", BOX_OFFSET_X + 10, BOX_OFFSET_Y + 150 + i * 30, 0xffffff, DRAW_TO_LEFT);
-	//}
+	for (int i = 0; i < det->_desc.size(); i++)
+	{
+		lpStrAdd.AddStringDraw(det->_desc[i].c_str(), "SQUARE_SMALL", BOX_OFFSET_X + 20, BOX_OFFSET_Y + 100 + i * 30, 0xffffff, DRAW_TO_LEFT);
+	}
 }
 
 void MagicMenu::ControlInit(void)
