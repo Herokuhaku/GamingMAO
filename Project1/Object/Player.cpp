@@ -127,15 +127,6 @@ void Player::Update(void)
 		{
 			lpTradeMng.ChangeCount(true);
 		}
-
-		if (lpButtonMng.ButtonTrg(0, XINPUT_BUTTON_DPAD_UP))
-		{
-			if (lpTradeMng.CheckTool())
-			{
-				lpTradeMng.getTool();
-			}
-		}
-
 	}
 	else
 	{

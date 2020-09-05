@@ -175,8 +175,8 @@ bool GameScene::Init(void)
 	_cobj = std::make_shared<camera>();
 	lpSceneMng.SetcObj(_cobj);
 
-	//_gimmickMng = std::make_unique<GimmickMng>();
-	//_gimmickMng->AddGimmick(new Rock(Vector2Template<int>(1550, 1100), 1));
+	_gimmickMng = std::make_unique<GimmickMng>();
+	_gimmickMng->AddGimmick(new Rock(Vector2Template<int>(1550, 1100), 1));
 
 	_menu.reset(new MenuExecuter(this));
 
@@ -215,7 +215,6 @@ bool GameScene::Init(void)
 	effect.emplace_back(0, -1);
 
 	lpImageMng.setEffect("clock_stop", effect);
-
 
 	return false;
 }
@@ -313,11 +312,12 @@ std::unique_ptr<BaseScene> GameScene::NormalUpdate(std::unique_ptr<BaseScene> ow
 
 	_barrierMng->Update();
 
-	//_gimmickMng->Update();
+	_gimmickMng->Update();
 
 	lpAtkMng.Update();
 
 	_menu->Update();
+
 
 	getAttackQue();
 	CheckHitAttack()(_barrierMng->GetBarrier(), _attackList);
@@ -339,7 +339,7 @@ std::unique_ptr<BaseScene> GameScene::NormalUpdate(std::unique_ptr<BaseScene> ow
 
 	_barrierMng->Draw();
 
-	//_gimmickMng->Draw();
+	_gimmickMng->Draw();
 
 	lpAtkMng.Draw();
 

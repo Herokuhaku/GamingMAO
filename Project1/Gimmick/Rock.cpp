@@ -1,5 +1,8 @@
 #include "Rock.h"
 #include "../Graphic/ImageMng.h"
+#include "../Manage/ButtonMng.h"
+#include "../Manage/ItemTrader.h"
+#include "../Scene/SceneMng.h"
 
 namespace
 {
@@ -14,6 +17,8 @@ Rock::Rock(const Vector2 & pos, int stage):Gimmick(pos, stage)
 	_hitBox = { ROCK_WIDTH, ROCK_WIDTH, ROCK_HEIGHT, ROCK_HEIGHT };
 	_usableRange = { ROCK_USE_WIDTH, ROCK_USE_WIDTH, ROCK_USE_HEIGHT, ROCK_USE_HEIGHT };
 	lpImageMng.getImage("image/Obstacle/rock.png", "rock");
+	type_ = COLOR::RED;
+	pos_ = pos;
 }
 
 Rock::~Rock()
@@ -22,6 +27,17 @@ Rock::~Rock()
 
 void Rock::Update(void)
 {
+	if (lpButtonMng.ButtonTrg(0,XINPUT_BUTTON_DPAD_DOWN) && lpTimeMng.getTime() == TIME::NOW)
+	{
+		Vector2 tmp = lpSceneMng.GetPlPos(TIME::NOW);
+		if (lpTradeMng.CheckTool())
+		{
+			if (lpTradeMng.getTool().colortype == type_ && abs(tmp.x - pos_.x) <= ROCK_USE_WIDTH)
+			{
+				lpTradeMng.SetUseTool(true,lpTradeMng.getTool());
+			}
+		}
+	}
 }
 
 void Rock::Draw(void)

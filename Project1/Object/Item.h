@@ -24,6 +24,7 @@ struct ItemSave
 	int tool;
 	int hp;					// ‘Ì—Í
 	const char* image[2];	// ‰æ‘œ‚ÌŽí—Þ
+	bool use;
 };
 
 class Item :

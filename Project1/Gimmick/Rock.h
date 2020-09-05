@@ -1,5 +1,6 @@
 #pragma once
 #include "Gimmick.h"
+#include "../Manage/COLOR.h"
 
 class Rock :
 	public Gimmick
@@ -12,5 +13,7 @@ public:
 	void Update(void)override;
 	void Draw(void)override;
 private:
+	COLOR type_;
+	Vector2 pos_;
 };
 

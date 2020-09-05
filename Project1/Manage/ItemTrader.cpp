@@ -75,7 +75,7 @@ void ItemTrader::ToolDraw(Vector2 pos, LAYER lay, Vector2 off, Vector2D rad)
 {
 	int count = 0;
 	_drawtool[count];
-	for (auto data : _IBag)
+	for (auto& data : _IBag)
 	{
 		while (_drawtool[count] == ~7)
 		{
@@ -83,16 +83,16 @@ void ItemTrader::ToolDraw(Vector2 pos, LAYER lay, Vector2 off, Vector2D rad)
 		}
 		if (data.first.tool == _drawtool[count])
 		{
-				lpImageMng.AddBackDraw({ lpImageMng.getImage(data.first.image[0])[0],cos(RAD(count * 45.0)-45.0) * 75.0,
-					sin(RAD(count*45.0)-45.0) * 75.0,rad.x,0.0,LAYER::EX,120,DX_BLENDMODE_NOBLEND,0 });
-				count++;
+			lpImageMng.AddBackDraw({ lpImageMng.getImage(data.first.image[0])[0],cos(RAD(count * 45.0)-45.0) * 75.0,
+				sin(RAD(count*45.0)-45.0) * 75.0,rad.x,0.0,LAYER::EX,120,DX_BLENDMODE_NOBLEND,0 });
+			count++;
 		}
 	}
 }
 
 bool ItemTrader::CheckTool(void)
 {
-	for (auto data : _IBag)
+	for (auto& data : _IBag)
 	{
 		if (data.first.tool == _drawtool[2])
 		{
@@ -168,7 +168,7 @@ void ItemTrader::AddBag(void)
 		if ((*data)->getPos().x - 50 <= (*lpSceneMng.GetPlObj(lpTimeMng.getTime()))->getPos().x + 50 &&
 			(*data)->getPos().x + 50 >= (*lpSceneMng.GetPlObj(lpTimeMng.getTime()))->getPos().x - 50)
 		{
-		_IBag.emplace_back((*data)->ReturnSave(),_IBag.size());
+			_IBag.emplace_back((*data)->ReturnSave(),_IBag.size());
 			data = _ItemList.erase(data);		// ŽŸ‚ð•Ô‚·
 		}
 		else
@@ -196,7 +196,7 @@ void ItemTrader::AddBag(ItemSave&save)
 int ItemTrader::ReturnNo(ITEM_TYPE itemtype, COLOR color)
 {
 	int no = -1;
-	for (auto bag : _IBag)
+	for (auto& bag : _IBag)
 	{
 		if (bag.first.colortype == color && bag.first.itemtype == itemtype)
 		{
@@ -208,7 +208,7 @@ int ItemTrader::ReturnNo(ITEM_TYPE itemtype, COLOR color)
 
 bool ItemTrader::ReBook(COLOR color)
 {
-	for (auto bag : _IBag)
+	for (auto& bag : _IBag)
 	{
 		if (bag.first.itemtype == ITEM_TYPE::BOOK && bag.first.colortype == color)
 		{
@@ -282,7 +282,7 @@ void ItemTrader::BagTypeCount(void)
 		rock.at(i) = 0;
 	}
 
-	for (auto item : _IBag)
+	for (auto& item : _IBag)
 	{
 		if (item.first.itemtype == ITEM_TYPE::STONE)
 		{
@@ -367,6 +367,18 @@ void ItemTrader::ChangeCount(bool num)
 				}
 				_drawtool[i] = _drawtool[i - 1];
 			}
+		}
+	}
+}
+
+void ItemTrader::SetUseTool(bool flag,ItemSave save)
+{
+	for (auto& data : _IBag)
+	{
+		if (data.first.bagNo == save.bagNo)
+		{
+			data.first.use = true;
+			return;
 		}
 	}
 }

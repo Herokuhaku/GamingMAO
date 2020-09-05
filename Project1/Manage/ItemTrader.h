@@ -63,6 +63,7 @@ public:
 	std::array<int, 6> getrock(void);	// 何色の石が何個あるかを返す //順番は 赤,緑,青,黄,マゼンタ,シアン
 	void ChangeCount(bool num);
 	
+	void SetUseTool(bool flag, ItemSave save);
 
 private:
 	ItemTrader();

@@ -37,6 +37,7 @@ Item::Item(Vector2 pos, ITEM_TYPE itemtype,COLOR colortype,int no,int stage)
 	save.image[1] = "error";
 	save.pos = _pos;
 	save.stone = _stone;
+	save.use = false;
 
 	Init();
 	
@@ -125,6 +126,7 @@ void Item::setSave(void)
 	save.itemtype = _itemtype;
 	save.pos = _pos;
 	save.stone = _stone;
+	save.use = false;
 }
 
 void Item::Init(void)
