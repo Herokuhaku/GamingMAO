@@ -976,6 +976,7 @@ void Player::Cyan2(void)
 
 void Player::Cyan3(void)
 {
+	lpAtkMng.MakeSlime({ _pos.x, _pos.y - 40 }, _state_dir.second, lpMapMng.GetnowStage(), OBJ_TYPE::ENEMY);
 }
 
 void Player::White1(void)

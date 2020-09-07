@@ -10,10 +10,10 @@ namespace
 		"黒1", "黒2", "黒3", 
 		"ファイア"			, "ボム"				, "バリア",
 		"くだもののちから"	, "スーパージャンプ"	, "バリア",
-		"サンダー"			, "スパーク"			, "黄3",
+		"サンダー"			, "スパーク"			, "フラッシュ",
 		"バブル"			, "ウルトラダッシュ"	, "バリア",
 		"ポイズンミスト"	, "せいめいのき"		, "ブラックホール",
-		"アイス"			, "フリーズ"			, "水色3",
+		"アイス"			, "フリーズ"			, "サモン　スライム",
 		"ジャッジメント"	, "オーバードライブ"	, "クロノレジスタンス",
 	};
 
@@ -53,12 +53,12 @@ AttackDetails::AttackDetails()
 
 void AttackDetails::LoadAttackData(void)
 {
-	int mp_fp, mc_fp, pathfp;
-	FILE* md_fp;
+	int mp_fp, mc_fp;
+	FILE* md_fp, *pathfp;
 	mp_fp = FileRead_open("data/mp_data.dat");
 	mc_fp = FileRead_open("data/mp_cooltime.dat");
 	fopen_s(&md_fp, "data/attack_desc.csv", "r");
-	pathfp = FileRead_open("data/magic_icon_path.txt");
+	fopen_s(&pathfp, "data/magic_icon_path.csv", "r");
 
 	assert(mp_fp != -1);
 
@@ -78,8 +78,8 @@ void AttackDetails::LoadAttackData(void)
 		for (int j = 0; j < ATTACK_TYPE_MAX; j++)
 		{
 			fscanf_s(md_fp, "%[^,],\n", desc, 64);
+			fscanf_s(pathfp, "%[^,],\n", path, 64);
 
-			FileRead_scanf(pathfp, "%s", path);
 			_details[i][j]->_magicPoint = mp[i * ATTACK_TYPE_MAX + j];
 			_details[i][j]->_cooltime = mc[i * ATTACK_TYPE_MAX + j];
 			_details[i][j]->_desc = DivStringToLine(desc, sizeof(desc) / sizeof(desc[0]));
@@ -91,7 +91,7 @@ void AttackDetails::LoadAttackData(void)
 	FileRead_close(mp_fp);
 	FileRead_close(mc_fp);
 	fclose(md_fp);
-	FileRead_close(pathfp);
+	fclose(pathfp);
 }
 
 std::vector<std::string> AttackDetails::DivStringToLine(const char* ptr, size_t length)

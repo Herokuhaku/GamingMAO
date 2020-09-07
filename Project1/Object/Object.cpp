@@ -478,25 +478,30 @@ bool atkData::IsHit(const Vector2& mypos, DIR mydir, const Vector2 & targetpos, 
 	int top = targetpos.y - hitbox[static_cast<int>(CHECK_DIR::UP)];
 	int bottom = targetpos.y + hitbox[static_cast<int>(CHECK_DIR::DOWN)];
 	bool flag = true;
-	Vector2 opos = mypos + _offset;
+	Vector2 opos;
 
-	int myleft = _topLeft.x * (static_cast<int>(mydir) - 1);
-	int myright = _bottomRight.x * (static_cast<int>(mydir) - 1);
-
-	if (myleft > myright)
-	{
-		std::swap(myleft, myright);
-	}
+	int myleft;
+	int myright;
 
 	switch (_colType)
 	{
 	case COLLISION_TYPE::SQUARE:
+		myleft = _topLeft.x * (static_cast<int>(mydir) - 1);
+		myright = _bottomRight.x * (static_cast<int>(mydir) - 1);
+
+		if (myleft > myright)
+		{
+			std::swap(myleft, myright);
+		}
+
 		return (left <= mypos.x + myright &&
 			right >= mypos.x + myleft &&
 			top <= mypos.y + _bottomRight.y &&
 			bottom >= mypos.y + _topLeft.y);
 		break;
 	case COLLISION_TYPE::CIRCLE:
+		opos = mypos + Vector2{ _offset.x * (static_cast<int>(mydir) - 1), _offset.y };
+
 		if (left <= opos.x &&
 			right >= opos.x &&
 			top <= opos.y &&
