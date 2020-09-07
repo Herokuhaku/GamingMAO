@@ -51,9 +51,9 @@ GameScene::GameScene()
 	lpImageMng.getImage("image/item/Green_Book.png", "GreenBook");
 	lpImageMng.getImage("image/item/Red_Book.png", "RedBook");
 	// 本(透過)
-	lpImageMng.getImage("image/item/TRed_Book.png", "520");
-	lpImageMng.getImage("image/item/TGreen_Book.png", "521");
-	lpImageMng.getImage("image/item/TBlue_Book.png", "522");
+	lpImageMng.getImage("image/item/TRed_Book.png", "520");		// 赤の本
+	lpImageMng.getImage("image/item/TGreen_Book.png", "521");	// 緑の本
+	lpImageMng.getImage("image/item/TBlue_Book.png", "522");	// 青の本
 	// 石(通常)
 	lpImageMng.getImage("image/item/Blue_Stone.png", "BlueStone");
 	lpImageMng.getImage("image/item/Cyan_Stone.png", "CyanStone");
@@ -61,7 +61,7 @@ GameScene::GameScene()
 	lpImageMng.getImage("image/item/Magenta_Stone.png", "MagentaStone");
 	lpImageMng.getImage("image/item/Red_Stone.png", "RedStone");
 	lpImageMng.getImage("image/item/Yellow_Stone.png", "YellowStone");
-	// 石(小) 拡大率を変えれば必要なくなるので後程修正
+	// 石(小)
 	lpImageMng.getImage("image/item/SRed_Stone.png", "500");
 	lpImageMng.getImage("image/item/SGreen_Stone.png", "501");
 	lpImageMng.getImage("image/item/SBlue_Stone.png", "502");
@@ -84,6 +84,8 @@ GameScene::GameScene()
 	lpImageMng.getImage("image/item/bard.png", "532");
 	// 鍵(黄色)
 	lpImageMng.getImage("image/item/key.png", "533");
+	// パウダー(紫色)
+	lpImageMng.getImage("image/item/powder.png", "534");
 	// ホース(水色)
 	lpImageMng.getImage("image/item/hose.png", "535");
 	
@@ -318,6 +320,7 @@ std::unique_ptr<BaseScene> GameScene::NormalUpdate(std::unique_ptr<BaseScene> ow
 
 	_menu->Update();
 
+	lpTradeMng.ListUpdate();
 
 	getAttackQue();
 	CheckHitAttack()(_barrierMng->GetBarrier(), _attackList);

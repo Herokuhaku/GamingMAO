@@ -2,6 +2,7 @@
 #include "Gimmick.h"
 #include <algorithm>
 #include "../Object/Item.h"
+#include "../Manage/MapMng.h"
 
 std::vector<std::shared_ptr<Gimmick>> GimmickMng::_gimmickList;
 
@@ -20,7 +21,10 @@ void GimmickMng::Draw(void)
 {
 	for (const auto& gm : _gimmickList)
 	{
-		gm->Draw();
+		if (lpMapMng.GetnowStage() == gm->GetStage())
+		{
+			gm->Draw();
+		}
 	}
 }
 

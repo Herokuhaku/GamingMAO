@@ -65,6 +65,7 @@ public:
 	
 	void SetUseTool(bool flag, ItemSave save);
 
+	void ListUpdate(void);
 private:
 	ItemTrader();
 	ItemTrader(const ItemTrader&) = delete;

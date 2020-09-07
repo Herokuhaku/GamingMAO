@@ -1,6 +1,7 @@
 #include "Item.h"
 #include "../Graphic/ImageMng.h"
 #include "../Scene/SceneMng.h"
+#include "../func/CheckHitStage.h"
 
 Item::Item()
 {
@@ -50,7 +51,30 @@ Item::~Item()
 
 void Item::Update(void)
 {
-	// 効果のあるアイテムを動かす用
+	Vector2 _tmpPos = _pos;
+	if (CheckHitStage()(CHECK_DIR::DOWN, { _pos.x, static_cast<int>(_tmpPos.y) + 1 }, getHitOffset(), _stage) == NOTHIT)
+	{
+		if (_vel - G_ACC_NORMAL > -VEL_MAX)
+		{
+			_vel = _vel - G_ACC_NORMAL;
+		}
+		else
+		{
+			_vel = -VEL_MAX;
+		}
+	}
+
+	int tmpDown = CheckHitStage()(CHECK_DIR::DOWN, { _pos.x, static_cast<int>(_tmpPos.y - _vel) }, getHitOffset(), _stage);
+
+	if (_vel != 0.0 && tmpDown != NOTHIT)
+	{
+		_tmpPos.y = static_cast<double>(tmpDown) - static_cast<double>(getHitOffset()[static_cast<int>(CHECK_DIR::DOWN)]);
+		_vel = 0.0;
+	}
+
+	_tmpPos.y -= _vel;
+
+	_pos.y = static_cast<int>(_tmpPos.y);
 }
 
 void Item::Draw(void)
@@ -142,15 +166,15 @@ void Item::Init(void)
 		switch (_colortype)
 		{
 		case COLOR::BLUE:
-			_image[0] = "BlueBook";
+			_image[0] = "522";
 			data.emplace_back(lpImageMng.getImage(_image[0])[0],0);
 			break;
 		case COLOR::GREEN:
-			_image[0] = "GreenBook";
+			_image[0] = "521";
 			data.emplace_back(lpImageMng.getImage(_image[0])[0], 0);
 			break;
 		case COLOR::RED:
-			_image[0] = "RedBook";
+			_image[0] = "520";
 			data.emplace_back(lpImageMng.getImage(_image[0])[0], 0);
 			break;
 		default:
@@ -163,27 +187,27 @@ void Item::Init(void)
 		case COLOR::BLACK:
 			break;
 		case COLOR::BLUE:
-			_image[0] = "BlueStone";
+			_image[0] = "512";
 			data.emplace_back(lpImageMng.getImage(_image[0])[0], 0);
 			break;
 		case COLOR::CYAN:
-			_image[0] = "CyanStone";
+			_image[0] = "515";
 			data.emplace_back(lpImageMng.getImage(_image[0])[0], 0);
 			break;
 		case COLOR::GREEN:
-			_image[0] = "GreenStone";
+			_image[0] = "511";
 			data.emplace_back(lpImageMng.getImage(_image[0])[0], 0);
 			break;
 		case COLOR::MAGENTA:
-			_image[0] = "MagentaStone";
+			_image[0] = "514";
 			data.emplace_back(lpImageMng.getImage(_image[0])[0], 0);
 			break;
 		case COLOR::RED:
-			_image[0] = "RedStone";
+			_image[0] = "510";
 			data.emplace_back(lpImageMng.getImage(_image[0])[0], 0);
 			break;
 		case COLOR::YELLOW:
-			_image[0] = "YellowStone";
+			_image[0] = "513";
 			data.emplace_back(lpImageMng.getImage(_image[0])[0], 0);
 			break;
 		case COLOR::WHITE:

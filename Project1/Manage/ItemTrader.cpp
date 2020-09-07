@@ -383,6 +383,14 @@ void ItemTrader::SetUseTool(bool flag,ItemSave save)
 	}
 }
 
+void ItemTrader::ListUpdate(void)
+{
+	for (auto& data : _ItemList)
+	{
+		data->Update();
+	}
+}
+
 ItemTrader::ItemTrader()
 {
 	for (int i = 0;i < 6;i++)
@@ -422,13 +430,13 @@ const char* ItemTrader::ChangeName(ITEM_TYPE _itemtype,COLOR _colortype)
 		case COLOR::BLACK:
 			break;
 		case COLOR::BLUE:
-			save.image[0] = "BlueBook";
+			save.image[0] = "522";
 			break;
 		case COLOR::GREEN:
-			save.image[0] = "GreenBook";
+			save.image[0] = "521";
 			break;
 		case COLOR::RED:
-			save.image[0] = "RedBook";
+			save.image[0] = "520";
 			break;
 		case COLOR::CYAN:
 			save.image[0] = "CyanBook";
@@ -437,7 +445,7 @@ const char* ItemTrader::ChangeName(ITEM_TYPE _itemtype,COLOR _colortype)
 			save.image[0] = "MagentaBook";
 			break;
 		case COLOR::YELLOW:
-			save.image[0] = "MagentaBook";
+			save.image[0] = "YellowBook";
 			break;
 		case COLOR::WHITE:
 			break;
@@ -452,22 +460,22 @@ const char* ItemTrader::ChangeName(ITEM_TYPE _itemtype,COLOR _colortype)
 		case COLOR::BLACK:
 			break;
 		case COLOR::BLUE:
-			save.image[0] = "BlueStone";
+			save.image[0] = "512";
 			break;
 		case COLOR::CYAN:
-			save.image[0] = "CyanStone";
+			save.image[0] = "515";
 			break;
 		case COLOR::GREEN:
-			save.image[0] = "GreenStone";
+			save.image[0] = "511";
 			break;
 		case COLOR::MAGENTA:
-			save.image[0] = "MagentaStone";
+			save.image[0] = "514";
 			break;
 		case COLOR::RED:
-			save.image[0] = "RedStone";
+			save.image[0] = "510";
 			break;
 		case COLOR::YELLOW:
-			save.image[0] = "YellowStone";
+			save.image[0] = "513";
 			break;
 		case COLOR::WHITE:
 			break;

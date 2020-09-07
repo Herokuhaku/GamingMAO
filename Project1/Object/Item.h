@@ -61,5 +61,12 @@ private:
 	int _tool;
 	const char* _image[2];	// ‰æ‘œ”Ô†		// 0 ’Êí,1 ¬
 	ItemSave save;
+
+	double _vel;
+
+	static constexpr double G_ACC_NORMAL = 0.4;
+	static constexpr double VEL_MAX = 9.0;
+
+
 };
 

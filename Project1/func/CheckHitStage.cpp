@@ -47,7 +47,7 @@ int CheckHitStage::operator()(const CHECK_DIR & dir, const Vector2 & pos, const 
 			if (left < gmPos.x + gmBox[static_cast<int>(CHECK_DIR::RIGHT)] &&
 				left + width / 2 > gmPos.x - gmBox[static_cast<int>(CHECK_DIR::LEFT)] &&
 				top < gmPos.y + gmBox[static_cast<int>(CHECK_DIR::DOWN)] &&
-				bottom > gmPos.y - gmBox[static_cast<int>(CHECK_DIR::UP)])
+				bottom > gmPos.y - gmBox[static_cast<int>(CHECK_DIR::UP)] && (stage == gm->GetStage()))
 			{
 				if (rtnPos == NOTHIT)
 				{
@@ -86,7 +86,7 @@ int CheckHitStage::operator()(const CHECK_DIR & dir, const Vector2 & pos, const 
 			if (left + width / 2 < gmPos.x + gmBox[static_cast<int>(CHECK_DIR::RIGHT)] &&
 				right > gmPos.x - gmBox[static_cast<int>(CHECK_DIR::LEFT)] &&
 				top < gmPos.y + gmBox[static_cast<int>(CHECK_DIR::DOWN)] &&
-				bottom > gmPos.y - gmBox[static_cast<int>(CHECK_DIR::UP)])
+				bottom > gmPos.y - gmBox[static_cast<int>(CHECK_DIR::UP)] && (stage == gm->GetStage()))
 			{
 				if (rtnPos == NOTHIT)
 				{
@@ -125,7 +125,7 @@ int CheckHitStage::operator()(const CHECK_DIR & dir, const Vector2 & pos, const 
 			if (left < gmPos.x + gmBox[static_cast<int>(CHECK_DIR::RIGHT)] &&
 				right > gmPos.x - gmBox[static_cast<int>(CHECK_DIR::LEFT)] &&
 				top + height / 2 < gmPos.y + gmBox[static_cast<int>(CHECK_DIR::DOWN)] &&
-				bottom > gmPos.y - gmBox[static_cast<int>(CHECK_DIR::UP)])
+				bottom > gmPos.y - gmBox[static_cast<int>(CHECK_DIR::UP)] && (stage == gm->GetStage()))
 			{
 				if (rtnPos == NOTHIT)
 				{
@@ -164,7 +164,7 @@ int CheckHitStage::operator()(const CHECK_DIR & dir, const Vector2 & pos, const 
 			if (left < gmPos.x + gmBox[static_cast<int>(CHECK_DIR::RIGHT)] &&
 				right > gmPos.x - gmBox[static_cast<int>(CHECK_DIR::LEFT)] &&
 				top < gmPos.y + gmBox[static_cast<int>(CHECK_DIR::DOWN)] &&
-				top + height / 2 > gmPos.y - gmBox[static_cast<int>(CHECK_DIR::UP)])
+				top + height / 2 > gmPos.y - gmBox[static_cast<int>(CHECK_DIR::UP)] && (stage == gm->GetStage()))
 			{
 				if (rtnPos == NOTHIT)
 				{

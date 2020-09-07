@@ -18,7 +18,6 @@ Rock::Rock(const Vector2 & pos, int stage):Gimmick(pos, stage)
 	_usableRange = { ROCK_USE_WIDTH, ROCK_USE_WIDTH, ROCK_USE_HEIGHT, ROCK_USE_HEIGHT };
 	lpImageMng.getImage("image/Obstacle/rock.png", "rock");
 	type_ = COLOR::RED;
-	pos_ = pos;
 }
 
 Rock::~Rock()
@@ -32,7 +31,7 @@ void Rock::Update(void)
 		Vector2 tmp = lpSceneMng.GetPlPos(TIME::NOW);
 		if (lpTradeMng.CheckTool())
 		{
-			if (lpTradeMng.getTool().colortype == type_ && abs(tmp.x - pos_.x) <= ROCK_USE_WIDTH)
+			if (lpTradeMng.getTool().colortype == type_ && abs(tmp.x - _pos.x) <= ROCK_USE_WIDTH)
 			{
 				lpTradeMng.SetUseTool(true,lpTradeMng.getTool());
 			}
