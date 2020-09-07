@@ -53,10 +53,11 @@ AttackDetails::AttackDetails()
 
 void AttackDetails::LoadAttackData(void)
 {
-	int mp_fp, mc_fp, md_fp, pathfp;
+	int mp_fp, mc_fp, pathfp;
+	FILE* md_fp;
 	mp_fp = FileRead_open("data/mp_data.dat");
 	mc_fp = FileRead_open("data/mp_cooltime.dat");
-	md_fp = FileRead_open("data/attack_desc.txt");
+	fopen_s(&md_fp, "data/attack_desc.csv", "r");
 	pathfp = FileRead_open("data/magic_icon_path.txt");
 
 	assert(mp_fp != -1);
@@ -76,7 +77,7 @@ void AttackDetails::LoadAttackData(void)
 	{
 		for (int j = 0; j < ATTACK_TYPE_MAX; j++)
 		{
-			FileRead_scanf(md_fp, "%s", desc);
+			fscanf_s(md_fp, "%[^,],\n", desc, 64);
 
 			FileRead_scanf(pathfp, "%s", path);
 			_details[i][j]->_magicPoint = mp[i * ATTACK_TYPE_MAX + j];
@@ -89,7 +90,7 @@ void AttackDetails::LoadAttackData(void)
 	
 	FileRead_close(mp_fp);
 	FileRead_close(mc_fp);
-	FileRead_close(md_fp);
+	fclose(md_fp);
 	FileRead_close(pathfp);
 }
 
