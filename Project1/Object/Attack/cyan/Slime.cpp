@@ -1,9 +1,13 @@
 #include "Slime.h"
 #include "../../../Graphic/ImageMng.h"
 #include "../../../func/CheckHitStage.h"
+#include "../../../Audio/AudioContainer.h"
+#include "../../../Scene/SceneMng.h"
+#include "../../Player.h"
 
 namespace
 {
+	AudioContainer _audio;
 	constexpr int LIFE_TIME = 1200;
 
 	constexpr int MOVE_SPEED = 6;
@@ -98,6 +102,21 @@ Slime::Slime(const Vector2& pos, DIR dir, int stage, OBJ_TYPE target)
 	setAttack("slime_attack", attack);
 
 	AddAttack("slime_find");
+
+	_audio.LoadSound("sound/magic/slime_summon.wav", "summon", 10);
+	_audio.ChangeVolume("summon", 180);
+	PlaySoundMem(_audio.GetSound("summon"), DX_PLAYTYPE_BACK, true);
+
+	_audio.LoadSound("sound/magic/enemy_dead.wav", "dead", 10);
+	_audio.ChangeVolume("dead", 180);
+
+	_audio.LoadSound("sound/magic/attack.wav", "attack", 10);
+	_audio.ChangeVolume("attack", 180);
+}
+
+Slime::~Slime()
+{
+	slimeCount--;
 }
 
 void Slime::Update(void)
@@ -112,13 +131,21 @@ void Slime::Update(void)
 		_isNewObject = false;
 	}
 
-	if (slimeCount >= 2 && _isNewObject == false)
+	if (slimeCount >= 2 && _isNewObject == false && _update != &Slime::DeadUpdate)
 	{
 		_update = &Slime::DeadUpdate;
 		setState({ OBJ_STATE::DAMAGE, _state_dir.second });
+		PlaySoundMem(_audio.GetSound("dead"), DX_PLAYTYPE_BACK, true);
 		stopAttack();
-		slimeCount--;
 	}
+
+	if (lpSceneMng.GetPlObj2(TIME::FTR)->getStage() != _stage)
+	{
+		setState({ OBJ_STATE::DEAD, _state_dir.second });
+		PlaySoundMem(_audio.GetSound("dead"), DX_PLAYTYPE_BACK, true);
+		stopAttack();
+	}
+
 	VelUpdate();
 	(this->*_update)();
 }
@@ -139,6 +166,7 @@ void Slime::MoveUpdate(void)
 	{
 		_update = &Slime::DeadUpdate;
 		setState({ OBJ_STATE::DAMAGE, _state_dir.second });
+		PlaySoundMem(_audio.GetSound("dead"), DX_PLAYTYPE_BACK, true);
 		stopAttack();
 		return;
 	}
@@ -172,6 +200,7 @@ void Slime::AttackUpdate(void)
 	if (_anmTime == 2 * 3 + 1)
 	{
 		AddAttack("slime_attack");
+		PlaySoundMem(_audio.GetSound("attack"), DX_PLAYTYPE_BACK, true);
 	}
 	if (_anmTime == 4 * 3 + 1)
 	{

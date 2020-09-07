@@ -1,9 +1,11 @@
 #include "HealTree.h"
 #include "../../../Graphic/ImageMng.h"
 #include "../../../Manage/MapMng.h"
+#include "../../../Audio/AudioContainer.h"
 
 namespace
 {
+	AudioContainer _audio;
 	constexpr int SURFACE_LIMIT = 3000;
 
 	constexpr int GROW_TIME = 120;
@@ -56,6 +58,7 @@ void HealTree::ActiveUpdate(void)
 	{
 		AddAttack("heal");
 		lpImageMng.playEffect("heal_effect", &_pos.x, &_pos.y, 0.5, 0.0, LAYER::CHAR, 1, DX_BLENDMODE_NOBLEND, 0, _stage, EffectDrawType::DRAW_TO_RELATIVE);
+		PlaySoundMem(_audio.GetSound("heal"), DX_PLAYTYPE_BACK, true);
 	}
 
 	if (_timer <= 0)
@@ -153,5 +156,8 @@ void HealTree::Init(void)
 	}
 	effect.emplace_back(0, -1);
 	lpImageMng.setEffect("heal_effect", effect);
+
+	_audio.LoadSound("sound/magic/heal.wav", "heal", 10);
+	_audio.ChangeVolume("heal", 100);
 }
 

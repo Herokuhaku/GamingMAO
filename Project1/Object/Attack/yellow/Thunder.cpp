@@ -1,6 +1,11 @@
 #include "Thunder.h"
 #include "../../../Graphic/ImageMng.h"
+#include "../../../Audio/AudioContainer.h"
 
+namespace
+{
+	AudioContainer _audio;
+}
 
 Thunder::Thunder(Vector2 pos1, Vector2 pos2, bool useRef, Vector2* refPos, int damage, TIME time, int stage, OBJ_TYPE target)
 {
@@ -80,6 +85,10 @@ Thunder::Thunder(Vector2 pos1, Vector2 pos2, bool useRef, Vector2* refPos, int d
 
 		Init();
 	}
+
+	_audio.LoadSound("sound/magic/thunder.wav", "thunder", 10);
+	_audio.ChangeVolume("thunder", 180);
+	PlaySoundMem(_audio.GetSound("thunder"), DX_PLAYTYPE_BACK, true);
 }
 
 Thunder::~Thunder()

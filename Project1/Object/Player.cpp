@@ -15,9 +15,11 @@
 #include "Barrier/BarrierMng.h"
 #include "Barrier/Barrier.h"
 #include "Attack/white/StopTime.h"
+#include "../Audio/AudioContainer.h"
 
 namespace
 {
+	AudioContainer _audio;
 	constexpr int WALK_SPEED = 4;
 	constexpr int SUPER_SPEED = 8;
 	constexpr int DASH_SPEED = 30;
@@ -353,6 +355,13 @@ void Player::Init(void)
 	_attack[static_cast<int>(COLOR::WHITE)]	[static_cast<int>(ATK_TYPE::TYPE_1)] = std::bind(&Player::White1  , this);
 	_attack[static_cast<int>(COLOR::WHITE)]	[static_cast<int>(ATK_TYPE::TYPE_2)] = std::bind(&Player::White2  , this);
 	_attack[static_cast<int>(COLOR::WHITE)]	[static_cast<int>(ATK_TYPE::TYPE_3)] = std::bind(&Player::White3  , this);
+
+	_audio.LoadSound("sound/magic/dash.wav", "dash", 10);
+	_audio.ChangeVolume("dash", 180);
+	_audio.LoadSound("sound/magic/overdrive.wav", "overdrive", 10);
+	_audio.ChangeVolume("overdrive", 180);
+	_audio.LoadSound("sound/magic/stopclock.wav", "stopclock", 10);
+	_audio.ChangeVolume("stopclock", 180);
 }
 
 void Player::ControlNormal(void)
@@ -895,6 +904,7 @@ void Player::Green2(void)
 	_vel = INI_VEL_SUPER;
 	_speed = SUPER_SPEED;
 	_isSuperJump = true;
+	PlaySoundMem(_audio.GetSound("dash"), DX_PLAYTYPE_BACK, true);
 	if (_control == &Player::ControlNormal)
 	{
 		setState({ OBJ_STATE::JUMP, _state_dir.second });
@@ -941,6 +951,7 @@ void Player::Blue2(void)
 	_dashTimer = DASH_DURATION;
 	setInv(DASH_DURATION + 3);
 	_control = &Player::ControlDash;
+	PlaySoundMem(_audio.GetSound("dash"), DX_PLAYTYPE_BACK, true);
 }
 
 void Player::Blue3(void)
@@ -988,6 +999,7 @@ void Player::White2(void)
 {
 	if (lpAttackUI.ToFeverTime())
 	{
+		PlaySoundMem(_audio.GetSound("overdrive"), DX_PLAYTYPE_BACK, true);
 		lpImageMng.playEffect("wing_effect", &_wingPos.x, &_wingPos.y, 1.0, 0.0, LAYER::CHAR, _zOrder + 1, DX_BLENDMODE_NOBLEND, 0, lpMapMng.GetnowStage(), EffectDrawType::DRAW_TO_RELATIVE);
 	}
 }
@@ -995,4 +1007,5 @@ void Player::White2(void)
 void Player::White3(void)
 {
 	_stopTime->Stop();
+	PlaySoundMem(_audio.GetSound("stopclock"), DX_PLAYTYPE_BACK, true);
 }

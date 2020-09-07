@@ -7,7 +7,7 @@ public:
 	// pos:À•W		dir::Œü‚«
 	// target:•W“I‚Ìí—Ş
 	Slime(const Vector2& pos, DIR dir, int stage, OBJ_TYPE target);
-	~Slime() = default;
+	~Slime();
 
 	void Update(void)override;
 

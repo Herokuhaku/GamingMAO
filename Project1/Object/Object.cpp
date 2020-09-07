@@ -4,11 +4,13 @@
 #include "../Scene/SceneMng.h"
 #include "Player.h"
 #include "../func/CheckHitStage.h"
+#include "../Audio/AudioContainer.h"
 #include <memory>
 #include <algorithm>
 
 namespace
 {
+	AudioContainer _audio;
 	const STATE_EFFECT_TYPE cantMoveEffects[] = { STATE_EFFECT_TYPE::PARALYSIS, STATE_EFFECT_TYPE::FREEZE, STATE_EFFECT_TYPE::CONFUSION };
 }
 
@@ -33,6 +35,13 @@ Object::Object()
 	_type = OBJ_TYPE::PLAYER;
 	_nextPos = { 0,0 };
 	_stage = 1;
+
+	_audio.LoadSound("sound/magic/freeze.wav", "freeze", 10);
+	_audio.ChangeVolume("freeze", 180);
+	_audio.LoadSound("sound/magic/confusion.wav", "confusion", 10);
+	_audio.ChangeVolume("confusion", 180);
+	_audio.LoadSound("sound/magic/paralysis.wav", "paralysis", 10);
+	_audio.ChangeVolume("paralysis", 180);
 }
 
 Object::~Object()
@@ -110,6 +119,19 @@ void Object::SetStateEffect(StateEffect* sEff)
 		return;
 	}
 	_sEff.emplace_back(sEff);
+
+	switch (sEff->_type)
+	{
+	case STATE_EFFECT_TYPE::PARALYSIS:
+		PlaySoundMem(_audio.GetSound("paralysis"), DX_PLAYTYPE_BACK, true);
+		break;
+	case STATE_EFFECT_TYPE::FREEZE:
+		PlaySoundMem(_audio.GetSound("freeze"), DX_PLAYTYPE_BACK, true);
+		break;
+	case STATE_EFFECT_TYPE::CONFUSION:
+		PlaySoundMem(_audio.GetSound("confusion"), DX_PLAYTYPE_BACK, true);
+		break;
+	}
 }
 
 void Object::UpdateStateEffect(void)
@@ -284,7 +306,7 @@ bool Object::anmUpdate(void)
 		return false;
 	}
 
-	if (std::dynamic_pointer_cast<Player>(lpSceneMng.GetPlObj2(TIME::FTR))->IsTimeStoped())
+	if (!(_type == OBJ_TYPE::PLAYER && _time == TIME::FTR) && std::dynamic_pointer_cast<Player>(lpSceneMng.GetPlObj2(TIME::FTR))->IsTimeStoped())
 	{
 		return true;
 	}

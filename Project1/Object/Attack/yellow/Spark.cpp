@@ -1,9 +1,11 @@
 #include "Spark.h"
 #include "../../../Scene/SceneMng.h"
 #include "../../../Graphic/ImageMng.h"
+#include "../../../Audio/AudioContainer.h"
 
 namespace
 {
+	AudioContainer _audio;
 	constexpr int SPARK_INTERVAL = 60;
 	constexpr int LIFE_TIME = 330;
 }
@@ -32,6 +34,7 @@ void Spark::Update(void)
 	{
 		lpImageMng.playEffect("spark_effect", &_ownerPos->x, &_ownerPos->y, 1.5, 0.0, LAYER::CHAR, 50, DX_BLENDMODE_NOBLEND, 0, lpSceneMng.GetPlObj2(TIME::FTR)->getStage(), EffectDrawType::DRAW_TO_RELATIVE);
 		AddAttack("spark");
+		PlaySoundMem(_audio.GetSound("paralysis"), DX_PLAYTYPE_BACK, true);
 	}
 	_timer--;
 
@@ -61,4 +64,7 @@ void Spark::Init(void)
 	}
 	effect.emplace_back(0, -1);
 	lpImageMng.setEffect("spark_effect", effect);
+
+	_audio.LoadSound("sound/magic/paralysis.wav", "paralysis", 10);
+	_audio.ChangeVolume("paralysis", 180);
 }
