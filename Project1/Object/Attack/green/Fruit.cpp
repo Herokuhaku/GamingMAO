@@ -2,7 +2,12 @@
 #include "../../../Scene/SceneMng.h"
 #include "../../../func/CheckHitStage.h"
 #include "../../../Graphic/ImageMng.h"
+#include "../../../Audio/AudioContainer.h"
 
+namespace
+{
+	AudioContainer _audio;
+}
 
 Fruit::Fruit(Vector2 pos, DIR dir, int speed, TIME time, int stage, OBJ_TYPE target)
 {
@@ -97,6 +102,10 @@ void Fruit::Init(void)
 	_radSpeed = static_cast<double>(_speed / (size * 2 * acos(-1.0f))) * static_cast<double>(acos(-1.0f)) * 2.0;
 
 	_tmpPos.y = _pos.y;
+
+	_audio.LoadSound("sound/magic/fruit.wav", "fruit", 10);
+	_audio.ChangeVolume("fruit", 180);
+	PlaySoundMem(_audio.GetSound("fruit"), DX_PLAYTYPE_BACK, true);
 }
 
 void Fruit::VelUpdate(void)

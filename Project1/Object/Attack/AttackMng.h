@@ -106,6 +106,11 @@ public:
 	// stage:ステージ	target:目標
 	void MakeIceWall(Vector2 pos, TIME time, int stage, OBJ_TYPE target);
 
+	// スライム
+	// pos:座標		dir::向き
+	// target:標的の種類
+	void MakeSlime(const Vector2& pos, DIR dir, int stage, OBJ_TYPE target);
+
 	// 黄色魔法
 
 	// 雷雲

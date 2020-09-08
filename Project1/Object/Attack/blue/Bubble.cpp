@@ -1,8 +1,10 @@
 #include "Bubble.h"
 #include "../../../Graphic/ImageMng.h"
+#include "../../../Audio/AudioContainer.h"
 
 namespace
 {
+	AudioContainer _audio;
 	constexpr float ATTACK_RADIUS = 40.0f;
 }
 
@@ -63,4 +65,8 @@ void Bubble::Init(void)
 	setHitOffset({ 50,50,50,50 });
 
 	AddAttack("bubble");
+
+	_audio.LoadSound("sound/magic/bubble.wav", "bubble", 10);
+	_audio.ChangeVolume("bubble", 180);
+	PlaySoundMem(_audio.GetSound("bubble"), DX_PLAYTYPE_BACK, true);
 }

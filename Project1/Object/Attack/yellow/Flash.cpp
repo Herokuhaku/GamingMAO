@@ -1,9 +1,11 @@
 #include "Flash.h"
 #include "../../../Scene/SceneMng.h"
 #include "../../../Graphic/ImageMng.h"
+#include "../../../Audio/AudioContainer.h"
 
 namespace
 {
+	AudioContainer _audio;
 	constexpr int LIFE_TIME = 30;
 	constexpr int EXPAND_INTERVAL = 5;
 	constexpr int SHRINK_INTERVAL = LIFE_TIME - EXPAND_INTERVAL;
@@ -101,6 +103,10 @@ void Flash::Init(void)
 	setAttack("light", attack);
 
 	AddAttack("light");
+
+	_audio.LoadSound("sound/magic/flash.wav", "flash", 10);
+	_audio.ChangeVolume("flash", 180);
+	PlaySoundMem(_audio.GetSound("flash"), DX_PLAYTYPE_BACK, true);
 }
 
 void Flash::OnceInit(void)

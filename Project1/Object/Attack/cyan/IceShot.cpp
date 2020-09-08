@@ -4,11 +4,13 @@
 #include "../../Player.h"
 #include "../white/StopTime.h"
 #include "../../../Scene/SceneMng.h"
+#include "../../../Audio/AudioContainer.h"
 #define _USE_MATH_DEFINES
 #include <math.h>
 
 namespace
 {
+	AudioContainer _audio;
 	constexpr int ANM_SPEED = 3;
 
 	constexpr int CHARGE_FLAME = 3;
@@ -108,6 +110,9 @@ void IceShot::Init(void)
 	setAttack("ice_shot", attack);
 
 	setHitOffset({ 32, 32, 16, 16 });
+
+	_audio.LoadSound("sound/magic/ice_shot.wav", "ice", 10);
+	_audio.ChangeVolume("ice", 180);
 }
 
 void IceShot::ChargeUpdate(void)
@@ -140,7 +145,11 @@ void IceShot::ChargeUpdate(void)
 void IceShot::ShotUpdate(void)
 {
 	_timer++;
-	
+
+	if (_timer == ANM_SPEED)
+	{
+		PlaySoundMem(_audio.GetSound("ice"), DX_PLAYTYPE_BACK, true);
+	}
 	if (_timer >= ANM_SPEED)
 	{
 		FlyingUpdate();

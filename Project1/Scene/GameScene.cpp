@@ -392,6 +392,8 @@ std::unique_ptr<BaseScene> GameScene::StopedUpdate(std::unique_ptr<BaseScene> ow
 	{
 		player->Update();
 	}
+	player->InvUpdate();
+	player->UpdateStateEffect();
 
 	_cobj->Update();
 

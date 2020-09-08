@@ -8,6 +8,7 @@
 #include "magenta/PoisonFog.h"
 #include "cyan/IceWall.h"
 #include "cyan/IceShot.h"
+#include "cyan/Slime.h"
 #include "yellow/ThunderCloud.h"
 #include "yellow/Thunder.h"
 #include "white/HolyJudge.h"
@@ -179,6 +180,18 @@ void AttackMng::MakeIceWall(Vector2 pos, TIME time, int stage, OBJ_TYPE target)
 	}
 }
 
+void AttackMng::MakeSlime(const Vector2 & pos, DIR dir, int stage, OBJ_TYPE target)
+{
+	if (_canAddObj)
+	{
+		_attackObj.emplace_back(new Slime(pos, dir, stage, target));
+	}
+	else
+	{
+		_tmpObj.emplace_back(new Slime(pos, dir, stage, target));
+	}
+}
+
 void AttackMng::MakeThunderCloud(Vector2 pos, DIR dir, int speed, int count, int dur, TIME time, int stage, OBJ_TYPE target)
 {
 	if (_canAddObj)
@@ -213,6 +226,7 @@ void AttackMng::MakeFlash(Vector2 * pos, TIME time, int stage, OBJ_TYPE target)
 	{
 		_tmpObj.emplace_back(new Flash(pos, time, stage, target));
 	}
+
 }
 
 void AttackMng::MakeSpark(Vector2* pos, TIME time, int stage, OBJ_TYPE target)

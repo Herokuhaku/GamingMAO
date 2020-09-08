@@ -1,6 +1,12 @@
 #include "HolyJudge.h"
 #include "../../../Graphic/EffekseerMng.h"
 #include "../../../Manage/MapMng.h"
+#include "../../../Audio/AudioContainer.h"
+
+namespace
+{
+	AudioContainer _audio;
+}
 
 HolyJudge::HolyJudge(Vector2 pos, TIME time, int stage, OBJ_TYPE target)
 {
@@ -24,6 +30,12 @@ HolyJudge::~HolyJudge()
 void HolyJudge::Update(void)
 {
 	_count++;
+
+	if (_count == 50)
+	{
+		PlaySoundMem(_audio.GetSound("holy"), DX_PLAYTYPE_BACK, true);
+	}
+
 	if (_count >= LIFE_TIME)
 	{
 		setState({ OBJ_STATE::DEAD, _state_dir.second });
@@ -67,6 +79,9 @@ void HolyJudge::Init(void)
 	AddAttack("HolyJudgement");
 
 	_anmEfkHd = lpEffectMng.playEffect(lpEffectMng.getEffect("holy"), LIFE_TIME, &_pos.x, &_pos.y, 0, 0, &(_state_dir.second));
+
+	_audio.LoadSound("sound/magic/holy.wav", "holy", 10);
+	_audio.ChangeVolume("holy", 180);
 }
 
 int HolyJudge::FindSF(int pos)

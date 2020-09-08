@@ -2,6 +2,12 @@
 #include "../Object/Object.h"
 #include "../Object/Enemy/Enemy.h"
 #include "../Object/Barrier/Barrier.h"
+#include "../Audio/AudioContainer.h"
+
+namespace
+{
+	AudioContainer _audio;
+}
 
 void CheckHitAttack::operator()(const std::vector<std::shared_ptr<Object>>& objlist, const std::vector<std::pair<atkData, std::shared_ptr<Object>>>& atklist)
 {
@@ -182,6 +188,9 @@ void CheckHitAttack::operator()(const std::vector<std::shared_ptr<Barrier>>& bar
 
 			if (attack.first.IsHit(attack.second->getPos(), attack.second->getState().second, b->GetPos(), b->GetHitOffset()))
 			{
+				_audio.LoadSound("sound/magic/shield_block.wav", "block", 10);
+				_audio.ChangeVolume("block", 180);
+				PlaySoundMem(_audio.GetSound("block"), DX_PLAYTYPE_BACK, true);
 				attack.second->IfHitAttack(nullptr);
 			}
 		}

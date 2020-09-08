@@ -5,6 +5,7 @@
 
 namespace
 {
+	AudioContainer _audio;
 	constexpr int FINISH_DURATION = 10;
 
 	constexpr float MOVE_TARGET_DISTANCE = 4.0f;
@@ -135,4 +136,8 @@ void BlackHole::Init(void)
 	AddAttack("blackhole");
 
 	_screen = MakeScreen(B_SCREEN_SIZE, B_SCREEN_SIZE, true);
+
+	_audio.LoadSound("sound/magic/blackhole.wav", "blackhole", 10);
+	_audio.ChangeVolume("blackhole", 180);
+	PlaySoundMem(_audio.GetSound("blackhole"), DX_PLAYTYPE_BACK, true);
 }
