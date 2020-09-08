@@ -170,7 +170,7 @@ bool GameScene::Init(void)
 	lpTimeMng.TimeInit();
 
 	_objList.clear();
-	_objList.emplace_back(std::make_shared<Player>(Vector2(2000,1300), 1, TIME::FTR, this));
+	_objList.emplace_back(std::make_shared<Player>(Vector2(400,900), 1, TIME::FTR, this));
 	lpSceneMng.SetPlObj(_objList[0], TIME::FTR);
 	_objList.emplace_back(std::make_shared<Player>(Vector2(400, 900), 1, TIME::NOW, this));
 	lpSceneMng.SetPlObj(_objList[1], TIME::NOW);
@@ -190,12 +190,12 @@ bool GameScene::Init(void)
 
 	lpEnemyMng.Init();
 
-	lpTradeMng.SetItemList({ 2080,1311 }, ITEM_TYPE::TOOL, COLOR::BLUE,1);
-	lpTradeMng.SetItemList({ 2080,1311 }, ITEM_TYPE::TOOL, COLOR::RED,1);
-	lpTradeMng.SetItemList({ 2080,1311 }, ITEM_TYPE::TOOL, COLOR::GREEN,1);
-	lpTradeMng.SetItemList({ 2080,1311 }, ITEM_TYPE::BOOK, COLOR::BLUE, 1);
-	lpTradeMng.SetItemList({ 2080,1311 }, ITEM_TYPE::BOOK, COLOR::RED, 1);
-	lpTradeMng.SetItemList({ 2080,1311 }, ITEM_TYPE::BOOK, COLOR::GREEN, 1);
+	lpTradeMng.SetItemList({ 200,1311 }, ITEM_TYPE::STONE, COLOR::BLUE,1);
+	lpTradeMng.SetItemList({ 200,1311 }, ITEM_TYPE::STONE, COLOR::RED,1);
+	lpTradeMng.SetItemList({ 200,1311 }, ITEM_TYPE::STONE, COLOR::GREEN,1);
+	//lpTradeMng.SetItemList({ 200,1311 }, ITEM_TYPE::BOOK, COLOR::BLUE, 1);
+	lpTradeMng.SetItemList({ 200,1311 }, ITEM_TYPE::BOOK, COLOR::RED, 1);
+	//lpTradeMng.SetItemList({ 200,1311 }, ITEM_TYPE::BOOK, COLOR::GREEN, 1);
 	
 	EffectData effect;
 	effect.reserve(16);

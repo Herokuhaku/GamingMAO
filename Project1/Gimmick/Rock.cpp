@@ -34,6 +34,7 @@ void Rock::Update(void)
 			if (lpTradeMng.getTool().colortype == type_ && abs(tmp.x - _pos.x) <= ROCK_USE_WIDTH)
 			{
 				lpTradeMng.SetUseTool(true,lpTradeMng.getTool());
+				_deleted = true;
 			}
 		}
 	}
