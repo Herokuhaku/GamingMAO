@@ -17,6 +17,7 @@ Fruit::Fruit(Vector2 pos, DIR dir, int speed, TIME time, int stage, OBJ_TYPE tar
 	_time = time;
 	_stage = stage;
 	_target = target;
+	_isColored = true;
 
 	_rad = 0.0;
 	_vel = 0.0;

@@ -46,7 +46,7 @@ void StopTime::Draw(void)
 		}
 	}
 
-	lpImageMng.AddBackDraw({ lpImageMng.getImage("clock_stop")[_current], lpSceneMng.ScreenSize.x / 2, lpSceneMng.ScreenSize.y / 2, 1.0, 0.0, LAYER::EX , 1000, DX_BLENDMODE_NOBLEND, 0 });
+	lpImageMng.AddBackDraw({ lpImageMng.getImage("clock_stop")[_current], lpSceneMng.ScreenSize.x / 2, lpSceneMng.ScreenSize.y / 2, 1.0, 0.0, LAYER::EX , 1000, DX_BLENDMODE_NOBLEND, 0, true });
 }
 
 bool StopTime::IsTimeStoped(void)

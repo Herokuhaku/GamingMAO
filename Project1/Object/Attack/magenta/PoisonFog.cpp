@@ -14,6 +14,7 @@ PoisonFog::PoisonFog(Vector2 pos, int count, TIME time, int stage, OBJ_TYPE targ
 	_stage = stage;
 	_target = target;
 	_lifeTime = count;
+	_isColored = true;
 
 	_count = 0;
 

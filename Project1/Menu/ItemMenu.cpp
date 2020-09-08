@@ -295,12 +295,12 @@ void ItemMenu::ItemSelectD(int no)
 	std::string image;
 
 	// 風呂敷と枠
-	lpImageMng.AddBackDraw({ lpImageMng.getImage("Menu")[0], _cpos.x, _cpos.y, 1.0, 0.0, LAYER::EX, _zorder.furoshiki, DX_BLENDMODE_NOBLEND, 0 });
-	lpImageMng.AddBackDraw({ lpImageMng.getImage("Space")[0], _cpos.x, _cpos.y - _offpush.y, 1.0, 0.0, LAYER::EX,_zorder.space, DX_BLENDMODE_NOBLEND, 0 });
+	lpImageMng.AddBackDraw({ lpImageMng.getImage("Menu")[0], _cpos.x, _cpos.y, 1.0, 0.0, LAYER::EX, _zorder.furoshiki, DX_BLENDMODE_NOBLEND, 0, true });
+	lpImageMng.AddBackDraw({ lpImageMng.getImage("Space")[0], _cpos.x, _cpos.y - _offpush.y, 1.0, 0.0, LAYER::EX,_zorder.space, DX_BLENDMODE_NOBLEND, 0, true });
 
 	// 矢印
 	lpImageMng.AddBackDraw({ lpImageMng.getImage("Arrow")[0], (_cpos.x - 200) + (_select * 75),
-		_cpos.y - 50 + (_select2 * 100), 1.0, 0.0, LAYER::EX, _zorder.arrow, DX_BLENDMODE_NOBLEND, 0 });
+		_cpos.y - 50 + (_select2 * 100), 1.0, 0.0, LAYER::EX, _zorder.arrow, DX_BLENDMODE_NOBLEND, 0, true });
 
 	//ItemDraw(510, { _cpos.x - 200 ,_cpos.y }, { 200,150 }, {40,100}, LAYER::EX);
 	//lpTradeMng.BagDraw({ static_cast<double>(_cpos.x) - 200.0, static_cast<double>(_cpos.y)-50.0 }, LAYER::EX, { 0,100 }, {0.75,0.75});
@@ -311,7 +311,7 @@ void ItemMenu::ItemSelectD(int no)
 	for (int i = 0;i < 3;i++)
 	{
 		image = std::to_string(tmp);
-		lpImageMng.AddBackDraw({ lpImageMng.getImage(image)[0], pos.x + (i * 75),pos.y, 0.75, 0.0, LAYER::EX,_zorder.item, DX_BLENDMODE_NOBLEND, 0 });
+		lpImageMng.AddBackDraw({ lpImageMng.getImage(image)[0], pos.x + (i * 75),pos.y, 0.75, 0.0, LAYER::EX,_zorder.item, DX_BLENDMODE_NOBLEND, 0, true });
 		tmp++;
 	}
 	// 石
@@ -321,7 +321,7 @@ void ItemMenu::ItemSelectD(int no)
 	{
 		image = std::to_string(tmp);
 		std::string _no = std::to_string(lpTradeMng.getrock().at(i));
-		lpImageMng.AddBackDraw({ lpImageMng.getImage(image)[0], pos.x + (i * 75),pos.y, 0.75, 0.0, LAYER::EX,_zorder.item, DX_BLENDMODE_NOBLEND, 0 });
+		lpImageMng.AddBackDraw({ lpImageMng.getImage(image)[0], pos.x + (i * 75),pos.y, 0.75, 0.0, LAYER::EX,_zorder.item, DX_BLENDMODE_NOBLEND, 0, true });
 		lpStrAdd.AddStringDraw(_no.c_str(), "SQUARE_BIG", pos.x + (i * 75), pos.y, 0x000000, DRAW_TO_CENTER);
 		tmp++;
 	}
@@ -332,7 +332,7 @@ void ItemMenu::ItemSelectD(int no)
 	for (int i = 0;i < 6;i++)
 	{
 		image = std::to_string(tmp);
-		lpImageMng.AddBackDraw({ lpImageMng.getImage(image)[0], pos.x + (i * 75),pos.y, 0.75, 0.0, LAYER::EX,_zorder.item, DX_BLENDMODE_NOBLEND, 0 });
+		lpImageMng.AddBackDraw({ lpImageMng.getImage(image)[0], pos.x + (i * 75),pos.y, 0.75, 0.0, LAYER::EX,_zorder.item, DX_BLENDMODE_NOBLEND, 0, true });
 		tmp++;
 	}
 
@@ -378,16 +378,16 @@ void ItemMenu::MixDraw(void)
 	// アイテム選択
 	for (int x = 0;x < 3;x++)
 	{
-		lpImageMng.AddBackDraw({ lpImageMng.getImage("Space")[0], _cpos.x - 200 + (_offpush.x * x), _cpos.y - _offpush.y, 1.0, 0.0, LAYER::EX,_zorder.space, DX_BLENDMODE_NOBLEND, 0 });
+		lpImageMng.AddBackDraw({ lpImageMng.getImage("Space")[0], _cpos.x - 200 + (_offpush.x * x), _cpos.y - _offpush.y, 1.0, 0.0, LAYER::EX,_zorder.space, DX_BLENDMODE_NOBLEND, 0, true });
 	}
 	// 矢印
 	if (_select2 == 0)
 	{
-		lpImageMng.AddBackDraw({ lpImageMng.getImage("Arrow")[0], _cpos.x - 300 + (_offpush.x * _select), _cpos.y - _offpush.y, 1.0, 0.0, LAYER::EX,_zorder.arrow, DX_BLENDMODE_NOBLEND, 0 });
+		lpImageMng.AddBackDraw({ lpImageMng.getImage("Arrow")[0], _cpos.x - 300 + (_offpush.x * _select), _cpos.y - _offpush.y, 1.0, 0.0, LAYER::EX,_zorder.arrow, DX_BLENDMODE_NOBLEND, 0, true });
 	}
 	else
 	{
-		lpImageMng.AddBackDraw({ lpImageMng.getImage("Arrow")[0], _cpos.x - 75, _cpos.y + 100, 1.0, 0.0, LAYER::EX, _zorder.arrow, DX_BLENDMODE_NOBLEND, 0 });
+		lpImageMng.AddBackDraw({ lpImageMng.getImage("Arrow")[0], _cpos.x - 75, _cpos.y + 100, 1.0, 0.0, LAYER::EX, _zorder.arrow, DX_BLENDMODE_NOBLEND, 0, true });
 	}
 
 	// 選択後
@@ -400,7 +400,7 @@ void ItemMenu::ItemSelectDraw(void)
 		if (data.first.itemtype != ITEM_TYPE::NON)
 		{
 			data.first.pos = { _cpos.x - 200 + (_offpush.x * (data.second)),_cpos.y - _offpush.y };
-			lpImageMng.AddBackDraw({ lpImageMng.getImage(data.first.image[0])[0],data.first.pos.x,data.first.pos.y, 1.0, 0.0,LAYER::EX, _zorder.item, DX_BLENDMODE_NOBLEND, 0 });
+			lpImageMng.AddBackDraw({ lpImageMng.getImage(data.first.image[0])[0],data.first.pos.x,data.first.pos.y, 1.0, 0.0,LAYER::EX, _zorder.item, DX_BLENDMODE_NOBLEND, 0, true });
 		}
 	}
 }
@@ -414,7 +414,7 @@ void ItemMenu::Item(SELECT_ITEM item)
 	{
 		_sItem.at(no).first.pos = { _cpos.x,_cpos.y - _offpush.y };
 		lpImageMng.AddBackDraw({ lpImageMng.getImage(_sItem.at(no).first.image[0])[0],_sItem.at(no).first.pos.x,
-			_sItem.at(no).first.pos.y, 1.0, 0.0,LAYER::EX,_zorder.item, DX_BLENDMODE_NOBLEND, 0 });
+			_sItem.at(no).first.pos.y, 1.0, 0.0,LAYER::EX,_zorder.item, DX_BLENDMODE_NOBLEND, 0, true });
 	}
 
 	// アイテム選択

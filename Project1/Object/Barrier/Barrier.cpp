@@ -84,7 +84,7 @@ void Barrier::DeactiveDraw(void)
 		return;
 	}
 	Vector2 pos = GetPos();
-	lpImageMng.AddDraw({ lpImageMng.getImage(_imageKey)[ANM_COUNT * (static_cast<int>(_owner.lock()->getState().second) / 2) + _timer / ANM_SPEED], pos.x, pos.y, 1.0, 0.0, LAYER::CHAR, 100, DX_BLENDMODE_NOBLEND, 0 });
+	lpImageMng.AddDraw({ lpImageMng.getImage(_imageKey)[ANM_COUNT * (static_cast<int>(_owner.lock()->getState().second) / 2) + _timer / ANM_SPEED], pos.x, pos.y, 1.0, 0.0, LAYER::CHAR, 100, DX_BLENDMODE_NOBLEND, 0, true });
 }
 
 void Barrier::ActiveDraw(void)
@@ -94,7 +94,7 @@ void Barrier::ActiveDraw(void)
 		return;
 	}
 	Vector2 pos = GetPos();
-	lpImageMng.AddDraw({ lpImageMng.getImage(_imageKey)[ANM_COUNT * (static_cast<int>(_owner.lock()->getState().second) / 2) + ANM_COUNT - 1], pos.x, pos.y, 1.0, 0.0, LAYER::CHAR, 100, DX_BLENDMODE_NOBLEND, 0 });
+	lpImageMng.AddDraw({ lpImageMng.getImage(_imageKey)[ANM_COUNT * (static_cast<int>(_owner.lock()->getState().second) / 2) + ANM_COUNT - 1], pos.x, pos.y, 1.0, 0.0, LAYER::CHAR, 100, DX_BLENDMODE_NOBLEND, 0, true });
 }
 
 Vector2 Barrier::GetPos(void)

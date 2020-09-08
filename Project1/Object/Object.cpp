@@ -290,7 +290,7 @@ void Object::Draw(void)
 		return;
 	}
 
-	lpImageMng.AddDraw({ _anmMap[_state_dir][_anmFlame].first, _pos.x, _pos.y - _drawOffset_y, _exRate, _rad, LAYER::CHAR, _zOrder, DX_BLENDMODE_NOBLEND, 0 });
+	lpImageMng.AddDraw({ _anmMap[_state_dir][_anmFlame].first, _pos.x, _pos.y - _drawOffset_y, _exRate, _rad, LAYER::CHAR, _zOrder, DX_BLENDMODE_NOBLEND, 0, _isColored });
 	DrawStateEffect();
 }
 
@@ -471,13 +471,13 @@ void Object::DrawStateEffect(void)
 		switch (se->_type)
 		{
 		case STATE_EFFECT_TYPE::FREEZE:
-			lpImageMng.AddDraw({ lpImageMng.getImage("ice_effect")[min(se->_duration / 4 - se->_timer / 4, 3)], _pos.x, _pos.y + _hitBox[3] - 50 * _stateEffectExRate, _stateEffectExRate, _rad, LAYER::CHAR, _zOrder + 1, DX_BLENDMODE_NOBLEND, 0 });
+			lpImageMng.AddDraw({ lpImageMng.getImage("ice_effect")[min(se->_duration / 4 - se->_timer / 4, 3)], _pos.x, _pos.y + _hitBox[3] - 50 * _stateEffectExRate, _stateEffectExRate, _rad, LAYER::CHAR, _zOrder + 1, DX_BLENDMODE_NOBLEND, 0, false });
 			break;
 		case STATE_EFFECT_TYPE::PARALYSIS:
-			lpImageMng.AddDraw({ lpImageMng.getImage("spark")[se->_timer / 2 % 4 + 2], _pos.x, _pos.y - _drawOffset_y, _stateEffectExRate, _rad, LAYER::CHAR, _zOrder + 1, DX_BLENDMODE_NOBLEND, 0 });
+			lpImageMng.AddDraw({ lpImageMng.getImage("spark")[se->_timer / 2 % 4 + 2], _pos.x, _pos.y - _drawOffset_y, _stateEffectExRate, _rad, LAYER::CHAR, _zOrder + 1, DX_BLENDMODE_NOBLEND, 0, false });
 			break;
 		case STATE_EFFECT_TYPE::CONFUSION:
-			lpImageMng.AddDraw({ lpImageMng.getImage("star")[se->_timer / 4 % 6], _pos.x, _pos.y - _hitBox[2] - 15, 1.0, _rad, LAYER::CHAR, _zOrder + 1, DX_BLENDMODE_NOBLEND, 0 });
+			lpImageMng.AddDraw({ lpImageMng.getImage("star")[se->_timer / 4 % 6], _pos.x, _pos.y - _hitBox[2] - 15, 1.0, _rad, LAYER::CHAR, _zOrder + 1, DX_BLENDMODE_NOBLEND, 0, false });
 			break;
 		}
 	}

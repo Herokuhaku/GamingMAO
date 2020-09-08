@@ -48,7 +48,7 @@ void MenuExecuter::Draw(void)
 	{
 		return;
 	}
-	lpImageMng.AddBackDraw({ lpImageMng.getImage("Menu")[0], scSize.x,scSize.y, 1.0, 0.0, LAYER::EX, 30, DX_BLENDMODE_NOBLEND, 0 });
+	lpImageMng.AddBackDraw({ lpImageMng.getImage("Menu")[0], scSize.x,scSize.y, 1.0, 0.0, LAYER::EX, 30, DX_BLENDMODE_NOBLEND, 0, true });
 	_currentMenu->Draw();
 	_pageChanger();
 	_pageChanger = []() {};

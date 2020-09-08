@@ -48,7 +48,7 @@ std::unique_ptr<BaseScene> OpeningAnimationScene::Update(std::unique_ptr<BaseSce
 	SetDrawScreen(_anmScreen);
 	ClsDrawScreen();
 	(this->*_draw)();
-	lpImageMng.AddBackDraw({ _anmScreen, lpSceneMng.ScreenSize.x / 2, lpSceneMng.ScreenSize.y / 2, 1.0, 0.0, LAYER::BG, 0, DX_BLENDMODE_NOBLEND, 0 });
+	lpImageMng.AddBackDraw({ _anmScreen, lpSceneMng.ScreenSize.x / 2, lpSceneMng.ScreenSize.y / 2, 1.0, 0.0, LAYER::BG, 0, DX_BLENDMODE_NOBLEND, 0, true });
 
 	SetDrawScreen(screen);
 	SetDrawBlendMode(blend, param);

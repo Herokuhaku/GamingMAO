@@ -33,6 +33,7 @@ Slime::Slime(const Vector2& pos, DIR dir, int stage, OBJ_TYPE target)
 	_lifetime = LIFE_TIME;
 	_stage = stage;
 	slimeCount++;
+	_isColored = true;
 
 	setHitOffset({ 24, 24, 18, 18 });
 

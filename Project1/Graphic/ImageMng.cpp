@@ -57,6 +57,9 @@ void ImageMng::Draw(void)
 			std::tie(std::get<static_cast<int>(DrawElm::LAYER)>(j), std::get<static_cast<int>(DrawElm::ZORDER)>(j)));
 	});
 
+
+	SetDrawScreen(_screen);
+	ClsDrawScreen();
 	SetDrawScreen(_workLayer);
 	ClsDrawScreen();
 
@@ -66,39 +69,68 @@ void ImageMng::Draw(void)
 		ClsDrawScreen();
 	}
 
+	int id, x, y, blend, prm;
+	double exRate, rad;
+	LAYER layer;
+	bool isColored = false, tmp = false;
+
+	int cx, cy;
+	cx = static_cast<int>(lpSceneMng.GetcPos().x - (SCREEN_SIZE_X / 2));
+	cy = static_cast<int>(lpSceneMng.GetcPos().y - (SCREEN_SIZE_Y / 2));
+
 	for (const auto& data : _drawList[0])
 	{
-		int id, x, y, blend, prm;
-		double exRate, rad;
-		LAYER layer;
+		std::tie(id, x, y, exRate, rad, layer, std::ignore, blend, prm, isColored) = data;
 
-		std::tie(id, x, y, exRate, rad, layer, std::ignore, blend, prm) = data;
 
-		if (blend != _oldBlend.first || prm != _oldBlend.second)
+
+		if (lpTimeMng.getTime() == TIME::FTR)
 		{
-			SetDrawBlendMode(blend, prm);
-			_oldBlend = { blend, prm };
+			if (isColored)
+			{
+				SetDrawScreen(_screen);
+				if (tmp != isColored)
+				{
+					SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+					GraphFilterRectBlt(_tmpWorkLayer, _workLayer, cx, cy, cx + SCREEN_SIZE_X, cy + SCREEN_SIZE_Y, cx, cy, DX_GRAPH_FILTER_HSB, 0, 0, -255, 0);
+					DrawRectGraph(0, 0, cx, cy, SCREEN_SIZE_X, SCREEN_SIZE_Y, _workLayer, true);
+				}
+				SetDrawBlendMode(blend, prm);
+				_oldBlend = { blend, prm };
+				DrawRotaGraph(x - cx, y - cy, exRate, rad, id, true);
+				SetDrawScreen(_tmpWorkLayer);
+				ClsDrawScreen();
+			}
+			else
+			{
+				if (blend != _oldBlend.first || prm != _oldBlend.second)
+				{
+					SetDrawBlendMode(blend, prm);
+					_oldBlend = { blend, prm };
+				}
+				DrawRotaGraph(x, y, exRate, rad, id, true);
+			}
+			tmp = isColored;
 		}
-
-		DrawRotaGraph(x, y, exRate, rad, id, true);
+		else
+		{
+			if (blend != _oldBlend.first || prm != _oldBlend.second)
+			{
+				SetDrawBlendMode(blend, prm);
+				_oldBlend = { blend, prm };
+			}
+			DrawRotaGraph(x, y, exRate, rad, id, true);
+		}
 	}
 
-	
-	SetDrawScreen(_screen);
-	ClsDrawScreen();
-
-	int x, y;
-	x = static_cast<int>(lpSceneMng.GetcPos().x - (SCREEN_SIZE_X / 2));
-	y = static_cast<int>(lpSceneMng.GetcPos().y - (SCREEN_SIZE_Y / 2));
-	
-	if (lpTimeMng.getTime() == TIME::FTR)
+	if (lpTimeMng.getTime() == TIME::FTR && !isColored)
 	{
 		//GraphFilter(_workLayer, DX_GRAPH_FILTER_HSB, 0, 0, -255, 0);
 		//GraphFilterBlt(_tmpWorkLayer, _workLayer, DX_GRAPH_FILTER_HSB, 0, 0, -255, 0);
-		GraphFilterRectBlt(_tmpWorkLayer, _workLayer, x, y, x + SCREEN_SIZE_X, y + SCREEN_SIZE_Y, x, y, DX_GRAPH_FILTER_HSB, 0, 0, -255, 0);
+		GraphFilterRectBlt(_tmpWorkLayer, _workLayer, cx, cy, cx + SCREEN_SIZE_X, cy + SCREEN_SIZE_Y, cx, cy, DX_GRAPH_FILTER_HSB, 0, 0, -255, 0);
 	}
-	
-	DrawRectGraph(0, 0, x, y, SCREEN_SIZE_X, SCREEN_SIZE_Y, _workLayer, false, false);
+	SetDrawScreen(_screen);
+	DrawRectGraph(0, 0, cx, cy, SCREEN_SIZE_X, SCREEN_SIZE_Y, _workLayer, true);
 
 	DrawBox(0, lpSceneMng.ScreenSize.y - 100, lpSceneMng.ScreenSize.x, lpSceneMng.ScreenSize.y, 0x123456,true);
 	DrawEffekseer2D_Begin();
@@ -111,7 +143,7 @@ void ImageMng::Draw(void)
 		double ex_rate, rad;
 		LAYER layer;
 
-		std::tie(id, x, y, ex_rate, rad, layer, std::ignore, blend, prm) = data;
+		std::tie(id, x, y, ex_rate, rad, layer, std::ignore, blend, prm, std::ignore) = data;
 
 		if (blend != _oldBlend.first || prm != _oldBlend.second)
 		{
@@ -127,8 +159,6 @@ void ImageMng::Draw(void)
 	DrawGraph(0,0,_screen,true);
 
 	ScreenEffect();
-	DrawFormatString(10, 10, 0xffffff, "fps %.3f", GetFPS());
-	DrawFormatString(10, 30, 0xffffff, "DC %d", GetDrawCallCount());
 
 	ScreenFlip();
 
@@ -150,6 +180,10 @@ void ImageMng::Draw(int screen, bool deleteFlag)
 			std::tie(std::get<static_cast<int>(DrawElm::LAYER)>(j), std::get<static_cast<int>(DrawElm::ZORDER)>(j)));
 	});
 
+
+
+	SetDrawScreen(_screen);
+	ClsDrawScreen();
 	SetDrawScreen(_workLayer);
 	ClsDrawScreen();
 
@@ -159,13 +193,18 @@ void ImageMng::Draw(int screen, bool deleteFlag)
 		ClsDrawScreen();
 	}
 
+	int id, x, y, blend, prm;
+	double exRate, rad;
+	LAYER layer;
+	bool isColored, tmp = false;
+
+	int cx, cy;
+	cx = static_cast<int>(lpSceneMng.GetcPos().x - (SCREEN_SIZE_X / 2));
+	cy = static_cast<int>(lpSceneMng.GetcPos().y - (SCREEN_SIZE_Y / 2));
+
 	for (const auto& data : _drawList[0])
 	{
-		int id, x, y, blend, prm;
-		double ex_rate, rad;
-		LAYER layer;
-
-		std::tie(id, x, y, ex_rate, rad, layer, std::ignore, blend, prm) = data;
+		std::tie(id, x, y, exRate, rad, layer, std::ignore, blend, prm, isColored) = data;
 
 		if (blend != _oldBlend.first || prm != _oldBlend.second)
 		{
@@ -173,24 +212,40 @@ void ImageMng::Draw(int screen, bool deleteFlag)
 			_oldBlend = { blend, prm };
 		}
 
-		DrawRotaGraph(x, y, ex_rate, rad, id, true);
+		if (lpTimeMng.getTime() == TIME::FTR)
+		{
+			if (isColored)
+			{
+				SetDrawScreen(_screen);
+				if (tmp != isColored)
+				{
+					GraphFilterRectBlt(_tmpWorkLayer, _workLayer, cx, cy, cx + SCREEN_SIZE_X, cy + SCREEN_SIZE_Y, cx, cy, DX_GRAPH_FILTER_HSB, 0, 0, -255, 0);
+					DrawRectGraph(0, 0, cx, cy, SCREEN_SIZE_X, SCREEN_SIZE_Y, _workLayer, true);
+				}
+				DrawRotaGraph(x - cx, y - cy, exRate, rad, id, true);
+				SetDrawScreen(_tmpWorkLayer);
+				ClsDrawScreen();
+			}
+			else
+			{
+				DrawRotaGraph(x, y, exRate, rad, id, true);
+			}
+			tmp = isColored;
+		}
+		else
+		{
+			DrawRotaGraph(x, y, exRate, rad, id, true);
+		}
 	}
 
-
-	SetDrawScreen(_screen);
-	ClsDrawScreen();
-
-	int x, y;
-	x = static_cast<int>(lpSceneMng.GetcPos().x - (SCREEN_SIZE_X / 2));
-	y = static_cast<int>(lpSceneMng.GetcPos().y - (SCREEN_SIZE_Y / 2));
-
-	if (lpTimeMng.getTime() == TIME::FTR)
+	if (lpTimeMng.getTime() == TIME::FTR && !isColored)
 	{
+		//GraphFilter(_workLayer, DX_GRAPH_FILTER_HSB, 0, 0, -255, 0);
 		//GraphFilterBlt(_tmpWorkLayer, _workLayer, DX_GRAPH_FILTER_HSB, 0, 0, -255, 0);
-		GraphFilterRectBlt(_tmpWorkLayer, _workLayer, x, y, x + SCREEN_SIZE_X, y + SCREEN_SIZE_Y, x, y, DX_GRAPH_FILTER_HSB, 0, 0, -255, 0);
+		GraphFilterRectBlt(_tmpWorkLayer, _workLayer, cx, cy, cx + SCREEN_SIZE_X, cy + SCREEN_SIZE_Y, cx, cy, DX_GRAPH_FILTER_HSB, 0, 0, -255, 0);
 	}
-
-	DrawRectGraph(0, 0, x, y, SCREEN_SIZE_X, SCREEN_SIZE_Y, _workLayer, false, false);
+	SetDrawScreen(_screen);
+	DrawRectGraph(0, 0, cx, cy, SCREEN_SIZE_X, SCREEN_SIZE_Y, _workLayer, true);
 
 	DrawBox(0, lpSceneMng.ScreenSize.y - 100, lpSceneMng.ScreenSize.x, lpSceneMng.ScreenSize.y, 0x123456, true);
 	DrawEffekseer2D_Begin();
@@ -203,7 +258,7 @@ void ImageMng::Draw(int screen, bool deleteFlag)
 		double ex_rate, rad;
 		LAYER layer;
 
-		std::tie(id, x, y, ex_rate, rad, layer, std::ignore, blend, prm) = data;
+		std::tie(id, x, y, ex_rate, rad, layer, std::ignore, blend, prm, std::ignore) = data;
 
 		if (blend != _oldBlend.first || prm != _oldBlend.second)
 		{
@@ -260,11 +315,11 @@ void ImageMng::UpdateEffect(void)
 
 			if (drawType == EffectDrawType::DRAW_TO_RELATIVE)
 			{
-				AddDraw({ _effectMap[key][count].first , posX, posY, ex_rate, rad, layer, zOrder, blend, prm });
+				AddDraw({ _effectMap[key][count].first , posX, posY, ex_rate, rad, layer, zOrder, blend, prm, true });
 			}
 			else if (drawType == EffectDrawType::DRAW_TO_ABSOLUTE)
 			{
-				AddBackDraw({ _effectMap[key][count].first , posX, posY, ex_rate, rad, layer, zOrder, blend, prm });
+				AddBackDraw({ _effectMap[key][count].first , posX, posY, ex_rate, rad, layer, zOrder, blend, prm, true });
 			}
 			else
 			{

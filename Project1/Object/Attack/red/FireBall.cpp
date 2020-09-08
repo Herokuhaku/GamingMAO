@@ -17,6 +17,7 @@ FireBall::FireBall(Vector2 pos, DIR dir, Vector2 vec, TIME time, int stage, OBJ_
 	_time = time;
 	_stage = stage;
 	_target = target;
+	_isColored = true;
 
 	_rad = atan2(_vec.y, _vec.x);
 	_update = &FireBall::FireballUpdate;

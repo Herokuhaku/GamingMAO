@@ -29,6 +29,7 @@ BlackHole::BlackHole(Vector2 pos, DIR dir, Vector2 vec, int lifetime, TIME time,
 	_lifetime = lifetime;
 	_timer = FINISH_DURATION;
 	_exRate = 1.5;
+	_isColored = true;
 
 	_rad = atan2(_vec.y, _vec.x);
 	_update = &BlackHole::NormalUpdate;
@@ -85,7 +86,7 @@ void BlackHole::Draw(void)
 
 	SetDrawScreen(tmps);
 	SetDrawBlendMode(tmpb, tmpp);
-	lpImageMng.AddDraw({ _screen, _pos.x, _pos.y - _drawOffset_y, 1.0, 0.0, LAYER::CHAR, _zOrder, DX_BLENDMODE_ALPHA, static_cast<int>(255.0f * static_cast<float>(_timer) / static_cast<float>(FINISH_DURATION)) });
+	lpImageMng.AddDraw({ _screen, _pos.x, _pos.y - _drawOffset_y, 1.0, 0.0, LAYER::CHAR, _zOrder, DX_BLENDMODE_ALPHA, static_cast<int>(255.0f * static_cast<float>(_timer) / static_cast<float>(FINISH_DURATION)), true });
 }
 
 void BlackHole::IfHitAttack(std::shared_ptr<Object> target)

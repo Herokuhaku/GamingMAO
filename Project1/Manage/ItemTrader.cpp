@@ -41,7 +41,7 @@ void ItemTrader::BagDraw(Vector2D pos , LAYER lay, Vector2 off, Vector2D rad)
 				if (!red)
 				{
 					data.first.pos = { _pos.x + (100 * no),_pos.y + off.x };
-					lpImageMng.AddBackDraw({ lpImageMng.getImage(data.first.image[0])[0],data.first.pos.x,data.first.pos.y, rad.x, 0.0,LAYER::EX, 110, DX_BLENDMODE_NOBLEND, 0 });
+					lpImageMng.AddBackDraw({ lpImageMng.getImage(data.first.image[0])[0],data.first.pos.x,data.first.pos.y, rad.x, 0.0,LAYER::EX, 110, DX_BLENDMODE_NOBLEND, 0, true });
 					no++;
 				}
 				red = true;
@@ -50,7 +50,7 @@ void ItemTrader::BagDraw(Vector2D pos , LAYER lay, Vector2 off, Vector2D rad)
 				if (!green)
 				{
 					data.first.pos = { _pos.x + (100 * no),_pos.y + off.x };
-					lpImageMng.AddBackDraw({ lpImageMng.getImage(data.first.image[0])[0],data.first.pos.x,data.first.pos.y, rad.x, 0.0,LAYER::EX, 110, DX_BLENDMODE_NOBLEND, 0 });
+					lpImageMng.AddBackDraw({ lpImageMng.getImage(data.first.image[0])[0],data.first.pos.x,data.first.pos.y, rad.x, 0.0,LAYER::EX, 110, DX_BLENDMODE_NOBLEND, 0, true });
 					no++;
 				}
 				green = true;
@@ -59,7 +59,7 @@ void ItemTrader::BagDraw(Vector2D pos , LAYER lay, Vector2 off, Vector2D rad)
 				if (!blue)
 				{
 					data.first.pos = { _pos.x + (100 * no),_pos.y + off.x };
-					lpImageMng.AddBackDraw({ lpImageMng.getImage(data.first.image[0])[0],data.first.pos.x,data.first.pos.y, rad.x, 0.0,LAYER::EX, 110, DX_BLENDMODE_NOBLEND, 0 });
+					lpImageMng.AddBackDraw({ lpImageMng.getImage(data.first.image[0])[0],data.first.pos.x,data.first.pos.y, rad.x, 0.0,LAYER::EX, 110, DX_BLENDMODE_NOBLEND, 0, true });
 					no++;
 				}
 				blue = true;
@@ -83,8 +83,8 @@ void ItemTrader::ToolDraw(Vector2 pos, LAYER lay, Vector2 off, Vector2D rad)
 		}
 		if (data.first.tool == _drawtool[count])
 		{
-			lpImageMng.AddBackDraw({ lpImageMng.getImage(data.first.image[0])[0],cos(RAD(count * 45.0)-45.0) * 75.0,
-				sin(RAD(count*45.0)-45.0) * 75.0,rad.x,0.0,LAYER::EX,120,DX_BLENDMODE_NOBLEND,0 });
+			lpImageMng.AddBackDraw({ lpImageMng.getImage(data.first.image[0])[0],cos(RAD(count * 45.0) - 45.0) * 75.0,
+				sin(RAD(count*45.0) - 45.0) * 75.0,rad.x,0.0,LAYER::EX,120,DX_BLENDMODE_NOBLEND,0,true });
 			count++;
 		}
 	}

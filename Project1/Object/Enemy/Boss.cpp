@@ -71,6 +71,6 @@ void Boss::funcDrawHP(void)
 		{
 			tmpNum = 2;
 		}
-		lpImageMng.AddBackDraw({ lpImageMng.getImage("hp_bar")[tmpNum],  (6 * 3) * i + 19 ,(12 * 3) / 2, 3.0, 0.0, LAYER::EX, 0, DX_BLENDMODE_NOBLEND, 0 });
+		lpImageMng.AddBackDraw({ lpImageMng.getImage("hp_bar")[tmpNum],  (6 * 3) * i + 19 ,(12 * 3) / 2, 3.0, 0.0, LAYER::EX, 0, DX_BLENDMODE_NOBLEND, 0, true });
 	}
 }

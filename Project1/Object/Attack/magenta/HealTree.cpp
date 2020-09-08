@@ -23,6 +23,7 @@ HealTree::HealTree(Vector2 pos, TIME time, int stage, OBJ_TYPE target)
 	_stage = stage;
 	_target = target;
 	_exRate = 1.5;
+	_isColored = true;
 
 	_update = &HealTree::GrowUpdate;
 	setState({ OBJ_STATE::A_NORMAL, DIR::RIGHT });

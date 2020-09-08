@@ -309,7 +309,7 @@ void MapMng::PTDraw(portal_t* test)
 
 		if (test->startF)
 		{
-			lpImageMng.AddDraw({ test->image[test->animKind][test->animFlame],pos.x,pos.y, 3.0, 0.0, LAYER::CHAR, 100, DX_BLENDMODE_NOBLEND, 0 });
+			lpImageMng.AddDraw({ test->image[test->animKind][test->animFlame],pos.x,pos.y, 3.0, 0.0, LAYER::CHAR, 100, DX_BLENDMODE_NOBLEND, 0, false });
 
 			test->icnt++;
 			if (test->imagecnt[test->animKind][test->animFlame] < test->icnt)
@@ -354,13 +354,13 @@ void MapMng::PTDraw(portal_t* test)
 
 void MapMng::BlockDraw()
 {
-	lpImageMng.AddDraw({ _layer[nowStage.second], GameMapSize.x / 2, GameMapSize.y / 2, 1.0, 0.0, LAYER::BLOCK, 0, DX_BLENDMODE_NOBLEND, 0 });
+	lpImageMng.AddDraw({ _layer[nowStage.second], GameMapSize.x / 2, GameMapSize.y / 2, 1.0, 0.0, LAYER::BLOCK, 0, DX_BLENDMODE_NOBLEND, 0, false });
 }
 
 void MapMng::BackGround(void)
 {
 	// 描画用データ　画像ID, 座標x, y, 角度, レイヤー, zオーダー
-	lpImageMng.AddDraw({ lpImageMng.getImage("メイン背景")[0], GameMapSize.x / 2, GameMapSize.y / 2, 1.0, 0.0, LAYER::BG, 0, DX_BLENDMODE_NOBLEND, 0 });
+	lpImageMng.AddDraw({ lpImageMng.getImage("メイン背景")[0], GameMapSize.x / 2, GameMapSize.y / 2, 1.0, 0.0, LAYER::BG, 0, DX_BLENDMODE_NOBLEND, 0, false });
 
 	int layerPosX = static_cast<int>(lpSceneMng.GetcPos().x + ((500 - lpSceneMng.GetcPos().x) / 2));
 	int layerPosY = static_cast<int>(GameMapSize.y / 2 - ((1171 - lpSceneMng.GetcPos().y) / 7));
@@ -368,9 +368,9 @@ void MapMng::BackGround(void)
 	int layerPosX2 = static_cast<int>(lpSceneMng.GetcPos().x + ((500 - lpSceneMng.GetcPos().x) / 4));
 	int layerPosY2 = static_cast<int>(GameMapSize.y / 2 - ((1171 - lpSceneMng.GetcPos().y) / 4));
 
-	lpImageMng.AddDraw({ _layer0, GameMapSize.x / 2, GameMapSize.y / 2, 1.0, 0.0, LAYER::BG, 3, DX_BLENDMODE_NOBLEND, 2 });
-	lpImageMng.AddDraw({ _layer1, layerPosX		   , layerPosY		  , 1.0, 0.0, LAYER::BG, 2, DX_BLENDMODE_NOBLEND, 1 });
-	lpImageMng.AddDraw({ _layer2, layerPosX2	   , layerPosY2		  , 1.0, 0.0, LAYER::BG, 1, DX_BLENDMODE_NOBLEND, 0 });
+	lpImageMng.AddDraw({ _layer0, GameMapSize.x / 2, GameMapSize.y / 2, 1.0, 0.0, LAYER::BG, 3, DX_BLENDMODE_NOBLEND, 2, false });
+	lpImageMng.AddDraw({ _layer1, layerPosX		   , layerPosY		  , 1.0, 0.0, LAYER::BG, 2, DX_BLENDMODE_NOBLEND, 1, false });
+	lpImageMng.AddDraw({ _layer2, layerPosX2	   , layerPosY2		  , 1.0, 0.0, LAYER::BG, 1, DX_BLENDMODE_NOBLEND, 0, false });
 }
 
 void MapMng::BlockLayer(void)

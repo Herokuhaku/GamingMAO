@@ -168,6 +168,8 @@ protected:
 
 	bool _alive;					// ¶‚«‚Ä‚é‚©
 
+	bool _isColored = false;
+
 	std::vector<std::unique_ptr<StateEffect>> _sEff; // ó‘ÔˆÙí
 	void DrawStateEffect(void);
 

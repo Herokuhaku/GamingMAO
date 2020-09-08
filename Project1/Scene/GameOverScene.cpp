@@ -151,5 +151,5 @@ void GameOverScene::Draw(void)
 
 	SetDrawScreen(tmpScreen);
 
-	lpImageMng.AddBackDraw({ _gameOverScreen, lpSceneMng.ScreenSize.x / 2, lpSceneMng.ScreenSize.y / 2, 1.0, 0.0, LAYER::EX, 1000, DX_BLENDMODE_NOBLEND, 0 });
+	lpImageMng.AddBackDraw({ _gameOverScreen, lpSceneMng.ScreenSize.x / 2, lpSceneMng.ScreenSize.y / 2, 1.0, 0.0, LAYER::EX, 1000, DX_BLENDMODE_NOBLEND, 0, true });
 }

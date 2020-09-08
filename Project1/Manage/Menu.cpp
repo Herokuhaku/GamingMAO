@@ -82,12 +82,12 @@ void Menu::ItemDraw(int tmp,Vector2 pos,Vector2 offset,Vector2 stroffset,LAYER l
 		std::string _no = std::to_string(lpTradeMng.getrock().at(i));
 		if (i < 3)
 		{
-			lpImageMng.AddBackDraw({ lpImageMng.getImage(no)[0], _pos.x + (i * offset.x),_pos.y, 1.0, 0.0, lay,_zorder.item, DX_BLENDMODE_NOBLEND, 0 });
+			lpImageMng.AddBackDraw({ lpImageMng.getImage(no)[0], _pos.x + (i * offset.x),_pos.y, 1.0, 0.0, lay,_zorder.item, DX_BLENDMODE_NOBLEND, 0, true });
 			lpStrAdd.AddStringDraw(_no.c_str(), "SQUARE_BIG", _pos.x + (i * offset.x) + stroffset.x, _pos.y - stroffset.y, 0xffff00, DRAW_TO_LEFT);
 		}
 		else
 		{
-			lpImageMng.AddBackDraw({ lpImageMng.getImage(no)[0], _pos.x - (3 * offset.x) + (i * offset.x),_pos.y + offset.y, 1.0, 0.0, lay,_zorder.item, DX_BLENDMODE_NOBLEND, 0 });
+			lpImageMng.AddBackDraw({ lpImageMng.getImage(no)[0], _pos.x - (3 * offset.x) + (i * offset.x),_pos.y + offset.y, 1.0, 0.0, lay,_zorder.item, DX_BLENDMODE_NOBLEND, 0, true });
 			lpStrAdd.AddStringDraw(_no.c_str(), "SQUARE_BIG", _pos.x - (3 * offset.x) + (i * offset.x) + stroffset.x, _pos.y + stroffset.y, 0xffff00, DRAW_TO_LEFT);
 		}
 		_tmp++;
@@ -488,35 +488,35 @@ void Menu::SelectCount(int& select, int thumb,int count)
 void Menu::SelectDraw(void)
 {
 	// •—˜C•~‚Ì•`‰æ
-	lpImageMng.AddBackDraw({ lpImageMng.getImage("Menu")[0], _cpos.x,_cpos.y, 1.0, 0.0, LAYER::EX, _zorder.furoshiki, DX_BLENDMODE_NOBLEND, 0 });
+	lpImageMng.AddBackDraw({ lpImageMng.getImage("Menu")[0], _cpos.x,_cpos.y, 1.0, 0.0, LAYER::EX, _zorder.furoshiki, DX_BLENDMODE_NOBLEND, 0, true });
 
 	// –îˆó‚Ì•`‰æ
-	lpImageMng.AddBackDraw({ lpImageMng.getImage("Arrow")[0], _cpos.x - 300, _cpos.y - 150 + (100 * _select), 1.0, 0, LAYER::EX, _zorder.arrow, DX_BLENDMODE_NOBLEND, 0 });
+	lpImageMng.AddBackDraw({ lpImageMng.getImage("Arrow")[0], _cpos.x - 300, _cpos.y - 150 + (100 * _select), 1.0, 0, LAYER::EX, _zorder.arrow, DX_BLENDMODE_NOBLEND, 0, true });
 
 	// ‡¬‚Ì•¶Žš•`‰æ
 	//lpStrAdd({"F‡¬"})
-	lpImageMng.AddBackDraw({ lpImageMng.getImage("Mix")[0], _cpos.x - 200, _cpos.y - 50, 1.0, 0.0, LAYER::EX, _zorder.item, DX_BLENDMODE_NOBLEND, 0 });
+	lpImageMng.AddBackDraw({ lpImageMng.getImage("Mix")[0], _cpos.x - 200, _cpos.y - 50, 1.0, 0.0, LAYER::EX, _zorder.item, DX_BLENDMODE_NOBLEND, 0, true });
 }
 
 void Menu::MixDraw(void)
 {
 	// •—˜C•~‚Ì•`‰æ
-	lpImageMng.AddBackDraw({ lpImageMng.getImage("Menu")[0], _cpos.x, _cpos.y, 1.0, 0.0, LAYER::EX,_zorder.furoshiki, DX_BLENDMODE_NOBLEND, 0 });
+	lpImageMng.AddBackDraw({ lpImageMng.getImage("Menu")[0], _cpos.x, _cpos.y, 1.0, 0.0, LAYER::EX,_zorder.furoshiki, DX_BLENDMODE_NOBLEND, 0, true });
 
 	// ƒAƒCƒeƒ€‘I‘ð
 	for (int x = 0;x < 3;x++)
 	{
-		lpImageMng.AddBackDraw({ lpImageMng.getImage("Space")[0], _cpos.x - 200 + (_offpush.x * x), _cpos.y - _offpush.y, 1.0, 0.0, LAYER::EX,_zorder.space, DX_BLENDMODE_NOBLEND, 0 });
+		lpImageMng.AddBackDraw({ lpImageMng.getImage("Space")[0], _cpos.x - 200 + (_offpush.x * x), _cpos.y - _offpush.y, 1.0, 0.0, LAYER::EX,_zorder.space, DX_BLENDMODE_NOBLEND, 0, true });
 	}
 
 	// –îˆó
 	if (_select2 == 0)
 	{
-		lpImageMng.AddBackDraw({ lpImageMng.getImage("Arrow")[0], _cpos.x - 300 + (_offpush.x * _select), _cpos.y - _offpush.y, 1.0, 0.0, LAYER::EX,_zorder.arrow, DX_BLENDMODE_NOBLEND, 0 });
+		lpImageMng.AddBackDraw({ lpImageMng.getImage("Arrow")[0], _cpos.x - 300 + (_offpush.x * _select), _cpos.y - _offpush.y, 1.0, 0.0, LAYER::EX,_zorder.arrow, DX_BLENDMODE_NOBLEND, 0, true });
 	}
 	else
 	{
-		lpImageMng.AddBackDraw({ lpImageMng.getImage("Arrow")[0], _cpos.x - 75, _cpos.y + 100, 1.0, 0.0, LAYER::EX, _zorder.arrow, DX_BLENDMODE_NOBLEND, 0 });
+		lpImageMng.AddBackDraw({ lpImageMng.getImage("Arrow")[0], _cpos.x - 75, _cpos.y + 100, 1.0, 0.0, LAYER::EX, _zorder.arrow, DX_BLENDMODE_NOBLEND, 0, true });
 	}
 
 	// ‘I‘ðŒã
@@ -530,7 +530,7 @@ void Menu::ItemSelectDraw(void)
 		if (data.first.itemtype != ITEM_TYPE::NON)
 		{
 			data.first.pos = { _cpos.x - 200 + (_offpush.x * (data.second)),_cpos.y - _offpush.y };
-			lpImageMng.AddBackDraw({ lpImageMng.getImage(data.first.image[0])[0],data.first.pos.x,data.first.pos.y, 1.0, 0.0,LAYER::EX, _zorder.item, DX_BLENDMODE_NOBLEND, 0 });
+			lpImageMng.AddBackDraw({ lpImageMng.getImage(data.first.image[0])[0],data.first.pos.x,data.first.pos.y, 1.0, 0.0,LAYER::EX, _zorder.item, DX_BLENDMODE_NOBLEND, 0, true });
 		}
 	}
 }
@@ -544,7 +544,7 @@ void Menu::Item(SELECT_ITEM item)
 	{
 		_sItem.at(no).first.pos = { _cpos.x,_cpos.y - _offpush.y };
 		lpImageMng.AddBackDraw({ lpImageMng.getImage(_sItem.at(no).first.image[0])[0],_sItem.at(no).first.pos.x,
-			_sItem.at(no).first.pos.y, 1.0, 0.0,LAYER::EX,_zorder.item, DX_BLENDMODE_NOBLEND, 0 });
+			_sItem.at(no).first.pos.y, 1.0, 0.0,LAYER::EX,_zorder.item, DX_BLENDMODE_NOBLEND, 0, true });
 	}
 
 	// ƒAƒCƒeƒ€‘I‘ð
@@ -566,12 +566,12 @@ void Menu::ItemSelectD(int no)
 	std::string image;
 
 	// •—˜C•~‚Æ˜g
-	lpImageMng.AddBackDraw({ lpImageMng.getImage("Menu")[0], _cpos.x, _cpos.y, 1.0, 0.0, LAYER::EX, _zorder.furoshiki, DX_BLENDMODE_NOBLEND, 0 });
-	lpImageMng.AddBackDraw({ lpImageMng.getImage("Space")[0], _cpos.x, _cpos.y - _offpush.y, 1.0, 0.0, LAYER::EX,_zorder.space, DX_BLENDMODE_NOBLEND, 0 });
+	lpImageMng.AddBackDraw({ lpImageMng.getImage("Menu")[0], _cpos.x, _cpos.y, 1.0, 0.0, LAYER::EX, _zorder.furoshiki, DX_BLENDMODE_NOBLEND, 0, true });
+	lpImageMng.AddBackDraw({ lpImageMng.getImage("Space")[0], _cpos.x, _cpos.y - _offpush.y, 1.0, 0.0, LAYER::EX,_zorder.space, DX_BLENDMODE_NOBLEND, 0, true });
 
 	// –îˆó
 	lpImageMng.AddBackDraw({ lpImageMng.getImage("Arrow")[0], (_cpos.x - 200) + (_select * 75),
-		_cpos.y -50 +(_select2 *100), 1.0, 0.0, LAYER::EX, _zorder.arrow, DX_BLENDMODE_NOBLEND, 0 });
+		_cpos.y -50 +(_select2 *100), 1.0, 0.0, LAYER::EX, _zorder.arrow, DX_BLENDMODE_NOBLEND, 0, true });
 
 	//ItemDraw(510, { _cpos.x - 200 ,_cpos.y }, { 200,150 }, {40,100}, LAYER::EX);
 	//lpTradeMng.BagDraw({ static_cast<double>(_cpos.x) - 200.0, static_cast<double>(_cpos.y)-50.0 }, LAYER::EX, { 0,100 }, {0.75,0.75});
@@ -582,7 +582,7 @@ void Menu::ItemSelectD(int no)
 	for (int i = 0;i < 3;i++)
 	{
 		image = std::to_string(tmp);
-		lpImageMng.AddBackDraw({ lpImageMng.getImage(image)[0], pos.x + (i * 75),pos.y, 0.75, 0.0, LAYER::EX,_zorder.item, DX_BLENDMODE_NOBLEND, 0 });
+		lpImageMng.AddBackDraw({ lpImageMng.getImage(image)[0], pos.x + (i * 75),pos.y, 0.75, 0.0, LAYER::EX,_zorder.item, DX_BLENDMODE_NOBLEND, 0, true });
 		tmp++;
 	}
 	// Î
@@ -592,7 +592,7 @@ void Menu::ItemSelectD(int no)
 	{
 		image = std::to_string(tmp);
 		std::string _no = std::to_string(lpTradeMng.getrock().at(i));
-		lpImageMng.AddBackDraw({ lpImageMng.getImage(image)[0], pos.x + (i * 75),pos.y, 0.75, 0.0, LAYER::EX,_zorder.item, DX_BLENDMODE_NOBLEND, 0 });
+		lpImageMng.AddBackDraw({ lpImageMng.getImage(image)[0], pos.x + (i * 75),pos.y, 0.75, 0.0, LAYER::EX,_zorder.item, DX_BLENDMODE_NOBLEND, 0, true });
 		lpStrAdd.AddStringDraw(_no.c_str(), "SQUARE_BIG", pos.x + (i * 75), pos.y,0x000000, DRAW_TO_CENTER);
 		tmp++;
 	}
@@ -603,7 +603,7 @@ void Menu::ItemSelectD(int no)
 	for (int i = 0;i < 6;i++)
 	{
 		image = std::to_string(tmp);
-		lpImageMng.AddBackDraw({ lpImageMng.getImage(image)[0], pos.x + (i * 75),pos.y, 0.75, 0.0, LAYER::EX,_zorder.item, DX_BLENDMODE_NOBLEND, 0 });
+		lpImageMng.AddBackDraw({ lpImageMng.getImage(image)[0], pos.x + (i * 75),pos.y, 0.75, 0.0, LAYER::EX,_zorder.item, DX_BLENDMODE_NOBLEND, 0, true });
 		tmp++;
 	}
 

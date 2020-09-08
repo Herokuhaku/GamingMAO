@@ -34,6 +34,7 @@ IceShot::IceShot(std::weak_ptr<Object> owner, Vector2 offset, DIR dir, Vector2 v
 	_target = target;
 	_type = OBJ_TYPE::ATTACK;
 	_timer = 0;
+	_isColored = true;
 
 	_rad = atan2(_vec.y, _vec.x);
 	_exRate = 1.0;
@@ -192,11 +193,11 @@ void IceShot::ChargeDraw(void)
 	if (_state_dir.second != DIR::NORMAL)
 	{
 		std::pair<OBJ_STATE, DIR> sd = _owner.lock()->getState();
-		lpImageMng.AddDraw({ lpImageMng.getImage("ice_shot")[_timer / ANM_SPEED], op.x + (_offset.x * (static_cast<int>(sd.second) - 1)), op.y + _offset.y, _exRate, _rad, LAYER::CHAR, _zOrder, DX_BLENDMODE_NOBLEND, 0 });
+		lpImageMng.AddDraw({ lpImageMng.getImage("ice_shot")[_timer / ANM_SPEED], op.x + (_offset.x * (static_cast<int>(sd.second) - 1)), op.y + _offset.y, _exRate, _rad, LAYER::CHAR, _zOrder, DX_BLENDMODE_NOBLEND, 0, true });
 	}
 	else
 	{
-		lpImageMng.AddDraw({ lpImageMng.getImage("ice_shot")[_timer / ANM_SPEED], op.x + _offset.x, op.y + _offset.y, _exRate, _rad, LAYER::CHAR, _zOrder, DX_BLENDMODE_NOBLEND, 0 });
+		lpImageMng.AddDraw({ lpImageMng.getImage("ice_shot")[_timer / ANM_SPEED], op.x + _offset.x, op.y + _offset.y, _exRate, _rad, LAYER::CHAR, _zOrder, DX_BLENDMODE_NOBLEND, 0, true });
 	}
 }
 
@@ -212,15 +213,15 @@ void IceShot::ShotDraw(void)
 		{
 			std::pair<OBJ_STATE, DIR> sd = _owner.lock()->getState();
 			DrawRotaGraph2(ICE_SCREEN_SIZE / 2, ICE_SCREEN_SIZE / 2, ICE_SCREEN_SIZE / 8, ICE_SCREEN_SIZE / 4, _exRate, _rad, lpImageMng.getImage("ice_shot")[_timer / ANM_SPEED + CHARGE_FLAME], true);
-			lpImageMng.AddDraw({ _screen, op.x + (_offset.x * (static_cast<int>(sd.second) - 1)), op.y + _offset.y, 1.0, 0.0, LAYER::CHAR, _zOrder - 1, DX_BLENDMODE_NOBLEND, 0 });
+			lpImageMng.AddDraw({ _screen, op.x + (_offset.x * (static_cast<int>(sd.second) - 1)), op.y + _offset.y, 1.0, 0.0, LAYER::CHAR, _zOrder - 1, DX_BLENDMODE_NOBLEND, 0, true });
 		}
 		else
 		{
 			DrawRotaGraph2(ICE_SCREEN_SIZE / 2, ICE_SCREEN_SIZE / 2, ICE_SCREEN_SIZE / 8, ICE_SCREEN_SIZE / 4, _exRate, _rad, lpImageMng.getImage("ice_shot")[_timer / ANM_SPEED + CHARGE_FLAME], true);
-			lpImageMng.AddDraw({ _screen, op.x + _offset.x, op.y + _offset.y, 1.0, 0.0, LAYER::CHAR, _zOrder - 1, DX_BLENDMODE_NOBLEND, 0 });
+			lpImageMng.AddDraw({ _screen, op.x + _offset.x, op.y + _offset.y, 1.0, 0.0, LAYER::CHAR, _zOrder - 1, DX_BLENDMODE_NOBLEND, 0, true });
 		}
 	}
-	lpImageMng.AddDraw({ lpImageMng.getImage("ice_shot")[CHARGE_FLAME + SHOT_FLAME], _pos.x, _pos.y, _exRate, _shotRad, LAYER::CHAR, _zOrder, DX_BLENDMODE_NOBLEND, 0 });
+	lpImageMng.AddDraw({ lpImageMng.getImage("ice_shot")[CHARGE_FLAME + SHOT_FLAME], _pos.x, _pos.y, _exRate, _shotRad, LAYER::CHAR, _zOrder, DX_BLENDMODE_NOBLEND, 0, true });
 }
 
 void IceShot::FlyingDraw(void)
@@ -229,5 +230,5 @@ void IceShot::FlyingDraw(void)
 	{
 		return;
 	}
-	lpImageMng.AddDraw({ lpImageMng.getImage("ice_shot")[CHARGE_FLAME + SHOT_FLAME], _pos.x, _pos.y, _exRate, _shotRad, LAYER::CHAR, _zOrder, DX_BLENDMODE_NOBLEND, 0 });
+	lpImageMng.AddDraw({ lpImageMng.getImage("ice_shot")[CHARGE_FLAME + SHOT_FLAME], _pos.x, _pos.y, _exRate, _shotRad, LAYER::CHAR, _zOrder, DX_BLENDMODE_NOBLEND, 0, true });
 }

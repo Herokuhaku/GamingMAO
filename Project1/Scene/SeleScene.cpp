@@ -107,7 +107,7 @@ std::unique_ptr<BaseScene> SeleScene::Update(std::unique_ptr<BaseScene> own)
 		return std::make_unique<SeleScene>();
 	}
 
-	lpImageMng.AddBackDraw({ lpImageMng.getImage("Select")[0], 300, 250, 1.0, 0.0, LAYER::BG, 0, DX_BLENDMODE_NOBLEND, 0 });
-	lpImageMng.AddBackDraw({ lpImageMng.getImage("Arrow")[0], arrow.x, arrow.y, 1.0, 0.0, LAYER::UI, 0, DX_BLENDMODE_NOBLEND, 0 });
+	lpImageMng.AddBackDraw({ lpImageMng.getImage("Select")[0], 300, 250, 1.0, 0.0, LAYER::BG, 0, DX_BLENDMODE_NOBLEND, 0, true });
+	lpImageMng.AddBackDraw({ lpImageMng.getImage("Arrow")[0], arrow.x, arrow.y, 1.0, 0.0, LAYER::UI, 0, DX_BLENDMODE_NOBLEND, 0, true });
 	return own;
 }

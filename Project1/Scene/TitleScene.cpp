@@ -124,7 +124,7 @@ std::unique_ptr<BaseScene> TitleScene::Update(std::unique_ptr<BaseScene> own)
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
 	(this->*_draw)();
-	lpImageMng.AddBackDraw({ _titleScreen, lpSceneMng.ScreenSize.x / 2, lpSceneMng.ScreenSize.y / 2, 1.0, 0.0, LAYER::BG, 0, DX_BLENDMODE_NOBLEND, 0 });
+	lpImageMng.AddBackDraw({ _titleScreen, lpSceneMng.ScreenSize.x / 2, lpSceneMng.ScreenSize.y / 2, 1.0, 0.0, LAYER::BG, 0, DX_BLENDMODE_NOBLEND, 0, true });
 	
 	SetDrawScreen(tmpScreen);
 	SetDrawBlendMode(tmpBlend, tmpParam);

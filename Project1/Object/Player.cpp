@@ -176,7 +176,7 @@ void Player::Draw(void)
 		{
 			tmpNum = 2;
 		}
-		lpImageMng.AddDraw({ lpImageMng.getImage("hp_bar")[tmpNum], _pos.x - 27 + 6 * i, _pos.y - 60 - _drawOffset_y, 1.0, 0.0, LAYER::CHAR, 160, DX_BLENDMODE_NOBLEND, 0 });
+		lpImageMng.AddDraw({ lpImageMng.getImage("hp_bar")[tmpNum], _pos.x - 27 + 6 * i, _pos.y - 60 - _drawOffset_y, 1.0, 0.0, LAYER::CHAR, 160, DX_BLENDMODE_NOBLEND, 0, false });
 	}
 	HistoryDraw();
 }
@@ -537,7 +537,6 @@ void Player::ControlDash(void)
 	{
 		_control = &Player::ControlNormal;
 		setState({ OBJ_STATE::NORMAL, _dashDir });
-		StateRotate();
 		_writeHistory = false;
 		return;
 	}
@@ -873,7 +872,7 @@ void Player::HistoryDraw(void)
 		{
 			continue;
 		}
-		lpImageMng.AddDraw({ lpImageMng.getImage("player_dash")[static_cast<int>(_dashDir)], d.first.x, d.first.y - _drawOffset_y, 1.0, 0.0, LAYER::CHAR, _zOrder - 1, DX_BLENDMODE_ALPHA, 120 });
+		lpImageMng.AddDraw({ lpImageMng.getImage("player_dash")[static_cast<int>(_dashDir)], d.first.x, d.first.y - _drawOffset_y, 1.0, 0.0, LAYER::CHAR, _zOrder - 1, DX_BLENDMODE_ALPHA, 150, false });
 	}
 }
 

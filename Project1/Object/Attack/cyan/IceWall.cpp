@@ -8,6 +8,7 @@ IceWall::IceWall(Vector2 pos, TIME time, int stage, OBJ_TYPE target)
 	_time = time;
 	_stage = stage;
 	_target = target;
+	_isColored = true;
 
 	setState({ OBJ_STATE::NORMAL, DIR::LEFT });
 

@@ -21,6 +21,7 @@ BombThrow::BombThrow(Vector2 pos, DIR dir, int speed, double vel, TIME time, int
 	_stage = stage;
 	_rad = 0.0;
 	_target = target;
+	_isColored = true;
 
 	_type = OBJ_TYPE::ATTACK;
 	_update = &BombThrow::BombUpdate;

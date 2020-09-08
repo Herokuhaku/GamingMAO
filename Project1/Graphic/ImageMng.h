@@ -57,7 +57,7 @@ enum class EffectDrawType
 
 #define lpImageMng ImageMng::GetInstance()
 
-using DrawData = std::tuple<int, int, int, double, double,  LAYER, int, int, int>;	// 描画用データ　画像ID, 座標x, y, 拡大率、角度, レイヤー, zオーダー、ブレンド、パラメータ
+using DrawData = std::tuple<int, int, int, double, double,  LAYER, int, int, int, bool>;	// 描画用データ　画像ID, 座標x, y, 拡大率、角度, レイヤー, zオーダー、ブレンド、パラメータ
 using EffectData = std::vector<std::pair<int, int>>;
 
 class ImageMng

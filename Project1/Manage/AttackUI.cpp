@@ -132,7 +132,7 @@ void AttackUI::Draw(void)
 	SetDrawScreen(tmpScreen);
 
 	// ÉXÉNÉäÅ[ÉìÇï`âÊÇµÇƒÇ‡ÇÁÇ§
-	lpImageMng.AddBackDraw({ _uiScreen, DRAW_OFFSET_X, DRAW_OFFSET_Y, 1.0, 0.0, LAYER::EX, Z_ORDER, DX_BLENDMODE_NOBLEND, 0 });
+	lpImageMng.AddBackDraw({ _uiScreen, DRAW_OFFSET_X, DRAW_OFFSET_Y, 1.0, 0.0, LAYER::EX, Z_ORDER, DX_BLENDMODE_NOBLEND, 0, true });
 }
 
 COLOR AttackUI::GetAttackColor(void)

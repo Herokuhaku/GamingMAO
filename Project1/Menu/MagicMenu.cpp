@@ -97,7 +97,7 @@ void MagicMenu::Draw(void)
 	DrawMenuBox(BOX_OFFSET_X, BOX_OFFSET_Y, BOX_SIZE_X, BOX_SIZE_Y, 0x333333, 0xffffff, 220);
 
 	(this->*_draw)();
-	lpImageMng.AddBackDraw({ _screen, lpSceneMng.ScreenSize.x / 2, lpSceneMng.ScreenSize.y / 2, 1.0, 0.0, LAYER::EX, 1001, DX_BLENDMODE_NOBLEND, 0 });
+	lpImageMng.AddBackDraw({ _screen, lpSceneMng.ScreenSize.x / 2, lpSceneMng.ScreenSize.y / 2, 1.0, 0.0, LAYER::EX, 1001, DX_BLENDMODE_NOBLEND, 0, true });
 
 	SetDrawScreen(tmpScreen);
 	SetDrawBlendMode(tmpBlend, tmpParam);

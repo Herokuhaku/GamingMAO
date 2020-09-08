@@ -47,5 +47,5 @@ void Rock::Update(void)
 
 void Rock::Draw(void)
 {
-	lpImageMng.AddDraw({ lpImageMng.getImage("rock")[0], _pos.x, _pos.y, 2.0, 0.0, LAYER::CHAR, -15, DX_BLENDMODE_NOBLEND, 0 });
+	lpImageMng.AddDraw({ lpImageMng.getImage("rock")[0], _pos.x, _pos.y, 2.0, 0.0, LAYER::CHAR, -15, DX_BLENDMODE_NOBLEND, 0, false });
 }

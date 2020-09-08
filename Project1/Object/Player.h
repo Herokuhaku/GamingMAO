@@ -91,7 +91,7 @@ private:
 
 	std::unique_ptr<StopTime> _stopTime;
 
-	static constexpr int HISTORY_COUNT = 5;
+	static constexpr int HISTORY_COUNT = 10;
 	int _dashTimer;
 	std::array<std::pair<Vector2F, DIR>, HISTORY_COUNT> _dashHistory;
 	bool _writeHistory = false;

@@ -63,7 +63,7 @@ void SelectMenu::Draw(void)
 		if (i == _cursor)
 		{
 			color = 0xff4444;
-			lpImageMng.AddBackDraw({ lpImageMng.getImage("cursor")[0], _parts[i]->_pos.x - 40, _parts[i]->_pos.y + 25, 1.0, 0.0, LAYER::EX, 1001, DX_BLENDMODE_NOBLEND, 0 });
+			lpImageMng.AddBackDraw({ lpImageMng.getImage("cursor")[0], _parts[i]->_pos.x - 40, _parts[i]->_pos.y + 25, 1.0, 0.0, LAYER::EX, 1001, DX_BLENDMODE_NOBLEND, 0, true });
 		}
 		_parts[i]->Draw(color);
 	}

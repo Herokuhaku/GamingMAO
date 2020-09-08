@@ -16,6 +16,7 @@ Bubble::Bubble(Vector2 pos, TIME time, int stage, OBJ_TYPE target)
 	_stage = stage;
 	_target = target;
 	_state_dir = { OBJ_STATE::NORMAL, DIR::LEFT };
+	_isColored = true;
 
 	Init();
 }

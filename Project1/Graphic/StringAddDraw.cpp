@@ -55,7 +55,7 @@ int StringAddDraw::AddStringDraw(const char* string, const std::string& font_key
 
 void StringAddDraw::Draw()
 {
-	lpImageMng.AddBackDraw({ _strScreen, lpSceneMng.ScreenSize.x / 2, lpSceneMng.ScreenSize.y / 2, 1.0, 0.0, LAYER::EX, 100000, DX_BLENDMODE_NOBLEND, 0 });
+	lpImageMng.AddBackDraw({ _strScreen, lpSceneMng.ScreenSize.x / 2, lpSceneMng.ScreenSize.y / 2, 1.0, 0.0, LAYER::EX, 100000, DX_BLENDMODE_NOBLEND, 0, true });
 }
 
 void StringAddDraw::ClearScreen(void)

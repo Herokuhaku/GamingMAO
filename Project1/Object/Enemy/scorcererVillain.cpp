@@ -64,6 +64,7 @@ sorcerer::sorcerer(Vector2 pos, int stage, int pPos, bool flag)
 	setHitOffset({ 55, 55, 100, 0 });
 	_tmpHP = _maxHP / _saveDivNum;
 	_exRate = 3.0;
+	_stateEffectExRate = 3.0;
 
 	_rangeSF = 1000;
 	_rangeSB = 600;

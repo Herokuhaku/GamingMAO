@@ -72,7 +72,7 @@ void Flash::Draw(void)
 
 	DrawPrimitiveIndexed2D(_lightVer.data(), _lightVer.size(), _verIndex.data(), _verIndex.size(), DX_PRIMTYPE_TRIANGLELIST, DX_NONE_GRAPH, true);
 
-	lpImageMng.AddDraw({ drawscreen, _ownerPos->x, _ownerPos->y, _exRate, _rad, LAYER::CHAR, _zOrder, DX_BLENDMODE_NOBLEND, 0 });
+	lpImageMng.AddDraw({ drawscreen, _ownerPos->x, _ownerPos->y, _exRate, _rad, LAYER::CHAR, _zOrder, DX_BLENDMODE_NOBLEND, 0, true });
 
 	SetDrawScreen(ts);
 }
