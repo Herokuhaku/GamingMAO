@@ -273,6 +273,11 @@ void AttackMng::MakeTrackingBall(Vector2 ePos, Vector2 pPos, TIME time, int stag
 	}
 }
 
+void AttackMng::DeleteAll(void)
+{
+	_attackObj.clear();
+}
+
 AttackMng::AttackMng()
 {
 	_canAddObj = true;

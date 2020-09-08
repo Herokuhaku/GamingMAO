@@ -56,6 +56,7 @@ Player::Player(Vector2Template<int> pos, int stage, TIME time, GameScene* gs)
 	_anmEfkHd = -1;
 
 	setHP(HP_MAX);
+	_hpLimit = HP_MAX;
 	_nextPos = { 0,0 };
 
 	_magicSet = { ATK_TYPE::TYPE_1 };

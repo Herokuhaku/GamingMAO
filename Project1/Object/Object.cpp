@@ -199,9 +199,12 @@ void Object::damagingHP(int damage)
 	}
 
 	_hp -= damage;
-
 	if (damage <= 0)
 	{
+		if (damage < 0)
+		{
+			_hp = min(_hp, _hpLimit);
+		}
 		return;
 	}
 

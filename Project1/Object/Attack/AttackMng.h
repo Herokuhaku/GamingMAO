@@ -154,6 +154,8 @@ public:
 	// target:–Ú•W
 	void MakeTrackingBall(Vector2 ePos, Vector2 pPos, TIME time, int stage, OBJ_TYPE target);
 
+	void DeleteAll(void);
+
 private:
 	static AttackMng* sInstance;
 

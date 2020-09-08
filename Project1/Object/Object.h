@@ -158,6 +158,7 @@ private:
 	int _inv;						// 無敵時間　0なら無敵ではない
 	std::array<int, 4> _hitBox;	// 座標からの当たり判定の範囲 0:左 1:右 2:上 3:下
 protected:
+	int _hpLimit;
 	int _hp;						// 体力
 	Vector2 _pos;					// 座標(x:中心　y:下辺)
 	double _rad;					// 角度

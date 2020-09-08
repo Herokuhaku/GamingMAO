@@ -10,6 +10,8 @@ namespace
 	constexpr int ROCK_HEIGHT = 256;
 	constexpr int ROCK_USE_WIDTH = 250;
 	constexpr int ROCK_USE_HEIGHT = 256;
+
+
 }
 
 Rock::Rock(const Vector2 & pos, int stage):Gimmick(pos, stage)
@@ -29,23 +31,35 @@ Rock::~Rock()
 
 void Rock::Update(void)
 {
-	if (lpButtonMng.ButtonTrg(0,XINPUT_BUTTON_DPAD_DOWN) && lpTimeMng.getTime() == TIME::NOW)
+	if (!_toDelete)
 	{
-		Vector2 tmp = lpSceneMng.GetPlPos(TIME::NOW);
-		if (lpTradeMng.CheckTool())
+		if (lpButtonMng.ButtonTrg(0, XINPUT_BUTTON_DPAD_DOWN) && lpTimeMng.getTime() == TIME::NOW)
 		{
-			if (lpTradeMng.getTool().colortype == type_ && abs(tmp.x - _pos.x) <= ROCK_USE_WIDTH)
+			Vector2 tmp = lpSceneMng.GetPlPos(TIME::NOW);
+			if (lpTradeMng.CheckTool())
 			{
-				PlaySoundMem(_audio->GetSound("explosion"), DX_PLAYTYPE_BACK, true);
-				lpTradeMng.SetUseTool(true,lpTradeMng.getTool());
-				_deleted = true;
-				lpTradeMng.UseDeleteTool();
+				if (lpTradeMng.getTool().colortype == type_ && abs(tmp.x - _pos.x) <= ROCK_USE_WIDTH)
+				{
+					PlaySoundMem(_audio->GetSound("explosion"), DX_PLAYTYPE_BACK, true);
+					lpTradeMng.SetUseTool(true, lpTradeMng.getTool());
+					_toDelete = true;
+					_hitBox = { 0,0,0,0 };
+					lpTradeMng.UseDeleteTool();
+				}
 			}
+		}
+	}
+	else
+	{
+		_timer--;
+		if (_timer < 0)
+		{
+			_deleted = true;
 		}
 	}
 }
 
 void Rock::Draw(void)
 {
-	lpImageMng.AddDraw({ lpImageMng.getImage("rock")[0], _pos.x, _pos.y, 2.0, 0.0, LAYER::CHAR, -15, DX_BLENDMODE_NOBLEND, 0, false });
+	lpImageMng.AddDraw({ lpImageMng.getImage("rock")[0], _pos.x, _pos.y, 2.0, 0.0, LAYER::CHAR, -15, DX_BLENDMODE_ALPHA, static_cast<int>(255.0f * (static_cast<float>(_timer) / static_cast<float>(FADEOUT_DURATION))), false });
 }

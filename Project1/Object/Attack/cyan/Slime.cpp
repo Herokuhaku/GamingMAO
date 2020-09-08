@@ -12,7 +12,7 @@ namespace
 
 	constexpr int MOVE_SPEED = 6;
 
-	constexpr int ATTACK_DURATION = 40;
+	constexpr int ATTACK_DURATION = 5;
 
 	int slimeCount = 0;
 
@@ -27,7 +27,7 @@ Slime::Slime(const Vector2& pos, DIR dir, int stage, OBJ_TYPE target)
 	_target = target;
 	_type = OBJ_TYPE::ATTACK;
 	_time = TIME::FTR;
-	_exRate = 1.5;
+	_exRate = 2.0;
 	_vel = 0.0;
 	_tmpPos.y = static_cast<double>(_pos.y);
 	_lifetime = LIFE_TIME;
@@ -35,7 +35,7 @@ Slime::Slime(const Vector2& pos, DIR dir, int stage, OBJ_TYPE target)
 	slimeCount++;
 	_isColored = true;
 
-	setHitOffset({ 24, 24, 18, 18 });
+	setHitOffset({ 32, 32, 24, 24 });
 
 	_update = &Slime::MoveUpdate;
 
@@ -91,14 +91,14 @@ Slime::Slime(const Vector2& pos, DIR dir, int stage, OBJ_TYPE target)
 
 	std::vector<atkData> attack;
 	attack.reserve(2);
-	attack.emplace_back(atkData(true, OBJ_TYPE::ATTACK, { -10, -10 }, { 10,10 }, -1, 0, _target));
+	attack.emplace_back(atkData(true, OBJ_TYPE::ATTACK, { -18, -18 }, { 18, 18 }, -1, 0, _target));
 	attack.emplace_back(atkData(true, OBJ_TYPE::ATTACK, { 0, 0 }, { 0, 0 }, 0, -1, _target));
 	setAttack("slime_find", attack);
 
 	attack.reserve(6);
 	for (int i = 0; i < 6; i++)
 	{
-		attack.emplace_back(atkData(true, OBJ_TYPE::ATTACK, { 0, -18 }, { 24, 18 }, 5, 8, _target));
+		attack.emplace_back(atkData(true, OBJ_TYPE::ATTACK, { -24, -24 }, { 32, 24 }, 2, ATTACK_DURATION, _target));
 	}
 	setAttack("slime_attack", attack);
 
@@ -140,7 +140,7 @@ void Slime::Update(void)
 		stopAttack();
 	}
 
-	if (lpSceneMng.GetPlObj2(TIME::FTR)->getStage() != _stage)
+	if (lpSceneMng.GetPlObj2(TIME::FTR)->getStage() != _stage && lpSceneMng.GetPlObj2(TIME::FTR)->getState().first != OBJ_STATE::DEAD)
 	{
 		setState({ OBJ_STATE::DEAD, _state_dir.second });
 		PlaySoundMem(_audio.GetSound("dead"), DX_PLAYTYPE_BACK, true);

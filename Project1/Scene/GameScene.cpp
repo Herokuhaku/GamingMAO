@@ -440,6 +440,7 @@ std::unique_ptr<BaseScene> GameScene::StopedUpdate(std::unique_ptr<BaseScene> ow
 	if (plDead != _objList.end())
 	{
 		lpImageMng.Draw(lpSceneMng.GetNum(), false);
+		lpAtkMng.DeleteAll();
 		own = std::make_unique<GameOverScene>();
 	}
 
