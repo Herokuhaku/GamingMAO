@@ -267,11 +267,21 @@ Enemy::~Enemy()
 	{
 		lpEnemyMng.addDeadCnt(_etype, _stage, _pPos);
 		COLOR tmp = static_cast<COLOR>(rand() % static_cast<int>(COLOR::MAX));
-		while (tmp != COLOR::BLUE && tmp != COLOR::GREEN && tmp!= COLOR::RED)
-		{
-			tmp = static_cast<COLOR>(rand() % static_cast<int>(COLOR::MAX));
+		if (_stage == 1) {
+			while (tmp != COLOR::BLUE && tmp != COLOR::GREEN && tmp != COLOR::RED)
+			{
+				tmp = static_cast<COLOR>(rand() % static_cast<int>(COLOR::MAX));
+			}
+			lpTradeMng.SetItemList(_pos, ITEM_TYPE::STONE, tmp, _stage);
 		}
-		lpTradeMng.SetItemList(_pos, ITEM_TYPE::STONE, tmp, _stage);
+		else if (_stage == 2)
+		{
+			while (tmp != COLOR::BLUE && tmp != COLOR::GREEN && tmp != COLOR::RED)
+			{
+				tmp = static_cast<COLOR>(rand() % static_cast<int>(COLOR::MAX));
+			}		
+			lpTradeMng.SetItemList(_pos, ITEM_TYPE::BOOK, tmp, _stage);
+		}
 	}
 }
 

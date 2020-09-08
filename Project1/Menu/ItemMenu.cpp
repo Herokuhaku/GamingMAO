@@ -37,6 +37,7 @@ void ItemMenu::Update(void)
 		// 矢印を右に移動させる
 		if (lpButtonMng.ButtonTrg(0, XINPUT_BUTTON_DPAD_RIGHT))
 		{
+			PlaySoundMem(_audio->GetSound("move"), DX_PLAYTYPE_BACK, true);
 			_select++;
 			if (_select > _count.x)
 			{
@@ -46,6 +47,7 @@ void ItemMenu::Update(void)
 		//　矢印を左に移動させる
 		if (lpButtonMng.ButtonTrg(0, XINPUT_BUTTON_DPAD_LEFT))
 		{
+			PlaySoundMem(_audio->GetSound("move"), DX_PLAYTYPE_BACK, true);
 			_select--;
 			if (_select < 0)
 			{
@@ -56,6 +58,7 @@ void ItemMenu::Update(void)
 		// 矢印を上にずらす
 		if (lpButtonMng.Thumbf(0, XINPUT_THUMBL_Y).first == 2 && lpButtonMng.Thumbf(0, XINPUT_THUMBL_Y).second == 0)
 		{
+			PlaySoundMem(_audio->GetSound("move"), DX_PLAYTYPE_BACK, true);
 			_select2++;
 			if (_select2 > _count.y)
 			{
@@ -65,6 +68,7 @@ void ItemMenu::Update(void)
 		// 矢印を下にずらす
 		if (lpButtonMng.Thumbf(0, XINPUT_THUMBL_Y).first == 1 && lpButtonMng.Thumbf(0, XINPUT_THUMBL_Y).second == 0)
 		{
+			PlaySoundMem(_audio->GetSound("move"), DX_PLAYTYPE_BACK, true);
 			_select2--;
 			if (_select2 < 0)
 			{
@@ -80,6 +84,7 @@ void ItemMenu::Update(void)
 		// アイテムを選択
 		if (lpButtonMng.ButtonTrg(0, XINPUT_BUTTON_B))
 		{
+			PlaySoundMem(_audio->GetSound("select"), DX_PLAYTYPE_BACK, true);
 			if (_select2 == 0)
 			{
 				lpButtonMng.Buttonf(0, XINPUT_BUTTON_B, 1, 1);
@@ -92,13 +97,17 @@ void ItemMenu::Update(void)
 			else if (_select2 == 1)
 			{
 				lpButtonMng.Buttonf(0, XINPUT_BUTTON_B, 1, 1);
+				int count = 0;
 				for (int i = 0;i < _asize;i++)
 				{
-					if (_sItem.at(i).first.itemtype != ITEM_TYPE::NON && i == 2)
+					if (_sItem.at(i).first.itemtype != ITEM_TYPE::NON)
 					{
-						Mix(_sItem.at(0).first, _sItem.at(1).first, _sItem.at(2).first);
+						count++;
 					}
-
+				}
+				if (count >= 2) 
+				{
+					Mix(_sItem.at(0).first, _sItem.at(1).first, _sItem.at(2).first);
 				}
 			}
 		}
@@ -332,6 +341,7 @@ void ItemMenu::ItemSelectD(int no)
 
 	if (lpButtonMng.ButtonTrg(0, XINPUT_BUTTON_A))
 	{
+		PlaySoundMem(_audio->GetSound("cancel"), DX_PLAYTYPE_BACK, true);
 		_select = 0;
 		_count = { 2,1 };
 		MixFlag = false;
@@ -343,6 +353,7 @@ void ItemMenu::SelectCount(int& select, int thumb, int count)
 	if (lpButtonMng.Thumbf(0, thumb).first == 1 &&
 		lpButtonMng.Thumbf(0, thumb).second == 0)
 	{
+		PlaySoundMem(_audio->GetSound("move"), DX_PLAYTYPE_BACK, true);
 		select++;
 		if (select > count)
 		{
@@ -354,6 +365,7 @@ void ItemMenu::SelectCount(int& select, int thumb, int count)
 	if (lpButtonMng.Thumbf(0, thumb).first == 2 &&
 		lpButtonMng.Thumbf(0, thumb).second == 0)
 	{
+		PlaySoundMem(_audio->GetSound("move"), DX_PLAYTYPE_BACK, true);
 		select--;
 		if (select < 0)
 		{
@@ -411,6 +423,7 @@ void ItemMenu::Item(SELECT_ITEM item)
 	// 決定した場合
 	if (lpButtonMng.ButtonTrg(0, XINPUT_BUTTON_B))
 	{
+		PlaySoundMem(_audio->GetSound("select"), DX_PLAYTYPE_BACK, true);
 		if (ColorPtr(_select) != COLOR::BLACK)
 		{
 			Ins(no, static_cast<ITEM_TYPE>(_select2),ColorPtr(_select));

@@ -190,10 +190,10 @@ bool GameScene::Init(void)
 
 	lpEnemyMng.Init();
 
-	lpTradeMng.SetItemList({ 200,1311 }, ITEM_TYPE::STONE, COLOR::BLUE,1);
-	lpTradeMng.SetItemList({ 200,1311 }, ITEM_TYPE::STONE, COLOR::RED,1);
-	lpTradeMng.SetItemList({ 200,1311 }, ITEM_TYPE::STONE, COLOR::GREEN,1);
-	//lpTradeMng.SetItemList({ 200,1311 }, ITEM_TYPE::BOOK, COLOR::BLUE, 1);
+	//lpTradeMng.SetItemList({ 200,1311 }, ITEM_TYPE::STONE, COLOR::BLUE,1);
+	//lpTradeMng.SetItemList({ 200,1311 }, ITEM_TYPE::STONE, COLOR::RED,1);
+	//lpTradeMng.SetItemList({ 200,1311 }, ITEM_TYPE::STONE, COLOR::GREEN,1);
+	lpTradeMng.SetItemList({ 300,1311 }, ITEM_TYPE::BOOK, COLOR::RED, 2);
 	lpTradeMng.SetItemList({ 200,1311 }, ITEM_TYPE::BOOK, COLOR::RED, 1);
 	//lpTradeMng.SetItemList({ 200,1311 }, ITEM_TYPE::BOOK, COLOR::GREEN, 1);
 	

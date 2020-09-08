@@ -17,7 +17,10 @@ Rock::Rock(const Vector2 & pos, int stage):Gimmick(pos, stage)
 	_hitBox = { ROCK_WIDTH, ROCK_WIDTH, ROCK_HEIGHT, ROCK_HEIGHT };
 	_usableRange = { ROCK_USE_WIDTH, ROCK_USE_WIDTH, ROCK_USE_HEIGHT, ROCK_USE_HEIGHT };
 	lpImageMng.getImage("image/Obstacle/rock.png", "rock");
-	type_ = COLOR::RED;
+	type_ = COLOR::RED;	
+	_audio = std::make_shared<AudioContainer>();
+	_audio->LoadSound("sound/magic/explosion.wav", "explosion", 10);
+	_audio->ChangeVolume("explosion", 180);
 }
 
 Rock::~Rock()
@@ -33,8 +36,10 @@ void Rock::Update(void)
 		{
 			if (lpTradeMng.getTool().colortype == type_ && abs(tmp.x - _pos.x) <= ROCK_USE_WIDTH)
 			{
+				PlaySoundMem(_audio->GetSound("explosion"), DX_PLAYTYPE_BACK, true);
 				lpTradeMng.SetUseTool(true,lpTradeMng.getTool());
 				_deleted = true;
+				lpTradeMng.UseDeleteTool();
 			}
 		}
 	}

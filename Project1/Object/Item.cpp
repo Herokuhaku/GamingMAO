@@ -138,6 +138,11 @@ ItemSave &Item::ReturnSave(void)
 	return save;
 }
 
+int Item::GetStage(void)
+{
+	return _stage;
+}
+
 void Item::setSave(void)
 {
 	save.bagNo = _bagNo;

@@ -49,6 +49,7 @@ public:
 	void ChangeDir(DIR dir);
 
 	ItemSave &ReturnSave(void);
+	int GetStage(void);
 	void setSave(void);
 private:
 	void Init(void);

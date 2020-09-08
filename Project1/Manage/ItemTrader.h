@@ -64,6 +64,7 @@ public:
 	void ChangeCount(bool num);
 	
 	void SetUseTool(bool flag, ItemSave save);
+	void UseDeleteTool(void);
 
 	void ListUpdate(void);
 private:

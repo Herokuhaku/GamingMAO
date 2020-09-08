@@ -166,7 +166,7 @@ void ItemTrader::AddBag(void)
 	for (auto data = _ItemList.begin();data != _ItemList.end();)
 	{
 		if ((*data)->getPos().x - 50 <= (*lpSceneMng.GetPlObj(lpTimeMng.getTime()))->getPos().x + 50 &&
-			(*data)->getPos().x + 50 >= (*lpSceneMng.GetPlObj(lpTimeMng.getTime()))->getPos().x - 50)
+			(*data)->getPos().x + 50 >= (*lpSceneMng.GetPlObj(lpTimeMng.getTime()))->getPos().x - 50 && lpMapMng.GetnowStage() == (*data)->GetStage())
 		{
 			_IBag.emplace_back((*data)->ReturnSave(),_IBag.size());
 			data = _ItemList.erase(data);		// ŽŸ‚ð•Ô‚·
@@ -381,6 +381,14 @@ void ItemTrader::SetUseTool(bool flag,ItemSave save)
 			return;
 		}
 	}
+}
+
+void ItemTrader::UseDeleteTool(void)
+{
+	auto itr = std::remove_if(_IBag.begin(), _IBag.end(), [&](auto && data) {
+		return data.first.use == true;
+		});
+	_IBag.erase(itr, _IBag.end());
 }
 
 void ItemTrader::ListUpdate(void)

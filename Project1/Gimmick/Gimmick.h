@@ -1,6 +1,7 @@
 #pragma once
 #include "../common/Vector2.h"
 #include <array>
+#include "../Audio/AudioContainer.h"
 
 struct ItemSave;
 
@@ -33,5 +34,7 @@ protected:
 	std::array<int, 4> _usableRange;
 	// íœ‚µ‚Ä‚¢‚¢‚©
 	bool _deleted = false;
+
+	std::shared_ptr<AudioContainer> _audio;
 };
 
