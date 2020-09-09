@@ -2,7 +2,6 @@
 #include "Scene/SceneMng.h"
 #include "Graphic/ImageMng.h"
 #include "Manage/ButtonMng.h"
-#include "Manage/Menu.h"
 #include "Manage/ItemTrader.h"
 #include "Object/Enemy/EnemyMng.h"
 
@@ -13,7 +12,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPreInstance, LPSTR lpSmdLine,
 
 	ButtonMng::GetInstance().Destroy();
 	ItemTrader::GetInstance().Destroy();
-	Menu::GetInstance().Destroy();
 
 	//MapMng::Destroy();
 	//EnemyMng::Destroy();

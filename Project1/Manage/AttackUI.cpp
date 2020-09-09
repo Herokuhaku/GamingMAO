@@ -2,7 +2,6 @@
 #include "ButtonMng.h"
 #include "../Graphic/ImageMng.h"
 #include "ItemTrader.h"
-#include "Menu.h"
 #include "TimeMng.h"
 #include "../Scene/SceneMng.h"
 #include "../Object/Player.h"

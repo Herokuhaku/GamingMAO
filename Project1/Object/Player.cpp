@@ -1,5 +1,4 @@
 #include "Player.h"
-#include "../Manage/Menu.h"
 #include "../Manage/ItemTrader.h"
 #include "../Manage/ButtonMng.h"
 #include "../Scene/SceneMng.h"
@@ -740,21 +739,6 @@ void Player::VelUpdate(void)
 
 	_pos.y = static_cast<int>(_tmpPos.y);
 
-}
-
-bool Player::MenuUpdate(void)
-{
-	if (lpButtonMng.ButtonTrg(0, XINPUT_BUTTON_BACK) && _time == lpTimeMng.getTime())
-	{
-		MenuFlag = true;
-	}
-
-	if (MenuFlag && _time == lpTimeMng.getTime())
-	{
-		MenuFlag = lpMenuMng.Update();
-		return MenuFlag;
-	}
-	return false;
 }
 
 bool Player::Attack(void)

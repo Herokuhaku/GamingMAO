@@ -5,7 +5,6 @@
 #include "../Object/Enemy/s_dragon.h"
 #include "../Manage/MapMng.h"
 #include "../Manage/ItemTrader.h"
-#include "../Manage/Menu.h"
 #include "../Object/Enemy/EnemyMng.h"
 #include "../Object/Attack/AttackMng.h"
 #include "../Manage/AttackUI.h"
@@ -365,10 +364,10 @@ std::unique_ptr<BaseScene> GameScene::NormalUpdate(std::unique_ptr<BaseScene> ow
 		own = std::make_unique<GameOverScene>();
 	}
 
-	if (!lpMenuMng.GetMixFlag())
-	{
+	//if (!lpMenuMng.GetMixFlag())
+	//{
 		lpTradeMng.BagDraw({ 800,670 }, LAYER::CHAR, { 0,0 }, { 1.0,1.0 });	// ècÇÕScreenSize.y - (DrawBoxÇÃí∑Ç≥/2)
-	}
+	//}
 	lpTradeMng.ToolDraw({ 800,670 }, LAYER::CHAR, { 0,0 }, { 1.0,1.0 });
 
 	lpTimeMng.resetFlag();
@@ -444,10 +443,10 @@ std::unique_ptr<BaseScene> GameScene::StopedUpdate(std::unique_ptr<BaseScene> ow
 		own = std::make_unique<GameOverScene>();
 	}
 
-	if (!lpMenuMng.GetMixFlag())
-	{
-		lpTradeMng.BagDraw({ 800,670 }, LAYER::CHAR, { 0,0 }, { 1.0,1.0 });	// ècÇÕScreenSize.y - (DrawBoxÇÃí∑Ç≥/2)
-	}
+	//if (!lpMenuMng.GetMixFlag())
+	//{
+	lpTradeMng.BagDraw({ 800,670 }, LAYER::CHAR, { 0,0 }, { 1.0,1.0 });	// ècÇÕScreenSize.y - (DrawBoxÇÃí∑Ç≥/2)
+	//}
 	lpTradeMng.ToolDraw({ 800,670 }, LAYER::CHAR, { 0,0 }, { 1.0,1.0 });
 
 	lpTimeMng.resetFlag();
