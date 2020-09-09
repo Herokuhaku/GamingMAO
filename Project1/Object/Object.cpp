@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "../func/CheckHitStage.h"
 #include "../Audio/AudioContainer.h"
+#include "../Manage/DamageDisplay.h"
 #include <memory>
 #include <algorithm>
 
@@ -199,6 +200,8 @@ void Object::damagingHP(int damage)
 	}
 
 	_hp -= damage;
+	DamageDisplay::GetInstance().AddDamage(new DamageInfo(Vector2{ _pos.x + 50 * (static_cast<int>(_state_dir.second) - 1), _pos.y - _drawOffset_y }, damage, _stage));
+
 	if (damage <= 0)
 	{
 		if (damage < 0)

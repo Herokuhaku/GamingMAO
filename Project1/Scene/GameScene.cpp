@@ -14,6 +14,7 @@
 #include "../Gimmick/Rock.h"
 #include "../Object/Barrier/BarrierMng.h"
 #include "../Object/Attack/white/StopTime.h"
+#include "../Manage/DamageDisplay.h"
 
 GameScene::GameScene()
 {
@@ -369,6 +370,8 @@ std::unique_ptr<BaseScene> GameScene::NormalUpdate(std::unique_ptr<BaseScene> ow
 
 	lpTimeMng.resetFlag();
 
+	DamageDisplay::GetInstance().Draw();
+
 	if (std::dynamic_pointer_cast<Player>(lpSceneMng.GetPlObj2(TIME::FTR))->IsTimeStoped())
 	{
 		_update = &GameScene::StopedUpdate;
@@ -447,6 +450,8 @@ std::unique_ptr<BaseScene> GameScene::StopedUpdate(std::unique_ptr<BaseScene> ow
 	lpTradeMng.ToolDraw({ 800,670 }, LAYER::CHAR, { 0,0 }, { 1.0,1.0 });
 
 	lpTimeMng.resetFlag();
+
+	DamageDisplay::GetInstance().Draw();
 
 	if (!std::dynamic_pointer_cast<Player>(lpSceneMng.GetPlObj2(TIME::FTR))->IsTimeStoped())
 	{
