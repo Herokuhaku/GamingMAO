@@ -61,5 +61,5 @@ void Rock::Update(void)
 
 void Rock::Draw(void)
 {
-	lpImageMng.AddDraw({ lpImageMng.getImage("rock")[0], _pos.x, _pos.y, 2.0, 0.0, LAYER::CHAR, -15, DX_BLENDMODE_ALPHA, static_cast<int>(255.0f * (static_cast<float>(_timer) / static_cast<float>(FADEOUT_DURATION))), false });
+	lpImageMng.AddDraw({ lpImageMng.getImage("rock")[0], _pos.x, _pos.y, 2.0, 0.0, LAYER::CHAR, -15, DX_BLENDMODE_ALPHA, static_cast<int>(255.0f * (static_cast<float>(_timer) / static_cast<float>(FADEOUT_DURATION))), true });
 }

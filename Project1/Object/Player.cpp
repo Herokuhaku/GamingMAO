@@ -362,6 +362,8 @@ void Player::Init(void)
 	_audio.ChangeVolume("overdrive", 180);
 	_audio.LoadSound("sound/magic/stopclock.wav", "stopclock", 10);
 	_audio.ChangeVolume("stopclock", 180);
+
+	_isColored = false;
 }
 
 void Player::ControlNormal(void)

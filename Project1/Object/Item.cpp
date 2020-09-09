@@ -41,7 +41,7 @@ Item::Item(Vector2 pos, ITEM_TYPE itemtype,COLOR colortype,int no,int stage)
 	save.use = false;
 
 	Init();
-	
+	_isColored = false;
 }
 
 Item::~Item()

@@ -212,6 +212,7 @@ void Enemy::Init(void)
 	_divNum = 70;
 	_maxHP = _hp;
 	_size = { 10,10 };
+	_isColored = true;
 }
 
 void Enemy::Draw(void)
@@ -233,7 +234,7 @@ void Enemy::DrawHP(void)
 		{
 			tmpNum = 2;
 		}
-		lpImageMng.AddDraw({ lpImageMng.getImage("hp_bar")[tmpNum], _pos.x - 27 + 6 * i, _pos.y - 30 - _drawOffset_y, 1.0, 0.0, LAYER::EX, 0, DX_BLENDMODE_NOBLEND, 0, false });
+		lpImageMng.AddDraw({ lpImageMng.getImage("hp_bar")[tmpNum], _pos.x - 27 + 6 * i, _pos.y - 30 - _drawOffset_y, 1.0, 0.0, LAYER::EX, 0, DX_BLENDMODE_NOBLEND, 0, true });
 	}
 }
 
