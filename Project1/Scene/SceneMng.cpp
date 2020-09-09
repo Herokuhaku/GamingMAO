@@ -29,6 +29,11 @@ void SceneMng::Run(void)
 		int b = sizeof(_activeScene);
 		auto c = b;
 		//(*_activeScene).RunActQue(std::move(_actList));
+		_sceneChange();
+		if (_exit)
+		{
+			break;
+		}
 	}
 }
 
@@ -101,6 +106,16 @@ void SceneMng::SetNum(int num)
 int SceneMng::GetNum(void)
 {
 	return _work;
+}
+
+void SceneMng::Quit(void)
+{
+	_exit = true;
+}
+
+void SceneMng::ChangeScene(BaseScene * scene)
+{
+	_sceneChange = [scene, this]() { _activeScene.reset(scene); _sceneChange = []() {}; };
 }
 
 bool SceneMng::SysInit(void)

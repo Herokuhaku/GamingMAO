@@ -364,10 +364,7 @@ std::unique_ptr<BaseScene> GameScene::NormalUpdate(std::unique_ptr<BaseScene> ow
 		own = std::make_unique<GameOverScene>();
 	}
 
-	//if (!lpMenuMng.GetMixFlag())
-	//{
-		lpTradeMng.BagDraw({ 800,670 }, LAYER::CHAR, { 0,0 }, { 1.0,1.0 });	// ècÇÕScreenSize.y - (DrawBoxÇÃí∑Ç≥/2)
-	//}
+	lpTradeMng.BagDraw({ 800,670 }, LAYER::CHAR, { 0,0 }, { 1.0,1.0 });	// ècÇÕScreenSize.y - (DrawBoxÇÃí∑Ç≥/2)
 	lpTradeMng.ToolDraw({ 800,670 }, LAYER::CHAR, { 0,0 }, { 1.0,1.0 });
 
 	lpTimeMng.resetFlag();

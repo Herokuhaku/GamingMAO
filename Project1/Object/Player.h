@@ -78,7 +78,6 @@ private:
 	double _vel;
 	int _speed;
 
-	bool MenuUpdate(void);
 	bool Attack(void);
 	void Portal(void);
 

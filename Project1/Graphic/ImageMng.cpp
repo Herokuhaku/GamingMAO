@@ -94,6 +94,9 @@ void ImageMng::Draw(void)
 					SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 					GraphFilterRectBlt(_tmpWorkLayer, _workLayer, cx, cy, cx + SCREEN_SIZE_X, cy + SCREEN_SIZE_Y, cx, cy, DX_GRAPH_FILTER_HSB, 0, 0, -255, 0);
 					DrawRectGraph(0, 0, cx, cy, SCREEN_SIZE_X, SCREEN_SIZE_Y, _workLayer, true);
+					SetDrawScreen(_workLayer);
+					ClsDrawScreen();
+					SetDrawScreen(_screen);
 				}
 				SetDrawBlendMode(blend, prm);
 				_oldBlend = { blend, prm };
