@@ -64,6 +64,11 @@ void GimmickMng::CheckUsableRange(Vector2Template<int> pos, int stage, const Ite
 	}
 }
 
+void GimmickMng::DeleteAll(void)
+{
+	_gimmickList.clear();
+}
+
 GimmickMng::GimmickMng()
 {
 

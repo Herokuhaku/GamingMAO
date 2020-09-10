@@ -68,7 +68,7 @@ void Fruit::Init(void)
 	{
 	case FRUIT_TYPE::WATERMELON:
 		size = 30;
-		damage = 50;
+		damage = 35;
 		break;
 	case FRUIT_TYPE::APPLE:
 		size = 22;
@@ -76,7 +76,7 @@ void Fruit::Init(void)
 		break;
 	case FRUIT_TYPE::ORANGE:
 		size = 20;
-		damage = 20;
+		damage = 25;
 		break;
 	case FRUIT_TYPE::GRAPE:
 		size = 12;
@@ -90,7 +90,7 @@ void Fruit::Init(void)
 	std::vector<atkData> attack;
 	attack.reserve(2);
 
-	attack.emplace_back(atkData(true, OBJ_TYPE::ATTACK, { 0, 0 }, size, damage, 60, _target));
+	attack.emplace_back(atkData(true, OBJ_TYPE::ATTACK, { 0, 0 }, size, damage, 8, _target));
 	attack.emplace_back(atkData(true, OBJ_TYPE::ATTACK, { 0, 0 }, size, 0, -1, _target));
 
 	setAttack("bubble", attack);
@@ -105,7 +105,7 @@ void Fruit::Init(void)
 	_tmpPos.y = _pos.y;
 
 	_audio.LoadSound("sound/magic/fruit.wav", "fruit", 10);
-	_audio.ChangeVolume("fruit", 180);
+	_audio.ChangeVolume("fruit", 125);
 	PlaySoundMem(_audio.GetSound("fruit"), DX_PLAYTYPE_BACK, true);
 }
 

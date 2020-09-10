@@ -13,6 +13,8 @@ public:
 	void Draw(void);
 
 	void AddDamage(DamageInfo* dInfo);
+
+	void DeleteAll(void);
 private:
 	~DamageDisplay() = default;
 

@@ -45,8 +45,12 @@ public:
 	
 	bool ToFeverTime(void);
 	void Active(bool);
+
+	void Reset(void);
 private:
 	static AttackUI* sInstance;
+
+	void Init(void);
 
 	static constexpr int PRIMARY_COLOR_COUNT = 3;
 

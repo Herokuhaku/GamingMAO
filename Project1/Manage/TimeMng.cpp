@@ -47,11 +47,11 @@ void TimeMng::TimeInit(void)
 {
 	_changeFlag = false;
 	_changeTime = 0;
+	_crTime = TIME::NOW;
 }
 
 TimeMng::TimeMng()
 {
-	_crTime = TIME::NOW;
 	TimeInit();
 }
 

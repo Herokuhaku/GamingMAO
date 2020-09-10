@@ -105,14 +105,14 @@ Slime::Slime(const Vector2& pos, DIR dir, int stage, OBJ_TYPE target)
 	AddAttack("slime_find");
 
 	_audio.LoadSound("sound/magic/slime_summon.wav", "summon", 10);
-	_audio.ChangeVolume("summon", 180);
+	_audio.ChangeVolume("summon", 140);
 	PlaySoundMem(_audio.GetSound("summon"), DX_PLAYTYPE_BACK, true);
 
 	_audio.LoadSound("sound/magic/enemy_dead.wav", "dead", 10);
-	_audio.ChangeVolume("dead", 180);
+	_audio.ChangeVolume("dead", 140);
 
 	_audio.LoadSound("sound/magic/attack.wav", "attack", 10);
-	_audio.ChangeVolume("attack", 180);
+	_audio.ChangeVolume("attack", 140);
 }
 
 Slime::~Slime()

@@ -17,8 +17,8 @@ BubbleBlast::BubbleBlast(Vector2 pos, TIME time, int stage, OBJ_TYPE target)
 	setState({ OBJ_STATE::NORMAL, DIR::LEFT });
 
 	std::vector<atkData> attack;
-	attack.emplace_back(atkData(true, OBJ_TYPE::ATTACK, { 0, 0 }, ATTACK_RADIUS, 50, 30, target));
-	attack.emplace_back(atkData(true, OBJ_TYPE::ATTACK, { 0, 0 }, ATTACK_RADIUS, 50, -1, target));
+	attack.emplace_back(atkData(true, OBJ_TYPE::ATTACK, { 0, 0 }, ATTACK_RADIUS, 25, 30, target));
+	attack.emplace_back(atkData(true, OBJ_TYPE::ATTACK, { 0, 0 }, ATTACK_RADIUS, 25, -1, target));
 	setAttack("bubbleblast", attack);
 
 	_type = OBJ_TYPE::ATTACK;

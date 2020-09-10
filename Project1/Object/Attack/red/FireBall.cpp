@@ -103,11 +103,11 @@ void FireBall::Init(void)
 	setAttack("fireball", attack);
 
 	_audio.LoadSound("sound/magic/fireball.wav", "fireball", 10);
-	_audio.ChangeVolume("fireball", 180);
+	_audio.ChangeVolume("fireball", 130);
 	PlaySoundMem(_audio.GetSound("fireball"), DX_PLAYTYPE_BACK, true);
 
 	_audio.LoadSound("sound/magic/explosion.wav", "explosion", 10);
-	_audio.ChangeVolume("explosion", 180);
+	_audio.ChangeVolume("explosion", 135);
 
 	_type = OBJ_TYPE::ATTACK;
 	setHitOffset({ 20,0,6,14 });

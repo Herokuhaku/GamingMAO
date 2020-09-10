@@ -399,6 +399,14 @@ void ItemTrader::ListUpdate(void)
 	}
 }
 
+void ItemTrader::DeleteAll(void)
+{
+	_ItemList.clear();
+	_IBag.clear();
+	_ItemBag.clear();
+	rock.fill(0);
+}
+
 ItemTrader::ItemTrader()
 {
 	for (int i = 0;i < 6;i++)

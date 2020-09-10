@@ -43,3 +43,8 @@ void DamageDisplay::AddDamage(DamageInfo * dInfo)
 {
 	_damage.emplace_back(dInfo);
 }
+
+void DamageDisplay::DeleteAll(void)
+{
+	_damage.clear();
+}

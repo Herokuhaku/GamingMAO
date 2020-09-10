@@ -129,6 +129,7 @@ GameScene::GameScene()
 
 GameScene::~GameScene()
 {
+	DamageDisplay::GetInstance().DeleteAll();
 }
 
 std::unique_ptr<BaseScene> GameScene::Update(std::unique_ptr<BaseScene> own)
@@ -173,7 +174,12 @@ std::shared_ptr<Object> GameScene::FindObject(Object* obj)
 
 bool GameScene::Init(void)
 {
+	GimmickMng::DeleteAll();
+	lpTradeMng.DeleteAll();
+
 	lpTimeMng.TimeInit();
+
+	lpAttackUI.Reset();
 
 	_objList.clear();
 	_objList.emplace_back(std::make_shared<Player>(Vector2(400,900), 1, TIME::FTR, this));
@@ -224,9 +230,9 @@ bool GameScene::Init(void)
 
 	lpImageMng.setEffect("clock_stop", effect);
 
-	_audio.LoadSound("sound/BGM/ms.mp3", "f_01", 10);
-	_audio.ChangeVolume("f_01", 110);
-	PlaySoundMem(_audio.GetSound("f_01"), DX_PLAYTYPE_LOOP, true);
+	_audio.LoadSound("sound/BGM/ms.mp3", "ms", 10);
+	_audio.ChangeVolume("ms", 110);
+	PlaySoundMem(_audio.GetSound("ms"), DX_PLAYTYPE_LOOP, true);
 
 	return false;
 }

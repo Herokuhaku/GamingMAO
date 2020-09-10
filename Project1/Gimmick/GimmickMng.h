@@ -21,6 +21,8 @@ public:
 	static const std::vector<std::shared_ptr<Gimmick>>& GetGimmicks(void);
 
 	void CheckUsableRange(Vector2Template<int> pos, int stage, const ItemSave& item);
+
+	static void DeleteAll(void);
 private:
 	static std::vector<std::shared_ptr<Gimmick>> _gimmickList;	
 };

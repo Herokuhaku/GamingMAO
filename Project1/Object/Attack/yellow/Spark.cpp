@@ -66,5 +66,5 @@ void Spark::Init(void)
 	lpImageMng.setEffect("spark_effect", effect);
 
 	_audio.LoadSound("sound/magic/paralysis.wav", "paralysis", 10);
-	_audio.ChangeVolume("paralysis", 180);
+	_audio.ChangeVolume("paralysis", 135);
 }

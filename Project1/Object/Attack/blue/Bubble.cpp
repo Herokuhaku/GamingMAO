@@ -68,6 +68,6 @@ void Bubble::Init(void)
 	AddAttack("bubble");
 
 	_audio.LoadSound("sound/magic/bubble.wav", "bubble", 10);
-	_audio.ChangeVolume("bubble", 180);
+	_audio.ChangeVolume("bubble", 130);
 	PlaySoundMem(_audio.GetSound("bubble"), DX_PLAYTYPE_BACK, true);
 }

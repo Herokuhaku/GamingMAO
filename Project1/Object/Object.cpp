@@ -38,11 +38,11 @@ Object::Object()
 	_stage = 1;
 
 	_audio.LoadSound("sound/magic/freeze.wav", "freeze", 10);
-	_audio.ChangeVolume("freeze", 180);
+	_audio.ChangeVolume("freeze", 140);
 	_audio.LoadSound("sound/magic/confusion.wav", "confusion", 10);
-	_audio.ChangeVolume("confusion", 180);
+	_audio.ChangeVolume("confusion", 135);
 	_audio.LoadSound("sound/magic/paralysis.wav", "paralysis", 10);
-	_audio.ChangeVolume("paralysis", 180);
+	_audio.ChangeVolume("paralysis", 145);
 }
 
 Object::~Object()

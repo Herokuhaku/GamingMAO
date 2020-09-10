@@ -101,6 +101,6 @@ void PoisonFog::Init(void)
 	_type = OBJ_TYPE::ATTACK;
 
 	_audio.LoadSound("sound/magic/poison.wav", "poison", 10);
-	_audio.ChangeVolume("poison", 180);
+	_audio.ChangeVolume("poison", 145);
 	PlaySoundMem(_audio.GetSound("poison"), DX_PLAYTYPE_BACK, true);
 }

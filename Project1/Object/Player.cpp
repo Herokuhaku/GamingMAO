@@ -358,11 +358,11 @@ void Player::Init(void)
 	_attack[static_cast<int>(COLOR::WHITE)]	[static_cast<int>(ATK_TYPE::TYPE_3)] = std::bind(&Player::White3  , this);
 
 	_audio.LoadSound("sound/magic/dash.wav", "dash", 10);
-	_audio.ChangeVolume("dash", 180);
+	_audio.ChangeVolume("dash", 145);
 	_audio.LoadSound("sound/magic/overdrive.wav", "overdrive", 10);
-	_audio.ChangeVolume("overdrive", 180);
+	_audio.ChangeVolume("overdrive", 140);
 	_audio.LoadSound("sound/magic/stopclock.wav", "stopclock", 10);
-	_audio.ChangeVolume("stopclock", 180);
+	_audio.ChangeVolume("stopclock", 140);
 }
 
 void Player::ControlNormal(void)

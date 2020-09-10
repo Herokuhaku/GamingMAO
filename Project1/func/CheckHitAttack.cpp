@@ -189,7 +189,7 @@ void CheckHitAttack::operator()(const std::vector<std::shared_ptr<Barrier>>& bar
 			if (attack.first.IsHit(attack.second->getPos(), attack.second->getState().second, b->GetPos(), b->GetHitOffset()))
 			{
 				_audio.LoadSound("sound/magic/shield_block.wav", "block", 10);
-				_audio.ChangeVolume("block", 180);
+				_audio.ChangeVolume("block", 140);
 				PlaySoundMem(_audio.GetSound("block"), DX_PLAYTYPE_BACK, true);
 				attack.second->IfHitAttack(nullptr);
 			}

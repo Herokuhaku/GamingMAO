@@ -139,6 +139,6 @@ void BlackHole::Init(void)
 	_screen = MakeScreen(B_SCREEN_SIZE, B_SCREEN_SIZE, true);
 
 	_audio.LoadSound("sound/magic/blackhole.wav", "blackhole", 10);
-	_audio.ChangeVolume("blackhole", 180);
+	_audio.ChangeVolume("blackhole", 145);
 	PlaySoundMem(_audio.GetSound("blackhole"), DX_PLAYTYPE_BACK, true);
 }
