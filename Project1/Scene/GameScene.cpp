@@ -209,10 +209,7 @@ bool GameScene::Init(void)
 	//lpTradeMng.SetItemList({ 200,1311 }, ITEM_TYPE::STONE, COLOR::GREEN,1);
 	lpTradeMng.SetItemList({ 300,1311 }, ITEM_TYPE::BOOK, COLOR::RED, 2);
 	lpTradeMng.SetItemList({ 200,1311 }, ITEM_TYPE::BOOK, COLOR::RED, 1);
-	lpTradeMng.SetItemList({ 200,500 }, ITEM_TYPE::BOOK, COLOR::BLUE, 6);
-	lpTradeMng.SetItemList({ 200,1311 }, ITEM_TYPE::TOOL, COLOR::RED, 1);
-	lpTradeMng.SetItemList({ 200,1311 }, ITEM_TYPE::TOOL, COLOR::YELLOW, 1);
-	//lpTradeMng.SetItemList({ 200,1311 }, ITEM_TYPE::BOOK, COLOR::GREEN, 1);
+	lpTradeMng.SetItemList({ 200,400 }, ITEM_TYPE::BOOK, COLOR::BLUE, 6);
 	
 	EffectData effect;
 	effect.reserve(16);
