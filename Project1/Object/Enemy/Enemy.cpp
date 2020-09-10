@@ -273,6 +273,7 @@ Enemy::~Enemy()
 			{
 				tmp = static_cast<COLOR>(rand() % static_cast<int>(COLOR::MAX));
 			}
+			tmp = COLOR::RED;
 			lpTradeMng.SetItemList(_pos, ITEM_TYPE::STONE, tmp, _stage);
 		}
 		else if (_stage == 2)
@@ -283,6 +284,7 @@ Enemy::~Enemy()
 			}		
 			lpTradeMng.SetItemList(_pos, ITEM_TYPE::BOOK, tmp, _stage);
 		}
+		
 	}
 }
 

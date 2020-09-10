@@ -63,5 +63,8 @@ private:
 	Vector2 _offpush;						// ŠÔŠu
 
 	COLOR ColorPtr(int no);
+	ItemSave mix_;
+
+	std::shared_ptr<MenuExecuter> exe_;
 };
 

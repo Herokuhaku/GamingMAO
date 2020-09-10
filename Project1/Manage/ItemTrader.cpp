@@ -165,8 +165,12 @@ void ItemTrader::AddBag(void)
 {
 	for (auto data = _ItemList.begin();data != _ItemList.end();)
 	{
-		if ((*data)->getPos().x - 50 <= (*lpSceneMng.GetPlObj(lpTimeMng.getTime()))->getPos().x + 50 &&
-			(*data)->getPos().x + 50 >= (*lpSceneMng.GetPlObj(lpTimeMng.getTime()))->getPos().x - 50 && lpMapMng.GetnowStage() == (*data)->GetStage())
+		if ((*data)->getPos().x - 24 <= (*lpSceneMng.GetPlObj(lpTimeMng.getTime()))->getPos().x + 24 &&
+			(*data)->getPos().x + 24 >= (*lpSceneMng.GetPlObj(lpTimeMng.getTime()))->getPos().x - 24 &&
+			(*data)->getPos().y - 24 <= (*lpSceneMng.GetPlObj(lpTimeMng.getTime()))->getPos().y + 24 &&
+			(*data)->getPos().y + 24 >= (*lpSceneMng.GetPlObj(lpTimeMng.getTime()))->getPos().y - 24 &&
+			
+			lpMapMng.GetnowStage() == (*data)->GetStage())
 		{
 			_IBag.emplace_back((*data)->ReturnSave(),_IBag.size());
 			data = _ItemList.erase(data);		// ŽŸ‚ð•Ô‚·
