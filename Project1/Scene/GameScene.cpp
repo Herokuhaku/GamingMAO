@@ -130,6 +130,7 @@ GameScene::GameScene()
 GameScene::~GameScene()
 {
 	DamageDisplay::GetInstance().DeleteAll();
+	lpAtkMng.DeleteAll();
 }
 
 std::unique_ptr<BaseScene> GameScene::Update(std::unique_ptr<BaseScene> own)
@@ -232,8 +233,9 @@ bool GameScene::Init(void)
 
 	_audio.LoadSound("sound/BGM/ms.mp3", "ms", 10);
 	_audio.ChangeVolume("ms", 110);
+	StopSoundMem(_audio.GetSound("ms"));
 	PlaySoundMem(_audio.GetSound("ms"), DX_PLAYTYPE_LOOP, true);
-
+	
 	return false;
 }
 
@@ -378,6 +380,7 @@ std::unique_ptr<BaseScene> GameScene::NormalUpdate(std::unique_ptr<BaseScene> ow
 	if (plDead != _objList.end())
 	{
 		lpImageMng.Draw(lpSceneMng.GetNum(), false);
+		StopSoundMem(_audio.GetSound("ms"));
 		own = std::make_unique<GameOverScene>();
 	}
 
@@ -455,7 +458,7 @@ std::unique_ptr<BaseScene> GameScene::StopedUpdate(std::unique_ptr<BaseScene> ow
 	if (plDead != _objList.end())
 	{
 		lpImageMng.Draw(lpSceneMng.GetNum(), false);
-		lpAtkMng.DeleteAll();
+		StopSoundMem(_audio.GetSound("ms"));
 		own = std::make_unique<GameOverScene>();
 	}
 
