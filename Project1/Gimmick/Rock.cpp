@@ -10,8 +10,6 @@ namespace
 	constexpr int ROCK_HEIGHT = 256;
 	constexpr int ROCK_USE_WIDTH = 250;
 	constexpr int ROCK_USE_HEIGHT = 256;
-
-
 }
 
 Rock::Rock(const Vector2 & pos, int stage):Gimmick(pos, stage)

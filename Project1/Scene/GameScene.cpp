@@ -15,6 +15,12 @@
 #include "../Object/Barrier/BarrierMng.h"
 #include "../Object/Attack/white/StopTime.h"
 #include "../Manage/DamageDisplay.h"
+#include "../Audio/AudioContainer.h"
+
+namespace
+{
+	AudioContainer _audio;
+}
 
 GameScene::GameScene()
 {
@@ -217,6 +223,10 @@ bool GameScene::Init(void)
 	effect.emplace_back(0, -1);
 
 	lpImageMng.setEffect("clock_stop", effect);
+
+	_audio.LoadSound("sound/BGM/ms.mp3", "f_01", 10);
+	_audio.ChangeVolume("f_01", 110);
+	PlaySoundMem(_audio.GetSound("f_01"), DX_PLAYTYPE_LOOP, true);
 
 	return false;
 }
