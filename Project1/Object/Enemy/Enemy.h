@@ -82,5 +82,7 @@ static const int e_fn_ptr_num = 5;
 	int _maxHP;
 	int _divNum;		// HP‚ğ•`‰æ‚·‚é‚Æ‚«‚Ì•ªŠ„”
 
+	int _liveCnt;		// ¶‚«‚Ä‚¢‚éƒtƒŒ[ƒ€”
+
 	Vector2 _size;
 };

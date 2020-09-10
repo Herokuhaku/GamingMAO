@@ -22,6 +22,7 @@ void Enemy::Update(void)
 	// ???
 	_work = (this->*autoM[_aState])(plPos);
 	_work =	Search(plPos);
+	_liveCnt++;
 
 	aState(_work);
 }
@@ -213,11 +214,18 @@ void Enemy::Init(void)
 	_maxHP = _hp;
 	_size = { 10,10 };
 	_isColored = true;
+	_liveCnt = 0;
 }
 
 void Enemy::Draw(void)
 {
-	Object::Draw();
+	if (!anmUpdate())
+	{
+		return;
+	}
+																																																																										// ‚½‚Ô‚ñDxLib‚ªŸè‚É0~255‚ÅƒNƒ‰ƒ“ƒv‚µ‚Ä‚­‚é
+	lpImageMng.AddDraw({ _anmMap[_state_dir][_anmFlame].first, _pos.x, _pos.y - _drawOffset_y, _exRate, _rad, LAYER::CHAR, _zOrder, DX_BLENDMODE_ALPHA, _liveCnt * 2.5, _isColored });
+	DrawStateEffect();
 	DrawHP();
 }
 
