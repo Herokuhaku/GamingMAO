@@ -115,6 +115,8 @@ void EnemyMng::Init(void)
 											 { ENEMY_TYPE::s_dragon, { 1120,  864 } },{ ENEMY_TYPE::s_dragon, { 1472,  864 }},
 											 { ENEMY_TYPE::s_dragon, { 1856,  816 } },{ ENEMY_TYPE::s_dragon, { 2304,  736 }} };
 
+		_enemyPlace[5] = { { ENEMY_TYPE::sorcerer, {992,1232}} };
+
 		//_enemyPlace[3] = { { ENEMY_TYPE::sorcerer, { 1504, 1056 } } };// , { ENEMY_TYPE::s_dragon, { 1200,  200 } }, { ENEMY_TYPE::s_dragon, { 1200,  200 } }, { ENEMY_TYPE::s_dragon, { 800,  200 } }
 //	};
 		_enemyPlace[4] = { /*{ ENEMY_TYPE::s_dragon, {   48, 1040 } },*/{ ENEMY_TYPE::s_dragon, {  272,  128 } } };
