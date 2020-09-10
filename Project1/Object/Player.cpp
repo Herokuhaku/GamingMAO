@@ -785,6 +785,9 @@ void Player::Portal(void)
 			std::pow(lpMapMng.GetPortal()->Spos.x - _pos.x, 2.0) +
 			std::pow(lpMapMng.GetPortal()->Spos.y + 50 - _pos.y, 2.0)
 			<= 900 ? true : false;
+		auto a =
+			std::pow(lpMapMng.GetPortal()->Spos.x - _pos.x, 2.0) +
+			std::pow(lpMapMng.GetPortal()->Spos.y + 50 - _pos.y, 2.0);
 		// 900は正しい値じゃない
 		// 
 		// 真ん中のポータル(分岐)

@@ -136,7 +136,7 @@ const portal_t * MapMng::GetPortal2(void) const
 
 void MapMng::StageTrans(int no)
 {
-	if (no < 1 || no > 4)
+	if (no < 1 || no > 7)
 	{
 		return;
 		exit(1);
@@ -149,7 +149,7 @@ void MapMng::StageTrans(int no)
 		auto a = GetMapIndex(std::get <static_cast<int>(MAP_DATA::BRANCH)>(_mapdata));
 		
 		test.stageF = true;
-		test.Spos = { std::get<static_cast<int>(MAP_DATA::BPOSX)>(a), std::get<static_cast<int>(MAP_DATA::BPOSY)>(a) - 50 };
+		test.Spos = { std::get<static_cast<int>(MAP_DATA::BPOSX)>(a), std::get<static_cast<int>(MAP_DATA::BPOSY)>(a)/* - 50*/ };
 	}
 
 	MapUpdate();
