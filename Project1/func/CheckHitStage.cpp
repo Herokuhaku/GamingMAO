@@ -118,6 +118,25 @@ int CheckHitStage::operator()(const CHECK_DIR & dir, const Vector2 & pos, const 
 				rtnPos = bottom - bottom % CHIP_SIZE;
 			}
 		}
+		for (auto& gm : gimmick)
+		{
+			gmPos = gm->GetPos();
+			gmBox = gm->GetHitBox();
+			if (left < gmPos.x + gmBox[static_cast<int>(CHECK_DIR::RIGHT)] &&
+				right > gmPos.x - gmBox[static_cast<int>(CHECK_DIR::LEFT)] &&
+				top + CHIP_SIZE < gmPos.y + gmBox[static_cast<int>(CHECK_DIR::DOWN)] &&
+				bottom > gmPos.y - gmBox[static_cast<int>(CHECK_DIR::UP)])
+			{
+				if (rtnPos == NOTHIT)
+				{
+					rtnPos = gmPos.y - gmBox[static_cast<int>(CHECK_DIR::UP)];
+				}
+				else
+				{
+					rtnPos = std::min(rtnPos, gmPos.y - gmBox[static_cast<int>(CHECK_DIR::UP)]);
+				}
+			}
+		}
 		break;
 	case CHECK_DIR::UP:
 		for (int i = 0; i < width; i += CHIP_SIZE)
