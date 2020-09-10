@@ -57,6 +57,8 @@ private:
 
 	void Init(void);
 
+	void Stage6SetPlayerPosReset(void);
+
 	void ControlNormal(void);
 	void ControlAttack(void);
 	void ControlDash(void);
