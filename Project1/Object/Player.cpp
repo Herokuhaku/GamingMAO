@@ -75,10 +75,10 @@ Player::~Player()
 
 void Player::Update(void)
 {
+	Stage6SetPlayerPosReset();
 	VelUpdate();
 	MagicUpdate();
 	HistoryUpdate();
-
 	// ‘€ì‚µ‚Ä‚¢‚éƒvƒŒƒCƒ„[‚¶‚á‚È‚¢
 	if (lpTimeMng.getTime() != _time)
 	{
@@ -363,6 +363,22 @@ void Player::Init(void)
 	_audio.ChangeVolume("overdrive", 140);
 	_audio.LoadSound("sound/magic/stopclock.wav", "stopclock", 10);
 	_audio.ChangeVolume("stopclock", 140);
+}
+
+void Player::Stage6SetPlayerPosReset(void)
+{
+	if (_stage == 6 && lpTimeMng.getTime() == _time)
+	{
+		if (_pos.y >= 1310 && _pos.x <= 2300)
+		{
+			_pos.y = 1264;
+			_pos.x = 2512;
+			Vector2D tmp;
+			tmp.x = _pos.x;
+			tmp.y = _pos.y;
+			_tmpPos = tmp;
+		}
+	}
 }
 
 void Player::ControlNormal(void)
