@@ -297,6 +297,14 @@ Enemy::~Enemy()
 			}		
 			lpTradeMng.SetItemList(_pos, ITEM_TYPE::BOOK, tmp, _stage);
 		}
+		else if (_stage == 3)
+		{
+			while (tmp != COLOR::BLUE && tmp != COLOR::GREEN && tmp != COLOR::RED)
+			{
+				tmp = static_cast<COLOR>(rand() % static_cast<int>(COLOR::MAX));
+			}
+			lpTradeMng.SetItemList(_pos, ITEM_TYPE::STONE, tmp, _stage);
+		}
 		
 	}
 }
