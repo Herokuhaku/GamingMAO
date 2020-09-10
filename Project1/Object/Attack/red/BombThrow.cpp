@@ -82,11 +82,8 @@ void BombThrow::Init(void)
 
 	setAttack("bomb", attack);
 
-	attack.reserve(17);
-	for (int i = 0; i < 17; i++)
-	{
-		attack.emplace_back(atkData(true, OBJ_TYPE::ATTACK, { 0, 0 }, static_cast<float>(ATTACK_RADIUS), 30, 20, _target));
-	}
+	attack.reserve(2);
+	attack.emplace_back(atkData(true, OBJ_TYPE::ATTACK, { 0, 0 }, static_cast<float>(ATTACK_RADIUS), 30, 20, _target));
 	attack.emplace_back(atkData(false, OBJ_TYPE::ATTACK, { 0, 0 }, static_cast<float>(ATTACK_RADIUS), 0, -1, _target));
 
 	setAttack("explosion", attack);

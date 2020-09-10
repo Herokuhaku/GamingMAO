@@ -91,7 +91,7 @@ void PoisonFog::Init(void)
 	setAnm({ OBJ_STATE::FALL, _state_dir.second }, data);
 
 	std::vector<atkData> attack;
-	attack.reserve(1);
+	attack.reserve(2);
 
 	attack.emplace_back(atkData(true, OBJ_TYPE::ATTACK, { -150, -60 }, { 150, 60 }, 1, 6, _target));
 	attack.emplace_back(atkData(true, OBJ_TYPE::ATTACK, { 0, 0 }, { 0, 0 }, 0, -1, _target));
