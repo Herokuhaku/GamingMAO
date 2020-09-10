@@ -787,6 +787,15 @@ void Player::Portal(void)
 			<= 900 ? true : false;
 		// 900は正しい値じゃない
 		// 
+		// 真ん中のポータル(分岐)
+		if (flag)
+		{
+			_nextPos = { lpMapMng.GetBrancPosX(_stage),lpMapMng.GetBrancPosY(_stage) };
+			lpMapMng.setstageF(false);
+			lpImageMng.SetplmoveF(true, MAP_DATA::BRANCH);
+			lpImageMng.setGkind(ScrEff::FADEOUT);
+			return;
+		}
 
 		int y = _pos.y - 50;
 		switch (lpMapMng.mapMove(1, _pos.x, y, _stage))
@@ -797,6 +806,7 @@ void Player::Portal(void)
 			_nextPos = { lpMapMng.GetFrontPosX(_stage),lpMapMng.GetFrontPosY(_stage) };
 			lpImageMng.SetplmoveF(true, MAP_DATA::FRONT);
 			lpImageMng.setGkind(ScrEff::FADEOUT);
+			return;
 			break;
 		}
 		case 3:
@@ -805,27 +815,20 @@ void Player::Portal(void)
 			_nextPos = { lpMapMng.GetBackPosX(_stage),lpMapMng.GetBackPosY(_stage) };
 			lpImageMng.SetplmoveF(true, MAP_DATA::BACK);
 			lpImageMng.setGkind(ScrEff::FADEOUT);
+			return;
 			break;
 		}
 		default:
 			break;
 		}
-		// if(座標 真ん中のポータル)
-		if (flag)
-		{
-			_nextPos = { lpMapMng.GetBrancPosX(_stage),lpMapMng.GetBrancPosY(_stage) };
-			lpMapMng.setstageF(false);
-			lpImageMng.SetplmoveF(true, MAP_DATA::BRANCH);
-			lpImageMng.setGkind(ScrEff::FADEOUT);
-
-		}
 		// ポータルスタート
-		else if (std::pow(lpMapMng.GetPortal2()->Spos.x - _pos.x, 2.0) +
+		if (std::pow(lpMapMng.GetPortal2()->Spos.x - _pos.x, 2.0) +
 			std::pow(lpMapMng.GetPortal2()->Spos.y + 50 - _pos.y, 2.0)
 			<= 900)
 		{
 			(*lpSceneMng.GetPlObj(lpTimeMng.getTime()))->setPos(lpMapMng.GetPortal2()->Epos);
 			(*lpSceneMng.GetPlObj(lpTimeMng.getTime()))->setPlTmpPos(lpMapMng.GetPortal2()->Epos);
+			return;
 		}
 		// ポータルエンド
 		else if (std::pow(lpMapMng.GetPortal2()->Epos.x - _pos.x, 2.0) +
@@ -834,6 +837,7 @@ void Player::Portal(void)
 		{
 			(*lpSceneMng.GetPlObj(lpTimeMng.getTime()))->setPos(lpMapMng.GetPortal2()->Spos);
 			(*lpSceneMng.GetPlObj(lpTimeMng.getTime()))->setPlTmpPos(lpMapMng.GetPortal2()->Spos);
+			return;
 		}
 		else
 		{
