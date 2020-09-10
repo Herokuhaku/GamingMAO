@@ -122,6 +122,7 @@ bool SceneMng::SysInit(void)
 {
 	bool rtnFlag = true;
 
+	SetOutApplicationLogValidFlag(false);
 	SetWindowText("AGAME");
 	SetGraphMode(ScreenSize.x, ScreenSize.y, 16);
 	ChangeWindowMode(true);
