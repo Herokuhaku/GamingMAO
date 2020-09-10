@@ -393,6 +393,9 @@ void ItemTrader::UseDeleteTool(void)
 		return data.first.use == true;
 		});
 	_IBag.erase(itr, _IBag.end());
+	BagTypeSort();
+	BagTypeCount();
+	BagNoSort();
 }
 
 void ItemTrader::ListUpdate(void)

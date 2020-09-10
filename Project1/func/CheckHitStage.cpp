@@ -125,7 +125,7 @@ int CheckHitStage::operator()(const CHECK_DIR & dir, const Vector2 & pos, const 
 			if (left < gmPos.x + gmBox[static_cast<int>(CHECK_DIR::RIGHT)] &&
 				right > gmPos.x - gmBox[static_cast<int>(CHECK_DIR::LEFT)] &&
 				top + CHIP_SIZE < gmPos.y + gmBox[static_cast<int>(CHECK_DIR::DOWN)] &&
-				bottom > gmPos.y - gmBox[static_cast<int>(CHECK_DIR::UP)])
+				bottom > gmPos.y - gmBox[static_cast<int>(CHECK_DIR::UP)] && (stage == gm->GetStage()))
 			{
 				if (rtnPos == NOTHIT)
 				{

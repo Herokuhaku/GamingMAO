@@ -21,6 +21,12 @@ Rock::Rock(const Vector2 & pos, int stage):Gimmick(pos, stage)
 	_audio = std::make_shared<AudioContainer>();
 	_audio->LoadSound("sound/magic/explosion.wav", "explosion", 10);
 	_audio->ChangeVolume("explosion", 135);
+
+	_audio->LoadSound("sound/system/hazure.wav", "hazure", 10);
+	_audio->ChangeVolume("hazure",130);
+
+	_stage = stage;
+	_pos = pos;
 }
 
 Rock::~Rock()
@@ -43,6 +49,10 @@ void Rock::Update(void)
 					_toDelete = true;
 					_hitBox = { 0,0,0,0 };
 					lpTradeMng.UseDeleteTool();
+				}
+				else
+				{
+					PlaySoundMem(_audio->GetSound("hazure"), DX_PLAYTYPE_BACK, true);
 				}
 			}
 		}

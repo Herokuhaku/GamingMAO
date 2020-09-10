@@ -12,6 +12,7 @@
 #include "../Gimmick/GimmickMng.h"
 #include "../Menu/MenuExecuter.h"
 #include "../Gimmick/Rock.h"
+#include "../Gimmick/Door.h"
 #include "../Object/Barrier/BarrierMng.h"
 #include "../Object/Attack/white/StopTime.h"
 #include "../Manage/DamageDisplay.h"
@@ -191,8 +192,8 @@ bool GameScene::Init(void)
 	lpSceneMng.SetcObj(_cobj);
 
 	_gimmickMng = std::make_unique<GimmickMng>();
-	//_gimmickMng->AddGimmick(new Rock(Vector2Template<int>(1550, 1100), 1));
-
+	_gimmickMng->AddGimmick(new Rock(Vector2Template<int>(1550, 1100), 1));
+	_gimmickMng->AddGimmick(new Door(Vector2Template<int>(100,525), 2));
 	_menu.reset(new MenuExecuter(this));
 
 	_barrierMng.reset(new BarrierMng(this));
@@ -207,7 +208,8 @@ bool GameScene::Init(void)
 	//lpTradeMng.SetItemList({ 200,1311 }, ITEM_TYPE::STONE, COLOR::RED,1);
 	//lpTradeMng.SetItemList({ 200,1311 }, ITEM_TYPE::STONE, COLOR::GREEN,1);
 	lpTradeMng.SetItemList({ 300,1311 }, ITEM_TYPE::BOOK, COLOR::RED, 2);
-	lpTradeMng.SetItemList({ 200,1311 }, ITEM_TYPE::BOOK, COLOR::GREEN, 1);
+	lpTradeMng.SetItemList({ 200,1311 }, ITEM_TYPE::TOOL, COLOR::RED, 1);
+	lpTradeMng.SetItemList({ 200,1311 }, ITEM_TYPE::TOOL, COLOR::YELLOW, 1);
 	//lpTradeMng.SetItemList({ 200,1311 }, ITEM_TYPE::BOOK, COLOR::GREEN, 1);
 	
 	EffectData effect;
