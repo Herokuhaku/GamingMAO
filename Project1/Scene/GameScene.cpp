@@ -193,7 +193,7 @@ bool GameScene::Init(void)
 
 	_gimmickMng = std::make_unique<GimmickMng>();
 	_gimmickMng->AddGimmick(new Rock(Vector2Template<int>(1550, 1100), 1));
-	_gimmickMng->AddGimmick(new Door(Vector2Template<int>(100,525), 4));
+	_gimmickMng->AddGimmick(new Door(Vector2Template<int>(180,525), 4));
 	_menu.reset(new MenuExecuter(this));
 
 	_barrierMng.reset(new BarrierMng(this));
