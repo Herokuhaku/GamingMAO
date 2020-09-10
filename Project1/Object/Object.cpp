@@ -68,12 +68,13 @@ Vector2Template<int> Object::getPosWithOffset(void)
 	return Vector2Template<int>(_pos.x, _pos.y - _drawOffset_y);
 }
 
-void Object::MovePos(const Vector2Template<int>& pos)
+bool Object::MovePos(const Vector2Template<int>& pos)
 {
 	int l = CheckHitStage()(CHECK_DIR::LEFT, { _pos.x + pos.x, _pos.y }, getHitOffset(), _stage);
 	int r = CheckHitStage()(CHECK_DIR::RIGHT, { _pos.x + pos.x, _pos.y }, getHitOffset(), _stage);
 	int u = CheckHitStage()(CHECK_DIR::UP, { _pos.x, _pos.y + pos.y }, getHitOffset(), _stage);
 	int d = CheckHitStage()(CHECK_DIR::DOWN, { _pos.x, _pos.y + pos.y }, getHitOffset(), _stage);
+	bool rtnF = true;	// true:“–‚½‚Á‚½
 
 	if (l != NOTHIT)
 	{
@@ -86,6 +87,7 @@ void Object::MovePos(const Vector2Template<int>& pos)
 	else
 	{
 		_pos.x += pos.x;
+		rtnF = false;
 	}
 	if (u != NOTHIT)
 	{
@@ -98,7 +100,9 @@ void Object::MovePos(const Vector2Template<int>& pos)
 	else
 	{
 		_pos.y += pos.y;
+		rtnF = false;
 	}
+	return rtnF;
 }
 
 void Object::setState(std::pair<OBJ_STATE, DIR> state)

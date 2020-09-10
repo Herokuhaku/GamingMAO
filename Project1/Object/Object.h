@@ -106,7 +106,7 @@ public:
 	Vector2Template<int> getPos(void);
 	Vector2Template<int> getPosWithOffset(void);
 
-	void MovePos(const Vector2Template<int>& pos);
+	bool MovePos(const Vector2Template<int>& pos);	// true:“–‚½‚Á‚½
 
 	void setState(std::pair<OBJ_STATE, DIR> state);
 	std::pair<OBJ_STATE, DIR> getState(void);

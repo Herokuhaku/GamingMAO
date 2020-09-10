@@ -49,7 +49,12 @@ int Enemy::Move(Vector2 pPos)
 
 			if (_state_dir.second == DIR::RIGHT)
 			{
-				_pos.x += _speed;
+				if (MovePos({ _speed,0 }))
+				{
+					setState({ OBJ_STATE::WALK,DIR::LEFT });
+					goto END_MOVE;
+				}
+
 				x = (_pos.x + 64);
 				y = (_pos.y - 16); 
 				if(lpMapMng.getHitMap({x,y},_stage))		// ï«
@@ -66,7 +71,11 @@ int Enemy::Move(Vector2 pPos)
 			}
 			else
 			{
-				_pos.x -= _speed;
+				if (MovePos({ -_speed,0 }))
+				{
+					setState({ OBJ_STATE::WALK,DIR::RIGHT });
+					goto END_MOVE;
+				}
 				x = (_pos.x - 64);
 				y = (_pos.y - 16);
 				if(lpMapMng.getHitMap({x,y},_stage))
@@ -81,6 +90,8 @@ int Enemy::Move(Vector2 pPos)
 					setState({ OBJ_STATE::WALK,DIR::RIGHT });
 				}
 			}
+
+		END_MOVE:
 			RandWait();
 			return _aState;
 		}
@@ -151,11 +162,11 @@ int Enemy::AtkMove(Vector2 pPos)
 {
 	if (_state_dir.second == DIR::RIGHT)
 	{
-		_pos.x += _speed + 1;
+		MovePos({ _speed + 1,0 });
 	}
 	else
 	{
-		_pos.x -= _speed + 1;
+		MovePos({ (_speed + 1) * -1,0 });
 	}
 	return _aState;
 }
@@ -175,13 +186,8 @@ void Enemy::damagingHP(int damage)
 	int ddir = _plDir == DIR::LEFT ? 13 : -13;
 	
 	// âÊñ äOÇ‚ï«Ç…ñÑÇ‹ÇÁÇ»Ç¢ÇÊÇ§Ç…èàóù
-	if (lpMapMng.getHitMap(_pos, _stage))
-	{
-	}
-	else
-	{
-		_pos.x += ddir;
-	}
+	MovePos({ ddir,0 });
+
 
 	Object::damagingHP(damage);
 }

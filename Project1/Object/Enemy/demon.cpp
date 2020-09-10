@@ -2,13 +2,26 @@
 #include "../../Scene/SceneMng.h"
 #include "../../Graphic/ImageMng.h"
 #include "../../Manage/MapMng.h"
+#include "../Attack/AttackMng.h"
 
 void demon::Update(void)
 {
 	Enemy::Update();
 }
 
-//s_dragon::s_dragon(Vector2Template<int> pos, double rad, TIME time, int stage, OBJ_TYPE type, std::pair<OBJ_STATE, DIR> state_dir)
+int demon::Attack(Vector2 pos)
+{
+	if (_state_dir.first != OBJ_STATE::ATTACK)
+	{
+		setState({ OBJ_STATE::ATTACK, _plDir });
+		lpAtkMng.MakeSpearAttack( _pos, _plDir, _time, _stage, OBJ_TYPE::PLAYER	);
+		_waitTime = 140;	// クールタイム
+		_waitCnt = 0;
+		return static_cast<int>(MOVE_SELECT::WAIT);
+	}
+	return static_cast<int>(MOVE_SELECT::WAIT);
+}
+
 demon::demon(Vector2 pos, int stage)
 	{
 	_pos = pos;
@@ -28,7 +41,7 @@ demon::demon(Vector2 pos, int stage, int pPos, bool flag)
 {
 	_pos = pos;
 	_stage = stage;
-	_etype = ENEMY_TYPE::s_dragon;
+	_etype = ENEMY_TYPE::demon;
 	_pPos = pPos;
 	_state_dir = { OBJ_STATE::NORMAL,DIR::RIGHT };
 	setHP(100);

@@ -154,6 +154,13 @@ public:
 	// target:目標
 	void MakeTrackingBall(Vector2 ePos, Vector2 pPos, TIME time, int stage, OBJ_TYPE target);
 
+	// demon槍攻撃
+	// pos:敵の座標
+	// dir:向いている方向
+	// time:時間軸		stage:ステージ
+	// target:目標
+	void MakeSpearAttack(Vector2 pos, DIR dir, TIME time, int stage, OBJ_TYPE target);
+
 	void DeleteAll(void);
 
 private:

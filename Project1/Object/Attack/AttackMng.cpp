@@ -18,6 +18,7 @@
 #include "yellow/Flash.h"
 
 #include "../EnemyAttack/TrackingBall.h"
+#include "../EnemyAttack/SpearAttack.h"
 
 AttackMng* AttackMng::sInstance = nullptr;
 
@@ -268,6 +269,22 @@ void AttackMng::MakeTrackingBall(Vector2 ePos, Vector2 pPos, TIME time, int stag
 	else
 	{
 		_tmpObj.emplace_back(new TrackingBall(ePos, pPos, time, stage, target));
+
+	//	return _tmpObj.back()->getAnmEfk();
+	}
+}
+
+void AttackMng::MakeSpearAttack(Vector2 pos, DIR dir, TIME time, int stage, OBJ_TYPE target)
+{
+	if (_canAddObj)
+	{
+		_attackObj.emplace_back(new SpearAttack(pos, dir, time, stage, target));
+
+	//	return _attackObj.back()->getAnmEfk();
+	}
+	else
+	{
+		_tmpObj.emplace_back(new SpearAttack(pos, dir, time, stage, target));
 
 	//	return _tmpObj.back()->getAnmEfk();
 	}
