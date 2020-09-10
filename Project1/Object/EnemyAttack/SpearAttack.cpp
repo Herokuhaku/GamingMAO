@@ -47,6 +47,7 @@ bool SpearAttack::Init(void)
 
 	//attack.emplace_back(atkData(true, OBJ_TYPE::ATTACK, { _pos.x - 10, _pos.y - 10 }, { _pos.x + 10, _pos.y + 10 }, 30, 10, _target));
 	attack.emplace_back(atkData(true, OBJ_TYPE::ATTACK, { 0, 0 }, 50, 1, 10, _target));
+//	attack.emplace_back(atkData(false, OBJ_TYPE::ATTACK, { 0, 0 }, { 0, 0 }, 0, -1, _target));
 
 	AnmVec data;
 	data.reserve(30);
@@ -56,8 +57,6 @@ bool SpearAttack::Init(void)
 	}
 
 	setAnm({ OBJ_STATE::NORMAL, _state_dir.second }, data);
-
-//	attack.emplace_back(atkData(false, OBJ_TYPE::ATTACK, { 0, 0 }, { 0, 0 }, 0, -1, _target));
 
 	setAttack("spear", attack);
 	AddAttack("spear");

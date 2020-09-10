@@ -71,6 +71,17 @@ void TrackingBall::Update(void)
 		setState({ OBJ_STATE::DEAD, _state_dir.second });
 	}
 
+	//if (CheckHitStage()(static_cast<CHECK_DIR>(static_cast<int>(_state_dir.second) / 2), _pos, getHitOffset(), _stage) != NOTHIT)
+	//{
+	//	//setState({ OBJ_STATE::A_NORMAL, _state_dir.second });
+	//	//_update = &FireBall::ExplosionUpdate;
+	//	//_exRate = 2.0;
+	//	//_alive = false;
+	//	//_timer = EXPLOSION_DURATION;
+	//	//PlaySoundMem(_audio.GetSound("explosion"), DX_PLAYTYPE_BACK, true);
+	//	_alive = false;
+	//	setState({ OBJ_STATE::DEAD, _state_dir.second });
+	//}
 //	_pos = { _pos.x + static_cast<int>(_vec.x), _pos.y + static_cast<int>(_vec.y) };
 }
 
@@ -108,13 +119,13 @@ bool TrackingBall::Init(void)
 	attack.reserve(31);
 
 	attack.emplace_back(atkData(true, OBJ_TYPE::ATTACK, { 0, -6 }, { 20, 14 }, 30, 10, _target));
-	//attack.emplace_back(atkData(false, OBJ_TYPE::ATTACK, { 0, 0 }, { 0, 0 }, 0, -1, _target));
+	attack.emplace_back(atkData(false, OBJ_TYPE::ATTACK, { 0, 0 }, { 0, 0 }, 0, -1, _target));
 
-	setAttack("fireball", attack);
+	setAttack("Efireball", attack);
 
 	_type = OBJ_TYPE::ATTACK;
 	setHitOffset({ 20,0,6,14 });
 
-	AddAttack("fireball");
+	AddAttack("Efireball");
 	return false;
 }
