@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "../Manage/Menu.h"
 #include "../Manage/ItemTrader.h"
 #include "../Manage/ButtonMng.h"
 #include "../Scene/SceneMng.h"
@@ -176,7 +177,7 @@ void Player::Draw(void)
 		{
 			tmpNum = 2;
 		}
-		lpImageMng.AddDraw({ lpImageMng.getImage("hp_bar")[tmpNum], _pos.x - 27 + 6 * i, _pos.y - 60 - _drawOffset_y, 1.0, 0.0, LAYER::CHAR, 160, DX_BLENDMODE_NOBLEND, 0, false });
+		lpImageMng.AddDraw({ lpImageMng.getImage("hp_bar")[tmpNum], _pos.x - 27 + 6 * i, _pos.y - 60 - _drawOffset_y, 1.0, 0.0, LAYER::CHAR, 160, DX_BLENDMODE_NOBLEND, 0, true });
 	}
 	HistoryDraw();
 }
@@ -357,13 +358,11 @@ void Player::Init(void)
 	_attack[static_cast<int>(COLOR::WHITE)]	[static_cast<int>(ATK_TYPE::TYPE_3)] = std::bind(&Player::White3  , this);
 
 	_audio.LoadSound("sound/magic/dash.wav", "dash", 10);
-	_audio.ChangeVolume("dash", 180);
+	_audio.ChangeVolume("dash", 145);
 	_audio.LoadSound("sound/magic/overdrive.wav", "overdrive", 10);
-	_audio.ChangeVolume("overdrive", 180);
+	_audio.ChangeVolume("overdrive", 140);
 	_audio.LoadSound("sound/magic/stopclock.wav", "stopclock", 10);
-	_audio.ChangeVolume("stopclock", 180);
-
-	_isColored = false;
+	_audio.ChangeVolume("stopclock", 140);
 }
 
 void Player::ControlNormal(void)
@@ -779,7 +778,7 @@ bool Player::Attack(void)
 void Player::Portal(void)
 {
 	if ((lpKeyMng.getOldBuf()[KEY_INPUT_DOWN] && !lpKeyMng.getBuf()[KEY_INPUT_DOWN]) ||
-		(lpButtonMng.ButtonTrg(0, XINPUT_BUTTON_A)))
+		((lpButtonMng.Thumbf(0, XINPUT_THUMBL_Y).first == 2) && (lpButtonMng.Thumbf(0, XINPUT_THUMBL_Y).second != 2)))
 	{
 		// 
 		bool flag =

@@ -97,9 +97,9 @@ TitleScene::TitleScene()
 	_audio.LoadSound("sound/system/cursor_move.wav", "move", 5);
 	_audio.LoadSound("sound/system/cursor_select.wav", "select", 3);
 	_audio.LoadSound("sound/system/cancel.wav", "cancel", 3);
-	_audio.ChangeVolume("move", 180);
-	_audio.ChangeVolume("select", 210);
-	_audio.ChangeVolume("cancel", 180);
+	_audio.ChangeVolume("move", 125);
+	_audio.ChangeVolume("select", 160);
+	_audio.ChangeVolume("cancel", 130);
 
 	lpAtkDetails;
 }

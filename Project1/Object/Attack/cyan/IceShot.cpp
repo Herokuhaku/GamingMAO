@@ -113,7 +113,7 @@ void IceShot::Init(void)
 	setHitOffset({ 32, 32, 16, 16 });
 
 	_audio.LoadSound("sound/magic/ice_shot.wav", "ice", 10);
-	_audio.ChangeVolume("ice", 180);
+	_audio.ChangeVolume("ice", 130);
 }
 
 void IceShot::ChargeUpdate(void)

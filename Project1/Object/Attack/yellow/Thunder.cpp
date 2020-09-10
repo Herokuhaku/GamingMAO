@@ -87,7 +87,7 @@ Thunder::Thunder(Vector2 pos1, Vector2 pos2, bool useRef, Vector2* refPos, int d
 	}
 
 	_audio.LoadSound("sound/magic/thunder.wav", "thunder", 10);
-	_audio.ChangeVolume("thunder", 180);
+	_audio.ChangeVolume("thunder", 160);
 	PlaySoundMem(_audio.GetSound("thunder"), DX_PLAYTYPE_BACK, true);
 }
 

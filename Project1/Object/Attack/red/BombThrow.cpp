@@ -94,7 +94,7 @@ void BombThrow::Init(void)
 	AddAttack("bomb");
 
 	_audio.LoadSound("sound/magic/explosion.wav", "explosion", 10);
-	_audio.ChangeVolume("explosion", 180);
+	_audio.ChangeVolume("explosion", 135);
 }
 
 void BombThrow::BombUpdate(void)

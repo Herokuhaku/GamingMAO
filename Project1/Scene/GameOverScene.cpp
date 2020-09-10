@@ -144,7 +144,7 @@ void GameOverScene::Draw(void)
 			}
 			else
 			{
-				lpStrAdd.AddStringDraw(str, "SQUARE_SMALL", lpSceneMng.ScreenSize.x / 2, pos_y, 0xaaaaaa, DRAW_TO_CENTER);
+				lpStrAdd.AddStringDraw(str, "TITLE", lpSceneMng.ScreenSize.x / 2, pos_y, 0xaaaaaa, DRAW_TO_CENTER);
 			}
 		}
 	}

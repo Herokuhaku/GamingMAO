@@ -97,7 +97,7 @@ void EnemyMng::Init(void)
 	if (_epF)
 	{
 		// Ç∆ÇËÇ†Ç¶Ç∏éËèëÇ´
-		_enemyPlace[1] = { { ENEMY_TYPE::demon	 , {  448,  464 } },{ ENEMY_TYPE::s_dragon, {  896,  624 } } };
+		_enemyPlace[1] = { { ENEMY_TYPE::demon	 , {  448,  1280 } },{ ENEMY_TYPE::s_dragon, {  896,  624 } } };
 		_enemyPlace[2] = { { ENEMY_TYPE::s_dragon, {  800, 1280 } },{ ENEMY_TYPE::wizard  , { 1264, 1280 } } };
 		_enemyPlace[3] = { { ENEMY_TYPE::sorcerer, { 1504, 1056 } }/*,{ ENEMY_TYPE::s_dragon, { 1200,  200 } }*/ };
 		_enemyPlace[4] = { /*{ ENEMY_TYPE::s_dragon, {   48, 1040 } },*/{ ENEMY_TYPE::s_dragon, {  272,  128 } } };
@@ -111,7 +111,7 @@ void EnemyMng::Init(void)
 	}
 
 	_enemyList.clear();
-	_enemyList.emplace_back(new wizard({ 848,646 },1,0, false));
+	_enemyList.emplace_back(new s_dragon({ 848,1280 },1,0, false));
 
 	_plStage[0] = 1;
 	_plStage[1] = 1;

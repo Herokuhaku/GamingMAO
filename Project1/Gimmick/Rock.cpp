@@ -10,8 +10,6 @@ namespace
 	constexpr int ROCK_HEIGHT = 256;
 	constexpr int ROCK_USE_WIDTH = 250;
 	constexpr int ROCK_USE_HEIGHT = 256;
-
-
 }
 
 Rock::Rock(const Vector2 & pos, int stage):Gimmick(pos, stage)
@@ -22,7 +20,7 @@ Rock::Rock(const Vector2 & pos, int stage):Gimmick(pos, stage)
 	type_ = COLOR::RED;	
 	_audio = std::make_shared<AudioContainer>();
 	_audio->LoadSound("sound/magic/explosion.wav", "explosion", 10);
-	_audio->ChangeVolume("explosion", 180);
+	_audio->ChangeVolume("explosion", 135);
 }
 
 Rock::~Rock()

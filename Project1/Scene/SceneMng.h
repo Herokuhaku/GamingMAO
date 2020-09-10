@@ -4,6 +4,7 @@
 #include "BaseScene.h"
 #include "../Object/Object.h"
 #include "../Graphic/StringAddDraw.h"
+#include <functional>
 
 class camera;
 
@@ -54,6 +55,9 @@ public:
 	void SetNum(int num);			// _workのset
 	int GetNum(void);				// _workのget
 
+	void Quit(void);
+	void ChangeScene(BaseScene* scene);
+
 	std::mt19937 _rnd;
 
 	const Vector2 ScreenSize = { 1280,720 };
@@ -69,6 +73,9 @@ private:
 	int _work;				// gameover用スクリーン
 
 	bool SysInit(void);
+
+	std::function<void(void)> _sceneChange = []() {};
+	bool _exit = false;
 	
 	SceneMng();
 	SceneMng(const SceneMng&) = delete;

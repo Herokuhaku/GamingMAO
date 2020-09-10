@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 #include <unordered_map>
-
+#include <DxLib.h>
 
 #define lpStrAdd StringAddDraw::GetInstance()
 
@@ -38,7 +38,7 @@ public:
 	// color : 描画色
 	// draw_type : x座標をどこに合わせるか(左　中央　右)
 	// 返り値 : 文字列の横サイズ
-	int AddStringDraw(const char* string, const std::string& font_key, int pos_x, int pos_y, int color, int draw_type);
+	int AddStringDraw(const char* string, const std::string& font_key, int pos_x, int pos_y, int color, int draw_type, int blendMode = DX_BLENDMODE_NOBLEND, int param = 0);
 
 	void Draw(void);
 	void ClearScreen(void);

@@ -220,6 +220,25 @@ void AttackUI::Active(bool flag)
 	_active = flag;
 }
 
+void AttackUI::Reset(void)
+{
+	Init();
+}
+
+void AttackUI::Init(void)
+{
+	// èâä˙âª
+	_stickX = 0;
+	_stickY = 0;
+	_absStickX = 0;
+	_absStickY = 0;
+	_OldAttackColor = COLOR::BLACK;
+	_AttackColor = COLOR::BLACK;
+	_magicState = { std::make_pair(ATK_STATE::NON, MP_MAX), std::make_pair(ATK_STATE::NON, MP_MAX), std::make_pair(ATK_STATE::NON, MP_MAX) };
+	_coolTime = 0;
+	_feverTime = 0;
+}
+
 void AttackUI::MpUpdate(void)
 {
 	if (_feverTime > 0)
@@ -373,16 +392,7 @@ AttackUI::AttackUI()
 	lpImageMng.getImage("image/UI/UIFilter1.png", "ui_filter_1");
 	lpImageMng.getImage("image/UI/UIFilter2.png", "ui_filter_2");
 
-	// èâä˙âª
-	_stickX = 0;
-	_stickY = 0;
-	_absStickX = 0;
-	_absStickY = 0;
-	_OldAttackColor = COLOR::BLACK;
-	_AttackColor = COLOR::BLACK;
-	_magicState = { std::make_pair(ATK_STATE::NON, MP_MAX), std::make_pair(ATK_STATE::NON, MP_MAX), std::make_pair(ATK_STATE::NON, MP_MAX) };
-	_coolTime = 0;
-	_feverTime = 0;
+	Init();
 }
 
 AttackUI::~AttackUI()

@@ -105,7 +105,7 @@ void Flash::Init(void)
 	AddAttack("light");
 
 	_audio.LoadSound("sound/magic/flash.wav", "flash", 10);
-	_audio.ChangeVolume("flash", 180);
+	_audio.ChangeVolume("flash", 140);
 	PlaySoundMem(_audio.GetSound("flash"), DX_PLAYTYPE_BACK, true);
 }
 

@@ -81,7 +81,7 @@ void HolyJudge::Init(void)
 	_anmEfkHd = lpEffectMng.playEffect(lpEffectMng.getEffect("holy"), LIFE_TIME, &_pos.x, &_pos.y, 0, 0, &(_state_dir.second));
 
 	_audio.LoadSound("sound/magic/holy.wav", "holy", 10);
-	_audio.ChangeVolume("holy", 180);
+	_audio.ChangeVolume("holy", 150);
 }
 
 int HolyJudge::FindSF(int pos)

@@ -14,6 +14,13 @@
 #include "../Gimmick/Rock.h"
 #include "../Object/Barrier/BarrierMng.h"
 #include "../Object/Attack/white/StopTime.h"
+#include "../Manage/DamageDisplay.h"
+#include "../Audio/AudioContainer.h"
+
+namespace
+{
+	AudioContainer _audio;
+}
 
 GameScene::GameScene()
 {
@@ -122,6 +129,7 @@ GameScene::GameScene()
 
 GameScene::~GameScene()
 {
+	DamageDisplay::GetInstance().DeleteAll();
 }
 
 std::unique_ptr<BaseScene> GameScene::Update(std::unique_ptr<BaseScene> own)
@@ -166,7 +174,12 @@ std::shared_ptr<Object> GameScene::FindObject(Object* obj)
 
 bool GameScene::Init(void)
 {
+	GimmickMng::DeleteAll();
+	lpTradeMng.DeleteAll();
+
 	lpTimeMng.TimeInit();
+
+	lpAttackUI.Reset();
 
 	_objList.clear();
 	_objList.emplace_back(std::make_shared<Player>(Vector2(400,900), 1, TIME::FTR, this));
@@ -217,6 +230,10 @@ bool GameScene::Init(void)
 	effect.emplace_back(0, -1);
 
 	lpImageMng.setEffect("clock_stop", effect);
+
+	_audio.LoadSound("sound/BGM/ms.mp3", "ms", 10);
+	_audio.ChangeVolume("ms", 110);
+	PlaySoundMem(_audio.GetSound("ms"), DX_PLAYTYPE_LOOP, true);
 
 	return false;
 }
@@ -365,13 +382,12 @@ std::unique_ptr<BaseScene> GameScene::NormalUpdate(std::unique_ptr<BaseScene> ow
 		own = std::make_unique<GameOverScene>();
 	}
 
-	//if (!lpMenuMng.GetMixFlag())
-	//{
-		lpTradeMng.BagDraw({ 800,670 }, LAYER::CHAR, { 0,0 }, { 1.0,1.0 });	// ècÇÕScreenSize.y - (DrawBoxÇÃí∑Ç≥/2)
-	//}
+	lpTradeMng.BagDraw({ 800,670 }, LAYER::CHAR, { 0,0 }, { 1.0,1.0 });	// ècÇÕScreenSize.y - (DrawBoxÇÃí∑Ç≥/2)
 	lpTradeMng.ToolDraw({ 800,670 }, LAYER::CHAR, { 0,0 }, { 1.0,1.0 });
 
 	lpTimeMng.resetFlag();
+
+	DamageDisplay::GetInstance().Draw();
 
 	if (std::dynamic_pointer_cast<Player>(lpSceneMng.GetPlObj2(TIME::FTR))->IsTimeStoped())
 	{
@@ -451,6 +467,8 @@ std::unique_ptr<BaseScene> GameScene::StopedUpdate(std::unique_ptr<BaseScene> ow
 	lpTradeMng.ToolDraw({ 800,670 }, LAYER::CHAR, { 0,0 }, { 1.0,1.0 });
 
 	lpTimeMng.resetFlag();
+
+	DamageDisplay::GetInstance().Draw();
 
 	if (!std::dynamic_pointer_cast<Player>(lpSceneMng.GetPlObj2(TIME::FTR))->IsTimeStoped())
 	{

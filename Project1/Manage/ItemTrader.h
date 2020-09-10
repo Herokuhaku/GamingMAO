@@ -67,6 +67,8 @@ public:
 	void UseDeleteTool(void);
 
 	void ListUpdate(void);
+
+	void DeleteAll(void);
 private:
 	ItemTrader();
 	ItemTrader(const ItemTrader&) = delete;

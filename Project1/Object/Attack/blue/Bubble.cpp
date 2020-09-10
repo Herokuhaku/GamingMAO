@@ -54,7 +54,7 @@ void Bubble::Init(void)
 	std::vector<atkData> attack;
 	attack.reserve(2);
 
-	attack.emplace_back(atkData(true, OBJ_TYPE::ATTACK, { 0, 0 }, ATTACK_RADIUS, 0, 0, _target));
+	attack.emplace_back(atkData(true, OBJ_TYPE::ATTACK, { 0, 0 }, ATTACK_RADIUS, -1, 0, _target));
 	attack.emplace_back(atkData(true, OBJ_TYPE::ATTACK, { 0, 0 }, ATTACK_RADIUS, 0, -1, _target));
 
 	setAttack("bubble", attack);
@@ -68,6 +68,6 @@ void Bubble::Init(void)
 	AddAttack("bubble");
 
 	_audio.LoadSound("sound/magic/bubble.wav", "bubble", 10);
-	_audio.ChangeVolume("bubble", 180);
+	_audio.ChangeVolume("bubble", 130);
 	PlaySoundMem(_audio.GetSound("bubble"), DX_PLAYTYPE_BACK, true);
 }

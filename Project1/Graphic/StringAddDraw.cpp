@@ -21,7 +21,7 @@ StringAddDraw::~StringAddDraw()
 
 }
 
-int StringAddDraw::AddStringDraw(const char* string, const std::string& font_key, int pos_x, int pos_y, int color, int draw_type)
+int StringAddDraw::AddStringDraw(const char* string, const std::string& font_key, int pos_x, int pos_y, int color, int draw_type, int BlendMode, int param)
 {
 	if (_fontHandle.find(font_key) == _fontHandle.end())
 	{
@@ -31,8 +31,10 @@ int StringAddDraw::AddStringDraw(const char* string, const std::string& font_key
 	int length = static_cast<int>(strlen(string));
 	int width = GetDrawStringWidthToHandle(string, length, _fontHandle[font_key]);
 	
-	int tmpScreen = GetDrawScreen();
+	int tmpScreen, tb, tp;
+	lpImageMng.GetCurrentScreen(&tmpScreen, &tb, &tp);
 	SetDrawScreen(_strScreen);
+	SetDrawBlendMode(BlendMode, param);
 
 	switch (draw_type)
 	{
@@ -50,6 +52,7 @@ int StringAddDraw::AddStringDraw(const char* string, const std::string& font_key
 	}
 
 	SetDrawScreen(tmpScreen);
+	SetDrawBlendMode(tb, tp);
 	return width;
 }
 

@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "../func/CheckHitStage.h"
 #include "../Audio/AudioContainer.h"
+#include "../Manage/DamageDisplay.h"
 #include <memory>
 #include <algorithm>
 
@@ -37,11 +38,11 @@ Object::Object()
 	_stage = 1;
 
 	_audio.LoadSound("sound/magic/freeze.wav", "freeze", 10);
-	_audio.ChangeVolume("freeze", 180);
+	_audio.ChangeVolume("freeze", 140);
 	_audio.LoadSound("sound/magic/confusion.wav", "confusion", 10);
-	_audio.ChangeVolume("confusion", 180);
+	_audio.ChangeVolume("confusion", 135);
 	_audio.LoadSound("sound/magic/paralysis.wav", "paralysis", 10);
-	_audio.ChangeVolume("paralysis", 180);
+	_audio.ChangeVolume("paralysis", 145);
 }
 
 Object::~Object()
@@ -199,6 +200,8 @@ void Object::damagingHP(int damage)
 	}
 
 	_hp -= damage;
+	DamageDisplay::GetInstance().AddDamage(new DamageInfo(Vector2{ _pos.x + 50 * (static_cast<int>(_state_dir.second) - 1), _pos.y - _drawOffset_y }, damage, _stage));
+
 	if (damage <= 0)
 	{
 		if (damage < 0)
