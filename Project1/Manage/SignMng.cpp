@@ -111,7 +111,7 @@ SignMng::SignMng()
 	DrawStringToHandle(BOX_OFFSET_X + 30, BOX_OFFSET_Y + 50, "Î‚ÆÎ‚ÅF‚ğ¬‚º‚é‚±‚Æ‚ª‚Å‚«‚é‚æI", 0xffffff, lpStrAdd.GetFont("TITLE"));
 
 	// “n‚·
-	_signs.emplace_back(new SignData(Vector2{ 2496, 1232 }, 4,KeyTeach));
+	_signs.emplace_back(new SignData(Vector2{ 2496, 1205 }, 4,KeyTeach));
 
 	SetDrawScreen(ts);
 	SetDrawBlendMode(tb, tp);
