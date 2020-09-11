@@ -24,7 +24,10 @@ void ThunderAttack::Update(void)
 
 void ThunderAttack::IfHitAttack(std::shared_ptr<Object> target)
 {
-	target->SetStateEffect(new StateEffect(STATE_EFFECT_TYPE::PARALYSIS, 60));
+	if (target != nullptr)
+	{
+		target->SetStateEffect(new StateEffect(STATE_EFFECT_TYPE::PARALYSIS, 60));
+	}
 }
 
 bool ThunderAttack::Init(void)

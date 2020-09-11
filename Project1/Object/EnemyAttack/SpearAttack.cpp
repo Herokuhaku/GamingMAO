@@ -37,7 +37,10 @@ void SpearAttack::Draw(void)
 void SpearAttack::IfHitAttack(std::shared_ptr<Object> target)
 {
 	setState({ OBJ_STATE::DEAD, _state_dir.second });
-	target->MovePos({ (20 * ((target->getPos().x < _pos.x) ? -1 : 1)), -15 });
+	if (target != nullptr)
+	{
+		target->MovePos({ (20 * ((target->getPos().x < _pos.x) ? -1 : 1)), -15 });
+	}
 }
 
 bool SpearAttack::Init(void)

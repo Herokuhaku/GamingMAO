@@ -1,5 +1,11 @@
 #include "CaneAttack.h"
 #include "../../Graphic/ImageMng.h"
+#include "../../Audio/AudioContainer.h"
+
+namespace
+{
+	AudioContainer _audio;
+}
 
 CaneAttack::CaneAttack(Vector2& ePos, DIR dir, TIME time, int stage, OBJ_TYPE target)
 {
@@ -26,7 +32,11 @@ void CaneAttack::Update(void)
 void CaneAttack::IfHitAttack(std::shared_ptr<Object> target)
 {
 	setState({ OBJ_STATE::DEAD, _state_dir.second });
-	target->MovePos({ (60 * ((target->getPos().x < _pos.x) ? -1 : 1)), -15 });
+	if (target != nullptr)
+	{
+		target->MovePos({ (60 * ((target->getPos().x < _pos.x) ? -1 : 1)), -15 });
+		PlaySoundMem(_audio.GetSound("hit"), DX_PLAYTYPE_BACK, true);
+	}
 }
 
 bool CaneAttack::Init(void)
@@ -49,7 +59,13 @@ bool CaneAttack::Init(void)
 
 	setAttack("cane", attack);
 	AddAttack("cane");
-	return false;
+
+	_audio.LoadSound("sound/Attack/cane_attack.wav", "c_attack", 10);
+	_audio.ChangeVolume("c_attack", 130);
+	PlaySoundMem(_audio.GetSound("c_attack"), DX_PLAYTYPE_BACK, true);
+
+	_audio.LoadSound("sound/Attack/hit.wav", "hit", 10);
+	_audio.ChangeVolume("hit", 145);
 
 	return false;
 }
