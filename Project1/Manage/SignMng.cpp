@@ -100,6 +100,19 @@ SignMng::SignMng()
 	// 渡す
 	_signs.emplace_back(new SignData(Vector2{ 368, 1248 }, 1, screen));
 
+	int KeyTeach = MakeScreen(lpSceneMng.ScreenSize.x, lpSceneMng.ScreenSize.y, true);
+	SetDrawScreen(KeyTeach);
+	ClsDrawScreen();
+
+	// スクリーンに描画する
+	DrawBox(BOX_OFFSET_X, BOX_OFFSET_Y, BOX_OFFSET_X + BOX_SIZE_X, BOX_OFFSET_Y + BOX_SIZE_Y, 0x333333, true);
+	DrawBox(BOX_OFFSET_X, BOX_OFFSET_Y, BOX_OFFSET_X + BOX_SIZE_X, BOX_OFFSET_Y + BOX_SIZE_Y, 0xffffff, false);
+	DrawStringToHandle(BOX_OFFSET_X + 30, BOX_OFFSET_Y + 30, "本と石を合わせると道具ができる", 0xffffff, lpStrAdd.GetFont("TITLE"));
+	DrawStringToHandle(BOX_OFFSET_X + 30, BOX_OFFSET_Y + 50, "石と石で色を混ぜることができるよ！", 0xffffff, lpStrAdd.GetFont("TITLE"));
+
+	// 渡す
+	_signs.emplace_back(new SignData(Vector2{ 2496, 1232 }, 4,KeyTeach));
+
 	SetDrawScreen(ts);
 	SetDrawBlendMode(tb, tp);
 }

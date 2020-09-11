@@ -23,13 +23,15 @@ void ItemTrader::Draw(void)
 	}
 }
 
-void ItemTrader::BagDraw(Vector2D pos , LAYER lay, Vector2 off, Vector2D rad)
+void ItemTrader::BagDraw(Vector2D pos, LAYER lay, Vector2 off, Vector2D rad)
 {
 	_pos.x = static_cast<int>(pos.x);
 	_pos.y = static_cast<int>(pos.y);
 
 	bool red = false, green = false, blue = false;
 	int no = 0;
+	int redN = 0, greenN = 0, blueN = 0;
+	int redNo = 0, greenNo = 0, blueNo = 0;
 	for (auto& data : _IBag)
 	{
 		if (data.first.itemtype == ITEM_TYPE::BOOK)
@@ -38,28 +40,34 @@ void ItemTrader::BagDraw(Vector2D pos , LAYER lay, Vector2 off, Vector2D rad)
 			switch (name)
 			{
 			case COLOR::RED:
+				redN++;
 				if (!red)
 				{
 					data.first.pos = { _pos.x + (100 * no),_pos.y + off.x };
 					lpImageMng.AddBackDraw({ lpImageMng.getImage(data.first.image[0])[0],data.first.pos.x,data.first.pos.y, rad.x, 0.0,LAYER::EX, 110, DX_BLENDMODE_NOBLEND, 0, true });
+					redNo = no;
 					no++;
 				}
 				red = true;
 				break;
 			case COLOR::GREEN:
+				greenN++;
 				if (!green)
 				{
 					data.first.pos = { _pos.x + (100 * no),_pos.y + off.x };
 					lpImageMng.AddBackDraw({ lpImageMng.getImage(data.first.image[0])[0],data.first.pos.x,data.first.pos.y, rad.x, 0.0,LAYER::EX, 110, DX_BLENDMODE_NOBLEND, 0, true });
+					greenNo = no;
 					no++;
 				}
 				green = true;
 				break;
 			case COLOR::BLUE:
+				blueN++;
 				if (!blue)
 				{
 					data.first.pos = { _pos.x + (100 * no),_pos.y + off.x };
 					lpImageMng.AddBackDraw({ lpImageMng.getImage(data.first.image[0])[0],data.first.pos.x,data.first.pos.y, rad.x, 0.0,LAYER::EX, 110, DX_BLENDMODE_NOBLEND, 0, true });
+					blueNo = no;
 					no++;
 				}
 				blue = true;
@@ -68,6 +76,15 @@ void ItemTrader::BagDraw(Vector2D pos , LAYER lay, Vector2 off, Vector2D rad)
 				break;
 			}
 		}
+	}
+	if (redN != 0) {
+		lpStrAdd.AddStringDraw(std::to_string(redN).c_str(), "SQUARE_BIG", _pos.x + (100 * redNo), _pos.y + off.x, 0xffffff, DRAW_TO_RIGHT);
+	}
+	if (blueN != 0) {
+		lpStrAdd.AddStringDraw(std::to_string(blueN).c_str(), "SQUARE_BIG", _pos.x + (100 * blueNo), _pos.y + off.x, 0xffffff, DRAW_TO_RIGHT);
+	}
+	if (greenN != 0) {
+		lpStrAdd.AddStringDraw(std::to_string(greenN).c_str(), "SQUARE_BIG", _pos.x + (100 * greenNo), _pos.y + off.x, 0xffffff, DRAW_TO_RIGHT);
 	}
 }
 
