@@ -17,6 +17,7 @@
 #include "../Object/Attack/white/StopTime.h"
 #include "../Manage/DamageDisplay.h"
 #include "../Audio/AudioContainer.h"
+#include "../Manage/SignMng.h"
 
 namespace
 {
@@ -26,6 +27,7 @@ namespace
 GameScene::GameScene()
 {
 	lpEnemyMng;
+	SignMng::GetInstance();
 	
 	// 画像
 
@@ -314,38 +316,46 @@ void GameScene::ItemDraw(void)
 
 std::unique_ptr<BaseScene> GameScene::NormalUpdate(std::unique_ptr<BaseScene> own)
 {
-	std::dynamic_pointer_cast<Player>(lpSceneMng.GetPlObj2(TIME::FTR))->GetStopTime()->Update();
-
-	lpAttackUI.Update();
-
-	for (const auto& data : _objList)
+	if (!lpSignMng.IsActive())
 	{
-		if ((*data).CanMoveWithEffect())
+		std::dynamic_pointer_cast<Player>(lpSceneMng.GetPlObj2(TIME::FTR))->GetStopTime()->Update();
+
+		lpAttackUI.Update();
+
+		for (const auto& data : _objList)
 		{
-			(*data).Update();
+			if ((*data).CanMoveWithEffect())
+			{
+				(*data).Update();
+			}
+			(*data).InvUpdate();
+			(*data).UpdateStateEffect();
 		}
-		(*data).InvUpdate();
-		(*data).UpdateStateEffect();
+		_cobj->Update();
+
+		lpEnemyMng.Update();
+
+		_barrierMng->Update();
+
+		_gimmickMng->Update();
+
+		lpAtkMng.Update();
+
+		_menu->Update();
+
+		lpTradeMng.ListUpdate();
+
+
+		getAttackQue();
+		CheckHitAttack()(_barrierMng->GetBarrier(), _attackList);
+		CheckHitAttack()(_objList, _attackList);
+		CheckHitAttack()(lpEnemyMng.GetenemyList(), _attackList);
 	}
-	_cobj->Update();
 
-	lpEnemyMng.Update();
-
-	_barrierMng->Update();
-
-	_gimmickMng->Update();
-
-	lpAtkMng.Update();
-
-	_menu->Update();
-
-	lpTradeMng.ListUpdate();
-
-	getAttackQue();
-	CheckHitAttack()(_barrierMng->GetBarrier(), _attackList);
-	CheckHitAttack()(_objList, _attackList);
-	CheckHitAttack()(lpEnemyMng.GetenemyList(), _attackList);
-
+	if (!_menu->IsActive())
+	{
+		lpSignMng.Check();
+	}
 	std::dynamic_pointer_cast<Player>(lpSceneMng.GetPlObj2(TIME::FTR))->GetStopTime()->Draw();
 
 	for (const auto& data : _objList)
@@ -373,6 +383,8 @@ std::unique_ptr<BaseScene> GameScene::NormalUpdate(std::unique_ptr<BaseScene> ow
 	lpAttackUI.Draw();
 
 	_menu->Draw();
+
+	lpSignMng.Draw();
 
 	// 死んでいるプレイヤーを探す
 	auto plDead = std::find_if(_objList.begin(), _objList.end(), [](std::shared_ptr<Object> obj) { return (obj->getObjType() == OBJ_TYPE::PLAYER && obj->getState().first == OBJ_STATE::DEAD); });
@@ -402,29 +414,36 @@ std::unique_ptr<BaseScene> GameScene::NormalUpdate(std::unique_ptr<BaseScene> ow
 
 std::unique_ptr<BaseScene> GameScene::StopedUpdate(std::unique_ptr<BaseScene> own)
 {
-	std::shared_ptr<Object> player = lpSceneMng.GetPlObj2(TIME::FTR);
-	std::dynamic_pointer_cast<Player>(player)->GetStopTime()->Update();
-
-	lpAttackUI.Update();
-
-	if (player->CanMoveWithEffect())
+	if (!lpSignMng.IsActive())
 	{
-		player->Update();
+		std::shared_ptr<Object> player = lpSceneMng.GetPlObj2(TIME::FTR);
+		std::dynamic_pointer_cast<Player>(player)->GetStopTime()->Update();
+
+		lpAttackUI.Update();
+
+		if (player->CanMoveWithEffect())
+		{
+			player->Update();
+		}
+		player->InvUpdate();
+		player->UpdateStateEffect();
+
+		_cobj->Update();
+
+		_barrierMng->Update();
+
+		_menu->Update();
+
+		getAttackQue();
+		CheckHitAttack()(_barrierMng->GetBarrier(), _attackList);
+		CheckHitAttack()(_objList, _attackList);
+		CheckHitAttack()(lpEnemyMng.GetenemyList(), _attackList);
 	}
-	player->InvUpdate();
-	player->UpdateStateEffect();
 
-	_cobj->Update();
-
-	_barrierMng->Update();
-
-	_menu->Update();
-
-	getAttackQue();
-	CheckHitAttack()(_barrierMng->GetBarrier(), _attackList);
-	CheckHitAttack()(_objList, _attackList);
-	CheckHitAttack()(lpEnemyMng.GetenemyList(), _attackList);
-
+	if (!_menu->IsActive())
+	{
+		lpSignMng.Check();
+	}
 	std::dynamic_pointer_cast<Player>(lpSceneMng.GetPlObj2(TIME::FTR))->GetStopTime()->Draw();
 
 	for (const auto& data : _objList)
@@ -451,6 +470,8 @@ std::unique_ptr<BaseScene> GameScene::StopedUpdate(std::unique_ptr<BaseScene> ow
 	lpAttackUI.Draw();
 
 	_menu->Draw();
+
+	lpSignMng.Draw();
 
 	// 死んでいるプレイヤーを探す
 	auto plDead = std::find_if(_objList.begin(), _objList.end(), [](std::shared_ptr<Object> obj) { return (obj->getObjType() == OBJ_TYPE::PLAYER && obj->getState().first == OBJ_STATE::DEAD); });

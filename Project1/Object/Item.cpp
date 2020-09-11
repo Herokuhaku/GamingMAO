@@ -28,6 +28,8 @@ Item::Item(Vector2 pos, ITEM_TYPE itemtype,COLOR colortype,int no,int stage)
 	_bagNo = no;
 	_stage = stage;
 
+	_exRate = 0.65;							// Šg‘å—¦
+	
 	save.bagNo = _bagNo;
 	save.book = _book;
 	save.tool = _tool;
@@ -42,6 +44,9 @@ Item::Item(Vector2 pos, ITEM_TYPE itemtype,COLOR colortype,int no,int stage)
 
 	Init();
 	_isColored = false;
+	flowflag_ = false;
+	flowpos_ = { 0,0};
+	
 }
 
 Item::~Item()
@@ -51,30 +56,46 @@ Item::~Item()
 
 void Item::Update(void)
 {
-	Vector2 _tmpPos = _pos;
-	if (CheckHitStage()(CHECK_DIR::DOWN, { _pos.x, static_cast<int>(_tmpPos.y) + 1 }, getHitOffset(), _stage) == NOTHIT)
+	if (!flowflag_)
 	{
-		if (_vel - G_ACC_NORMAL > -VEL_MAX)
+		Vector2 _tmpPos = _pos;
+		if (CheckHitStage()(CHECK_DIR::DOWN, { _pos.x, static_cast<int>(_tmpPos.y) + 1 }, getHitOffset(), _stage) == NOTHIT)
 		{
-			_vel = _vel - G_ACC_NORMAL;
+			if (_vel - G_ACC_NORMAL > -VEL_MAX)
+			{
+				_vel = _vel - G_ACC_NORMAL;
+			}
+			else
+			{
+				_vel = -VEL_MAX;
+			}
 		}
-		else
+
+		int tmpDown = CheckHitStage()(CHECK_DIR::DOWN, { _pos.x, static_cast<int>(_tmpPos.y - _vel) }, getHitOffset(), _stage);
+
+		if (_vel != 0.0 && tmpDown != NOTHIT)
 		{
-			_vel = -VEL_MAX;
+			_tmpPos.y = static_cast<double>(tmpDown) - static_cast<double>(getHitOffset()[static_cast<int>(CHECK_DIR::DOWN)]);
+			_vel = 0.0;
+		}
+
+		_tmpPos.y -= _vel;
+
+		_pos.y = static_cast<int>(_tmpPos.y);
+		if (_vel == 0.0)
+		{
+			flowflag_ = true;
+			flowpos_ = _pos;
 		}
 	}
-
-	int tmpDown = CheckHitStage()(CHECK_DIR::DOWN, { _pos.x, static_cast<int>(_tmpPos.y - _vel) }, getHitOffset(), _stage);
-
-	if (_vel != 0.0 && tmpDown != NOTHIT)
+	if(flowflag_)
 	{
-		_tmpPos.y = static_cast<double>(tmpDown) - static_cast<double>(getHitOffset()[static_cast<int>(CHECK_DIR::DOWN)]);
-		_vel = 0.0;
+		_pos.y = flowpos_.y + abs((frame_/5) % 16 - 8);
+		double extmp = abs((frame_/12) % 16 - 8) / 10.0;
+		if (extmp < 0.65) { extmp = 0.65; };
+		_exRate = extmp;
+		frame_++;
 	}
-
-	_tmpPos.y -= _vel;
-
-	_pos.y = static_cast<int>(_tmpPos.y);
 }
 
 void Item::Draw(void)
@@ -304,5 +325,6 @@ void Item::Init(void)
 		return;
 	}
 	setAnm({ OBJ_STATE::NORMAL, DIR::LEFT }, data);		
+	frame_ = 0;
 }
 
