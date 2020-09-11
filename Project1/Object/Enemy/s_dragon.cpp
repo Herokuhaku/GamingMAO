@@ -9,7 +9,7 @@ void s_dragon::Update(void)
 	Enemy::Update();
 }
 
-int s_dragon::Attack(Vector2 pos)
+int s_dragon::Attack(Vector2& pos)
 {
 	if (_state_dir.first != OBJ_STATE::ATTACK)
 	{

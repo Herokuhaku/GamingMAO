@@ -25,11 +25,11 @@ class Enemy :
 {
 public:
 	virtual	void Update(void);
-	virtual int Wait(Vector2 pPos);
-	virtual int Move(Vector2 pPos);
-	virtual int Search(Vector2 pPos);
-	virtual int Attack(Vector2 pPos);
-	virtual int AtkMove(Vector2 pPos);
+	virtual int Wait(Vector2& pPos);
+	virtual int Move(Vector2& pPos);
+	virtual int Search(Vector2& pPos);
+	virtual int Attack(Vector2& pPos);
+	virtual int AtkMove(Vector2& pPos);
 
 	void damagingHP(int damage) override;
 
@@ -43,7 +43,7 @@ protected:
 	Enemy();
 	~Enemy();
 
-using e_fn_ptr = int(Enemy::*)(Vector2 pPos);	// 
+using e_fn_ptr = int(Enemy::*)(Vector2& pPos);	// 
 
 static const int e_fn_ptr_num = 5;
 

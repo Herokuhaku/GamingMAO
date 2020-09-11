@@ -27,7 +27,7 @@ void Enemy::Update(void)
 	aState(_work);
 }
 
-int Enemy::Wait(Vector2 pPos)
+int Enemy::Wait(Vector2& pPos)
 {
 	_waitCnt++;
 	if (_waitCnt >= _waitTime)
@@ -38,7 +38,7 @@ int Enemy::Wait(Vector2 pPos)
 	return _aState;
 }
 
-int Enemy::Move(Vector2 pPos)
+int Enemy::Move(Vector2& pPos)
 {
 	if( !_jumpF)
 	{
@@ -115,7 +115,7 @@ void Enemy::RandWait(void)
 	}
 }
 
-int Enemy::Search(Vector2 pPos)
+int Enemy::Search(Vector2& pPos)
 {
 	_plDir = pPos.x > _pos.x ? DIR::RIGHT : DIR::LEFT;
 	if (_waitCnt >= _waitTime)
@@ -146,7 +146,7 @@ int Enemy::Search(Vector2 pPos)
 	return _work;
 }
 
-int Enemy::Attack(Vector2 pPos)
+int Enemy::Attack(Vector2& pPos)
 {
 	if (_state_dir.first != OBJ_STATE::ATTACK)
 	{
@@ -158,7 +158,7 @@ int Enemy::Attack(Vector2 pPos)
 	return static_cast<int>(MOVE_SELECT::WAIT);
 }
 
-int Enemy::AtkMove(Vector2 pPos)
+int Enemy::AtkMove(Vector2& pPos)
 {
 	if (_state_dir.second == DIR::RIGHT)
 	{

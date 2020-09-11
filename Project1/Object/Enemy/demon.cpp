@@ -9,7 +9,7 @@ void demon::Update(void)
 	Enemy::Update();
 }
 
-int demon::Attack(Vector2 pos)
+int demon::Attack(Vector2& pos)
 {
 	if (_state_dir.first != OBJ_STATE::ATTACK)
 	{

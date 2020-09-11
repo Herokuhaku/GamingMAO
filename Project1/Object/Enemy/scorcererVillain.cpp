@@ -23,14 +23,24 @@ void sorcerer::damagingHP(int damage)
 	}
 }
 
-int sorcerer::Attack(Vector2 pPos)
+int sorcerer::Attack(Vector2& pPos)
 {
 	if (_state_dir.first != OBJ_STATE::ATTACK)
 	{
-		setState({ OBJ_STATE::ATTACK, _plDir });
-		atkList.emplace_back(AtkList::TRACKING_BALL, 4);
-		_waitTime = 180;	// クールタイム
-		_waitCnt = 0;
+		if ((pPos.x - _pos.x) <= 200)
+		{	// 近接
+			setState({ OBJ_STATE::ATTACK2, _plDir });
+			//atkList.emplace_back(AtkList::TRACKING_BALL, 4);
+			_waitTime = 70;	// クールタイム
+			_waitCnt = 0;
+		}
+		else
+		{	// 遠距離
+			setState({ OBJ_STATE::ATTACK, _plDir });
+			atkList.emplace_back(AtkList::TRACKING_BALL, 6);
+			_waitTime = 180;	// クールタイム
+			_waitCnt = 0;
+		}
 		return static_cast<int>(MOVE_SELECT::WAIT);
 	}
 	return static_cast<int>(MOVE_SELECT::WAIT);
@@ -138,6 +148,19 @@ void sorcerer::Init(void)
 	data.emplace_back(-1, 0);
 	setAnm({ OBJ_STATE::ATTACK,DIR::RIGHT }, data);
 
+	data.emplace_back(lpImageMng.getImage("sorcViR")[68], animCnt + 0 * animCnt);
+	data.emplace_back(lpImageMng.getImage("sorcViR")[69], animCnt + 1 * animCnt);
+	data.emplace_back(lpImageMng.getImage("sorcViR")[70], animCnt + 2 * animCnt);
+	data.emplace_back(lpImageMng.getImage("sorcViR")[71], animCnt + 3 * animCnt);
+	data.emplace_back(lpImageMng.getImage("sorcViR")[72], animCnt + 4 * animCnt);
+	data.emplace_back(lpImageMng.getImage("sorcViR")[73], animCnt + 5 * animCnt);
+	data.emplace_back(lpImageMng.getImage("sorcViR")[74], animCnt + 6 * animCnt);
+	data.emplace_back(lpImageMng.getImage("sorcViR")[75], animCnt + 7 * animCnt);
+	data.emplace_back(lpImageMng.getImage("sorcViR")[76], animCnt + 8 * animCnt);
+	data.emplace_back(lpImageMng.getImage("sorcViR")[77], animCnt + 9 * animCnt);
+	data.emplace_back(-1, 0);
+	setAnm({ OBJ_STATE::ATTACK2,DIR::RIGHT }, data);
+
 	for (int i = 0; i < 7; i++)
 	{
 		data.emplace_back(lpImageMng.getImage("sorcViR")[34 + i], animCnt + i * animCnt);
@@ -204,6 +227,19 @@ void sorcerer::Init(void)
 	data.emplace_back(lpImageMng.getImage("sorcViL")[84 - 6], animCnt + 20 * animCnt);
 	data.emplace_back(-1, 0);
 	setAnm({ OBJ_STATE::ATTACK,DIR::LEFT }, data);
+
+	data.emplace_back(lpImageMng.getImage("sorcViL")[84], animCnt + 0 * animCnt);
+	data.emplace_back(lpImageMng.getImage("sorcViL")[83], animCnt + 1 * animCnt);
+	data.emplace_back(lpImageMng.getImage("sorcViL")[82], animCnt + 2 * animCnt);
+	data.emplace_back(lpImageMng.getImage("sorcViL")[81], animCnt + 3 * animCnt);
+	data.emplace_back(lpImageMng.getImage("sorcViL")[80], animCnt + 4 * animCnt);
+	data.emplace_back(lpImageMng.getImage("sorcViL")[79], animCnt + 5 * animCnt);
+	data.emplace_back(lpImageMng.getImage("sorcViL")[78], animCnt + 6 * animCnt);
+	data.emplace_back(lpImageMng.getImage("sorcViL")[77], animCnt + 7 * animCnt);
+	data.emplace_back(lpImageMng.getImage("sorcViL")[76], animCnt + 8 * animCnt);
+	data.emplace_back(lpImageMng.getImage("sorcViL")[75], animCnt + 9 * animCnt);
+	data.emplace_back(-1, 0);
+	setAnm({ OBJ_STATE::ATTACK2,DIR::LEFT }, data);
 
 	for (int i = 0; i < 7; i++)
 	{

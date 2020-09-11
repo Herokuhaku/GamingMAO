@@ -5,6 +5,7 @@
 enum class AtkList
 {
 	TRACKING_BALL,
+	CANE_ATTACK,		// èÒ
 	MAX
 };
 
