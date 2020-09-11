@@ -14,7 +14,7 @@ class BarrierMng;
 class GameScene:public BaseScene
 {
 public:
-	GameScene(const Vector2& pos = { 400, 900 }, int stage = 1);
+	GameScene(const Vector2& pos = { 400, 1200 }, int stage = 1);
 	~GameScene();
 
 	std::unique_ptr<BaseScene> Update(std::unique_ptr<BaseScene> own) override;	

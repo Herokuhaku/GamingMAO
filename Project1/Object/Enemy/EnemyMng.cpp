@@ -102,7 +102,7 @@ void EnemyMng::Init(int stage)
 
 		_enemyPlace[2] = { { ENEMY_TYPE::s_dragon, {  816, 1280 } },{ ENEMY_TYPE::wizard,		{ 1984, 1264 } },
 											 { ENEMY_TYPE::demon	 , {  912, 1280 } },{ ENEMY_TYPE::s_dragon, { 1376, 1216 } },
-											 { ENEMY_TYPE::demon	 , { 1776, 1280 } },{ ENEMY_TYPE::s_dragon, { 1904,  624 } } };
+											 { ENEMY_TYPE::demon	 , { 1776, 1280 } } };
 
 		_enemyPlace[3] = { { ENEMY_TYPE::s_dragon, { 2144, 1280 } },{ ENEMY_TYPE::s_dragon, { 1392, 1280 } },
 											 { ENEMY_TYPE::s_dragon, { 1584, 1280 } },{ ENEMY_TYPE::s_dragon, { 1760, 1280 }},

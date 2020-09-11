@@ -189,7 +189,7 @@ std::shared_ptr<Object> GameScene::FindObject(Object* obj)
 bool GameScene::Init(int stage)
 {
 	GimmickMng::DeleteAll();
-	lpTradeMng.DeleteAll();
+	//lpTradeMng.DeleteAll();
 
 	lpTimeMng.TimeInit();
 
@@ -214,7 +214,8 @@ bool GameScene::Init(int stage)
 	//lpTradeMng.SetItemList({ 200,1311 }, ITEM_TYPE::STONE, COLOR::RED,1);
 	//lpTradeMng.SetItemList({ 200,1311 }, ITEM_TYPE::STONE, COLOR::GREEN,1);
 	lpTradeMng.SetItemList({ 300,1311 }, ITEM_TYPE::BOOK, COLOR::RED, 2);
-	lpTradeMng.SetItemList({ 200,1311 }, ITEM_TYPE::BOOK, COLOR::GREEN, 1);
+	lpTradeMng.SetItemList({ 200,1311 }, ITEM_TYPE::BOOK, COLOR::RED, 1);
+	//lpTradeMng.SetItemList({ 200,1311 }, ITEM_TYPE::BOOK, COLOR::GREEN, 1);
 	lpTradeMng.SetItemList({ 200,400 }, ITEM_TYPE::BOOK, COLOR::BLUE, 6);
 	
 	EffectData effect;
