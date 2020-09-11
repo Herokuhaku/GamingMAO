@@ -230,7 +230,7 @@ void Enemy::Draw(void)
 		return;
 	}
 																																																																										// ‚½‚Ô‚ñDxLib‚ªŸè‚É0~255‚ÅƒNƒ‰ƒ“ƒv‚µ‚Ä‚­‚é
-	lpImageMng.AddDraw({ _anmMap[_state_dir][_anmFlame].first, _pos.x, _pos.y - _drawOffset_y, _exRate, _rad, LAYER::CHAR, _zOrder, DX_BLENDMODE_ALPHA, _liveCnt * 2.5, _isColored });
+	lpImageMng.AddDraw({ _anmMap[_state_dir][_anmFlame].first, _pos.x, _pos.y - _drawOffset_y, _exRate, _rad, LAYER::CHAR, _zOrder, DX_BLENDMODE_ALPHA, _liveCnt * 2.5  * (static_cast<int>(lpTimeMng.getTime())) + (200 * (static_cast<int>(lpTimeMng.getTime()) ^ 1)), _isColored });
 	DrawStateEffect();
 	DrawHP();
 }

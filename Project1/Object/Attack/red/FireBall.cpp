@@ -58,6 +58,24 @@ void FireBall::Update(void)
 	(this->*_update)();
 }
 
+void FireBall::Draw(void)
+{
+	if (_target == OBJ_TYPE::ENEMY)
+	{
+		Object::Draw();
+	}
+	else
+	{
+		if (!anmUpdate())
+		{
+			return;
+		}
+
+		lpImageMng.AddDraw({ _anmMap[_state_dir][_anmFlame].first, _pos.x, _pos.y - _drawOffset_y, _exRate, _rad, LAYER::CHAR, _zOrder, DX_BLENDMODE_ALPHA,255 * static_cast<int>(lpTimeMng.getTime()) + 200 * (static_cast<int>(lpTimeMng.getTime()) ^ 1), _isColored });
+		DrawStateEffect();
+	}
+}
+
 void FireBall::IfHitAttack(std::shared_ptr<Object> target)
 {
 	if (_update == &FireBall::ExplosionUpdate)

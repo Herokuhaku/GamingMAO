@@ -51,6 +51,7 @@ public:
 	void SetPlStage(int no, int stage) { _plStage[no] = stage; };
 	int GetPlStage(int no) { return _plStage[no]; };
 	int GetPlStage(void) { return _plStage[1]; };
+
 private:
 	static EnemyMng *sInstance;
 

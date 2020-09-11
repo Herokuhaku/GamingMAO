@@ -2,7 +2,15 @@
 #include "../../Graphic/ImageMng.h"
 #include "../../Scene/SceneMng.h"
 #include "../Attack/AttackMng.h"
+#include "../../func/CheckHitStage.h"
+#include "../../Audio/AudioContainer.h"
 
+namespace
+{
+	AudioContainer _audio;
+
+	constexpr int EXPLOSION_DURATION = 16;
+}
 
 TrackingBall::TrackingBall(Vector2 & ePos, Vector2 & pPos, TIME time, int stage, OBJ_TYPE target)
 {
@@ -51,6 +59,27 @@ TrackingBall::~TrackingBall()
 
 void TrackingBall::Update(void)
 {
+	(this->*_update)();
+}
+
+void TrackingBall::Draw(void)
+{
+	if (!anmUpdate())
+	{
+		return;
+	}
+
+	lpImageMng.AddDraw({ _anmMap[_state_dir][_anmFlame].first, _pos.x, _pos.y - _drawOffset_y, _exRate, _rad, LAYER::CHAR, _zOrder, DX_BLENDMODE_ALPHA,255 * static_cast<int>(lpTimeMng.getTime()) +  200 * (static_cast<int>(lpTimeMng.getTime()) ^ 1), _isColored });
+	DrawStateEffect();
+}
+
+void TrackingBall::IfHitAttack(std::shared_ptr<Object> target)
+{
+	setState({ OBJ_STATE::DEAD, _state_dir.second });
+}
+
+void TrackingBall::FireballUpdate(void)
+{
 	_pos = _nextPos;
 	// ã»ê¸ÇÃXÇ…â¡éZ
 	_vec.x += addX;
@@ -65,38 +94,30 @@ void TrackingBall::Update(void)
 	// äpìxåvéZ
 	_rad = atan2(_nextPos.y - _pos.y, _nextPos.x - _pos.x);// +1.5708;
 
-	if (_pos.x < 0 || _pos.x > 2400 || _pos.y < 0 || _pos.y > 2400)
+	if (CheckHitStage()(static_cast<CHECK_DIR>(static_cast<int>(_state_dir.second) / 2), _pos, getHitOffset(), _stage) != NOTHIT)
 	{
+		setState({ OBJ_STATE::A_NORMAL, _state_dir.second });
+		_update = &TrackingBall::ExplosionUpdate;
+		_exRate = 2.0;
 		_alive = false;
+		_timer = EXPLOSION_DURATION;
+		PlaySoundMem(_audio.GetSound("explosion"), DX_PLAYTYPE_BACK, true);
+	}
+}
+
+void TrackingBall::ExplosionUpdate(void)
+{
+	_timer--;
+	if (_timer < 0)
+	{
 		setState({ OBJ_STATE::DEAD, _state_dir.second });
 	}
-
-	//if (CheckHitStage()(static_cast<CHECK_DIR>(static_cast<int>(_state_dir.second) / 2), _pos, getHitOffset(), _stage) != NOTHIT)
-	//{
-	//	//setState({ OBJ_STATE::A_NORMAL, _state_dir.second });
-	//	//_update = &FireBall::ExplosionUpdate;
-	//	//_exRate = 2.0;
-	//	//_alive = false;
-	//	//_timer = EXPLOSION_DURATION;
-	//	//PlaySoundMem(_audio.GetSound("explosion"), DX_PLAYTYPE_BACK, true);
-	//	_alive = false;
-	//	setState({ OBJ_STATE::DEAD, _state_dir.second });
-	//}
-//	_pos = { _pos.x + static_cast<int>(_vec.x), _pos.y + static_cast<int>(_vec.y) };
-}
-
-void TrackingBall::Draw(void)
-{
-	Object::Draw();
-}
-
-void TrackingBall::IfHitAttack(std::shared_ptr<Object> target)
-{
-	setState({ OBJ_STATE::DEAD, _state_dir.second });
 }
 
 bool TrackingBall::Init(void)
 {
+	_update = &TrackingBall::FireballUpdate;
+
 	AnmVec data;
 	data.reserve(30);
 
@@ -116,7 +137,7 @@ bool TrackingBall::Init(void)
 	setAnm({ OBJ_STATE::A_NORMAL, _state_dir.second }, data);
 
 	std::vector<atkData> attack;
-	attack.reserve(31);
+	attack.reserve(2);
 
 	attack.emplace_back(atkData(true, OBJ_TYPE::ATTACK, { 0, -6 }, { 20, 14 }, 30, 10, _target));
 	attack.emplace_back(atkData(false, OBJ_TYPE::ATTACK, { 0, 0 }, { 0, 0 }, 0, -1, _target));
@@ -127,5 +148,13 @@ bool TrackingBall::Init(void)
 	setHitOffset({ 20,0,6,14 });
 
 	AddAttack("Efireball");
+
+	_audio.LoadSound("sound/magic/fireball.wav", "fireball", 10);
+	_audio.ChangeVolume("fireball", 130);
+	PlaySoundMem(_audio.GetSound("fireball"), DX_PLAYTYPE_BACK, true);
+
+	_audio.LoadSound("sound/magic/explosion.wav", "explosion", 10);
+	_audio.ChangeVolume("explosion", 135);
+
 	return false;
 }

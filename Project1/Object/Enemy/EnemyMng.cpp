@@ -134,6 +134,7 @@ void EnemyMng::Init(void)
 
 	_plStage[0] = 1;
 	_plStage[1] = 1;
+
 }
 
 void EnemyMng::addDeadCnt(ENEMY_TYPE type, int stage, int pPos)

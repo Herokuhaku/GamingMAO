@@ -1,5 +1,6 @@
 #pragma once
 #include "../Object.h"
+
 class TrackingBall :
 	public Object
 {
@@ -24,6 +25,11 @@ private:
 
 	OBJ_TYPE _target;
 	DIR _dir;
+
+	void FireballUpdate(void);
+	void ExplosionUpdate(void);
+	void(TrackingBall::*_update)(void);
+	int _timer;
 
 	bool Init(void);
 };
