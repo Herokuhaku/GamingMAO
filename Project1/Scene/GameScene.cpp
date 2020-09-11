@@ -135,10 +135,9 @@ GameScene::GameScene(const Vector2& pos, int stage)
 	_cobj = std::make_shared<camera>();
 	lpSceneMng.SetcObj(_cobj);
 
-	lpMapMng.StageTrans(stage);
 	
 
-	Init();
+	Init(stage);
 }
 
 GameScene::~GameScene()
@@ -187,7 +186,7 @@ std::shared_ptr<Object> GameScene::FindObject(Object* obj)
 	return nullptr;
 }
 
-bool GameScene::Init(void)
+bool GameScene::Init(int stage)
 {
 	GimmickMng::DeleteAll();
 	lpTradeMng.DeleteAll();
@@ -207,13 +206,15 @@ bool GameScene::Init(void)
 
 	lpMapMng.Init();
 
-	lpEnemyMng.Init();
+	lpEnemyMng.Init(stage);
+
+	lpMapMng.StageTrans(stage);
 
 	//lpTradeMng.SetItemList({ 200,1311 }, ITEM_TYPE::STONE, COLOR::BLUE,1);
 	//lpTradeMng.SetItemList({ 200,1311 }, ITEM_TYPE::STONE, COLOR::RED,1);
 	//lpTradeMng.SetItemList({ 200,1311 }, ITEM_TYPE::STONE, COLOR::GREEN,1);
 	lpTradeMng.SetItemList({ 300,1311 }, ITEM_TYPE::BOOK, COLOR::RED, 2);
-	lpTradeMng.SetItemList({ 200,1311 }, ITEM_TYPE::BOOK, COLOR::RED, 1);
+	lpTradeMng.SetItemList({ 200,1311 }, ITEM_TYPE::BOOK, COLOR::GREEN, 1);
 	lpTradeMng.SetItemList({ 200,400 }, ITEM_TYPE::BOOK, COLOR::BLUE, 6);
 	
 	EffectData effect;

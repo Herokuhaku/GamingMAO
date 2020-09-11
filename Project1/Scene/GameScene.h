@@ -33,7 +33,7 @@ public:
 private:
 	friend struct CheckHitAttack;
 
-	bool Init(void);
+	bool Init(int stage);
 
 	void getAttackQue(void);
 	void ItemDraw(void);

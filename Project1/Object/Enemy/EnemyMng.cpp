@@ -65,7 +65,7 @@ void EnemyMng::StageTPop(int nowStage, int nextStage)
 
 	TIME ttime = lpTimeMng.getTime() == TIME::FTR ? TIME::NOW : TIME::FTR;
 
-	if ((*lpSceneMng.GetPlObj(ttime))->getStage() == nextStage)
+	if ((*lpSceneMng.GetPlObj(ttime))->getStage() == nextStage && nowStage != -999)
 	{
 			// プレイヤーがいるMAPだから新しく敵を配置する必要がない	 
 			return;
@@ -93,33 +93,31 @@ void EnemyMng::StageTDelete(void)
 	}),_enemyList.end());
 }
 
-void EnemyMng::Init(void)
+void EnemyMng::Init(int stage)
 {
 	if (_epF)
 	{
 		// とりあえず手書き
-		_enemyPlace[1] = { { ENEMY_TYPE::demon	 , {  448, 1280 } },{ ENEMY_TYPE::s_dragon, {  896,  624 } },
-									     { ENEMY_TYPE::demon	 , {  448, 1280 } },{ ENEMY_TYPE::s_dragon, {  896,  624 } }, 
-									     { ENEMY_TYPE::demon	 , {  448, 1280 } },{ ENEMY_TYPE::s_dragon, {  896,  624 } }, 
-									     { ENEMY_TYPE::demon	 , {  448, 1280 } },{ ENEMY_TYPE::s_dragon, {  896,  624 } }, 
-									     { ENEMY_TYPE::demon	 , {  448, 1280 } },{ ENEMY_TYPE::s_dragon, {  896,  624 } } };
+		_enemyPlace[1] = { { ENEMY_TYPE::s_dragon	 , {  800, 1232 } },{ ENEMY_TYPE::s_dragon, {  896,  1232 } } };
 
-		_enemyPlace[2] = { { ENEMY_TYPE::s_dragon, {  448, 1280 } },{ ENEMY_TYPE::wizard,		{  896,  624 } },
-									     { ENEMY_TYPE::demon	 , {  448, 1280 } },{ ENEMY_TYPE::s_dragon, {  896,  624 } }, 
-									     { ENEMY_TYPE::demon	 , {  448, 1280 } },{ ENEMY_TYPE::s_dragon, {  896,  624 } }, 
-									     { ENEMY_TYPE::demon	 , {  448, 1280 } },{ ENEMY_TYPE::s_dragon, {  896,  624 } }, 
-									     { ENEMY_TYPE::demon	 , {  448, 1280 } },{ ENEMY_TYPE::s_dragon, {  896,  624 } } };
+		_enemyPlace[2] = { { ENEMY_TYPE::s_dragon, {  816, 1280 } },{ ENEMY_TYPE::wizard,		{ 1984, 1264 } },
+											 { ENEMY_TYPE::demon	 , {  912, 1280 } },{ ENEMY_TYPE::s_dragon, { 1376, 1216 } },
+											 { ENEMY_TYPE::demon	 , { 1776, 1280 } },{ ENEMY_TYPE::s_dragon, { 1904,  624 } } };
 
 		_enemyPlace[3] = { { ENEMY_TYPE::s_dragon, { 2144, 1280 } },{ ENEMY_TYPE::s_dragon, { 1392, 1280 } },
 											 { ENEMY_TYPE::s_dragon, { 1584, 1280 } },{ ENEMY_TYPE::s_dragon, { 1760, 1280 }},
 											 { ENEMY_TYPE::s_dragon, { 1120,  864 } },{ ENEMY_TYPE::s_dragon, { 1472,  864 }},
 											 { ENEMY_TYPE::s_dragon, { 1856,  816 } },{ ENEMY_TYPE::s_dragon, { 2304,  736 }} };
 
+		_enemyPlace[4] = { { ENEMY_TYPE::s_dragon, {  608,  832 } },{ ENEMY_TYPE::wizard,		{  736,  832 } },
+											 { ENEMY_TYPE::demon	 , { 1280,  976 } },{ ENEMY_TYPE::s_dragon, { 1600,  944 } },
+											 { ENEMY_TYPE::demon	 , { 1376,  496 } },{ ENEMY_TYPE::s_dragon, { 1856,  512 } },
+											 { ENEMY_TYPE::demon	 , { 2032,  512 } },{ ENEMY_TYPE::s_dragon, { 2176,  512 } } };
+
 		_enemyPlace[5] = { { ENEMY_TYPE::sorcerer, {992,1232}} };
 
 		//_enemyPlace[3] = { { ENEMY_TYPE::sorcerer, { 1504, 1056 } } };// , { ENEMY_TYPE::s_dragon, { 1200,  200 } }, { ENEMY_TYPE::s_dragon, { 1200,  200 } }, { ENEMY_TYPE::s_dragon, { 800,  200 } }
 //	};
-		_enemyPlace[4] = { /*{ ENEMY_TYPE::s_dragon, {   48, 1040 } },*/{ ENEMY_TYPE::s_dragon, {  272,  128 } } };
 
 		_epF = false;
 	}
@@ -130,8 +128,9 @@ void EnemyMng::Init(void)
 	}
 
 	_enemyList.clear();
+	StageTPop(-999,stage);
 	//_enemyList.emplace_back(new sorcerer({ 848,1280 },1,0, false));
-	_enemyList.emplace_back(new s_dragon({ 848,1280 }, 1, 0, false));
+	//_enemyList.emplace_back(new s_dragon({ 848,1280 }, 1, 0, false));
 
 	_plStage[0] = 1;
 	_plStage[1] = 1;

@@ -46,7 +46,7 @@ public:
 
 	void enemyPop(int stage);
 
-	void Init(void);
+	void Init(int stage);
 
 	void SetPlStage(int no, int stage) { _plStage[no] = stage; };
 	int GetPlStage(int no) { return _plStage[no]; };

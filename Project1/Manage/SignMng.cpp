@@ -113,6 +113,19 @@ SignMng::SignMng()
 	// 渡す
 	_signs.emplace_back(new SignData(Vector2{ 2496, 1205 }, 4,KeyTeach));
 
+	int KeyTeach2 = MakeScreen(lpSceneMng.ScreenSize.x, lpSceneMng.ScreenSize.y, true);
+	SetDrawScreen(KeyTeach2);
+	ClsDrawScreen();
+
+	// スクリーンに描画する
+	DrawBox(BOX_OFFSET_X, BOX_OFFSET_Y, BOX_OFFSET_X + BOX_SIZE_X, BOX_OFFSET_Y + BOX_SIZE_Y, 0x333333, true);
+	DrawBox(BOX_OFFSET_X, BOX_OFFSET_Y, BOX_OFFSET_X + BOX_SIZE_X, BOX_OFFSET_Y + BOX_SIZE_Y, 0xffffff, false);
+	DrawStringToHandle(BOX_OFFSET_X + 30, BOX_OFFSET_Y + 30, "ステージごとにモンスターが", 0xffffff, lpStrAdd.GetFont("TITLE"));
+	DrawStringToHandle(BOX_OFFSET_X + 30, BOX_OFFSET_Y + 50, "落とすアイテムが違うかも？", 0xffffff, lpStrAdd.GetFont("TITLE"));
+
+	// 渡す
+	_signs.emplace_back(new SignData(Vector2{ 2368, 1248 }, 2,KeyTeach2));
+
 	SetDrawScreen(ts);
 	SetDrawBlendMode(tb, tp);
 }
