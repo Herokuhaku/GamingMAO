@@ -216,10 +216,6 @@ bool ItemMenu::Vine(ItemSave& item1, ItemSave& item2)
 			item1.itemtype = ITEM_TYPE::TOOL;
 			lpTradeMng.AddBag(item1);
 			lpTradeMng.DeleteItem(item2);
-			for (int i = 0;i < _asize;i++)
-			{
-				_sItem.at(i).first.itemtype = ITEM_TYPE::NON;
-			}
 			return true;
 		}
 	}
@@ -237,10 +233,6 @@ bool ItemMenu::Bard(ItemSave& item1, ItemSave& item2)
 			item1.itemtype = ITEM_TYPE::TOOL;
 			lpTradeMng.AddBag(item1);
 			lpTradeMng.DeleteItem(item2);
-			for (int i = 0;i < _asize;i++)
-			{
-				_sItem.at(i).first.itemtype = ITEM_TYPE::NON;
-			}
 			return true;
 		}
 	}
@@ -248,20 +240,45 @@ bool ItemMenu::Bard(ItemSave& item1, ItemSave& item2)
 }
 bool ItemMenu::Key(ItemSave& item1, ItemSave& item2)
 {
+	// 黄色の石と本
 	if ((item1.itemtype == ITEM_TYPE::STONE && item1.colortype == COLOR::YELLOW) ||
 		item2.itemtype == ITEM_TYPE::STONE && item2.colortype == COLOR::YELLOW)
 	{
-		if ((item1.itemtype == ITEM_TYPE::BOOK && item1.colortype == COLOR::GREEN) ||
-			(item2.itemtype == ITEM_TYPE::BOOK && item2.colortype == COLOR::GREEN))
+		if ((item1.itemtype == ITEM_TYPE::BOOK) ||
+			(item2.itemtype == ITEM_TYPE::BOOK))
 		{
 			item1.colortype = COLOR::YELLOW;
 			item1.itemtype = ITEM_TYPE::TOOL;
 			lpTradeMng.AddBag(item1);
 			lpTradeMng.DeleteItem(item2);
-			for (int i = 0;i < _asize;i++)
-			{
-				_sItem.at(i).first.itemtype = ITEM_TYPE::NON;
-			}
+			return true;
+		}
+	}
+	// 赤の本と緑の石 = 黄
+	if ((item1.itemtype == ITEM_TYPE::BOOK && item1.colortype == COLOR::RED) ||
+		item2.itemtype == ITEM_TYPE::BOOK && item2.colortype == COLOR::RED)
+	{
+		if ((item1.itemtype == ITEM_TYPE::STONE && item1.colortype == COLOR::GREEN) ||
+			item2.itemtype == ITEM_TYPE::STONE && item2.colortype == COLOR::GREEN)
+		{
+			item1.colortype = COLOR::YELLOW;
+			item1.itemtype = ITEM_TYPE::TOOL;
+			lpTradeMng.AddBag(item1);
+			lpTradeMng.DeleteItem(item2);
+			return true;
+		}
+	}
+	// 緑の本と赤の石　= 黄
+	if ((item1.itemtype == ITEM_TYPE::BOOK && item1.colortype == COLOR::GREEN) ||
+		item2.itemtype == ITEM_TYPE::BOOK && item2.colortype == COLOR::GREEN)
+	{
+		if ((item1.itemtype == ITEM_TYPE::STONE && item1.colortype == COLOR::RED) ||
+			item2.itemtype == ITEM_TYPE::STONE && item2.colortype == COLOR::RED)
+		{
+			item1.colortype = COLOR::YELLOW;
+			item1.itemtype = ITEM_TYPE::TOOL;
+			lpTradeMng.AddBag(item1);
+			lpTradeMng.DeleteItem(item2);
 			return true;
 		}
 	}
@@ -279,10 +296,6 @@ bool ItemMenu::Powder(ItemSave& item1, ItemSave& item2)
 			item1.itemtype = ITEM_TYPE::TOOL;
 			lpTradeMng.AddBag(item1);
 			lpTradeMng.DeleteItem(item2);
-			for (int i = 0;i < _asize;i++)
-			{
-				_sItem.at(i).first.itemtype = ITEM_TYPE::NON;
-			}
 			return true;
 		}
 	}
@@ -300,10 +313,6 @@ bool ItemMenu::Hose(ItemSave& item1, ItemSave& item2)
 			item1.itemtype = ITEM_TYPE::TOOL;
 			lpTradeMng.AddBag(item1);
 			lpTradeMng.DeleteItem(item2);
-			for (int i = 0;i < _asize;i++)
-			{
-				_sItem.at(i).first.itemtype = ITEM_TYPE::NON;
-			}
 			return true;
 		}
 	}
