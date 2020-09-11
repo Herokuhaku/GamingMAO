@@ -94,7 +94,8 @@ void Player::Update(void)
 		}
 
 		if (((lpKeyMng.getOldBuf()[KEY_INPUT_LSHIFT] && !lpKeyMng.getBuf()[KEY_INPUT_LSHIFT])) ||
-			lpButtonMng.ButtonTrg(0, XINPUT_BUTTON_LEFT_SHOULDER) && !_stopTime->IsCountdowned())
+			lpButtonMng.ButtonTrg(0, XINPUT_BUTTON_LEFT_SHOULDER) || lpButtonMng.ButtonTrg(0, XINPUT_BUTTON_RIGHT_SHOULDER)
+			&& !_stopTime->IsCountdowned())
 		{
 			if (_control == &Player::ControlAttack && _coolTime == 0 && _time == TIME::FTR)
 			{
