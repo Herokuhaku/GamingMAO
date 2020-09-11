@@ -22,6 +22,7 @@ ItemMenu::ItemMenu(std::shared_ptr<MenuExecuter> exe, std::shared_ptr<AudioConta
 	lpImageMng.getImage("image/Space.png", "Space");
 	lpImageMng.getImage("image/arrow.png", "Arrow");
 	lpImageMng.getImage("image/‡¬.png", "Mix");
+	lpImageMng.getImage("image/UI/select_box.png", "s_box");
 
 	mix_.itemtype = ITEM_TYPE::NON;
 	exe_ = exe;
@@ -329,7 +330,7 @@ void ItemMenu::ItemSelectD(int no)
 	lpImageMng.AddBackDraw({ lpImageMng.getImage("Space")[0], _cpos.x, _cpos.y - _offpush.y, 1.0, 0.0, LAYER::EX,_zorder.space, DX_BLENDMODE_NOBLEND, 0, true });
 
 	// –îˆó
-	lpImageMng.AddBackDraw({ lpImageMng.getImage("Arrow")[0], (_cpos.x - 200) + (_select * 75),
+	lpImageMng.AddBackDraw({ lpImageMng.getImage("s_box")[0], (_cpos.x - 200) + (_select * 75),
 		_cpos.y - 50 + (_select2 * 100), 1.0, 0.0, LAYER::EX, _zorder.arrow, DX_BLENDMODE_NOBLEND, 0, true });
 
 	//ItemDraw(510, { _cpos.x - 200 ,_cpos.y }, { 200,150 }, {40,100}, LAYER::EX);
