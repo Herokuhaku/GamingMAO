@@ -1,5 +1,6 @@
 #include "GameOverScene.h"
 #include "../Graphic/ImageMng.h"
+#include "../Manage/MapMng.h"
 
 GameOverScene::GameOverScene()
 {
@@ -65,10 +66,12 @@ std::unique_ptr<BaseScene> GameOverScene::CursorControl(std::unique_ptr<BaseScen
 	if ((lpKeyMng.getBuf()[KEY_INPUT_SPACE] && !lpKeyMng.getOldBuf()[KEY_INPUT_SPACE]) ||
 		(lpButtonMng.ButtonTrg(0,XINPUT_BUTTON_B)))
 	{
+		int s;
 		switch (_cursor)
 		{
 		case 0:
-			scene = std::make_unique<GameScene>();
+			s = std::get<3>(lpMapMng.GetMapIndex(lpMapMng.GetnowStage()));
+			scene = std::make_unique<GameScene>(Vector2{ lpMapMng.GetFrontPosX(s), lpMapMng.GetFrontPosY(s) }, lpMapMng.GetnowStage());
 			break;
 		case 1:
 			scene = std::make_unique<TitleScene>();

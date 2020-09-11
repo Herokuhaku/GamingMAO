@@ -24,7 +24,7 @@ namespace
 	AudioContainer _audio;
 }
 
-GameScene::GameScene()
+GameScene::GameScene(const Vector2& pos, int stage)
 {
 	lpEnemyMng;
 	SignMng::GetInstance();
@@ -127,6 +127,17 @@ GameScene::GameScene()
 	// èÛë‘àŸèÌ
 	lpImageMng.getImage("image/Attack/iceblock.png", "ice_effect", 100, 100, 4, 1);
 
+	_objList.clear();
+	_objList.emplace_back(std::make_shared<Player>(Vector2(pos.x, pos.y), stage, TIME::FTR, this));
+	lpSceneMng.SetPlObj(_objList[0], TIME::FTR);
+	_objList.emplace_back(std::make_shared<Player>(Vector2(pos.x, pos.y), stage, TIME::NOW, this));
+	lpSceneMng.SetPlObj(_objList[1], TIME::NOW);
+	_cobj = std::make_shared<camera>();
+	lpSceneMng.SetcObj(_cobj);
+
+	lpMapMng.StageTrans(stage);
+	
+
 	Init();
 }
 
@@ -185,17 +196,9 @@ bool GameScene::Init(void)
 
 	lpAttackUI.Reset();
 
-	_objList.clear();
-	_objList.emplace_back(std::make_shared<Player>(Vector2(400,900), 1, TIME::FTR, this));
-	lpSceneMng.SetPlObj(_objList[0], TIME::FTR);
-	_objList.emplace_back(std::make_shared<Player>(Vector2(400, 900), 1, TIME::NOW, this));
-	lpSceneMng.SetPlObj(_objList[1], TIME::NOW);
-	_cobj = std::make_shared<camera>();
-	lpSceneMng.SetcObj(_cobj);
-
 	_gimmickMng = std::make_unique<GimmickMng>();
 	_gimmickMng->AddGimmick(new Rock(Vector2Template<int>(1550, 1100), 1));
-	_gimmickMng->AddGimmick(new Door(Vector2Template<int>(180,525), 4));
+	_gimmickMng->AddGimmick(new Door(Vector2Template<int>(192,532), 4));
 	_menu.reset(new MenuExecuter(this));
 
 	_barrierMng.reset(new BarrierMng(this));
