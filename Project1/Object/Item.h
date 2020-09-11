@@ -68,6 +68,8 @@ private:
 	static constexpr double G_ACC_NORMAL = 0.4;
 	static constexpr double VEL_MAX = 9.0;
 
-
+	int frame_;
+	bool flowflag_;
+	Vector2 flowpos_;
 };
 
