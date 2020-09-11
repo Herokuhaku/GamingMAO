@@ -22,8 +22,8 @@ Door::Door(const Vector2& pos, int stage)
 	_pos = pos;
 
 	_audio = std::make_shared<AudioContainer>();
-	_audio->LoadSound("sound/magic/explosion.wav", "explosion", 10);
-	_audio->ChangeVolume("explosion", 135);
+	_audio->LoadSound("sound/system/door.wav", "door", 10);
+	_audio->ChangeVolume("door", 135);
 }
 
 Door::~Door()
@@ -41,7 +41,7 @@ void Door::Update(void)
 			{
 				if (lpTradeMng.getTool().colortype == type_ && abs(tmp.x - _pos.x) <= DOOR_USE_WIDTH)
 				{
-					PlaySoundMem(_audio->GetSound("explosion"), DX_PLAYTYPE_BACK, true);
+					PlaySoundMem(_audio->GetSound("door"), DX_PLAYTYPE_BACK, true);
 					lpTradeMng.SetUseTool(true, lpTradeMng.getTool());
 					_toDelete = true;
 					_hitBox = { 0,0,0,0 };
