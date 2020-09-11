@@ -169,32 +169,30 @@ bool MapMng::MapUpdate(void)
 	{
 		if (_activeMap[i].second == nowStage.first)
 		{
-			nowStage.second = i;
-			_writNo = i;
-			_activeMap[i].first = false;
-			flag = true;
 			TIME checkTime = lpTimeMng.getTime() == TIME::FTR ? TIME::NOW : TIME::FTR;
 			if (oldStage != (*lpSceneMng.GetPlObj(checkTime))->getStage())
 			{
 				_activeMap[nowStage.second].first = true;
 			}
+			nowStage.second = i;
+			_writNo = i;
+			_activeMap[i].first = false;
+			flag = true;
 			return true;
 		}
 		if (_activeMap[i].first)
 		{
-//			if (oldStage != (*lpSceneMng.GetPlObj(TIME::FTR))->getStage() &&
-//					oldStage != (*lpSceneMng.GetPlObj(TIME::NOW))->getStage())
+			TIME checkTime = lpTimeMng.getTime() == TIME::FTR ? TIME::NOW : TIME::FTR;
+			if (oldStage != (*lpSceneMng.GetPlObj(checkTime))->getStage())
+			{
+				_activeMap[nowStage.second].first = true;
+			}
 			nowStage.second = i;
 			_activeMap[i].first = false;
 			_activeMap[i].second = nowStage.first;
 			_writNo = i;
 			flag = true;
 			break;
-		}
-		TIME checkTime = lpTimeMng.getTime() == TIME::FTR ? TIME::NOW : TIME::FTR;
-		if (oldStage != (*lpSceneMng.GetPlObj(checkTime))->getStage())
-		{
-			_activeMap[nowStage.second].first = true;
 		}
 	}
 	
@@ -457,7 +455,7 @@ void MapMng::SetBgLayer(int bgNo)
 
 bool MapMng::Init(void)
 {
-	nowStage = { 0,0 };
+	nowStage = { 1,0 };
 	_oldLayerNo = 0;
 
 	InitPt();
