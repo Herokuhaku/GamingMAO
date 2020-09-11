@@ -95,7 +95,14 @@ void FireBall::Init(void)
 	std::vector<atkData> attack;
 	attack.reserve(2);
 
-	attack.emplace_back(atkData(true, OBJ_TYPE::ATTACK, { 0, -6 }, { 20, 14 }, 20, 10, _target));
+	if (_target == OBJ_TYPE::ENEMY)
+	{
+		attack.emplace_back(atkData(true, OBJ_TYPE::ATTACK, { 0, -6 }, { 20, 14 }, 20, 10, _target));
+	}
+	else
+	{
+		attack.emplace_back(atkData(true, OBJ_TYPE::ATTACK, { 0, -6 }, { 20, 14 }, 5, 10, _target));
+	}
 	attack.emplace_back(atkData(false, OBJ_TYPE::ATTACK, { 0, 0 }, { 0, 0 }, 0, -1, _target));
 
 	setAttack("fireball", attack);

@@ -32,14 +32,14 @@ int sorcerer::Attack(Vector2& pPos)
 			if (rand() % 2 == 0)
 			{
 				setState({ OBJ_STATE::ATTACK2, _plDir });
-				atkList.emplace_back(AtkList::THUNDER, 4);
+				atkList.emplace_back(AtkList::THUNDER, 1);
 				_waitTime = 70;	// クールタイム
 				_waitCnt = 0;
 			}
 			else
 			{
 				setState({ OBJ_STATE::ATTACK3, _plDir });
-				atkList.emplace_back(AtkList::CANE_ATTACK, 4);
+				atkList.emplace_back(AtkList::CANE_ATTACK, 1);
 				_waitTime = 30;	// クールタイム
 				_waitCnt = 0;
 			}
@@ -47,7 +47,7 @@ int sorcerer::Attack(Vector2& pPos)
 		else
 		{	// 遠距離
 			setState({ OBJ_STATE::ATTACK, _plDir });
-			atkList.emplace_back(AtkList::TRACKING_BALL, 6);
+			atkList.emplace_back(AtkList::TRACKING_BALL, 5);
 			_waitTime = 180;	// クールタイム
 			_waitCnt = 0;
 		}
