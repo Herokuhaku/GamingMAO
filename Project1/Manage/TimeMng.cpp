@@ -1,6 +1,7 @@
 #include "TimeMng.h"
 #include "../Scene/SceneMng.h"
 #include "MapMng.h"
+#include "SignMng.h"
 
 TimeMng* TimeMng::sInstance = nullptr;
 
@@ -16,6 +17,11 @@ TIME TimeMng::getTime(void)
 
 void TimeMng::ChangeTime(void)
 {
+	if (lpSignMng.IsActive())
+	{
+		return;
+	}
+
 	if (!_changeFlag)
 	{
 		_changeFlag = true;

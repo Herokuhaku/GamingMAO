@@ -77,7 +77,7 @@ void BombThrow::Init(void)
 
 	std::vector<atkData> attack;
 	attack.reserve(2);
-	attack.emplace_back(atkData(true, OBJ_TYPE::ATTACK, { 0, 0 }, static_cast<float>(ATTACK_RADIUS), 0, 0, _target));
+	attack.emplace_back(atkData(true, OBJ_TYPE::ATTACK, { 0, 0 }, static_cast<float>(ATTACK_RADIUS), -1, 0, _target));
 	attack.emplace_back(atkData(false, OBJ_TYPE::ATTACK, { 0, 0 }, static_cast<float>(ATTACK_RADIUS), 0, -1, _target));
 
 	setAttack("bomb", attack);

@@ -15,7 +15,6 @@ public:
 	~FireBall();
 
 	void Update(void);
-	void Draw(void) override;
 
 	void IfHitAttack(std::shared_ptr<Object> target)override;
 
