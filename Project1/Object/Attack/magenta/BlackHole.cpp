@@ -8,7 +8,7 @@ namespace
 	AudioContainer _audio;
 	constexpr int FINISH_DURATION = 10;
 
-	constexpr float MOVE_TARGET_DISTANCE = 4.0f;
+	constexpr float MOVE_TARGET_DISTANCE = 7.0f;
 
 	constexpr float GRAVITY_RADIUS = 118.0f;
 	constexpr int RADIUS = 20;

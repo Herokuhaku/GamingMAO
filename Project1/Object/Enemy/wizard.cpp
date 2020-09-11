@@ -2,10 +2,25 @@
 #include "../../Scene/SceneMng.h"
 #include "../../Graphic/ImageMng.h"
 #include "../../Manage/MapMng.h"
+#include "../Attack/AttackMng.h"
 
 void wizard::Update(void)
 {
 	Enemy::Update();
+}
+
+int wizard::Attack(Vector2 & pos)
+{
+	if (_state_dir.first != OBJ_STATE::ATTACK)
+	{
+		setState({ OBJ_STATE::ATTACK, _plDir });
+		lpAtkMng.MakeBlackHole({ _pos.x + (static_cast<int>(_state_dir.second) - 1) * 26 / 2, _pos.y - _drawOffset_y }, _state_dir.second,
+			{ 2, 0 }, 120, _time, _stage, OBJ_TYPE::PLAYER);
+		_waitTime = 140;	// クールタイム
+		_waitCnt = 0;
+		return static_cast<int>(MOVE_SELECT::WAIT);
+	}
+	return static_cast<int>(MOVE_SELECT::WAIT);
 }
 
 //s_dragon::s_dragon(Vector2Template<int> pos, double rad, TIME time, int stage, OBJ_TYPE type, std::pair<OBJ_STATE, DIR> state_dir)

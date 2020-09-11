@@ -9,6 +9,7 @@
 #include "../Audio/AudioContainer.h"
 #include "../Scene/SceneMng.h"
 #include "../Scene/GameScene.h"
+#include "../Manage/MapMng.h"
 
 
 namespace
@@ -42,7 +43,11 @@ SelectMenu::SelectMenu(int cursor, std::shared_ptr<MenuExecuter> exe, std::share
 		_parts.emplace_back(new MenuParts("魔法", Vector2Template<int>(PARTS_POS_X, partsPosY), [this]() { _executer->ChangePage(new MagicMenu(_executer, _audio)); }));
 		partsPosY += PARTS_SPACE;
 	}
-	_parts.emplace_back(new MenuParts("リセット", Vector2Template<int>(PARTS_POS_X, partsPosY), []() { lpSceneMng.ChangeScene(new GameScene()); }));
+	_parts.emplace_back(new MenuParts("リセット", Vector2Template<int>(PARTS_POS_X, partsPosY), []() { 
+		int s = std::get<3>(lpMapMng.GetMapIndex(lpMapMng.GetnowStage()));
+		lpSceneMng.ChangeScene(new GameScene(Vector2{ lpMapMng.GetFrontPosX(s), lpMapMng.GetFrontPosY(s) }, lpMapMng.GetnowStage()));
+		}
+	));
 	partsPosY += PARTS_SPACE;
 	_parts.emplace_back(new MenuParts("終了", Vector2Template<int>(PARTS_POS_X, partsPosY), []() { lpSceneMng.Quit(); }));
 }
