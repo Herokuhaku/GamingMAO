@@ -29,6 +29,10 @@ void SignMng::Check(void)
 		Vector2 pos = lpSceneMng.GetPlObj2(lpTimeMng.getTime())->getPos();
 		for (const auto& s : _signs)
 		{
+			if (s->_stage != lpMapMng.GetnowStage())
+			{
+				continue;
+			}
 			if (pos.x > s->_pos.x - RANGE &&
 				pos.x < s->_pos.x + RANGE &&
 				pos.y > s->_pos.y &&
