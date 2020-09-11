@@ -46,8 +46,8 @@ GameScene::GameScene()
 	lpImageMng.getImage("image/Enemy/wizardRAttackC.png", "wizardR", 80, 80, 10, 5);
 	lpImageMng.getImage("image/Enemy/wizardLAttackC.png", "wizardL", 80, 80, 10, 5);
 
-	lpImageMng.getImage("image/Enemy/sorcerervillainRC.png", "sorcViR", 100, 100, 17, 5);
-	lpImageMng.getImage("image/Enemy/sorcerervillainLC.png", "sorcViL", 100, 100, 17, 5);
+	lpImageMng.getImage("image/Enemy/sorcerervillainRC.png", "sorcViR", 100, 100, 17, 6);
+	lpImageMng.getImage("image/Enemy/sorcerervillainLC.png", "sorcViL", 100, 100, 17, 6);
 
 	lpImageMng.getImage("image/Enemy/exclamationpoint.png", "excPoint", 80, 80, 1, 1);
 	lpImageMng.getImage("image/Enemy/questionmark.png", "queMark", 80, 80, 1, 1);

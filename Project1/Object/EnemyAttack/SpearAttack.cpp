@@ -45,7 +45,6 @@ bool SpearAttack::Init(void)
 	std::vector<atkData> attack;
 	attack.reserve(1);
 
-	//attack.emplace_back(atkData(true, OBJ_TYPE::ATTACK, { _pos.x - 10, _pos.y - 10 }, { _pos.x + 10, _pos.y + 10 }, 30, 10, _target));
 	attack.emplace_back(atkData(true, OBJ_TYPE::ATTACK, { 0, 0 }, 50, 1, 10, _target));
 //	attack.emplace_back(atkData(false, OBJ_TYPE::ATTACK, { 0, 0 }, { 0, 0 }, 0, -1, _target));
 

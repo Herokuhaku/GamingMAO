@@ -27,12 +27,22 @@ int sorcerer::Attack(Vector2& pPos)
 {
 	if (_state_dir.first != OBJ_STATE::ATTACK)
 	{
-		if ((pPos.x - _pos.x) <= 200)
+		if (std::abs((pPos.x - _pos.x)) <= 150)
 		{	// 近接
-			setState({ OBJ_STATE::ATTACK2, _plDir });
-			//atkList.emplace_back(AtkList::TRACKING_BALL, 4);
-			_waitTime = 70;	// クールタイム
-			_waitCnt = 0;
+			if (rand() % 2 == 0)
+			{
+				setState({ OBJ_STATE::ATTACK2, _plDir });
+				atkList.emplace_back(AtkList::THUNDER, 4);
+				_waitTime = 70;	// クールタイム
+				_waitCnt = 0;
+			}
+			else
+			{
+				setState({ OBJ_STATE::ATTACK3, _plDir });
+				atkList.emplace_back(AtkList::CANE_ATTACK, 4);
+				_waitTime = 30;	// クールタイム
+				_waitCnt = 0;
+			}
 		}
 		else
 		{	// 遠距離
@@ -161,6 +171,16 @@ void sorcerer::Init(void)
 	data.emplace_back(-1, 0);
 	setAnm({ OBJ_STATE::ATTACK2,DIR::RIGHT }, data);
 
+	data.emplace_back(lpImageMng.getImage("sorcViR")[85], animCnt + 0 * animCnt);
+	data.emplace_back(lpImageMng.getImage("sorcViR")[86], animCnt + 1 * animCnt);
+	data.emplace_back(lpImageMng.getImage("sorcViR")[87], animCnt + 2 * animCnt);
+	data.emplace_back(lpImageMng.getImage("sorcViR")[88], animCnt + 3 * animCnt);
+	data.emplace_back(lpImageMng.getImage("sorcViR")[89], animCnt + 4 * animCnt);
+	data.emplace_back(lpImageMng.getImage("sorcViR")[90], animCnt + 5 * animCnt);
+	data.emplace_back(lpImageMng.getImage("sorcViR")[91], animCnt + 6 * animCnt);
+	data.emplace_back(-1, 0);
+	setAnm({ OBJ_STATE::ATTACK3,DIR::RIGHT }, data);
+
 	for (int i = 0; i < 7; i++)
 	{
 		data.emplace_back(lpImageMng.getImage("sorcViR")[34 + i], animCnt + i * animCnt);
@@ -240,6 +260,16 @@ void sorcerer::Init(void)
 	data.emplace_back(lpImageMng.getImage("sorcViL")[75], animCnt + 9 * animCnt);
 	data.emplace_back(-1, 0);
 	setAnm({ OBJ_STATE::ATTACK2,DIR::LEFT }, data);
+
+	data.emplace_back(lpImageMng.getImage("sorcViL")[101], animCnt + 0 * animCnt);
+	data.emplace_back(lpImageMng.getImage("sorcViL")[100], animCnt + 1 * animCnt);
+	data.emplace_back(lpImageMng.getImage("sorcViL")[99], animCnt + 2 * animCnt);
+	data.emplace_back(lpImageMng.getImage("sorcViL")[98], animCnt + 3 * animCnt);
+	data.emplace_back(lpImageMng.getImage("sorcViL")[97], animCnt + 4 * animCnt);
+	data.emplace_back(lpImageMng.getImage("sorcViL")[96], animCnt + 5 * animCnt);
+	data.emplace_back(lpImageMng.getImage("sorcViL")[95], animCnt + 6 * animCnt);
+	data.emplace_back(-1, 0);
+	setAnm({ OBJ_STATE::ATTACK3,DIR::LEFT }, data);
 
 	for (int i = 0; i < 7; i++)
 	{

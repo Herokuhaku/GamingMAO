@@ -160,6 +160,8 @@ public:
 	// time:時間軸		stage:ステージ
 	// target:目標
 	void MakeSpearAttack(Vector2 pos, DIR dir, TIME time, int stage, OBJ_TYPE target);
+	void MakeThunderAttack(Vector2 pos, DIR dir, TIME time, int stage, OBJ_TYPE target);
+	void MakeCaneAttack(Vector2 pos, DIR dir, TIME time, int stage, OBJ_TYPE target);
 
 	void DeleteAll(void);
 

@@ -5,15 +5,16 @@ class SpearAttack :
 {
 public:
 	SpearAttack(Vector2& ePos, DIR dir, TIME time, int stage, OBJ_TYPE target);
+	SpearAttack() {}
 	~SpearAttack();
 
 	void Update(void)override;
 	void Draw(void) override;
 	void IfHitAttack(std::shared_ptr<Object> target) override;
 
-private:
+protected:
 	int _farstY;
 	OBJ_TYPE _target;
-	bool Init(void);
+	virtual bool Init(void);
 };
 

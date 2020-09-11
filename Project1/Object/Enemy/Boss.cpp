@@ -39,6 +39,16 @@ void Boss::RunAtkList(void)
 				atkList.erase(atkList.begin());
 				break;
 
+			case AtkList::THUNDER:
+				lpAtkMng.MakeThunderAttack(_pos, _plDir, _time, _stage, OBJ_TYPE::PLAYER);
+				atkList.erase(atkList.begin());
+				break;
+
+			case AtkList::CANE_ATTACK:
+				lpAtkMng.MakeCaneAttack(_pos, _plDir, _time, _stage, OBJ_TYPE::PLAYER);
+				atkList.erase(atkList.begin());
+				break;
+
 			default:
 				break;
 			}

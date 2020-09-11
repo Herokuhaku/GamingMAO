@@ -19,6 +19,8 @@
 
 #include "../EnemyAttack/TrackingBall.h"
 #include "../EnemyAttack/SpearAttack.h"
+#include "../EnemyAttack/ThunderAttack.h"
+#include "../EnemyAttack/CaneAttack.h"
 
 AttackMng* AttackMng::sInstance = nullptr;
 
@@ -285,6 +287,38 @@ void AttackMng::MakeSpearAttack(Vector2 pos, DIR dir, TIME time, int stage, OBJ_
 	else
 	{
 		_tmpObj.emplace_back(new SpearAttack(pos, dir, time, stage, target));
+
+	//	return _tmpObj.back()->getAnmEfk();
+	}
+}
+
+void AttackMng::MakeThunderAttack(Vector2 pos, DIR dir, TIME time, int stage, OBJ_TYPE target)
+{
+		if (_canAddObj)
+	{
+		_attackObj.emplace_back(new ThunderAttack(pos, dir, time, stage, target));
+
+	//	return _attackObj.back()->getAnmEfk();
+	}
+	else
+	{
+		_tmpObj.emplace_back(new ThunderAttack(pos, dir, time, stage, target));
+
+	//	return _tmpObj.back()->getAnmEfk();
+	}
+}
+
+void AttackMng::MakeCaneAttack(Vector2 pos, DIR dir, TIME time, int stage, OBJ_TYPE target)
+{
+		if (_canAddObj)
+	{
+		_attackObj.emplace_back(new CaneAttack(pos, dir, time, stage, target));
+
+	//	return _attackObj.back()->getAnmEfk();
+	}
+	else
+	{
+		_tmpObj.emplace_back(new CaneAttack(pos, dir, time, stage, target));
 
 	//	return _tmpObj.back()->getAnmEfk();
 	}

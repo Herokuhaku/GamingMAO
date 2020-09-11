@@ -31,6 +31,7 @@ enum class OBJ_STATE : int
 	FALL,
 	ATTACK,
 	ATTACK2,
+	ATTACK3,
 	DEAD
 };
 
